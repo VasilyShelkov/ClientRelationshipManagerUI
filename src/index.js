@@ -10,15 +10,15 @@ import ApolloClient from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import './index.scss';
+
+import { reducer as formReducer } from 'redux-form';
 
 import NavBar from './NavBar';
 
 import Home from './Home';
 import Profile from './profile/Profile';
-import Login from './Login';
+import Login from './authentication/Login';
 import NotFound from './NotFound';
 
 injectTapEventPlugin();
@@ -28,6 +28,7 @@ const client = new ApolloClient();
 const store = createStore(
   combineReducers({
     apollo: client.reducer(),
+    form: formReducer
   }),
   {}, // initial state
   compose(
@@ -40,20 +41,27 @@ export const Root = () => (
   <BrowserRouter>
     <MuiThemeProvider>
       <ApolloProvider client={client} store={store}>
-        <div>
-          <NavBar />
-
-          <hr />
-
-          <Match exactly pattern="/" component={Home} />
-          <Match exactly pattern="/profile" component={Profile} />
+        <div className="Root">
           <Match exactly pattern="/login" component={Login} />
 
-          <Miss component={NotFound} />
+          <Miss component={AppWithNavbar} />
         </div>
       </ApolloProvider>
     </MuiThemeProvider>
   </BrowserRouter>
 );
+
+export const AppWithNavbar = () => (
+  <div>
+    <NavBar />
+
+    <hr />
+
+    <Match exactly pattern="/" component={Home} />
+    <Match exactly pattern="/profile" component={Profile} />
+
+    <Miss component={NotFound} />
+  </div>
+)
 
 if (!module.hot) render(<Root />, document.querySelector('react'));

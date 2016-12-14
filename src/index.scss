@@ -1,4 +1,9 @@
+@import './authentication/Login.scss';
 @import 'NavBar.scss';
+
+body {
+  background-color: #eaeaea;
+}
 
 .text--xlarge {
 	font-size: 50px;

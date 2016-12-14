@@ -16,7 +16,7 @@ export default () => {
       className="NavBar"
       zDepth={2}
       showMenuIconButton={isMobile}
-      style={{ position: 'fixed', top: 0}}
+      style={{ position: 'fixed', top: 0 }}
       iconElementRight={
         loggedIn ?
           <Link to="/profile">
