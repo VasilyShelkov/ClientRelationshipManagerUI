@@ -46,7 +46,7 @@ export const Login = ({ handleSubmit, error }) => (
               }}
               zDepth={2}
             >
-              <ErrorIcon className="Login__form__notification__icon" />
+              <ErrorIcon className="Login__form__notification__icon" style={{ color: 'white' }} />
               <div className="Login__form__notification__message">{error}</div>
             </Paper>
           :
