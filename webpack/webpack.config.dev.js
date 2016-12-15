@@ -2,6 +2,7 @@ const { resolve } = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const DashboardPlugin = require('webpack-dashboard/plugin');
 
 module.exports = {
   entry: [
@@ -43,6 +44,12 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: '../public/index.html',
     }),
-    new ExtractTextPlugin('index.css')
+    new ExtractTextPlugin('index.css'),
+    new DashboardPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+      }
+    })
   ],
 };

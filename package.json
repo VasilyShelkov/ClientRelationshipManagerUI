@@ -7,7 +7,8 @@
     "start": "npm run build && node server.js",
     "start:only-server": "node server.js",
     "build": "rm -rf dist && webpack --config webpack/webpack.config.prod.js --progress --profile --colors",
-    "dev": "NODE_ENV=staging webpack-dev-server --open --config webpack/webpack.config.dev.js --progress",
+    "dev": "NODE_ENV=staging webpack-dashboard -- webpack-dev-server --open --config webpack/webpack.config.dev.js --progress",
+    "stage": "NODE_ENV=staging webpack-dashboard -- webpack-dev-server --open --config webpack/webpack.config.dev.js --progress",
     "test": "jest"
   },
   "repository": {
@@ -78,6 +79,7 @@
     "react-addons-test-utils": "^15.4.1",
     "react-hot-loader": "^3.0.0-beta.6",
     "react-test-renderer": "^15.4.1",
+    "webpack-dashboard": "^0.2.0",
     "webpack-dev-server": "^2.1.0-beta.12"
   }
 }

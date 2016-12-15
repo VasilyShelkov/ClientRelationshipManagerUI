@@ -6,7 +6,9 @@ import { TextField } from 'redux-form-material-ui';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import CompanyLogo from 'material-ui/svg-icons/action/face';
+
 import ErrorIcon from 'material-ui/svg-icons/alert/error';
+import { red600 } from 'material-ui/styles/colors';
 
 import handleSignIn from './loginRequest';
 
@@ -36,9 +38,16 @@ export const Login = ({ handleSubmit, error }) => (
       <Paper className="Login__form" zDepth={1}>
         {
           error ?
-            <Paper zDepth={2}>
-              <ErrorIcon />
-              <strong>{error}</strong>
+            <Paper
+              className="Login__form__notification"
+              style={{
+                backgroundColor: red600,
+                borderRadius: '10px'
+              }}
+              zDepth={2}
+            >
+              <ErrorIcon className="Login__form__notification__icon" />
+              <div className="Login__form__notification__message">{error}</div>
             </Paper>
           :
             null
