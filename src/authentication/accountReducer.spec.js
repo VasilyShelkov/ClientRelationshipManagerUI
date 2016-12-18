@@ -17,20 +17,19 @@ describe.only('src/authentication/accountReducer.js', () => {
   });
 
   it(LOGGED_IN_SUCCESSFULLY, () => {
-    const stateBefore = { initialState, loggingIn: true };
-    const action = logInSuccess({
+    const stateBefore = { ...initialState, loggingIn: true };
+    const recievedPayload = {
       token: 'testToken',
       userId: '123',
       accountType: 'admin'
-    });
+    };
+    const action = logInSuccess(recievedPayload);
 
     expect(accountReducer(stateBefore, action))
       .toEqual({
         ...stateBefore,
         loggingIn: false,
-        token: action.token,
-        userId: action.userId,
-        accountType: action.acountType
+        ...recievedPayload
       });
   });
 

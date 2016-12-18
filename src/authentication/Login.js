@@ -25,7 +25,7 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...customProp
   />
 );
 
-export const Login = ({ handleSubmit, error }) => (
+const Login = ({ handleSubmit, error }) => (
   <div>
     <div className="row center-xs">
       <CompanyLogo />
