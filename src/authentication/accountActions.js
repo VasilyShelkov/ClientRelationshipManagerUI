@@ -9,6 +9,11 @@ export const logInSuccess = payload => ({
   ...payload
 });
 
+export const LOGGED_IN_ERROR = 'LOGGED_IN_ERROR';
+export const logInError = () => ({
+  type: LOGGED_IN_ERROR
+});
+
 export const LOG_OUT = 'LOG_OUT';
 export const logOut = () => ({
   type: LOG_OUT

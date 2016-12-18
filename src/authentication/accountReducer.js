@@ -1,5 +1,5 @@
 import {
-  LOGGING_IN, LOGGED_IN_SUCCESSFULLY, LOG_OUT
+  LOGGING_IN, LOGGED_IN_SUCCESSFULLY, LOGGED_IN_ERROR, LOG_OUT
 } from './accountActions';
 
 export const initialState = { loggingIn: false };
@@ -11,6 +11,8 @@ export default (state = initialState, action) => {
       const { type, ...payload } = action;
       return { ...state, loggingIn: false, ...payload };
     }
+    case LOGGED_IN_ERROR:
+      return { ...state, loggingIn: false };
     case LOG_OUT:
       return initialState;
     default:

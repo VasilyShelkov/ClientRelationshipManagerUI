@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { Field, reduxForm } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
@@ -25,7 +26,7 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...customProp
   />
 );
 
-const Login = ({ handleSubmit, error }) => (
+const Login = ({ loggingIn, handleSubmit, error }) => (
   <div>
     <div className="row center-xs">
       <CompanyLogo />
@@ -68,12 +69,17 @@ const Login = ({ handleSubmit, error }) => (
             validate={required}
           />
           <br />
-          <RaisedButton
-            type="submit"
-            label="Sign in"
-            className="Login__form__signIn"
-            primary
-          />
+          {
+            loggingIn ?
+              'Spinner'
+            :
+              <RaisedButton
+                type="submit"
+                label="Sign in"
+                className="Login__form__signIn"
+                primary
+              />
+          }
         </form>
       </Paper>
     </div>
@@ -82,4 +88,20 @@ const Login = ({ handleSubmit, error }) => (
 
 const LoginForm = reduxForm({ form: 'login' })(Login);
 
-export default () => <LoginForm onSubmit={handleSignIn} />;
+const mapStateToProps = state => ({
+  loggingIn: state.account.loggingIn
+});
+
+const mapDispatchToProps = dispatch => ({
+  onSubmit: handleSignIn
+});
+
+const LoginContainer = connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+
+const LoginContainerWrapper = (props, { router }) =>
+  <LoginContainer transitionAfterLogin={() => router.transitionTo('/profile')} />;
+LoginContainerWrapper.contextTypes = {
+  router: React.PropTypes.object
+};
+
+export default LoginContainerWrapper;

@@ -1,7 +1,7 @@
 import accountReducer, { initialState } from './accountReducer';
 import {
-  logIn, logInSuccess, logOut,
-  LOGGING_IN, LOGGED_IN_SUCCESSFULLY, LOG_OUT
+  logIn, logInSuccess, logInError, logOut,
+  LOGGING_IN, LOGGED_IN_SUCCESSFULLY, LOGGED_IN_ERROR, LOG_OUT
 } from './accountActions';
 
 describe.only('src/authentication/accountReducer.js', () => {
@@ -32,6 +32,17 @@ describe.only('src/authentication/accountReducer.js', () => {
         ...recievedPayload
       });
   });
+
+  it(LOGGED_IN_ERROR, () => {
+    const stateBefore = { ...initialState, loggingIn: true };
+    const action = logInError();
+
+    expect(accountReducer(stateBefore, action))
+      .toEqual({
+        ...stateBefore,
+        loggingIn: false,
+      });
+  })
 
   it(LOG_OUT, () => {
     const stateBefore = {
