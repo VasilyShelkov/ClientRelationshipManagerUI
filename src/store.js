@@ -5,24 +5,46 @@ import persistState, { mergePersistedState } from 'redux-localstorage';
 import adapter from 'redux-localstorage/lib/adapters/localStorage';
 import filter from 'redux-localstorage-filter';
 
-import ApolloClient from 'apollo-client';
+import ApolloClient, { createNetworkInterface } from 'apollo-client';
 
 import { reducer as formReducer } from 'redux-form';
 import accountReducer from './authentication/accountReducer';
 
-export const client = new ApolloClient();
+import config from '../config';
 
-const rootReducer = combineReducers({
-  apollo: client.reducer(),
-  form: formReducer,
-  account: compose(mergePersistedState())(accountReducer)
+const networkInterface = createNetworkInterface({ uri: `${config.graphQL}/graphql` });
+networkInterface.use([{
+  applyMiddleware(req, next) {
+    if (!req.options.headers) {
+      req.options.headers = {};  // Create the header object if needed.
+    }
+
+    const account = sessionStorage.getItem('account');
+    const token = JSON.parse(account).account.token;
+    req.options.headers.authorization = token ? `Bearer ${token}` : null;
+    next();
+  }
+}]);
+
+export const client = new ApolloClient({
+  networkInterface
 });
+
+const rootReducer = compose(
+  mergePersistedState()
+)(
+  combineReducers({
+    apollo: client.reducer(),
+    form: formReducer,
+    account: accountReducer
+  })
+);
 
 const storage = compose(filter([
   'account.token',
   'account.userId',
   'account.accountType'
-]))(adapter(window.localStorage));
+]))(adapter(window.sessionStorage));
 
 export default () => createStore(
   rootReducer,

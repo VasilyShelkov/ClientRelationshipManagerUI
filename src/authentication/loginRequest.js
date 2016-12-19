@@ -9,12 +9,14 @@ instance.defaults.baseURL = config.graphQL;
 
 export default async (values, dispatch, props) => {
   dispatch(logIn());
+  let accountDetails = null;
   try {
-    const accountDetails = await instance.post('/login', { email: values.email, password: values.password });
-    dispatch(logInSuccess(accountDetails.data));
-    props.transitionAfterLogin();
+    accountDetails = await instance.post('/login', { email: values.email, password: values.password });
   } catch (e) {
     dispatch(logInError());
     throw new SubmissionError({ _error: e.response.data.error });
   }
+
+  dispatch(logInSuccess(accountDetails.data));
+  props.transitionAfterLogin();
 };

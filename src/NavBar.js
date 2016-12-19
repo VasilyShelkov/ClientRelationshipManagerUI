@@ -1,15 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import Cookies from 'js-cookie';
 
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import AccountIcon from 'material-ui/svg-icons/action/account-circle';
 import FlatButton from 'material-ui/FlatButton';
 
-export default () => {
+const Navbar = ({ loggedIn = true }) => {
   const isMobile = window.width < 768;
-  const loggedIn = Cookies.get('CrmSSO');
   return (
     <AppBar
       title="Client Relationship Manager"
@@ -19,7 +18,7 @@ export default () => {
       style={{ position: 'fixed', top: 0 }}
       iconElementRight={
         loggedIn ?
-          <Link to="/profile">
+          <Link to="/">
             <IconButton touch ><AccountIcon /></IconButton>
           </Link>
         :
@@ -32,3 +31,9 @@ export default () => {
     />
   );
 };
+
+const mapStateToProps = state => ({
+  loggedIn: state.account.token
+});
+
+export default Navbar;

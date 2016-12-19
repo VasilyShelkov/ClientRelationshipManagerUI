@@ -41,10 +41,12 @@ export const AppWithNavbar = () => (
 
     <hr />
 
-    <Match exactly pattern="/" component={Home} />
-    <Match exactly pattern="/profile" component={Profile} />
+    <div className="index__content-below-navbar">
+      <Match exactly pattern="/" component={Home} />
+      <Match exactly pattern="/profile" component={Profile} />
 
-    <Miss component={NotFound} />
+      <Miss component={NotFound} />
+    </div>
   </div>
 );
 

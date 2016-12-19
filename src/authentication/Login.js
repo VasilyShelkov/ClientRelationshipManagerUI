@@ -13,6 +13,8 @@ import { red600 } from 'material-ui/styles/colors';
 
 import handleSignIn from './loginRequest';
 
+import LoadingSpinner from '../LoadingSpinner';
+
 const required = value => (value ? undefined : 'Required');
 const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$/;
 const email = value => (emailRegex.test(value) ? undefined : 'Not a valid email address');
@@ -71,7 +73,7 @@ const Login = ({ loggingIn, handleSubmit, error }) => (
           <br />
           {
             loggingIn ?
-              'Spinner'
+              <LoadingSpinner />
             :
               <RaisedButton
                 type="submit"
