@@ -2,11 +2,14 @@ import React from 'react';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import { connect } from 'react-redux';
+import { SubmissionError } from 'redux-form';
 
 import { editProfile, cancelEditProfile } from './profileActions';
 import LoadingSpinner from '../LoadingSpinner';
 import ShowProfile from './ShowProfile';
 import EditProfile from './EditProfile';
+
+import { checkIfAnyKeysDifferent } from '../utils';
 
 const getProfile = ({
   user, editing, loading, onEditProfile, onCancelEditProfile, saveProfile
@@ -21,7 +24,7 @@ const getProfile = ({
     return (
       <EditProfile
         initialValues={user}
-        handleSubmit={saveProfile}
+        onSubmit={saveProfile(user)}
         handleCancelEditProfile={onCancelEditProfile}
       />
     );
@@ -43,13 +46,18 @@ const Profile = ({
 }) => (
   <div>
     <h1 className="Profile__title">Profile</h1>
-    { getProfile({ user, editing, loading, onEditProfile }) }
+    {
+      getProfile({
+        user, editing, loading, onEditProfile, onCancelEditProfile, saveProfile
+      })
+    }
   </div>
 );
 
 const userData = gql`
   query($userId: String!) {
     users(userId: $userId) {
+      userId
       firstName,
       lastName,
       email,
@@ -61,8 +69,20 @@ const userData = gql`
 `;
 
 const editUser = gql`
-  mutation($userId: String!) {
-    editUser(userId: $userId) {
+  mutation(
+    $userId: String!,
+    $firstName: String,
+    $lastName: String,
+    $email: String,
+    $phone: String
+  ) {
+    editUser(
+      userId: $userId,
+      firstName: $firstName,
+      lastName: $lastName,
+      email: $email,
+      phone: $phone
+    ) {
       firstName
       lastName
       email
@@ -83,7 +103,17 @@ const ProfileWithData = compose(
   }),
   graphql(editUser, {
     props: ({ ownProps, mutate }) => ({
-      saveProfile: values => mutate({ variables: values }),
+      saveProfile: initialValues => values => {
+        if (checkIfAnyKeysDifferent(initialValues, values) > 0) {
+          return mutate({
+            variables: { userId: initialValues.userId, ...values }
+          });
+        }
+
+        throw new SubmissionError({
+          _error: 'Please change one of the profile fields to to update your profile...'
+        });
+      },
       ...ownProps
     })
   })

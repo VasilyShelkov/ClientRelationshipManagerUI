@@ -8,10 +8,7 @@ import CancelIcon from 'material-ui/svg-icons/content/clear';
 
 import { renderTextField, required, emailFormat } from '../FormElements';
 
-const EditProfileForm = ({
-  initialValues: { firstName, lastName, email, phone },
-  handleSubmit, handleCancelEditProfile
-}) => (
+const EditProfileForm = ({ handleSubmit, handleCancelEditProfile }) => (
   <Paper zDepth={2} >
     <div className="Profile__details">
       <div className="row">
@@ -21,7 +18,7 @@ const EditProfileForm = ({
               name="firstName"
               component={renderTextField}
               label="First name"
-              validate={[required, emailFormat]}
+              validate={required}
             />
           </div>
 
@@ -39,7 +36,7 @@ const EditProfileForm = ({
               name="email"
               component={renderTextField}
               label="Email"
-              validate={required}
+              validate={[required, emailFormat]}
             />
           </div>
 
@@ -52,11 +49,11 @@ const EditProfileForm = ({
             />
           </div>
 
-          <IconButton tooltip="Cancel" onClick={handleCancelEditProfile}>
+          <IconButton tooltip="Cancel" onClick={handleCancelEditProfile} touch>
             <CancelIcon color="red500" hoverColor="red800" />
           </IconButton>
 
-          <IconButton tooltip="Save" type="submit">
+          <IconButton tooltip="Save" type="submit" touch>
             <SaveIcon color="green500" hoverColor="green900" />
           </IconButton>
         </form>
