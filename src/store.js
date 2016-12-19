@@ -8,7 +8,8 @@ import filter from 'redux-localstorage-filter';
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
 
 import { reducer as formReducer } from 'redux-form';
-import accountReducer from './authentication/accountReducer';
+import account from './authentication/accountReducer';
+import profile from './profile/profileReducer';
 
 import config from '../config';
 
@@ -36,7 +37,8 @@ const rootReducer = compose(
   combineReducers({
     apollo: client.reducer(),
     form: formReducer,
-    account: accountReducer
+    account,
+    profile
   })
 );
 

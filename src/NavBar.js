@@ -7,7 +7,7 @@ import IconButton from 'material-ui/IconButton';
 import AccountIcon from 'material-ui/svg-icons/action/account-circle';
 import FlatButton from 'material-ui/FlatButton';
 
-const Navbar = ({ loggedIn = true }) => {
+const Navbar = ({ loggedIn }) => {
   const isMobile = window.width < 768;
   return (
     <AppBar
@@ -36,4 +36,4 @@ const mapStateToProps = state => ({
   loggedIn: state.account.token
 });
 
-export default Navbar;
+export default connect(mapStateToProps)(Navbar);

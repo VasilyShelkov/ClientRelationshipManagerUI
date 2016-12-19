@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { Field, reduxForm } from 'redux-form';
-import { TextField } from 'redux-form-material-ui';
 
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -11,22 +10,10 @@ import CompanyLogo from 'material-ui/svg-icons/action/face';
 import ErrorIcon from 'material-ui/svg-icons/alert/error';
 import { red600 } from 'material-ui/styles/colors';
 
+import { renderTextField, required, emailFormat } from '../FormElements';
 import handleSignIn from './loginRequest';
-
 import LoadingSpinner from '../LoadingSpinner';
 
-const required = value => (value ? undefined : 'Required');
-const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$/;
-const email = value => (emailRegex.test(value) ? undefined : 'Not a valid email address');
-
-const renderTextField = ({ input, label, meta: { touched, error }, ...customProps }) => (
-  <TextField
-    floatingLabelText={label}
-    errorText={touched && error}
-    {...input}
-    {...customProps}
-  />
-);
 
 const Login = ({ loggingIn, handleSubmit, error }) => (
   <div>
@@ -60,7 +47,7 @@ const Login = ({ loggingIn, handleSubmit, error }) => (
             name="email"
             component={renderTextField}
             label="Enter your email"
-            validate={[required, email]}
+            validate={[required, emailFormat]}
           />
           <br />
           <Field

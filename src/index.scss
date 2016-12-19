@@ -1,12 +1,9 @@
-@import './authentication/Login.scss';
 @import 'NavBar.scss';
+@import './authentication/Login.scss';
+@import './profile/Profile.scss';
 
 body {
   background-color: #eaeaea;
-}
-
-.text--xlarge {
-	font-size: 50px;
 }
 
 .index__content-below-navbar {

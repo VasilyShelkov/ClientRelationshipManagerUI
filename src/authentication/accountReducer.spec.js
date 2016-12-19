@@ -4,7 +4,7 @@ import {
   LOGGING_IN, LOGGED_IN_SUCCESSFULLY, LOGGED_IN_ERROR, LOG_OUT
 } from './accountActions';
 
-describe.only('src/authentication/accountReducer.js', () => {
+describe('src/authentication/accountReducer.js', () => {
   it(LOGGING_IN, () => {
     const stateBefore = initialState;
     const action = logIn();
