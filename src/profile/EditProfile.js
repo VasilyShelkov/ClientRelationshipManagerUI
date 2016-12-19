@@ -9,7 +9,8 @@ import CancelIcon from 'material-ui/svg-icons/content/clear';
 import { renderTextField, required, emailFormat } from '../FormElements';
 
 const EditProfileForm = ({
-  firstName, lastName, email, phone, handleSubmit, handleCancelEditProfile
+  initialValues: { firstName, lastName, email, phone },
+  handleSubmit, handleCancelEditProfile
 }) => (
   <Paper zDepth={2} >
     <div className="Profile__details">
@@ -17,40 +18,36 @@ const EditProfileForm = ({
         <form onSubmit={handleSubmit}>
           <div className="col-xs-12 col-sm-6">
             <Field
-              name="First name"
-              defaultValue={firstName}
+              name="firstName"
               component={renderTextField}
-              label="Enter your email"
+              label="First name"
               validate={[required, emailFormat]}
             />
           </div>
 
           <div className="col-xs-12 col-sm-6">
             <Field
-              name="Last name"
-              defaultValue={lastName}
+              name="lastName"
               component={renderTextField}
-              label="Enter your password"
+              label="Last Name"
               validate={required}
             />
           </div>
 
           <div className="col-xs-12 col-sm-6">
             <Field
-              name="Email"
-              defaultValue={email}
+              name="email"
               component={renderTextField}
-              label="Enter your password"
+              label="Email"
               validate={required}
             />
           </div>
 
           <div className="col-xs-12 col-sm-6">
             <Field
-              name="Phone"
-              defaultValue={phone}
+              name="phone"
               component={renderTextField}
-              label="Enter your password"
+              label="Phone"
               validate={required}
             />
           </div>
@@ -68,6 +65,4 @@ const EditProfileForm = ({
   </Paper>
 );
 
-// export default reduxForm({ form: 'profile' })(EditProfileForm);
-
-export default () => (<div> HEY </div>);
+export default reduxForm({ form: 'profile' })(EditProfileForm);

@@ -8,35 +8,42 @@ import LoadingSpinner from '../LoadingSpinner';
 import ShowProfile from './ShowProfile';
 import EditProfile from './EditProfile';
 
+const getProfile = ({
+  user, editing, loading, onEditProfile, onCancelEditProfile, saveProfile
+}) => {
+  if (loading) {
+    return (
+      <LoadingSpinner />
+    );
+  }
+
+  if (editing) {
+    return (
+      <EditProfile
+        initialValues={user}
+        handleSubmit={saveProfile}
+        handleCancelEditProfile={onCancelEditProfile}
+      />
+    );
+  }
+
+  return (
+    <ShowProfile
+      firstName={user.firstName}
+      lastName={user.lastName}
+      phone={user.phone}
+      email={user.email}
+      onEditProfile={onEditProfile}
+    />
+  );
+};
+
 const Profile = ({
   loading, user, editing, onEditProfile, onCancelEditProfile, saveProfile
 }) => (
   <div>
     <h1 className="Profile__title">Profile</h1>
-    {do {
-      if (loading) { <LoadingSpinner />; }
-
-      if (editing) {
-        <EditProfile
-          firstName={user.firstName}
-          lastName={user.lastName}
-          phone={user.phone}
-          email={user.email}
-          handleSubmit={saveProfile}
-          handleCancelEditProfile={onCancelEditProfile}
-        />;
-      }
-
-      if (!loading && !editing) {
-        <ShowProfile
-          firstName={user.firstName}
-          lastName={user.lastName}
-          phone={user.phone}
-          email={user.email}
-          onEditProfile={onEditProfile}
-        />;
-      }
-    }}
+    { getProfile({ user, editing, loading, onEditProfile }) }
   </div>
 );
 
@@ -75,8 +82,9 @@ const ProfileWithData = compose(
     })
   }),
   graphql(editUser, {
-    props: ({ mutate }) => ({
-      saveProfile: values => mutate({ variables: values })
+    props: ({ ownProps, mutate }) => ({
+      saveProfile: values => mutate({ variables: values }),
+      ...ownProps
     })
   })
 )(Profile);
