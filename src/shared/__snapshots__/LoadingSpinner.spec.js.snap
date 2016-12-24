@@ -1,0 +1,5 @@
+exports[`src/shared/LoadingSpinner.js renders the loading spinner 1`] = `
+<div>
+  LOADING
+</div>
+`;

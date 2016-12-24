@@ -10,12 +10,12 @@ import CompanyLogo from 'material-ui/svg-icons/action/face';
 import ErrorIcon from 'material-ui/svg-icons/alert/error';
 import { red600 } from 'material-ui/styles/colors';
 
-import { renderTextField, required, emailFormat } from '../FormElements';
+import { renderTextField, required, emailFormat } from '../shared/FormElements';
+import LoadingSpinner from '../shared/LoadingSpinner';
+
 import handleSignIn from './loginRequest';
-import LoadingSpinner from '../LoadingSpinner';
 
-
-const Login = ({ loggingIn, handleSubmit, error }) => (
+export const Login = ({ loggingIn, handleSubmit, error }) => (
   <div>
     <div className="row center-xs">
       <CompanyLogo />

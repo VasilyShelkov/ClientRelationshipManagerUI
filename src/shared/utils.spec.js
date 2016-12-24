@@ -9,7 +9,7 @@ describe('src/utils', () => {
 
     const fieldsToEdit = originalObject;
 
-    expect(utils.checkIfAnyKeysDifferent(originalObject, fieldsToEdit)).to.equal(0);
+    expect(utils.checkIfAnyKeysDifferent(originalObject, fieldsToEdit)).toEqual(0);
   });
 
 
@@ -24,6 +24,6 @@ describe('src/utils', () => {
       fieldTwo: 'newFieldTwo'
     };
 
-    expect(utils.checkIfAnyKeysDifferent(originalObject, fieldsToEdit)).to.equal(1);
+    expect(utils.checkIfAnyKeysDifferent(originalObject, fieldsToEdit)).toEqual(1);
   });
 });

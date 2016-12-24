@@ -6,7 +6,7 @@ import IconButton from 'material-ui/IconButton';
 import SaveIcon from 'material-ui/svg-icons/action/done';
 import CancelIcon from 'material-ui/svg-icons/content/clear';
 
-import { renderTextField, required, emailFormat } from '../FormElements';
+import { renderTextField, required, emailFormat } from '../shared/FormElements';
 
 const EditProfileForm = ({ handleSubmit, handleCancelEditProfile }) => (
   <Paper zDepth={2} >

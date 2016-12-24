@@ -28,7 +28,8 @@ networkInterface.use([{
 }]);
 
 export const client = new ApolloClient({
-  networkInterface
+  networkInterface,
+  connectToDevTools: true
 });
 
 const rootReducer = compose(

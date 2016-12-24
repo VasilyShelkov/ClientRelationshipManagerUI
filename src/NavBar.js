@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import AppBar from 'material-ui/AppBar';
@@ -7,7 +6,7 @@ import IconButton from 'material-ui/IconButton';
 import AccountIcon from 'material-ui/svg-icons/action/account-circle';
 import FlatButton from 'material-ui/FlatButton';
 
-const Navbar = ({ loggedIn }) => {
+export default ({ loggedIn }) => {
   const isMobile = window.width < 768;
   return (
     <AppBar
@@ -18,9 +17,12 @@ const Navbar = ({ loggedIn }) => {
       style={{ position: 'fixed', top: 0 }}
       iconElementRight={
         loggedIn ?
-          <Link to="/">
-            <IconButton touch ><AccountIcon /></IconButton>
-          </Link>
+          <IconButton
+            containerElement={<Link to="/profile" />}
+            touch
+          >
+            <AccountIcon />
+          </IconButton>
         :
           <FlatButton
             containerElement={<Link to="/login" />}
@@ -31,9 +33,3 @@ const Navbar = ({ loggedIn }) => {
     />
   );
 };
-
-const mapStateToProps = state => ({
-  loggedIn: state.account.token
-});
-
-export default connect(mapStateToProps)(Navbar);

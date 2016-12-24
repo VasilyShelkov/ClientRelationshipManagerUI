@@ -5,11 +5,11 @@ import { connect } from 'react-redux';
 import { SubmissionError } from 'redux-form';
 
 import { editProfile, cancelEditProfile } from './profileActions';
-import LoadingSpinner from '../LoadingSpinner';
+import LoadingSpinner from '../shared/LoadingSpinner';
 import ShowProfile from './ShowProfile';
 import EditProfile from './EditProfile';
 
-import { checkIfAnyKeysDifferent } from '../utils';
+import { checkIfAnyKeysDifferent } from '../shared/utils';
 
 const getProfile = ({
   user, editing, loading, onEditProfile, onCancelEditProfile, saveProfile
@@ -46,11 +46,13 @@ const Profile = ({
 }) => (
   <div>
     <h1 className="Profile__title">Profile</h1>
-    {
-      getProfile({
-        user, editing, loading, onEditProfile, onCancelEditProfile, saveProfile
-      })
-    }
+    <div>
+      {
+        getProfile({
+          user, editing, loading, onEditProfile, onCancelEditProfile, saveProfile
+        })
+      }
+    </div>
   </div>
 );
 
@@ -105,9 +107,13 @@ const ProfileWithData = compose(
     props: ({ ownProps, mutate }) => ({
       saveProfile: initialValues => values => {
         if (checkIfAnyKeysDifferent(initialValues, values) > 0) {
-          return mutate({
-            variables: { userId: initialValues.userId, ...values }
-          });
+          try{
+            mutate({
+              variables: { userId: initialValues.userId, ...values }
+            });
+          } catch (error) {
+            throw new SubmissionError({ _error: error });
+          }
         }
 
         throw new SubmissionError({

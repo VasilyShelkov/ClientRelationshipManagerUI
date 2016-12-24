@@ -9,7 +9,8 @@
     "build": "rm -rf dist && webpack --config webpack/webpack.config.prod.js --progress --profile --colors",
     "dev": "webpack-dashboard -- webpack-dev-server --open --config webpack/webpack.config.dev.js --progress",
     "stage": "NODE_ENV=staging webpack-dashboard -- webpack-dev-server --open --config webpack/webpack.config.dev.js --progress",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "repository": {
     "type": "git",
@@ -51,7 +52,7 @@
     "react-apollo": "^0.7.1",
     "react-dom": "^15.4.1",
     "react-redux": "^4.4.6",
-    "react-router": "^4.0.0-alpha.6",
+    "react-router": "^3.0.0",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
     "redux-devtools-extension": "^1.0.0",
@@ -66,8 +67,8 @@
   "devDependencies": {
     "autoprefixer": "^6.5.3",
     "babel-eslint": "^7.1.1",
+    "babel-jest": "^18.0.0",
     "babel-loader": "^6.2.9",
-    "babel-plugin-transform-do-expressions": "^6.8.0",
     "chai": "^3.5.0",
     "deep-freeze": "0.0.1",
     "enzyme": "^2.6.0",
