@@ -3,10 +3,10 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import React from 'react';
 import { render } from 'react-dom';
-import BrowserRouter from 'react-router/BrowserRouter';
-import Match from 'react-router/Match';
-import Miss from 'react-router/Miss';
-import Redirect from 'react-router/Redirect';
+import {
+  browserHistory, Router, Route, IndexRoute
+} from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
 
 import { ApolloProvider } from 'react-apollo';
 
@@ -15,7 +15,7 @@ import './index.scss';
 
 import store, { client } from './store';
 
-import Login from './authentication/Login';
+import LoginPage from './authentication/Login';
 
 import NavBar from './NavBar';
 import Home from './Home';
@@ -24,46 +24,44 @@ import NotFound from './NotFound';
 
 injectTapEventPlugin();
 
-const rootStore = store();
+const rootStore = store(browserHistory);
+const history = syncHistoryWithStore(browserHistory, rootStore);
 const authenticated = rootStore.getState().account.token;
 
 export const Root = () => (
-  <BrowserRouter>
-    <MuiThemeProvider>
-      <ApolloProvider client={client} store={rootStore}>
-        <div className="Root">
-          <Match exactly pattern="/login" component={Login} />
+  <MuiThemeProvider>
+    <ApolloProvider client={client} store={rootStore}>
+      <Router history={history}>
+        <Route path="/login" component={LoginPage} />
+        <Route path="/" component={AppWithNavbar}>
+          <IndexRoute component={Home} />
 
-          <Miss component={AppWithNavbar} />
-        </div>
-      </ApolloProvider>
-    </MuiThemeProvider>
-  </BrowserRouter>
+          <Route path="account" component={AppWithSideBar}>
+            <Route path="profile" component={Profile} />
+          </Route>
+
+          <Route path="*" component={NotFound} />
+        </Route>
+      </Router>
+    </ApolloProvider>
+  </MuiThemeProvider>
 );
 
-export const AppWithNavbar = () => (
+export const AppWithNavbar = ({ children }) => (
   <div>
     <NavBar loggedIn={authenticated} />
 
     <div className="index__content-below-navbar">
-      <Match exactly pattern="/" component={Home} />
-      <Miss component={AuthenticatedRoutes} />
+      {children}
     </div>
   </div>
 );
 
-const AuthenticatedRoutes = () => {
-  debugger;
-  if (authenticated) {
-    return (
-      <div>
-        <Match exactly pattern="/profile" component={Profile} />
-        <Miss component={NotFound} />
-      </div>
-    );
-  }
-
-  return <Redirect to="/login" push />;
-};
+// <SideNav />
+export const AppWithSideBar = ({ children }) => (
+  <div>
+    {children}
+  </div>
+);
 
 if (!module.hot) render(<Root />, document.querySelector('react'));
