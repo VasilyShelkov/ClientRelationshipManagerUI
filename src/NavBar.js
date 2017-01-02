@@ -18,7 +18,7 @@ export default ({ loggedIn }) => {
       iconElementRight={
         loggedIn ?
           <IconButton
-            containerElement={<Link to="/profile" />}
+            containerElement={<Link to="/account/profile" />}
             touch
           >
             <AccountIcon />

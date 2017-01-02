@@ -5,8 +5,6 @@ exports[`src/NotFound.js renders the Not Found page 1`] = `
   </h1>
   <br />
   <a
-    className=""
-    href="/"
     onClick={[Function]}
     style={Object {}}>
     Click here to return to normality

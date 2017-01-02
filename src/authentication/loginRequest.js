@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { SubmissionError } from 'redux-form';
+import { push } from 'react-router-redux';
 import config from '../../config';
 import { logIn, logInSuccess, logInError } from './accountActions';
 
@@ -12,6 +13,7 @@ export default async (values, dispatch, props) => {
   let accountDetails = null;
   try {
     accountDetails = await instance.post('/login', { email: values.email, password: values.password });
+    dispatch(push('/account/profile'));
   } catch (e) {
     dispatch(logInError());
     throw new SubmissionError({ _error: e.response.data.error });

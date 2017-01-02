@@ -87,10 +87,4 @@ const mapDispatchToProps = dispatch => ({
 
 const LoginContainer = connect(mapStateToProps, mapDispatchToProps)(LoginForm);
 
-const LoginContainerWrapper = (props, { router }) =>
-  <LoginContainer transitionAfterLogin={() => router.transitionTo('/profile')} />;
-LoginContainerWrapper.contextTypes = {
-  router: React.PropTypes.object
-};
-
-export default LoginContainerWrapper;
+export default LoginContainer;
