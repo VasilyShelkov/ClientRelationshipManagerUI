@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer as Hot } from 'react-hot-loader';
 
-import { Root } from '../src';
+import { Root } from '../src/app/root';
 
 const render = () => {
   ReactDOM.render(

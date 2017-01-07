@@ -1,14 +1,15 @@
 import axios from 'axios';
 import { SubmissionError } from 'redux-form';
 import { push } from 'react-router-redux';
-import config from '../../config';
+import config from '../../config.js';
 import { logIn, logInSuccess, logInError } from './accountActions';
 
-const instance = axios.create();
-instance.defaults.timeout = 5000;
-instance.defaults.baseURL = config.graphQL;
 
 export default async (values, dispatch, props) => {
+  const instance = axios.create();
+  instance.defaults.timeout = 5000;
+  instance.defaults.baseURL = config.graphQL;
+
   dispatch(logIn());
   let accountDetails = null;
   try {

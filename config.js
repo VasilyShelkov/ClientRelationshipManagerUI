@@ -1,4 +1,7 @@
 const envUrls = {
+  testing: {
+    graphQL: ''
+  },
   development: {
     graphQL: 'http://localhost:3000'
   },

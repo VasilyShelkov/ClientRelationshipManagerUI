@@ -18,6 +18,6 @@
   },
   "globals": {
     "expect": true,
-    "jest": true
+    "sinon": true
   }
 }

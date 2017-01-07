@@ -1,6 +1,6 @@
 import * as utils from './utils';
 
-describe('src/utils', () => {
+describe('src/shared/utils.js', () => {
   it('returns falsey when none of the fields to edit are different to the original object', () => {
     const originalObject = {
       fieldOne: 'originalFieldOne',
@@ -9,7 +9,7 @@ describe('src/utils', () => {
 
     const fieldsToEdit = originalObject;
 
-    expect(utils.checkIfAnyKeysDifferent(originalObject, fieldsToEdit)).toEqual(0);
+    expect(utils.checkIfAnyKeysDifferent(originalObject, fieldsToEdit)).to.equal(0);
   });
 
 
@@ -24,6 +24,6 @@ describe('src/utils', () => {
       fieldTwo: 'newFieldTwo'
     };
 
-    expect(utils.checkIfAnyKeysDifferent(originalObject, fieldsToEdit)).toEqual(1);
+    expect(utils.checkIfAnyKeysDifferent(originalObject, fieldsToEdit)).to.equal(1);
   });
 });

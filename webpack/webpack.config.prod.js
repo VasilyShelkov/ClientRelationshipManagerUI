@@ -5,7 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
-    main: resolve(__dirname, '../src'),
+    main: resolve(__dirname, '../src/app/root.js'),
     vendor: [
       'babel-polyfill',
       'react',

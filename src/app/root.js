@@ -11,15 +11,15 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import { ApolloProvider } from 'react-apollo';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import './index.scss';
+import './root.scss';
 
 import store, { client } from './store';
 
-import LoginPage from './authentication/Login';
+import LoginPage from '../authentication/Login';
 
 import NavBar from './NavBar';
 import Home from './Home';
-import Profile from './profile/Profile';
+import Profile from '../profile/Profile';
 import NotFound from './NotFound';
 
 injectTapEventPlugin();

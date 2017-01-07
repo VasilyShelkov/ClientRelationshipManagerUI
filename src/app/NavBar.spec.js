@@ -11,12 +11,12 @@ describe('src/Navbar.js', () => {
   it('has a login button when the user is not logged in', () => {
     const wrapper = shallowWithContext(<NavBar />);
     const appBarRightIcon = wrapper.find(AppBar).prop('iconElementRight').props.containerElement.props.to;
-    expect(appBarRightIcon).toEqual('/login');
+    expect(appBarRightIcon).to.equal('/login');
   });
 
   it('shows the profile button when the user is logged in', () => {
     const wrapper = shallowWithContext(<NavBar loggedIn />);
     const appBarRightIcon = wrapper.find(AppBar).prop('iconElementRight').props.containerElement.props.to;
-    expect(appBarRightIcon).toEqual('/account/profile');
+    expect(appBarRightIcon).to.equal('/account/profile');
   });
 });

@@ -9,8 +9,8 @@
     "build": "rm -rf dist && webpack --config webpack/webpack.config.prod.js --progress --profile --colors",
     "dev": "webpack-dashboard -- webpack-dev-server --open --config webpack/webpack.config.dev.js --progress",
     "stage": "NODE_ENV=staging webpack-dashboard -- webpack-dev-server --open --config webpack/webpack.config.dev.js --progress",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "test": "NODE_ENV=testing mocha --require testSetup.js --require ignore-styles --compilers js:babel-core/register --inline-diffs ./src/**/*.spec.js --recursive",
+    "test:watch": "NODE_ENV=testing mocha --watch --require testSetup.js --require ignore-styles --compilers js:babel-core/register --inline-diffs ./src/**/*.spec.js --recursive"
   },
   "repository": {
     "type": "git",
@@ -53,6 +53,7 @@
     "react-dom": "^15.4.1",
     "react-redux": "^4.4.6",
     "react-router": "^3.0.0",
+    "react-router-redux": "^4.0.7",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
     "redux-devtools-extension": "^1.0.0",
@@ -67,9 +68,9 @@
   "devDependencies": {
     "autoprefixer": "^6.5.3",
     "babel-eslint": "^7.1.1",
-    "babel-jest": "^18.0.0",
     "babel-loader": "^6.2.9",
     "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
     "deep-freeze": "0.0.1",
     "enzyme": "^2.6.0",
     "eslint": "^3.12.0",
@@ -79,11 +80,13 @@
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.8.0",
     "extend": "^3.0.0",
-    "jest": "^17.0.3",
+    "ignore-styles": "^5.0.1",
+    "jsdom": "^9.9.1",
     "mocha": "^3.2.0",
     "react-addons-test-utils": "^15.4.1",
     "react-hot-loader": "^3.0.0-beta.6",
-    "react-test-renderer": "^15.4.1",
+    "sinon": "^1.17.7",
+    "sinon-chai": "^2.8.0",
     "webpack-dashboard": "^0.2.0",
     "webpack-dev-server": "^2.1.0-beta.12"
   }

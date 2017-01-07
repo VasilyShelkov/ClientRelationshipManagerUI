@@ -1,6 +1,6 @@
 @import 'NavBar.scss';
-@import './authentication/Login.scss';
-@import './profile/Profile.scss';
+@import '../authentication/Login.scss';
+@import '../profile/Profile.scss';
 
 body {
   background-color: #eaeaea;

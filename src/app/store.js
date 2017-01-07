@@ -9,12 +9,12 @@ import ApolloClient, { createNetworkInterface } from 'apollo-client';
 
 import { reducer as formReducer } from 'redux-form';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
-import account from './authentication/accountReducer';
-import profile from './profile/profileReducer';
+import account from '../authentication/accountReducer';
+import profile from '../profile/profileReducer';
 
-import authenticationMiddleware from './authentication/authenticationMiddleware';
+import authenticationMiddleware from '../authentication/authenticationMiddleware';
 
-import config from '../config';
+import config from '../../config';
 
 const networkInterface = createNetworkInterface({ uri: `${config.graphQL}/graphql` });
 networkInterface.use([{

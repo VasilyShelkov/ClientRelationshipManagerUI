@@ -9,11 +9,10 @@ describe('src/profile/profileReducer.js', () => {
     const stateBefore = initialState;
     const action = editProfile();
 
-    expect(accountReducer(stateBefore, action))
-      .toEqual({
-        ...stateBefore,
-        editing: true
-      });
+    expect(accountReducer(stateBefore, action)).to.deep.equal({
+      ...stateBefore,
+      editing: true
+    });
   });
 
   it(CANCEL_EDIT_PROFILE, () => {
@@ -23,10 +22,9 @@ describe('src/profile/profileReducer.js', () => {
     };
     const action = cancelEditProfile();
 
-    expect(accountReducer(stateBefore, action))
-      .toEqual({
-        ...stateBefore,
-        editing: false
-      });
+    expect(accountReducer(stateBefore, action)).to.deep.equal({
+      ...stateBefore,
+      editing: false
+    });
   });
 });
