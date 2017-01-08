@@ -13,4 +13,4 @@ const render = () => {
 
 render();
 
-module.hot.accept('../src', render);
+module.hot.accept('../src/app/root.js', render);

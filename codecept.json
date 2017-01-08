@@ -1,0 +1,17 @@
+{
+  "tests": "./test/*.feature.js",
+  "timeout": 10000,
+  "output": "./output",
+  "helpers": {
+    "WebdriverIO": {
+      "url": "http://localhost:8081",
+      "browser": "chrome"
+    }
+  },
+  "include": {
+    "I": "./test/steps/custom_steps.js"
+  },
+  "bootstrap": false,
+  "mocha": {},
+  "name": "ClientRelationshipManagerUI"
+}

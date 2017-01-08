@@ -10,7 +10,10 @@
     "dev": "webpack-dashboard -- webpack-dev-server --open --config webpack/webpack.config.dev.js --progress",
     "stage": "NODE_ENV=staging webpack-dashboard -- webpack-dev-server --open --config webpack/webpack.config.dev.js --progress",
     "test": "NODE_ENV=testing mocha --require testSetup.js --require ignore-styles --compilers js:babel-core/register --inline-diffs ./src/**/*.spec.js --recursive",
-    "test:watch": "NODE_ENV=testing mocha --watch --require testSetup.js --require ignore-styles --compilers js:babel-core/register --inline-diffs ./src/**/*.spec.js --recursive"
+    "test:watch": "NODE_ENV=testing mocha --watch --require testSetup.js --require ignore-styles --compilers js:babel-core/register --inline-diffs ./src/**/*.spec.js --recursive",
+    "test-features": "babel-node ./node_modules/codeceptjs/bin/codecept.js run --steps",
+    "test-features:selenium-install": "./node_modules/.bin/selenium-standalone install",
+    "test-features:selenium-start": "./node_modules/.bin/selenium-standalone start"
   },
   "repository": {
     "type": "git",
@@ -67,10 +70,12 @@
   },
   "devDependencies": {
     "autoprefixer": "^6.5.3",
+    "babel-cli": "^6.18.0",
     "babel-eslint": "^7.1.1",
     "babel-loader": "^6.2.9",
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
+    "codeceptjs": "^0.4.13",
     "deep-freeze": "0.0.1",
     "enzyme": "^2.6.0",
     "eslint": "^3.12.0",
@@ -85,8 +90,11 @@
     "mocha": "^3.2.0",
     "react-addons-test-utils": "^15.4.1",
     "react-hot-loader": "^3.0.0-beta.6",
+    "selenium-standalone": "^5.9.1",
+    "selenium-webdriver": "^3.0.1",
     "sinon": "^1.17.7",
     "sinon-chai": "^2.8.0",
+    "webdriverio": "^4.6.1",
     "webpack-dashboard": "^0.2.0",
     "webpack-dev-server": "^2.1.0-beta.12"
   }

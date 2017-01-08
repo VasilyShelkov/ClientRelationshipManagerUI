@@ -30,3 +30,7 @@ node_modules
 
 #Ignore any built files
 public/bundle.js
+
+.DS_Store
+src/.DS_Store
+output/
