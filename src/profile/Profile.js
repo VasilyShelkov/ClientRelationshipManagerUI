@@ -4,7 +4,9 @@ import gql from 'graphql-tag';
 import { connect } from 'react-redux';
 import { SubmissionError } from 'redux-form';
 
-import { editProfile, cancelEditProfile } from './profileActions';
+import {
+  editProfile, editProfileSuccess, cancelEditProfile
+} from './profileActions';
 import LoadingSpinner from '../shared/LoadingSpinner';
 import ShowProfile from './ShowProfile';
 import EditProfile from './EditProfile';
@@ -57,9 +59,9 @@ const Profile = ({
 );
 
 const userData = gql`
-  query($userId: String!) {
-    users(userId: $userId) {
-      userId
+  query($id: String!) {
+    users(id: $id) {
+      id
       firstName,
       lastName,
       email,
@@ -71,20 +73,21 @@ const userData = gql`
 `;
 
 const editUser = gql`
-  mutation(
-    $userId: String!,
+  mutation (
+    $id: String!,
     $firstName: String,
     $lastName: String,
     $email: String,
     $phone: String
   ) {
     editUser(
-      userId: $userId,
+      id: $id,
       firstName: $firstName,
       lastName: $lastName,
       email: $email,
       phone: $phone
     ) {
+      id
       firstName
       lastName
       email
@@ -96,7 +99,7 @@ const editUser = gql`
 
 const ProfileWithData = compose(
   graphql(userData, {
-    options: ({ userId }) => ({ variables: { userId } }),
+    options: ({ id }) => ({ variables: { id } }),
     props: ({ ownProps, data: { loading, users } }) => ({
       loading,
       user: users && users[0],
@@ -107,13 +110,15 @@ const ProfileWithData = compose(
     props: ({ ownProps, mutate }) => ({
       saveProfile: initialValues => values => {
         if (checkIfAnyKeysDifferent(initialValues, values) > 0) {
-          try{
+          try {
             mutate({
-              variables: { userId: initialValues.userId, ...values }
+              variables: { id: initialValues.id, ...values }
             });
           } catch (error) {
             throw new SubmissionError({ _error: error });
           }
+
+          ownProps.onEditProfileSuccess();
         }
 
         throw new SubmissionError({
@@ -126,12 +131,13 @@ const ProfileWithData = compose(
 )(Profile);
 
 const mapStateToProps = state => ({
-  userId: state.account.userId,
+  id: state.account.id,
   editing: state.profile.editing
 });
 
 const mapDispatchToProps = dispatch => ({
   onEditProfile: () => dispatch(editProfile()),
+  onEditProfileSuccess: () => dispatch(editProfileSuccess()),
   onCancelEditProfile: () => dispatch(cancelEditProfile())
 });
 

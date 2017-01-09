@@ -18,6 +18,7 @@ import store, { client } from './store';
 import LoginPage from '../authentication/Login';
 
 import NavBar from './NavBar';
+import AppWithSideBar from './AppWithSideBar';
 import Home from './Home';
 import Profile from '../profile/Profile';
 import NotFound from './NotFound';
@@ -26,7 +27,6 @@ injectTapEventPlugin();
 
 const rootStore = store(browserHistory);
 const history = syncHistoryWithStore(browserHistory, rootStore);
-const authenticated = rootStore.getState().account.token;
 
 export const Root = () => (
   <MuiThemeProvider>
@@ -49,18 +49,11 @@ export const Root = () => (
 
 export const AppWithNavbar = ({ children }) => (
   <div>
-    <NavBar loggedIn={authenticated} />
+    <NavBar />
 
     <div className="index__content-below-navbar">
       {children}
     </div>
-  </div>
-);
-
-// <SideNav />
-export const AppWithSideBar = ({ children }) => (
-  <div>
-    {children}
   </div>
 );
 

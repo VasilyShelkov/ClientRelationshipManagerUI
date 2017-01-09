@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import AppBar from 'material-ui/AppBar';
-import NavBar from './NavBar';
+import { NavBar } from './NavBar';
 
 describe('src/Navbar.js', () => {
   const muiTheme = getMuiTheme();

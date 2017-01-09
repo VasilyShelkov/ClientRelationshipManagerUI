@@ -18,7 +18,6 @@ export default async (values, dispatch, props) => {
     throw new SubmissionError({ _error: e.response.data.error });
   }
 
-  dispatch(push('/account/profile'));
   dispatch(logInSuccess(accountDetails.data));
-  props.transitionAfterLogin();
+  dispatch(push('/account/profile'));
 };

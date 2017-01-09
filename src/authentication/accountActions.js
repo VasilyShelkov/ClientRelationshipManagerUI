@@ -18,3 +18,14 @@ export const LOG_OUT = 'LOG_OUT';
 export const logOut = () => ({
   type: LOG_OUT
 });
+
+export const TOGGLE_SIDE_BAR = 'TOGGLE_SIDE_BAR';
+export const toggleSideBar = () => ({
+  type: TOGGLE_SIDE_BAR
+});
+
+export const CHANGE_SIDE_BAR_STATE = 'CHANGE_SIDE_BAR_STATE';
+export const changeSideBarState = open => ({
+  type: CHANGE_SIDE_BAR_STATE,
+  open
+});

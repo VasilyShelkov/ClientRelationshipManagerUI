@@ -32,11 +32,19 @@ networkInterface.use([{
 
 export const client = new ApolloClient({
   networkInterface,
-  connectToDevTools: true
+  connectToDevTools: true,
+  dataIdFromObject: o => o.id
 });
 
 const rootReducer = compose(
-  mergePersistedState()
+  mergePersistedState((initialState, persistedState) => ({
+    ...initialState,
+    ...persistedState,
+    account: {
+      ...initialState.account,
+      ...persistedState.account
+    }
+  }))
 )(
   combineReducers({
     apollo: client.reducer(),
@@ -49,7 +57,7 @@ const rootReducer = compose(
 
 const storage = compose(filter([
   'account.token',
-  'account.userId',
+  'account.id',
   'account.accountType'
 ]))(adapter(window.sessionStorage));
 
