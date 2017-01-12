@@ -17,11 +17,20 @@ import store, { client } from './store';
 
 import LoginPage from '../authentication/Login';
 
-import NavBar from './NavBar';
-import AppWithSideBar from './AppWithSideBar';
 import Home from './Home';
-import Profile from '../profile/Profile';
+
+import AppWithNavbar from './AppWithNavbar';
 import NotFound from './NotFound';
+
+import AppWithSideBar from './AppWithSideBar';
+import Profile from '../profile/Profile';
+
+import AddUser from '../users/AddUser';
+import UsersPerformance from '../users/UsersPerformance';
+
+import UnprotectedNames from '../names/UnprotectedNames';
+import ProtectedNames from '../names/ProtectedNames';
+import ClientNames from '../names/ClientNames';
 
 injectTapEventPlugin();
 
@@ -33,11 +42,21 @@ export const Root = () => (
     <ApolloProvider client={client} store={rootStore}>
       <Router history={history}>
         <Route path="/login" component={LoginPage} />
+
         <Route path="/" component={AppWithNavbar}>
           <IndexRoute component={Home} />
 
           <Route path="account" component={AppWithSideBar}>
             <Route path="profile" component={Profile} />
+
+            <Route path="performance" component={UsersPerformance} />
+            <Route path="users/add" component={AddUser} />
+
+            <Route path="names">
+              <Route path="unprotected" component={UnprotectedNames} />
+              <Route path="protected" component={ProtectedNames} />
+              <Route path="clients" component={ClientNames} />
+            </Route>
           </Route>
 
           <Route path="*" component={NotFound} />
@@ -47,14 +66,5 @@ export const Root = () => (
   </MuiThemeProvider>
 );
 
-export const AppWithNavbar = ({ children }) => (
-  <div>
-    <NavBar />
-
-    <div className="index__content-below-navbar">
-      {children}
-    </div>
-  </div>
-);
 
 if (!module.hot) render(<Root />, document.querySelector('react'));

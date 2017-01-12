@@ -47,7 +47,9 @@ const Profile = ({
   loading, user, editing, onEditProfile, onCancelEditProfile, saveProfile
 }) => (
   <div>
-    <h1 className="Profile__title">Profile</h1>
+    <h1 className="Profile__title">
+      {editing ? 'Edit Profile' : 'Profile'}
+    </h1>
     <div>
       {
         getProfile({

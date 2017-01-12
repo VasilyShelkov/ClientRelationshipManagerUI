@@ -1,5 +1,5 @@
 .Profile__title {
-  color: #3F51B5;
+  @extend .page__title
 }
 
 .Profile__details {
@@ -8,5 +8,13 @@
 }
 
 .Profile__details__field {
+  margin-bottom: 10px;
+
+  @include sm {
+    margin-bottom: 0px;
+  }
+}
+
+.Profile__details__field__name {
   color: #3F51B5;
 }

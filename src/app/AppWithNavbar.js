@@ -1,10 +1,10 @@
 import React from 'react';
 
-import NavBar from './NavBar';
+import NavBar from './navigation/NavBar';
 
-export default ({ children, width }) => (
+export default ({ children }) => (
   <div>
-    <NavBar width={width} />
+    <NavBar />
 
     <div className="index__content-below-navbar">
       {children}

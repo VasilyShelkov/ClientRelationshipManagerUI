@@ -65,10 +65,11 @@ export default browserHistory => createStore(
   rootReducer,
   composeWithDevTools(
     persistState(storage, 'account'),
-  ),
-  applyMiddleware(
-    routerMiddleware(browserHistory),
-    authenticationMiddleware
+    applyMiddleware(
+      client.middleware(),
+      routerMiddleware(browserHistory),
+      authenticationMiddleware,
+    )
   )
 );
 
