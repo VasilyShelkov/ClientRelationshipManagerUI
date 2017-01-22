@@ -1,13 +1,16 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, SubmissionError } from 'redux-form';
 
 import RaisedButton from 'material-ui/RaisedButton';
 import SaveIcon from 'material-ui/svg-icons/action/done';
 import CancelIcon from 'material-ui/svg-icons/content/clear';
 
-import { renderTextField, required } from '../shared/FormElements';
+import { graphql } from 'react-apollo';
+import EditUserPassword from './EditUserPassword.gql';
 
-const EditPasswordForm = ({ handleSubmit, handleCancelEditProfilePassword }) => (
+import { renderTextField, required, minLength } from '../shared/FormElements';
+
+const EditPassword = ({ handleSubmit, handleCancelEditProfilePassword }) => (
     <div className="Profile__details container">
       <form onSubmit={handleSubmit}>
         <div className="row">
@@ -15,7 +18,7 @@ const EditPasswordForm = ({ handleSubmit, handleCancelEditProfilePassword }) => 
             name="password"
             component={renderTextField}
             label="New Password"
-            validate={[required]}
+            validate={[required, minLength]}
             fullWidth
           />
 
@@ -23,7 +26,7 @@ const EditPasswordForm = ({ handleSubmit, handleCancelEditProfilePassword }) => 
             name="confirmPassword"
             component={renderTextField}
             label="Confirm New Password"
-            validate={required}
+            validate={[required, minLength]}
             fullWidth
           />
         </div>
@@ -55,4 +58,28 @@ const EditPasswordForm = ({ handleSubmit, handleCancelEditProfilePassword }) => 
     </div>
 );
 
-export default reduxForm({ form: 'profilePassword' })(EditPasswordForm);
+export const EditPasswordForm = reduxForm({ form: 'profilePassword' })(EditPassword);
+
+export default graphql(EditUserPassword, {
+  props: ({ ownProps, mutate }) => ({
+    onSubmit: values => {
+      debugger;
+      if (values.password === values.confirmPassword) {
+        try {
+          mutate({
+            variables: { id: ownProps.userId, password: values.password }
+          });
+        } catch (error) {
+          throw new SubmissionError({ _error: error });
+        }
+
+        ownProps.handleProfilePasswordSuccess();
+      } else {
+        throw new SubmissionError({
+          _error: 'Passwords do not match'
+        });
+      }
+    },
+    ...ownProps
+  })
+})(EditPasswordForm);

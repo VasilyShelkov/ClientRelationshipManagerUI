@@ -19,12 +19,13 @@ import { cyan500 } from 'material-ui/styles/colors';
 
 import EditPassword from './EditPassword';
 import {
-  editProfile, editProfilePassword, cancelEditProfilePassword
+  editProfile, editProfilePassword, cancelEditProfilePassword, editProfilePasswordSuccess
 } from './profileActions';
 
 export const ShowProfile = ({
-  firstName, lastName, email, phone, updatedAt, editingPassword,
-  onEditProfile, onEditProfilePassword, onCancelEditProfilePassword
+  userId, firstName, lastName, email, phone, updatedAt, editingPassword,
+  onEditProfile, onEditProfilePassword, onEditProfilePasswordSuccess,
+  onCancelEditProfilePassword
 }) => (
   <Paper zDepth={2} style={{ paddingBottom: '10px' }}>
     <div style={{ textAlign: 'center' }}>
@@ -52,6 +53,8 @@ export const ShowProfile = ({
       {
         editingPassword ?
           <EditPassword 
+            userId={userId}
+            handleProfilePasswordSuccess={onEditProfilePasswordSuccess}
             handleCancelEditProfilePassword={onCancelEditProfilePassword}
           />
         :
@@ -92,7 +95,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onEditProfile: () => dispatch(editProfile()),
   onEditProfilePassword: () => dispatch(editProfilePassword()),
-  onCancelEditProfilePassword: () => dispatch(cancelEditProfilePassword())
+  onEditProfilePasswordSuccess: () => dispatch(editProfilePasswordSuccess()),
+  onCancelEditProfilePassword: () => dispatch(cancelEditProfilePassword()),
 });
 
 export default connect(

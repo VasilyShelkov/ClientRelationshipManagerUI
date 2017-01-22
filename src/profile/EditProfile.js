@@ -1,14 +1,18 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, SubmissionError } from 'redux-form';
 
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import SaveIcon from 'material-ui/svg-icons/action/done';
 import CancelIcon from 'material-ui/svg-icons/content/clear';
 
+import { graphql } from 'react-apollo';
+import EditUserDetails from './EditUserDetails.gql';
+import { checkIfAnyKeysDifferent } from '../shared/utils';
+
 import { renderTextField, required, emailFormat } from '../shared/FormElements';
 
-const EditProfileForm = ({ handleSubmit, handleCancelEditProfile }) => (
+const EditProfile = ({ handleSubmit, handleCancelEditProfile }) => (
   <Paper zDepth={2} >
     <div className="Profile__details container">
       <form onSubmit={handleSubmit}>
@@ -74,4 +78,27 @@ const EditProfileForm = ({ handleSubmit, handleCancelEditProfile }) => (
   </Paper>
 );
 
-export default reduxForm({ form: 'profile' })(EditProfileForm);
+const EditProfileForm = reduxForm({ form: 'profile' })(EditProfile);
+
+export default graphql(EditUserDetails, {
+  props: ({ ownProps, mutate }) => ({
+    onSubmit: values => {
+      if (checkIfAnyKeysDifferent(ownProps.initialValues, values) > 0) {
+        try {
+          mutate({
+            variables: { id: ownProps.initialValues.id, ...values }
+          });
+        } catch (error) {
+          throw new SubmissionError({ _error: error });
+        }
+
+        ownProps.handleProfileSuccess();
+      } else {
+        throw new SubmissionError({
+          _error: 'Please change one of the profile fields to to update your profile...'
+        });
+      }
+    },
+    ...ownProps
+  })
+})(EditProfileForm);

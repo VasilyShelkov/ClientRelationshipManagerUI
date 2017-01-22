@@ -1,17 +1,18 @@
   query GetUserProfile($id: String!) {
     user(id: $id) {
       id
-      firstName,
-      lastName,
-      email,
-      phone,
-      created_at,
-      updated_at,
+      firstName
+      lastName
+      email
+      phone
+      created_at
+      updated_at
       company {
-        name,
-        address,
-        phone,
-        created_at,
+        id
+        name
+        address
+        phone
+        created_at
         updated_at
       }
     }
