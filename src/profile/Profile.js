@@ -1,20 +1,25 @@
 import React from 'react';
 import { graphql, compose } from 'react-apollo';
-import gql from 'graphql-tag';
 import { connect } from 'react-redux';
 import { SubmissionError } from 'redux-form';
+import Avatar from 'material-ui/Avatar';
+import PersonOutline from 'material-ui/svg-icons/social/person-outline';
+import { cyan500 } from 'material-ui/styles/colors';
 
+import GetUserProfile from './GetUserProfile.gql';
+import EditUserDetails from './EditUserDetails.gql';
 import {
-  editProfile, editProfileSuccess, cancelEditProfile
+  editProfileSuccess, cancelEditProfile, editProfilePasswordSuccess
 } from './profileActions';
 import LoadingSpinner from '../shared/LoadingSpinner';
 import ShowProfile from './ShowProfile';
+import ShowCompany from './ShowCompany';
 import EditProfile from './EditProfile';
 
 import { checkIfAnyKeysDifferent } from '../shared/utils';
 
 const getProfile = ({
-  user, editing, loading, onEditProfile, onCancelEditProfile, saveProfile
+  user, editingProfile, loading, onCancelEditProfile, saveProfile
 }) => {
   if (loading) {
     return (
@@ -22,93 +27,63 @@ const getProfile = ({
     );
   }
 
-  if (editing) {
-    return (
-      <EditProfile
-        initialValues={user}
-        onSubmit={saveProfile(user)}
-        handleCancelEditProfile={onCancelEditProfile}
-      />
-    );
-  }
-
   return (
-    <ShowProfile
-      firstName={user.firstName}
-      lastName={user.lastName}
-      phone={user.phone}
-      email={user.email}
-      onEditProfile={onEditProfile}
-    />
+    <div className="row">
+      <div className="col-12 col-sm-6 push-sm-6 align-self-center">
+        {
+          editingProfile ?
+            <EditProfile
+              initialValues={user}
+              onSubmit={saveProfile(user)}
+              handleCancelEditProfile={onCancelEditProfile}
+            />
+          :
+            <ShowProfile
+              firstName={user.firstName}
+              lastName={user.lastName}
+              phone={user.phone}
+              email={user.email}
+              createdAt={user.created_at}
+              updatedAt={user.updated_at}
+            />
+        }
+      </div>
+
+      <div className="col-12 col-sm-6 pull-sm-6 align-self-center">
+        <ShowCompany
+          name={user.company.name}
+          address={user.company.address}
+          phone={user.company.phone}
+          createdAt={user.company.created_at}
+          updatedAt={user.company.updated_at}
+        />
+      </div>
+    </div>
   );
 };
 
 const Profile = ({
-  loading, user, editing, onEditProfile, onCancelEditProfile, saveProfile
+  loading, user, editingProfile, onCancelEditProfile, saveProfile
 }) => (
-  <div>
-    <h1 className="Profile__title">
-      {editing ? 'Edit Profile' : 'Profile'}
-    </h1>
-    <div>
-      {
-        getProfile({
-          user, editing, loading, onEditProfile, onCancelEditProfile, saveProfile
-        })
-      }
-    </div>
+  <div className="container-fluid Profile">
+    {
+      getProfile({
+        user, editingProfile, loading, onCancelEditProfile, saveProfile
+      })
+    }
   </div>
 );
 
-const userData = gql`
-  query($id: String!) {
-    users(id: $id) {
-      id
-      firstName,
-      lastName,
-      email,
-      phone,
-      created_at,
-      updated_at
-    }
-  }
-`;
-
-const editUser = gql`
-  mutation (
-    $id: String!,
-    $firstName: String,
-    $lastName: String,
-    $email: String,
-    $phone: String
-  ) {
-    editUser(
-      id: $id,
-      firstName: $firstName,
-      lastName: $lastName,
-      email: $email,
-      phone: $phone
-    ) {
-      id
-      firstName
-      lastName
-      email
-      phone
-      updated_at
-    }
-  }
-`;
-
 const ProfileWithData = compose(
-  graphql(userData, {
+  graphql(GetUserProfile, {
     options: ({ id }) => ({ variables: { id } }),
-    props: ({ ownProps, data: { loading, users } }) => ({
+    props: ({ ownProps, data: { loading, user } }) => ({
       loading,
-      user: users && users[0],
+      user,
       ...ownProps
     })
   }),
-  graphql(editUser, {
+  graphql(EditUserDetails, {
     props: ({ ownProps, mutate }) => ({
       saveProfile: initialValues => values => {
         if (checkIfAnyKeysDifferent(initialValues, values) > 0) {
@@ -120,7 +95,7 @@ const ProfileWithData = compose(
             throw new SubmissionError({ _error: error });
           }
 
-          ownProps.onEditProfileSuccess();
+          return ownProps.onEditProfileSuccess();
         }
 
         throw new SubmissionError({
@@ -134,13 +109,13 @@ const ProfileWithData = compose(
 
 const mapStateToProps = state => ({
   id: state.account.id,
-  editing: state.profile.editing
+  editingProfile: state.profile.editingProfile,
 });
 
 const mapDispatchToProps = dispatch => ({
-  onEditProfile: () => dispatch(editProfile()),
   onEditProfileSuccess: () => dispatch(editProfileSuccess()),
-  onCancelEditProfile: () => dispatch(cancelEditProfile())
+  onCancelEditProfile: () => dispatch(cancelEditProfile()),
+  onEditProfilePasswordSuccess: () => dispatch(editProfilePasswordSuccess()),
 });
 
 export default connect(

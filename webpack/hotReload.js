@@ -2,15 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer as Hot } from 'react-hot-loader';
 
-import { Root } from '../src/app/root';
+import Root from '../src/app/root';
 
-const render = () => {
+const render = (Component) => {
   ReactDOM.render(
-    <Hot><Root /></Hot>,
+    <Hot key={Math.random()}><Component /></Hot>,
     document.querySelector('react')
   );
 };
 
-render();
+render(Root);
 
-module.hot.accept('../src/app/root.js', render);
+module.hot.accept('../src/app/root.js', () => {
+  const NewApp = require('../src/app/root.js').default
+  render(NewApp)
+});

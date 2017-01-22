@@ -15,9 +15,15 @@
     "import/prefer-default-export": 0,
     "react/prop-types": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js"] }],
+    "graphql/template-strings": ['error', {
+      env: 'literal'
+    }]
   },
   "globals": {
     "expect": true,
     "sinon": true
-  }
+  },
+  plugins: [
+    'graphql'
+  ]
 }

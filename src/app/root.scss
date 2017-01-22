@@ -1,21 +1,24 @@
-@import 'breakpoints.scss';
+@import './plugins/bootstrap/bootstrap-grid.scss';
 
 @import './navigation/NavBar.scss';
 @import '../authentication/Login.scss';
 @import '../profile/Profile.scss';
 @import '../users/AddUserForm.scss';
 
+html {
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
 
 body {
   background-color: #eaeaea;
 }
 
 .index__content-below-navbar {
-  padding-top: 64px;
+  padding-top: 56px;
 }
 
 .page__title {
   color: #3F51B5;
   text-align: center;
 }
-

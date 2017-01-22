@@ -22,7 +22,7 @@ module.exports = {
     hot: true,
     contentBase: resolve(__dirname),
     publicPath: '/',
-    historyApiFallback: true,
+    historyApiFallback: true
   },
   module: {
     rules: [{
@@ -36,6 +36,10 @@ module.exports = {
         fallbackLoader: 'style-loader',
         loader: 'css-loader?sourceMap!sass-loader?sourceMap'
       })
+    }, {
+      test: /\.(graphql|gql)$/,
+      include: [resolve(__dirname, '../src')],
+      use: 'graphql-tag/loader'
     }],
   },
   plugins: [

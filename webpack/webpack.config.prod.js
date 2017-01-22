@@ -29,6 +29,10 @@ module.exports = {
         fallbackLoader: 'style-loader',
         loader: 'css-loader?sourceMap!sass-loader?sourceMap'
       })
+    }, {
+      test: /\.(graphql|gql)$/,
+      include: [resolve(__dirname, '../src')],
+      loader: 'graphql-tag/loader'
     }],
   },
   plugins: [

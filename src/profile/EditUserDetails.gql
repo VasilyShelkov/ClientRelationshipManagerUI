@@ -1,0 +1,24 @@
+  mutation EditUserDetails (
+    $id: String!,
+    $firstName: String
+    $lastName: String
+    $email: String
+    $phone: String
+    $password: String
+  ) {
+    editUser(
+      id: $id,
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      phone: $phone
+      password: $password
+    ) {
+      id
+      firstName
+      lastName
+      email
+      phone
+      updated_at
+    }
+  }
