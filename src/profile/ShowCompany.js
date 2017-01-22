@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import moment from 'moment';
 
 import { List, ListItem } from 'material-ui/List';
@@ -14,9 +15,9 @@ import LocationIcon from 'material-ui/svg-icons/communication/location-on';
 import UpdatedIcon from 'material-ui/svg-icons/action/update';
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 
-export default ({
-  name, address, phone, createdAt, updatedAt, onEditCompany
-}) => (
+import { editCompany } from './profileActions';
+
+export const EditCompany = ({ name, address, phone, createdAt, updatedAt, onEditCompany }) => (
   <div className="container">
     <div style={{ textAlign: 'center' }}>
       <CompanyIcon style={{ height: '100px', width: '100px', color: 'white' }} /> 
@@ -51,7 +52,13 @@ export default ({
       </Chip>
     </div>
     <div className="Profile__cta row justify-content-center">
-      <RaisedButton label="Edit Company" icon={<EditIcon />} />
+      <RaisedButton label="Edit Company" icon={<EditIcon />} onClick={onEditCompany} />
     </div>
   </div>
 );
+
+const mapDispatchToProps = dispatch => ({
+  onEditCompany: () => dispatch(editCompany())
+});
+
+export default connect(() => ({}), mapDispatchToProps)(EditCompany);

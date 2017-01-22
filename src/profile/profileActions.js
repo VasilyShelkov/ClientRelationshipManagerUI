@@ -27,3 +27,18 @@ export const CANCEL_EDIT_PROFILE_PASSWORD = 'CANCEL_EDIT_PROFILE_PASSWORD';
 export const cancelEditProfilePassword = () => ({
   type: CANCEL_EDIT_PROFILE_PASSWORD
 });
+
+export const EDIT_COMPANY = 'EDIT_COMPANY';
+export const editCompany = () => ({
+  type: EDIT_COMPANY
+});
+
+export const EDIT_COMPANY_SUCCESS = 'EDIT_COMPANY_SUCCESS';
+export const editCompanySuccess = () => ({
+  type: EDIT_COMPANY_SUCCESS
+});
+
+export const CANCEL_EDIT_COMPANY = 'CANCEL_EDIT_COMPANY';
+export const cancelEditCompany = () => ({
+  type: CANCEL_EDIT_COMPANY
+});

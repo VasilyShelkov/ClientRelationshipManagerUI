@@ -1,32 +1,43 @@
 import React from 'react';
 import { Field, reduxForm, SubmissionError } from 'redux-form';
 
+import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import SaveIcon from 'material-ui/svg-icons/action/done';
 import CancelIcon from 'material-ui/svg-icons/content/clear';
 
 import { graphql } from 'react-apollo';
-import EditUserPassword from './EditUserPassword.gql';
+import EditCompanyDetails from './EditCompanyDetails.gql';
+import { checkIfAnyKeysDifferent } from '../../shared/utils';
 
-import { renderTextField, required, minLength } from '../shared/FormElements';
+import { renderTextField, required } from '../../shared/FormElements';
 
-const EditPassword = ({ handleSubmit, handleCancelEditProfilePassword }) => (
+const EditCompany = ({ handleSubmit, handleCancelEditCompany }) => (
+  <Paper zDepth={2} >
     <div className="Profile__details container">
       <form onSubmit={handleSubmit}>
         <div className="row">
           <Field
-            name="password"
+            name="name"
             component={renderTextField}
-            label="New Password"
-            validate={[required, minLength]}
+            label="Name"
+            validate={required}
             fullWidth
           />
 
           <Field
-            name="confirmPassword"
+            name="address"
             component={renderTextField}
-            label="Confirm New Password"
-            validate={[required, minLength]}
+            label="Address"
+            validate={required}
+            fullWidth
+          />
+
+          <Field
+            name="phone"
+            component={renderTextField}
+            label="Phone"
+            validate={required}
             fullWidth
           />
         </div>
@@ -39,7 +50,7 @@ const EditPassword = ({ handleSubmit, handleCancelEditProfilePassword }) => (
               secondary
               fullWidth
               label="Cancel"
-              onClick={handleCancelEditProfilePassword }
+              onClick={handleCancelEditCompany}
               icon={<CancelIcon />}
             />
           </div>
@@ -56,30 +67,35 @@ const EditPassword = ({ handleSubmit, handleCancelEditProfilePassword }) => (
         </div>
       </form>
     </div>
+  </Paper>
 );
 
-export const EditPasswordForm = reduxForm({ form: 'profilePassword' })(EditPassword);
+const EditCompanyForm = reduxForm({ form: 'company' })(EditCompany);
 
-export default graphql(EditUserPassword, {
+export default graphql(EditCompanyDetails , {
   props: ({ ownProps, mutate }) => ({
     onSubmit: values => {
-      debugger;
-      if (values.password === values.confirmPassword) {
+      if (checkIfAnyKeysDifferent(ownProps.initialValues, values) > 0) {
+        const { id, created_at, updated_at, ...formValues } = values;
         try {
           mutate({
-            variables: { id: ownProps.userId, password: values.password }
+            variables: {
+              userId: ownProps.userId,
+              companyId: ownProps.initialValues.id,
+              ...formValues
+            }
           });
         } catch (error) {
           throw new SubmissionError({ _error: error });
         }
 
-        ownProps.handleProfilePasswordSuccess();
+        ownProps.handleEditCompanySuccess();
       } else {
         throw new SubmissionError({
-          _error: 'Passwords do not match'
+          _error: 'Please change one of the company fields to to update the company...'
         });
       }
     },
     ...ownProps
   })
-})(EditPasswordForm);
+})(EditCompanyForm);

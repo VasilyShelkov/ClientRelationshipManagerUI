@@ -17,7 +17,7 @@ import SecurityIcon from 'material-ui/svg-icons/hardware/security';
 import UpdatedIcon from 'material-ui/svg-icons/action/update';
 import { cyan500 } from 'material-ui/styles/colors';
 
-import EditPassword from './EditPassword';
+import EditPassword from './edit/EditPassword';
 import {
   editProfile, editProfilePassword, cancelEditProfilePassword, editProfilePasswordSuccess
 } from './profileActions';

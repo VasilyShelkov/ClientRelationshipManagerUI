@@ -8,9 +8,9 @@ import CancelIcon from 'material-ui/svg-icons/content/clear';
 
 import { graphql } from 'react-apollo';
 import EditUserDetails from './EditUserDetails.gql';
-import { checkIfAnyKeysDifferent } from '../shared/utils';
+import { checkIfAnyKeysDifferent } from '../../shared/utils';
 
-import { renderTextField, required, emailFormat } from '../shared/FormElements';
+import { renderTextField, required, emailFormat } from '../../shared/FormElements';
 
 const EditProfile = ({ handleSubmit, handleCancelEditProfile }) => (
   <Paper zDepth={2} >
@@ -84,15 +84,16 @@ export default graphql(EditUserDetails, {
   props: ({ ownProps, mutate }) => ({
     onSubmit: values => {
       if (checkIfAnyKeysDifferent(ownProps.initialValues, values) > 0) {
+        const { company, created_at, updated_at, ...formValues } = values;
         try {
           mutate({
-            variables: { id: ownProps.initialValues.id, ...values }
+            variables: formValues
           });
         } catch (error) {
           throw new SubmissionError({ _error: error });
         }
 
-        ownProps.handleProfileSuccess();
+        ownProps.handleEditProfileSuccess();
       } else {
         throw new SubmissionError({
           _error: 'Please change one of the profile fields to to update your profile...'
