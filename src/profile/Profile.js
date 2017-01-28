@@ -7,7 +7,9 @@ import LoadingSpinner from '../shared/LoadingSpinner';
 import ShowProfileWithData from './details/ShowProfile';
 import ShowCompanyWithData from './company/ShowCompany';
 
-import { cancelEditProfile, cancelEditCompany } from './profileActions';
+import {
+  cancelEditProfile, cancelEditCompany, removeProfileNotification
+} from './profileActions';
 import EditProfile from './details/EditProfile';
 import EditCompany from './company/EditCompany';
 
@@ -59,6 +61,7 @@ export const Profile = ({
                 address={user.company.address}
                 phone={user.company.phone}
                 updatedAt={user.company.updated_at}
+
               />
           }
         </div>
@@ -84,7 +87,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onCancelEditProfile: () => dispatch(cancelEditProfile()),
-  onCancelEditCompany: () => dispatch(cancelEditCompany())
+  onCancelEditCompany: () => dispatch(cancelEditCompany()),
 });
 
 export default connect(

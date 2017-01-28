@@ -17,7 +17,7 @@ injectTapEventPlugin();
 const rootStore = store(browserHistory);
 const history = syncHistoryWithStore(browserHistory, rootStore);
 
-const Root = (
+const Root = () => (
   <MuiThemeProvider>
     <ApolloProvider client={client} store={rootStore}>
       <Router history={history} routes={routes} />

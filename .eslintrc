@@ -14,7 +14,13 @@
     "import/no-extraneous-dependencies": 0,
     "import/prefer-default-export": 0,
     "react/prop-types": 0,
-    "react/jsx-filename-extension": [1, { "extensions": [".js"] }]
+    "jsx-a11y/anchor-has-content": 0,
+    "func-names": 0,
+    "no-param-reassign": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".js"] }],
+    "no-unused-expressions": 1,
+    "no-unused-vars": 1,
+    "arrow-parens": 1
   },
   "globals": {
     "expect": true,

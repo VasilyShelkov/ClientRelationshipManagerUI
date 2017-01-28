@@ -16,11 +16,11 @@ import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 import SuccessfulUpdateIcon from 'material-ui/svg-icons/action/done';
 import { cyan500, green900, lightGreen300 } from 'material-ui/styles/colors';
 
-import { editCompany } from '../profileActions';
+import { editCompany, removeProfileNotification } from '../profileActions';
 
 export const ShowCompany = ({
   name, address, phone, updatedAt, editSuccessCompanyNotification,
-  onEditCompany
+  onEditCompany, onRemoveNotification
 }) => (
   <div className="container">
     <div style={{ textAlign: 'center' }}>
@@ -53,9 +53,10 @@ export const ShowCompany = ({
       {
         (editSuccessCompanyNotification) &&
           <Chip
+            style={{ marginBottom: '10px' }}
             backgroundColor={lightGreen300}
-            onRequestDelete={() => ('delete notification')}
-            onTouchTap={() => ('delete notification 2')}
+            onRequestDelete={onRemoveNotification}
+            onTouchTap={onRemoveNotification}
           >
             <Avatar
               size={32}
@@ -66,7 +67,7 @@ export const ShowCompany = ({
             {editSuccessCompanyNotification}
           </Chip>
       }
-      <Chip backgroundColor={editSuccessCompanyNotification}>
+      <Chip>
         <Avatar size={32} icon={<UpdatedIcon />} backgroundColor="#FFFFFF" color={cyan500} />
         <strong>Last Updated</strong>: {moment(updatedAt).fromNow()}
       </Chip>
@@ -82,7 +83,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onEditCompany: () => dispatch(editCompany())
+  onEditCompany: () => dispatch(editCompany()),
+  onRemoveNotification: () => dispatch(removeProfileNotification())
 });
 
 export default connect(

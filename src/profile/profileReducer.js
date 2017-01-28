@@ -2,7 +2,8 @@ import { APOLLO_MUTATION_RESULT } from '../app/actions';
 import {
   EDIT_PROFILE_PASSWORD, CANCEL_EDIT_PROFILE_PASSWORD,
   EDIT_PROFILE, CANCEL_EDIT_PROFILE,
-  EDIT_COMPANY, CANCEL_EDIT_COMPANY
+  EDIT_COMPANY, CANCEL_EDIT_COMPANY,
+  REMOVE_PROFILE_NOTIFICATION
 } from './profileActions';
 
 export const initialState = {
@@ -40,6 +41,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         editing: { ...state.editing, company: false }
+      };
+    case REMOVE_PROFILE_NOTIFICATION:
+      return {
+        ...state,
+        notification: initialState.notification
       };
     case APOLLO_MUTATION_RESULT:
       if (action.result.data && !action.result.errors) {

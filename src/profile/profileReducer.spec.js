@@ -6,7 +6,8 @@ import {
   editProfilePassword, EDIT_PROFILE_PASSWORD,
   cancelEditProfilePassword, CANCEL_EDIT_PROFILE_PASSWORD,
   editCompany, EDIT_COMPANY,
-  cancelEditCompany, CANCEL_EDIT_COMPANY
+  cancelEditCompany, CANCEL_EDIT_COMPANY,
+  removeProfileNotification, REMOVE_PROFILE_NOTIFICATION
 } from './profileActions';
 
 describe('src/profile/profileReducer.js', () => {
@@ -86,6 +87,19 @@ describe('src/profile/profileReducer.js', () => {
         company: false
       }
     });
+  });
+
+  it(REMOVE_PROFILE_NOTIFICATION, () => {
+    const stateBefore = {
+      ...initialState,
+      notification: {
+        company: 'test notification',
+        profile: ''
+      }
+    };
+    const action = removeProfileNotification();
+
+    expect(accountReducer(stateBefore, action)).to.deep.equal(initialState);
   });
 
   describe(APOLLO_MUTATION_RESULT, () => {

@@ -27,3 +27,8 @@ export const CANCEL_EDIT_COMPANY = 'CANCEL_EDIT_COMPANY';
 export const cancelEditCompany = () => ({
   type: CANCEL_EDIT_COMPANY
 });
+
+export const REMOVE_PROFILE_NOTIFICATION = 'REMOVE_PROFILE_NOTIFICATION';
+export const removeProfileNotification = () => ({
+  type: REMOVE_PROFILE_NOTIFICATION
+});

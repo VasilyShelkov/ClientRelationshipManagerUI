@@ -20,15 +20,16 @@ import { cyan500, green900, lightGreen300 } from 'material-ui/styles/colors';
 
 import EditPassword from './EditPassword';
 import {
-  editProfile, editProfilePassword, cancelEditProfilePassword
+  editProfile, editProfilePassword, cancelEditProfilePassword,
+  removeProfileNotification
 } from '../profileActions';
 
 export const ShowProfile = ({
   userId, firstName, lastName, email, phone, updatedAt, editingPassword,
   editSuccessProfileNotification, onEditProfile, onEditProfilePassword,
-  onCancelEditProfilePassword
+  onCancelEditProfilePassword, onRemoveNotification
 }) => (
-  <Paper zDepth={2} style={{ paddingBottom: '10px' }}>
+  <Paper zDepth={2} style={{ paddingBottom: '10px', margin: '20px 0px' }}>
     <div style={{ textAlign: 'center' }}>
       <ProfileIcon style={{ height: '100px', width: '100px' }} color={cyan500} />
       <h2>{firstName} {lastName}</h2>
@@ -75,9 +76,10 @@ export const ShowProfile = ({
       {
         (editSuccessProfileNotification) &&
           <Chip
+            style={{ marginBottom: '10px' }}
             backgroundColor={lightGreen300}
-            onRequestDelete={() => ('delete notification')}
-            onTouchTap={() => ('delete notification 2')}
+            onRequestDelete={onRemoveNotification}
+            onTouchTap={onRemoveNotification}
           >
             <Avatar
               size={32}
@@ -89,9 +91,9 @@ export const ShowProfile = ({
           </Chip>
       }
 
-      <Chip backgroundColor={editSuccessProfileNotification ? lightGreen300 : null}>
+      <Chip>
         <Avatar size={32} icon={<UpdatedIcon />} backgroundColor={cyan500} />
-        Last Updated: {moment(updatedAt).fromNow()}
+        <strong>Last Updated</strong>: {moment(updatedAt).fromNow()}
       </Chip>
     </div>
     <div className="Profile__cta row justify-content-center">
@@ -114,6 +116,7 @@ const mapDispatchToProps = dispatch => ({
   onEditProfile: () => dispatch(editProfile()),
   onEditProfilePassword: () => dispatch(editProfilePassword()),
   onCancelEditProfilePassword: () => dispatch(cancelEditProfilePassword()),
+  onRemoveNotification: () => dispatch(removeProfileNotification())
 });
 
 export default connect(
