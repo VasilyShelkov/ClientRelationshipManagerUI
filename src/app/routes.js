@@ -8,7 +8,7 @@ import Home from './Home';
 import NotFound from './NotFound';
 
 import AppWithSideBar from './AppWithSideBar';
-import Profile from '../profile/Profile';
+import ProfileWithData from '../profile/Profile';
 import AddUser from '../users/AddUser';
 import UsersPerformance from '../users/UsersPerformance';
 import UnprotectedNames from '../names/UnprotectedNames';
@@ -21,7 +21,7 @@ export default [
     <IndexRoute component={Home} />
 
     <Route path="account" component={AppWithSideBar}>
-      <Route path="profile" component={Profile} />
+      <Route path="profile" component={ProfileWithData} />
       <Route path="performance" component={UsersPerformance} />
       <Route path="users/add" component={AddUser} />
       <Route path="names">
@@ -32,4 +32,4 @@ export default [
     </Route>
   </Route>,
   <Route path="*" component={NotFound} />
-]
+];

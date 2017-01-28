@@ -7,37 +7,30 @@ import SaveIcon from 'material-ui/svg-icons/action/done';
 import CancelIcon from 'material-ui/svg-icons/content/clear';
 
 import { graphql } from 'react-apollo';
-import EditUserDetails from './EditUserDetails.gql';
+import EditCompanyDetails from './EditCompanyDetails.gql';
 import { checkIfAnyKeysDifferent } from '../../shared/utils';
 
-import { renderTextField, required, emailFormat } from '../../shared/FormElements';
+import { FromErrorNotification, renderTextField, required } from '../../shared/FormElements';
 
-const EditProfile = ({ handleSubmit, handleCancelEditProfile }) => (
+const EditCompany = ({ handleSubmit, handleCancelEditCompany, error }) => (
   <Paper zDepth={2} >
     <div className="Profile__details container">
+      <FromErrorNotification message={error} zDepth={3} />
       <form onSubmit={handleSubmit}>
         <div className="row">
           <Field
-            name="firstName"
+            name="name"
             component={renderTextField}
-            label="First name"
+            label="Name"
             validate={required}
             fullWidth
           />
 
           <Field
-            name="lastName"
+            name="address"
             component={renderTextField}
-            label="Last Name"
+            label="Address"
             validate={required}
-            fullWidth
-          />
-
-          <Field
-            name="email"
-            component={renderTextField}
-            label="Email"
-            validate={[required, emailFormat]}
             fullWidth
           />
 
@@ -58,7 +51,7 @@ const EditProfile = ({ handleSubmit, handleCancelEditProfile }) => (
               secondary
               fullWidth
               label="Cancel"
-              onClick={handleCancelEditProfile}
+              onClick={handleCancelEditCompany}
               icon={<CancelIcon />}
             />
           </div>
@@ -78,28 +71,30 @@ const EditProfile = ({ handleSubmit, handleCancelEditProfile }) => (
   </Paper>
 );
 
-const EditProfileForm = reduxForm({ form: 'profile' })(EditProfile);
+const EditCompanyForm = reduxForm({ form: 'company' })(EditCompany);
 
-export default graphql(EditUserDetails, {
+export default graphql(EditCompanyDetails, {
   props: ({ ownProps, mutate }) => ({
-    onSubmit: values => {
+    onSubmit: (values) => {
       if (checkIfAnyKeysDifferent(ownProps.initialValues, values) > 0) {
-        const { company, created_at, updated_at, ...formValues } = values;
+        const { id, updated_at, ...formValues } = values;
         try {
           mutate({
-            variables: formValues
+            variables: {
+              userId: ownProps.userId,
+              companyId: ownProps.initialValues.id,
+              ...formValues
+            }
           });
         } catch (error) {
           throw new SubmissionError({ _error: error });
         }
-
-        ownProps.handleEditProfileSuccess();
       } else {
         throw new SubmissionError({
-          _error: 'Please change one of the profile fields to to update your profile...'
+          _error: 'Please change one of the company fields to to update the company...'
         });
       }
     },
     ...ownProps
   })
-})(EditProfileForm);
+})(EditCompanyForm);

@@ -1,26 +1,19 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
 import { connect } from 'react-redux';
-import Avatar from 'material-ui/Avatar';
-import PersonOutline from 'material-ui/svg-icons/social/person-outline';
-import { cyan500 } from 'material-ui/styles/colors';
 
 import GetUserProfile from './GetUserProfile.gql';
 import LoadingSpinner from '../shared/LoadingSpinner';
-import ShowProfile from './ShowProfile';
-import ShowCompany from './ShowCompany';
+import ShowProfileWithData from './details/ShowProfile';
+import ShowCompanyWithData from './company/ShowCompany';
 
-import {
-  editProfileSuccess, cancelEditProfile,
-  editCompanySuccess, cancelEditCompany
-} from './profileActions';
-import EditProfile from './edit/EditProfile';
-import EditCompany from './edit/EditCompany';
+import { cancelEditProfile, cancelEditCompany } from './profileActions';
+import EditProfile from './details/EditProfile';
+import EditCompany from './company/EditCompany';
 
-const Profile = ({
-  user, editingProfile, editingCompany, loading,
-  onCancelEditProfile, onEditProfileSuccess,
-  onCancelEditCompany, onEditCompanySuccess
+export const Profile = ({
+  loading, user, editingProfile, editingCompany,
+  onCancelEditProfile, onCancelEditCompany
 }) => {
   if (loading) {
     return (
@@ -39,16 +32,14 @@ const Profile = ({
               <EditProfile
                 initialValues={user}
                 handleCancelEditProfile={onCancelEditProfile}
-                handleEditProfileSuccess={onEditProfileSuccess}
               />
             :
-              <ShowProfile
+              <ShowProfileWithData
                 userId={user.id}
                 firstName={user.firstName}
                 lastName={user.lastName}
                 phone={user.phone}
                 email={user.email}
-                createdAt={user.created_at}
                 updatedAt={user.updated_at}
               />
           }
@@ -57,19 +48,16 @@ const Profile = ({
         <div className="col-12 col-sm-6 pull-sm-6 align-self-center">
           {
             editingCompany ?
-              <EditCompany 
+              <EditCompany
                 userId={user.id}
-                firstName={user.firstName}
                 initialValues={user.company}
                 handleCancelEditCompany={onCancelEditCompany}
-                handleEditCompanySuccess={onEditCompanySuccess}
               />
             :
-              <ShowCompany
+              <ShowCompanyWithData
                 name={user.company.name}
                 address={user.company.address}
                 phone={user.company.phone}
-                createdAt={user.company.created_at}
                 updatedAt={user.company.updated_at}
               />
           }
@@ -90,14 +78,12 @@ const ProfileWithData = graphql(GetUserProfile, {
 
 const mapStateToProps = state => ({
   id: state.account.id,
-  editingProfile: state.profile.editingProfile,
-  editingCompany: state.profile.editingCompany
+  editingProfile: state.profile.editing.profile,
+  editingCompany: state.profile.editing.company
 });
 
 const mapDispatchToProps = dispatch => ({
-  onEditProfileSuccess: () => dispatch(editProfileSuccess()),
   onCancelEditProfile: () => dispatch(cancelEditProfile()),
-  onEditCompanySuccess: () => dispatch(editCompanySuccess()),
   onCancelEditCompany: () => dispatch(cancelEditCompany())
 });
 

@@ -1,10 +1,10 @@
 import React from 'react';
 
-import NavBar from './navigation/NavBar';
+import NavBarWithData from './navigation/NavBar';
 
 export default ({ children }) => (
   <div>
-    <NavBar />
+    <NavBarWithData />
 
     <div className="index__content-below-navbar">
       {children}

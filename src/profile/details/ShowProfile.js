@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 
 import Paper from 'material-ui/Paper';
 import { List, ListItem } from 'material-ui/List';
-import Avatar from 'material-ui/Avatar';
 import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
 import Chip from 'material-ui/Chip';
+import Avatar from 'material-ui/Avatar';
 
 import EditIcon from 'material-ui/svg-icons/content/create';
 import ProfileIcon from 'material-ui/svg-icons/social/person';
@@ -15,28 +15,29 @@ import PhoneIcon from 'material-ui/svg-icons/communication/phone';
 import EmailIcon from 'material-ui/svg-icons/communication/email';
 import SecurityIcon from 'material-ui/svg-icons/hardware/security';
 import UpdatedIcon from 'material-ui/svg-icons/action/update';
-import { cyan500 } from 'material-ui/styles/colors';
+import SuccessfulUpdateIcon from 'material-ui/svg-icons/action/done';
+import { cyan500, green900, lightGreen300 } from 'material-ui/styles/colors';
 
-import EditPassword from './edit/EditPassword';
+import EditPassword from './EditPassword';
 import {
-  editProfile, editProfilePassword, cancelEditProfilePassword, editProfilePasswordSuccess
-} from './profileActions';
+  editProfile, editProfilePassword, cancelEditProfilePassword
+} from '../profileActions';
 
 export const ShowProfile = ({
   userId, firstName, lastName, email, phone, updatedAt, editingPassword,
-  onEditProfile, onEditProfilePassword, onEditProfilePasswordSuccess,
+  editSuccessProfileNotification, onEditProfile, onEditProfilePassword,
   onCancelEditProfilePassword
 }) => (
   <Paper zDepth={2} style={{ paddingBottom: '10px' }}>
     <div style={{ textAlign: 'center' }}>
-      <ProfileIcon style={{ height: '100px', width: '100px' }} color={cyan500} /> 
+      <ProfileIcon style={{ height: '100px', width: '100px' }} color={cyan500} />
       <h2>{firstName} {lastName}</h2>
     </div>
 
 
     <List >
       <Divider />
-    
+
       <ListItem
         leftAvatar={<Avatar icon={<EmailIcon />} backgroundColor={cyan500} />}
         primaryText={email}
@@ -52,9 +53,8 @@ export const ShowProfile = ({
 
       {
         editingPassword ?
-          <EditPassword 
+          <EditPassword
             userId={userId}
-            handleProfilePasswordSuccess={onEditProfilePasswordSuccess}
             handleCancelEditProfilePassword={onCancelEditProfilePassword}
           />
         :
@@ -72,7 +72,24 @@ export const ShowProfile = ({
 
 
     <div className="Profile__last-updated row justify-content-center">
-      <Chip>
+      {
+        (editSuccessProfileNotification) &&
+          <Chip
+            backgroundColor={lightGreen300}
+            onRequestDelete={() => ('delete notification')}
+            onTouchTap={() => ('delete notification 2')}
+          >
+            <Avatar
+              size={32}
+              icon={<SuccessfulUpdateIcon />}
+              color={lightGreen300}
+              backgroundColor={green900}
+            />
+            {editSuccessProfileNotification}
+          </Chip>
+      }
+
+      <Chip backgroundColor={editSuccessProfileNotification ? lightGreen300 : null}>
         <Avatar size={32} icon={<UpdatedIcon />} backgroundColor={cyan500} />
         Last Updated: {moment(updatedAt).fromNow()}
       </Chip>
@@ -89,13 +106,13 @@ export const ShowProfile = ({
 );
 
 const mapStateToProps = state => ({
-  editingPassword: state.profile.editingPassword
+  editSuccessProfileNotification: state.profile.notification.profile,
+  editingPassword: state.profile.editing.password,
 });
 
 const mapDispatchToProps = dispatch => ({
   onEditProfile: () => dispatch(editProfile()),
   onEditProfilePassword: () => dispatch(editProfilePassword()),
-  onEditProfilePasswordSuccess: () => dispatch(editProfilePasswordSuccess()),
   onCancelEditProfilePassword: () => dispatch(cancelEditProfilePassword()),
 });
 

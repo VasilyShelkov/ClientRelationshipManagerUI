@@ -5,14 +5,12 @@
       lastName
       email
       phone
-      created_at
       updated_at
       company {
         id
         name
         address
         phone
-        created_at
         updated_at
       }
     }
