@@ -1,0 +1,25 @@
+mutation CreateUser (
+  $firstName: String!
+  $lastName: String!
+  $email: String!
+  $phone: String!
+  $password: String!
+  $companyFields: CompanyInputType!
+) {
+  createUser(
+    firstName: $firstName
+    lastName: $lastName
+    password: $password
+    email: $email
+    phone: $phone
+    accountType: admin
+    companyFields: $companyFields
+) {
+    id
+    firstName
+    lastName
+    email
+    phone
+    updated_at
+  }
+}

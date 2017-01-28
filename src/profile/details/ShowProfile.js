@@ -72,29 +72,33 @@ export const ShowProfile = ({
     </List>
 
 
-    <div className="Profile__last-updated row justify-content-center">
-      {
-        (editSuccessProfileNotification) &&
-          <Chip
-            style={{ marginBottom: '10px' }}
-            backgroundColor={lightGreen300}
-            onRequestDelete={onRemoveNotification}
-            onTouchTap={onRemoveNotification}
-          >
-            <Avatar
-              size={32}
-              icon={<SuccessfulUpdateIcon />}
-              color={lightGreen300}
-              backgroundColor={green900}
-            />
-            {editSuccessProfileNotification}
-          </Chip>
-      }
+    <div className="Profile__meta-info">
+      <div className="row justify-content-center">
+        {
+          (editSuccessProfileNotification) &&
+            <Chip
+              style={{ marginBottom: '10px' }}
+              backgroundColor={lightGreen300}
+              onRequestDelete={onRemoveNotification}
+              onTouchTap={onRemoveNotification}
+            >
+              <Avatar
+                size={32}
+                icon={<SuccessfulUpdateIcon />}
+                color={lightGreen300}
+                backgroundColor={green900}
+              />
+              {editSuccessProfileNotification}
+            </Chip>
+        }
 
-      <Chip>
-        <Avatar size={32} icon={<UpdatedIcon />} backgroundColor={cyan500} />
-        <strong>Last Updated</strong>: {moment(updatedAt).fromNow()}
-      </Chip>
+      </div>
+      <div className="row justify-content-center">
+        <Chip>
+          <Avatar size={32} icon={<UpdatedIcon />} backgroundColor={cyan500} />
+          <strong>Last Updated</strong>: {moment(updatedAt).fromNow()}
+        </Chip>
+      </div>
     </div>
     <div className="Profile__cta row justify-content-center">
       <RaisedButton

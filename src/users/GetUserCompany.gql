@@ -1,0 +1,11 @@
+  query GetUserCompany($id: String!) {
+    user(id: $id) {
+      id
+      company {
+        id
+        name
+        address
+        phone
+      }
+    }
+  }

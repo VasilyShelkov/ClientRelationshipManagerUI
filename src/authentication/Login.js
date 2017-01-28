@@ -67,7 +67,7 @@ const mapStateToProps = state => ({
   loggingIn: state.account.loggingIn
 });
 
-const mapDispatchToProps = () => ({
+const mapDispatchToProps = (dispatch) => ({
   onSubmit: handleSignIn
 });
 
