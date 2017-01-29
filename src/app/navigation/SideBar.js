@@ -1,29 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
 
 import Drawer from 'material-ui/Drawer';
 import { LARGE } from 'material-ui/utils/withWidth';
 import { List, ListItem, makeSelectable } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
-import Avatar from 'material-ui/Avatar';
 
 import AccountIcon from 'material-ui/svg-icons/action/account-circle';
 import LockOpenIcon from 'material-ui/svg-icons/action/lock-open';
 import LockClosedIcon from 'material-ui/svg-icons/action/lock-outline';
 import ClientsIcon from 'material-ui/svg-icons/social/group';
-import PersonAddIcon from 'material-ui/svg-icons/social/person-add';
-import { cyan500 } from 'material-ui/styles/colors';
 
 import { changeSideBarState } from '../../authentication/accountActions';
+import AdminUserListWithData from './AdminUserList';
 
 const SelectableList = makeSelectable(List);
 
-const SideBar = ({
-  users = [], loading, isAdmin, open, width, currentPage,
+export const SideBar = ({
+  isAdmin, open, width, currentPage, currentUserId,
   handleChangeRequestSideBar, handleRouteChange
 }) => (
   <Drawer
@@ -58,60 +54,24 @@ const SideBar = ({
           value="/account/names/clients"
         />
 
-        {isAdmin && <Divider />}
-        {isAdmin && <Subheader>{users.length} Users</Subheader>}
-        {isAdmin &&
-          <ListItem
-            primaryText="Create User"
-            rightAvatar={
-              <Avatar icon={<PersonAddIcon />} backgroundColor={cyan500} />
-            }
-            value="/account/users/add"
-          />
-        }
         {
-          isAdmin && users.map(user =>
-            <ListItem
-              primaryText={`${user.firstName} ${user.lastName}`}
-              value="/get-started/required-knowledge"
+          isAdmin &&
+            <AdminUserListWithData
+              currentUserId={currentUserId}
+              value={currentPage}
+              onChange={handleRouteChange}
             />
-          )
         }
       </SelectableList>
     </div>
   </Drawer>
 );
 
-const adminData = gql`
-  query {
-    users {
-      id
-      firstName,
-      lastName,
-      created_at,
-    }
-  }
-`;
-
-const SideBarWithData = (props) => {
-  const { isAdmin } = props;
-  if (isAdmin) {
-    return graphql(adminData, {
-      props: ({ ownProps, data: { loading, users } }) => ({
-        loading,
-        users,
-        ...ownProps
-      })
-    })(SideBar);
-  }
-
-  return <SideBar {...props} />;
-};
-
 const mapStateToProps = state => ({
   isAdmin: state.account.accountType === 'admin',
   open: state.account.sideBarOpen,
-  currentPage: state.routing.locationBeforeTransitions.pathname
+  currentPage: state.routing.locationBeforeTransitions.pathname,
+  currentUserId: state.account.id,
 });
 
 const mapDispatchToProps = dispatch => ({

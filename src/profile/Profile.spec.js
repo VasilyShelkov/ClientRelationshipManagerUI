@@ -5,6 +5,7 @@ import ShowProfileWithData from './details/ShowProfile';
 import EditProfile from './details/EditProfile';
 import ShowCompanyWithData from './company/ShowCompany';
 import EditCompany from './company/EditCompany';
+import { EDIT_IN_PROGRESS } from './profileReducer';
 
 const setup = ({
   editingProfile = false,
@@ -66,6 +67,15 @@ describe('src/profile/Profile.js', () => {
     expect(EditProfileComponent.exists()).to.be.true;
     expect(EditProfileComponent.prop('initialValues')).to.deep.equal(props.user);
     expect(EditProfileComponent.prop('handleCancelEditProfile')).to.equal(onCancelEditProfile);
+    expect(EditProfileComponent.prop('editInProgess')).to.equal(false);
+  });
+
+  it('renders edit profile when in progress of editing the profile', () => {
+    const { wrapper } = setup({ editingProfile: EDIT_IN_PROGRESS });
+    const EditProfileComponent = wrapper.find(EditProfile);
+
+    expect(EditProfileComponent.exists()).to.be.true;
+    expect(EditProfileComponent.prop('editInProgess')).to.equal(true);
   });
 
   it('renders show company when not editing their company', () => {
@@ -90,5 +100,14 @@ describe('src/profile/Profile.js', () => {
     expect(EditCompanyComponent.prop('userId')).to.equal(props.user.id);
     expect(EditCompanyComponent.prop('initialValues')).to.deep.equal(props.user.company);
     expect(EditCompanyComponent.prop('handleCancelEditCompany')).to.equal(onCancelEditCompany);
+    expect(EditCompanyComponent.prop('editInProgess')).to.equal(false);
+  });
+
+  it('renders edit company when in progress editing their company', () => {
+    const { wrapper } = setup({ editingCompany: EDIT_IN_PROGRESS });
+    const EditCompanyComponent = wrapper.find(EditCompany);
+
+    expect(EditCompanyComponent.exists()).to.be.true;
+    expect(EditCompanyComponent.prop('editInProgess')).to.equal(true);
   });
 });

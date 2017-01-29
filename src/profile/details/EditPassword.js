@@ -7,11 +7,14 @@ import EditUserPassword from './EditUserPassword.gql';
 import { renderTextField, required, minLength } from '../../shared/FormElements';
 import StandardForm from '../../shared/StandardForm';
 
-const EditPassword = ({ handleSubmit, handleCancelEditProfilePassword, error }) => (
+const EditPassword = ({
+  handleSubmit, handleCancelEditProfilePassword, error, editInProgress
+}) => (
   <StandardForm
     handleSubmit={handleSubmit}
     handleCancel={handleCancelEditProfilePassword}
     error={error}
+    editingInProgress={editInProgress}
     fields={[
       <Field
         name="password"

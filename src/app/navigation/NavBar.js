@@ -6,6 +6,7 @@ import { Link } from 'react-router';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import withWidth, { LARGE } from 'material-ui/utils/withWidth';
+import LogoutIcon from 'material-ui/svg-icons/maps/directions-run';
 
 import { toggleSideBar, logOut } from '../../authentication/accountActions';
 
@@ -24,6 +25,7 @@ export const NavBar = ({
         <FlatButton
           label="Logout"
           onClick={handleLogOut}
+          icon={<LogoutIcon />}
           secondary
         />
       :

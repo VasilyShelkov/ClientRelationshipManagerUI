@@ -43,6 +43,10 @@ const rootReducer = compose(
     account: {
       ...initialState.account,
       ...persistedState.account
+    },
+    profile: {
+      ...initialState.profile,
+      id: persistedState.account.id
     }
   }))
 )(

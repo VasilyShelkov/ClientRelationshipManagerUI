@@ -6,22 +6,24 @@ import { lightGreen300 } from 'material-ui/styles/colors';
 import RaisedButton from 'material-ui/RaisedButton';
 import { ShowProfile } from './ShowProfile';
 import EditPassword from './EditPassword';
+import { EDIT_IN_PROGRESS } from '../profileReducer';
 
 const setup = ({
   onEditProfile = () => (''),
   onEditProfilePassword = () => (''),
   onCancelEditProfilePassword = () => (''),
   editingPassword = false,
-  onEditSuccessProfileNotification = ''
+  editSuccessProfileNotification = ''
 }) => {
   const props = {
+    userId: '0',
     firstName: 'Vasily',
     lastName: 'Shelkov',
     phone: '07123456789',
     email: 'vasilyShelkov@gmail.com',
     updatedAt: moment(),
     editingPassword,
-    onEditSuccessProfileNotification,
+    editSuccessProfileNotification,
     onEditProfile,
     onEditProfilePassword,
     onCancelEditProfilePassword
@@ -30,7 +32,7 @@ const setup = ({
 
   return { wrapper, props };
 };
-describe('src/profile/ShowCompany', () => {
+describe('src/profile/ShowProfile', () => {
   it('renders the name', () => {
     const { wrapper, props } = setup({});
     expect(wrapper.find('h2').text()).to.equal(`${props.firstName} ${props.lastName}`);
@@ -38,63 +40,73 @@ describe('src/profile/ShowCompany', () => {
 
   it('renders the email', () => {
     const { wrapper, props } = setup({});
-    expect(wrapper.find(ListItem)[0].prop('primaryText')).to.equal(props.email);
+    expect(wrapper.find(ListItem).at(0).prop('primaryText')).to.equal(props.email);
   });
 
   it('renders the phone number', () => {
     const { wrapper, props } = setup({});
-    expect(wrapper.find(ListItem)[1].prop('primaryText')).to.equal(props.phone);
+    expect(wrapper.find(ListItem).at(1).prop('primaryText')).to.equal(props.phone);
   });
 
   it('renders the password field when not editing the password', () => {
     const { wrapper } = setup({});
     const listItems = wrapper.find(ListItem);
-    expect(listItems.length).to.be(3);
-    expect(listItems[2].prop('primaryText')).to.equal('Password');
+    const editPasswordField = wrapper.find(EditPassword);
+
+    expect(listItems).length.to.be(3);
+    expect(editPasswordField.exists()).to.be.false;
+    expect(listItems.at(2).prop('primaryText')).to.equal('Password');
+  });
+
+  it('renders the edit password form when editing password', () => {
+    const onCancelEditProfilePassword = 'cancelFunction';
+    const { wrapper, props } = setup({ editingPassword: true, onCancelEditProfilePassword });
+
+    const listItems = wrapper.find(ListItem);
+    const editPasswordField = wrapper.find(EditPassword);
+
+    expect(listItems).length.to.be(2);
+    expect(editPasswordField.exists()).to.be.true;
+    expect(editPasswordField.prop('userId')).to.equal(props.userId);
+    expect(editPasswordField.prop('editInProgress')).to.equal(false);
+    expect(editPasswordField.prop('handleCancelEditProfilePassword')).to.equal(onCancelEditProfilePassword);
+  });
+
+  it('renders the edit password form when in progress of editing password', () => {
+    const { wrapper } = setup({ editingPassword: EDIT_IN_PROGRESS });
+
+    const editPasswordField = wrapper.find(EditPassword);
+
+    expect(editPasswordField.exists()).to.be.true;
+    expect(editPasswordField.prop('editInProgress')).to.equal(true);
   });
 
   it('renders the last updated at time', () => {
     const { wrapper } = setup({});
 
-    const notificationChips = wrapper.find(Chip);
-    const lastUpdatedChip = notificationChips[0];
+    const lastUpdatedChip = wrapper.find(Chip);
 
-    expect(lastUpdatedChip.text()).to.equal('Last Updated: a few seconds ago');
-  });
-
-  it('renders the edit password form when editing password', () => {
-    const onCancelEditProfilePassword = 'cancelFunction';
-    const { wrapper } = setup({ editingPassword: true, onCancelEditProfilePassword });
-
-    const listItems = wrapper.find(ListItem);
-    const editPasswordField = wrapper.find(EditPassword);
-
-    expect(listItems.length).to.be(2);
-    expect(editPasswordField.prop('handleCancelEditProfilePassword')).to.be(onCancelEditProfilePassword);
-    expect(editPasswordField.exists()).to.be(true);
+    expect(lastUpdatedChip.children().last().text()).to.equal('a few seconds ago');
   });
 
   it('does not render the successfully edited notification when the company was not successfully edited', () => {
     const { wrapper } = setup({});
 
     const notificationChips = wrapper.find(Chip);
-    const lastUpdatedChip = notificationChips[0];
+    const lastUpdatedChip = notificationChips.at(0);
 
     expect(notificationChips).length.to.be(1);
-    expect(lastUpdatedChip.prop('backgroundColor')).to.equal(null);
   });
 
   it('renders the successfully edited notification', () => {
-    const onEditSuccessProfileNotification = 'test notification';
-    const { wrapper } = setup({ onEditSuccessProfileNotification });
+    const editSuccessProfileNotification = 'test notification';
+    const { wrapper } = setup({ editSuccessProfileNotification });
 
     const notificationChips = wrapper.find(Chip);
-    const successNotification = notificationChips[0];
-    const lastUpdatedChip = notificationChips[1];
+    const successNotification = notificationChips.at(0);
 
     expect(notificationChips).length.to.be(2);
-    expect(successNotification.text()).to.equal(onEditSuccessProfileNotification);
-    expect(lastUpdatedChip.prop('backgroundColor')).to.equal(lightGreen300);
+    expect(successNotification.children().last().text()).to.equal(editSuccessProfileNotification);
   });
 
   it('calls onEditProfile when the button is clicked on', sinon.test(function () {
@@ -111,7 +123,7 @@ describe('src/profile/ShowCompany', () => {
     const onEditProfilePassword = this.spy();
     const { wrapper } = setup({ onEditProfilePassword });
 
-    const renderedEditButtonClick = wrapper.find(ListItem)[2].prop('onClick');
+    const renderedEditButtonClick = wrapper.find(ListItem).at(2).prop('onClick');
     renderedEditButtonClick();
 
     expect(onEditProfilePassword).to.have.been.called;

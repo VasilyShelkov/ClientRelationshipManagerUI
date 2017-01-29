@@ -7,9 +7,8 @@ import LoadingSpinner from '../shared/LoadingSpinner';
 import ShowProfileWithData from './details/ShowProfile';
 import ShowCompanyWithData from './company/ShowCompany';
 
-import {
-  cancelEditProfile, cancelEditCompany, removeProfileNotification
-} from './profileActions';
+import { EDIT_IN_PROGRESS } from './profileReducer';
+import { cancelEditProfile, cancelEditCompany } from './profileActions';
 import EditProfile from './details/EditProfile';
 import EditCompany from './company/EditCompany';
 
@@ -34,6 +33,7 @@ export const Profile = ({
               <EditProfile
                 initialValues={user}
                 handleCancelEditProfile={onCancelEditProfile}
+                editInProgess={editingProfile === EDIT_IN_PROGRESS}
               />
             :
               <ShowProfileWithData
@@ -54,6 +54,7 @@ export const Profile = ({
                 userId={user.id}
                 initialValues={user.company}
                 handleCancelEditCompany={onCancelEditCompany}
+                editInProgess={editingCompany === EDIT_IN_PROGRESS}
               />
             :
               <ShowCompanyWithData
@@ -80,7 +81,7 @@ const ProfileWithData = graphql(GetUserProfile, {
 })(Profile);
 
 const mapStateToProps = state => ({
-  id: state.account.id,
+  id: state.profile.id,
   editingProfile: state.profile.editing.profile,
   editingCompany: state.profile.editing.company
 });

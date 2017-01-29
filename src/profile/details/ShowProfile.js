@@ -23,6 +23,7 @@ import {
   editProfile, editProfilePassword, cancelEditProfilePassword,
   removeProfileNotification
 } from '../profileActions';
+import { EDIT_IN_PROGRESS } from '../profileReducer';
 
 export const ShowProfile = ({
   userId, firstName, lastName, email, phone, updatedAt, editingPassword,
@@ -56,6 +57,7 @@ export const ShowProfile = ({
         editingPassword ?
           <EditPassword
             userId={userId}
+            editInProgress={editingPassword === EDIT_IN_PROGRESS}
             handleCancelEditProfilePassword={onCancelEditProfilePassword}
           />
         :
@@ -75,7 +77,7 @@ export const ShowProfile = ({
     <div className="Profile__meta-info">
       <div className="row justify-content-center">
         {
-          (editSuccessProfileNotification) &&
+          editSuccessProfileNotification &&
             <Chip
               style={{ marginBottom: '10px' }}
               backgroundColor={lightGreen300}

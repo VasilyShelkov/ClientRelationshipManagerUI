@@ -8,7 +8,7 @@ import { ShowCompany } from './ShowCompany';
 
 const setup = ({
   onEditCompany = () => (''),
-  onEditSuccessCompanyNotification = ''
+  editSuccessCompanyNotification = ''
 }) => {
   const props = {
     name: 'testName',
@@ -16,7 +16,7 @@ const setup = ({
     phone: '07123456789',
     updatedAt: moment(),
     onEditCompany,
-    onEditSuccessCompanyNotification
+    editSuccessCompanyNotification
   };
   const wrapper = shallowWithContext(<ShowCompany {...props} />);
 
@@ -31,44 +31,39 @@ describe('src/profile/ShowCompany', () => {
 
   it('renders the address', () => {
     const { wrapper, props } = setup({});
-    expect(wrapper.find(ListItem)[0].prop('primaryText')).to.equal(props.address);
+    expect(wrapper.find(ListItem).at(0).prop('primaryText')).to.equal(props.address);
   });
 
   it('renders the phone number', () => {
     const { wrapper, props } = setup({});
-    expect(wrapper.find(ListItem)[1].prop('primaryText')).to.equal(props.phone);
+    expect(wrapper.find(ListItem).at(1).prop('primaryText')).to.equal(props.phone);
   });
 
   it('renders the last updated at time', () => {
     const { wrapper } = setup({});
 
-    const notificationChips = wrapper.find(Chip);
-    const lastUpdatedChip = notificationChips[0];
+    const lastUpdatedChip = wrapper.find(Chip);
 
-    expect(lastUpdatedChip.text()).to.equal('Last Updated: a few seconds ago');
+    expect(lastUpdatedChip.children().last().text()).to.equal('a few seconds ago');
   });
 
   it('does not render the successfully edited notification when the company was not successfully edited', () => {
     const { wrapper } = setup({});
 
     const notificationChips = wrapper.find(Chip);
-    const lastUpdatedChip = notificationChips[0];
 
     expect(notificationChips).length.to.be(1);
-    expect(lastUpdatedChip.prop('backgroundColor')).to.equal(null);
   });
 
   it('renders the successfully edited notification', () => {
-    const onEditSuccessCompanyNotification = 'test notification';
-    const { wrapper } = setup({ onEditSuccessCompanyNotification });
+    const editSuccessCompanyNotification = 'test notification';
+    const { wrapper } = setup({ editSuccessCompanyNotification });
 
     const notificationChips = wrapper.find(Chip);
-    const successNotification = notificationChips[0];
-    const lastUpdatedChip = notificationChips[1];
+    const successNotification = notificationChips.at(0);
 
     expect(notificationChips).length.to.be(2);
-    expect(successNotification.text()).to.equal(onEditSuccessCompanyNotification);
-    expect(lastUpdatedChip.prop('backgroundColor')).to.equal(lightGreen300);
+    expect(successNotification.children().last().text()).to.equal(editSuccessCompanyNotification);
   });
 
   it('calls onEditCompany when the button is clicked on', sinon.test(function () {

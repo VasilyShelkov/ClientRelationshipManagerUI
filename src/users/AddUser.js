@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import { connect } from 'react-redux';
 import { graphql } from 'react-apollo';
 import { Field, reduxForm, SubmissionError } from 'redux-form';
@@ -88,11 +89,19 @@ const AddUserFormWithCompanyData = graphql(CreateUser, {
     onSubmit: async (values) => {
       if (values.password === values.confirmPassword) {
         const { id, __typename, ...companyFields } = ownProps.user.company;
+
+        const { confirmPassword, firstName, lastName, ...otherValues } = values;
+        const userFields = {
+          firstName: _.upperFirst(firstName.trim()),
+          lastName: _.upperFirst(lastName.trim()),
+          ...otherValues
+        };
+
         try {
-        await mutate({ variables: { ...values, companyFields } })
+          await mutate({ variables: { ...userFields, companyFields } });
         } catch (error) {
           throw new SubmissionError({ _error: error.graphQLErrors[0].message });
-        } 
+        }
       } else {
         throw new SubmissionError({
           _error: 'Passwords do not match'

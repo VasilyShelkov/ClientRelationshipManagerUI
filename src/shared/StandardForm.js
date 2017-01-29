@@ -5,8 +5,9 @@ import SaveIcon from 'material-ui/svg-icons/action/done';
 import CancelIcon from 'material-ui/svg-icons/content/clear';
 
 import { FromErrorNotification } from './FormElements';
+import LoadingSpinner from './LoadingSpinner';
 
-export default ({ error, fields, handleSubmit, handleCancel }) => (
+export default ({ error, fields, editingInProgress, handleSubmit, handleCancel }) => (
   <div className="Profile__details container">
     <FromErrorNotification message={error} zDepth={2} />
     <form onSubmit={handleSubmit}>
@@ -16,32 +17,37 @@ export default ({ error, fields, handleSubmit, handleCancel }) => (
 
       <br />
 
-      <div className="row">
-        {
-          handleCancel ?
-            <div className="col-6">
+      {
+        editingInProgress ?
+          <LoadingSpinner />
+        :
+          <div className="row">
+            {
+              handleCancel ?
+                <div className="col-6">
+                  <RaisedButton
+                    secondary
+                    fullWidth
+                    label="Cancel"
+                    onClick={handleCancel}
+                    icon={<CancelIcon />}
+                  />
+                </div>
+              :
+                null
+            }
+
+            <div className={handleCancel ? 'col-6' : 'col-12'}>
               <RaisedButton
-                secondary
+                primary
                 fullWidth
-                label="Cancel"
-                onClick={handleCancel}
-                icon={<CancelIcon />}
+                label="Save"
+                type="submit"
+                icon={<SaveIcon />}
               />
             </div>
-          :
-            null
-        }
-
-        <div className={handleCancel ? 'col-6' : 'col-12'}>
-          <RaisedButton
-            primary
-            fullWidth
-            label="Save"
-            type="submit"
-            icon={<SaveIcon />}
-          />
-        </div>
-      </div>
+          </div>
+      }
     </form>
   </div>
 );

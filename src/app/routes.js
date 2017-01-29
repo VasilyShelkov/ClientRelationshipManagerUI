@@ -9,7 +9,7 @@ import NotFound from './NotFound';
 
 import AppWithSideBar from './AppWithSideBar';
 import ProfileWithData from '../profile/Profile';
-import AddUser from '../users/AddUser';
+import AddUserFormWithData from '../users/AddUser';
 import UsersPerformance from '../users/UsersPerformance';
 import UnprotectedNames from '../names/UnprotectedNames';
 import ProtectedNames from '../names/ProtectedNames';
@@ -23,7 +23,10 @@ export default [
     <Route path="account" component={AppWithSideBar}>
       <Route path="profile" component={ProfileWithData} />
       <Route path="performance" component={UsersPerformance} />
-      <Route path="users/add" component={AddUser} />
+      <Route path="users">
+        <Route path="add" component={AddUserFormWithData} />
+        <Route path=":userName/profile" component={ProfileWithData} />
+      </Route>
       <Route path="names">
         <Route path="unprotected" component={UnprotectedNames} />
         <Route path="protected" component={ProtectedNames} />

@@ -9,12 +9,15 @@ import { checkIfAnyKeysDifferent } from '../../shared/utils';
 import { renderTextField, required, emailFormat } from '../../shared/FormElements';
 import StandardForm from '../../shared/StandardForm';
 
-const EditProfile = ({ handleSubmit, handleCancelEditProfile, error }) => (
+const EditProfile = ({
+  handleSubmit, handleCancelEditProfile, error, editInProgess
+}) => (
   <Paper zDepth={2} >
     <StandardForm
       handleSubmit={handleSubmit}
       handleCancel={handleCancelEditProfile}
       error={error}
+      editingInProgress={editInProgess}
       fields={[
         <Field
           name="firstName"
