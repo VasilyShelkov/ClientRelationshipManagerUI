@@ -15,6 +15,7 @@ import ClientsIcon from 'material-ui/svg-icons/social/group';
 
 import { changeSideBarState } from '../../authentication/accountActions';
 import AdminUserListWithData from './AdminUserList';
+import { changeShownUserProfile } from '../../profile/profileActions';
 
 const SelectableList = makeSelectable(List);
 
@@ -28,11 +29,18 @@ export const SideBar = ({
     onRequestChange={handleChangeRequestSideBar}
   >
     <div>
-      <SelectableList value={currentPage} onChange={handleRouteChange}>
+      <SelectableList
+        value={JSON.stringify({
+          newRoute: currentPage, id: currentUserId
+        })}
+        onChange={handleRouteChange}
+      >
         <ListItem
           primaryText="Profile"
           leftIcon={<AccountIcon />}
-          value="/account/profile"
+          value={JSON.stringify({
+            newRoute: '/account/profile', id: currentUserId
+          })}
         />
 
         <Divider />
@@ -41,17 +49,23 @@ export const SideBar = ({
         <ListItem
           primaryText="Unprotected"
           leftIcon={<LockOpenIcon />}
-          value="/account/names/unprotected"
+          value={JSON.stringify({
+            newRoute: '/account/names/unprotected', id: currentUserId
+          })}
         />
         <ListItem
           primaryText="Protected"
           leftIcon={<LockClosedIcon />}
-          value="/account/names/protected"
+          value={JSON.stringify({
+            newRoute: '/account/names/protected', id: currentUserId
+          })}
         />
         <ListItem
           primaryText="Clients"
           leftIcon={<ClientsIcon />}
-          value="/account/names/clients"
+          value={JSON.stringify({
+            newRoute: '/account/names/clients', id: currentUserId
+          })}
         />
 
         {
@@ -76,9 +90,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   handleChangeRequestSideBar: open => dispatch(changeSideBarState(open)),
-  handleRouteChange: (event, newRoute) => {
+  handleRouteChange: (event, linkValue) => {
+    const { newRoute, id } = JSON.parse(linkValue);
     dispatch(changeSideBarState(false));
     dispatch(push(newRoute));
+    dispatch(changeShownUserProfile(id));
   },
 });
 

@@ -8,7 +8,7 @@ import { SideBar } from './SideBar';
 import AdminUserListWithData from './AdminUserList';
 
 const setup = ({
-  isAdmin = false, open = false, width = LARGE, currentPage = '',
+  isAdmin = false, open = false, width = LARGE, currentPage = '/test',
   handleChangeRequestSideBar = () => (''),
   handleRouteChange = () => ('')
 }) => {
@@ -18,7 +18,8 @@ const setup = ({
     width,
     currentPage,
     handleChangeRequestSideBar,
-    handleRouteChange
+    handleRouteChange,
+    currentUserId: '0'
   };
   const wrapper = shallowWithContext(<SideBar {...props} />);
 
@@ -27,7 +28,7 @@ const setup = ({
 
 describe('src/app/navigation/SideBar', () => {
   it('renders all the standard navigation links', () => {
-    const { wrapper } = setup({});
+    const { wrapper, props } = setup({});
 
     const dividers = wrapper.find(Divider);
     const pageNavigations = wrapper.find(ListItem);
@@ -35,16 +36,20 @@ describe('src/app/navigation/SideBar', () => {
 
     expect(pageNavigations).length.to.be(4);
     expect(pageNavigations.at(0).prop('primaryText')).to.equal('Profile');
-    expect(pageNavigations.at(0).prop('value')).to.equal('/account/profile');
+    expect(pageNavigations.at(0).prop('value'))
+      .to.equal(JSON.stringify({ newRoute: '/account/profile', id: props.currentUserId }));
 
     expect(pageNavigations.at(1).prop('primaryText')).to.equal('Unprotected');
-    expect(pageNavigations.at(1).prop('value')).to.equal('/account/names/unprotected');
+    expect(pageNavigations.at(1).prop('value'))
+      .to.equal(JSON.stringify({ newRoute: '/account/names/unprotected', id: props.currentUserId }));
 
     expect(pageNavigations.at(2).prop('primaryText')).to.equal('Protected');
-    expect(pageNavigations.at(2).prop('value')).to.equal('/account/names/protected');
+    expect(pageNavigations.at(2).prop('value'))
+      .to.equal(JSON.stringify({ newRoute: '/account/names/protected', id: props.currentUserId }));
 
     expect(pageNavigations.at(3).prop('primaryText')).to.equal('Clients');
-    expect(pageNavigations.at(3).prop('value')).to.equal('/account/names/clients');
+    expect(pageNavigations.at(3).prop('value'))
+      .to.equal(JSON.stringify({ newRoute: '/account/names/clients', id: props.currentUserId }));
   });
 
   it('is docked if the width is large', () => {
@@ -77,13 +82,22 @@ describe('src/app/navigation/SideBar', () => {
     expect(wrapper.find(Drawer).prop('open')).to.be.false;
   });
 
-  it('does not show admin panel when is not admin', () => {
+  it('does not render admin panel when is not admin', () => {
     const { wrapper } = setup({ isAdmin: false });
     expect(wrapper.find(AdminUserListWithData).exists()).to.be.false;
   });
 
-  it('shows admin panel when is admin', () => {
-    const { wrapper } = setup({ isAdmin: true });
-    expect(wrapper.find(AdminUserListWithData).exists()).to.be.true;
-  });
+  it('renders admin panel with the correct props when is admin', sinon.test(function () {
+    const handleRouteChange = this.spy();
+    const { wrapper, props } = setup({ isAdmin: true, handleRouteChange });
+
+    const adminUserList = wrapper.find(AdminUserListWithData);
+    expect(adminUserList.exists()).to.be.true;
+    expect(adminUserList.prop('currentUserId')).to.equal(props.currentUserId);
+    expect(adminUserList.prop('value')).to.equal(props.currentPage);
+
+    const onRouteChange = adminUserList.prop('onChange');
+    onRouteChange();
+    expect(handleRouteChange).to.have.been.called;
+  }));
 });

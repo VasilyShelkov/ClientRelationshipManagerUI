@@ -20,6 +20,7 @@ const EditProfile = ({
       editingInProgress={editInProgess}
       fields={[
         <Field
+          key="profile__firstName"
           name="firstName"
           component={renderTextField}
           label="First name"
@@ -27,6 +28,7 @@ const EditProfile = ({
           fullWidth
         />,
         <Field
+          key="profile__lastName"
           name="lastName"
           component={renderTextField}
           label="Last Name"
@@ -34,6 +36,7 @@ const EditProfile = ({
           fullWidth
         />,
         <Field
+          key="profile__email"
           name="email"
           component={renderTextField}
           label="Email"
@@ -41,6 +44,7 @@ const EditProfile = ({
           fullWidth
         />,
         <Field
+          key="profile__phone"
           name="phone"
           component={renderTextField}
           label="Phone"

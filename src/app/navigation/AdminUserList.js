@@ -40,9 +40,10 @@ export const AdminUserList = ({ loading, users, value, onChange }) => {
             <ListItem
               key={`profile-${user.id}`}
               primaryText={`${user.firstName} ${user.lastName}`}
-              value={
-                `/account/users/${_.camelCase(`${user.firstName} ${user.lastName}`)}/profile`
-              }
+              value={JSON.stringify({
+                newRoute: `/account/users/${_.camelCase(`${user.firstName} ${user.lastName}`)}/profile`,
+                id: user.id
+              })}
               insetChildren
             />
           )

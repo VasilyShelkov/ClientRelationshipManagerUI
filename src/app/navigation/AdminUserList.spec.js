@@ -60,21 +60,23 @@ describe('src/app/navigation/AdminUserList', () => {
     expect(listItems).length.to.be(3);
 
     expect(listItems.at(1).key()).to.equal(`profile-${users[0].id}`);
+    expect(listItems.at(1).prop('insetChildren')).to.be.true;
     expect(listItems.at(1).prop('primaryText'))
       .to.equal(`${users[0].firstName} ${users[0].lastName}`);
     expect(listItems.at(1).prop('value'))
-      .to.equal(
-        `/account/users/${_.camelCase(`${users[0].firstName} ${users[0].lastName}`)}/profile`
-      );
-    expect(listItems.at(1).prop('insetChildren')).to.be.true;
+      .to.equal(JSON.stringify({
+        newRoute: `/account/users/${_.camelCase(`${users[0].firstName} ${users[0].lastName}`)}/profile`,
+        id: users[0].id
+      }));
 
     expect(listItems.at(2).key()).to.equal(`profile-${users[1].id}`);
+    expect(listItems.at(2).prop('insetChildren')).to.be.true;
     expect(listItems.at(2).prop('primaryText'))
       .to.equal(`${users[1].firstName} ${users[1].lastName}`);
     expect(listItems.at(2).prop('value'))
-      .to.equal(
-        `/account/users/${_.camelCase(`${users[1].firstName} ${users[1].lastName}`)}/profile`
-      );
-    expect(listItems.at(2).prop('insetChildren')).to.be.true;
+      .to.equal(JSON.stringify({
+        newRoute: `/account/users/${_.camelCase(`${users[1].firstName} ${users[1].lastName}`)}/profile`,
+        id: users[1].id
+      }));
   });
 });

@@ -10,10 +10,21 @@ import {
   cancelEditProfilePassword, CANCEL_EDIT_PROFILE_PASSWORD,
   editCompany, EDIT_COMPANY,
   cancelEditCompany, CANCEL_EDIT_COMPANY,
-  removeProfileNotification, REMOVE_PROFILE_NOTIFICATION
+  removeProfileNotification, REMOVE_PROFILE_NOTIFICATION,
+  changeShownUserProfile, CHANGE_SHOWN_USER_PROFILE
 } from './profileActions';
 
 describe('src/profile/profileReducer.js', () => {
+  it(CHANGE_SHOWN_USER_PROFILE, () => {
+    const stateBefore = { id: '1' };
+    const newUserId = '2';
+    const action = changeShownUserProfile(newUserId);
+
+    expect(accountReducer(stateBefore, action)).to.deep.equal({
+      ...initialState,
+      id: newUserId
+    });
+  });
   it(LOGGED_IN_SUCCESSFULLY, () => {
     const stateBefore = initialState;
     const user = { id: '123' };

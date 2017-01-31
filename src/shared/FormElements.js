@@ -20,7 +20,7 @@ export const renderTextField = ({ input, label, meta: { touched, error }, ...cus
   />
 );
 
-export const FromErrorNotification = ({ message, zDepth, }) => {
+export const FormErrorNotification = ({ message, zDepth, }) => {
   if (message) {
     return (
       <Paper

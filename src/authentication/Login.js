@@ -7,7 +7,7 @@ import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import CompanyLogo from 'material-ui/svg-icons/action/face';
 
-import { FromErrorNotification, renderTextField, required, emailFormat } from '../shared/FormElements';
+import { FormErrorNotification, renderTextField, required, emailFormat } from '../shared/FormElements';
 import LoadingSpinner from '../shared/LoadingSpinner';
 
 import handleSignIn from './loginRequest';
@@ -26,7 +26,7 @@ export const Login = ({ loggingIn, handleSubmit, error }) => (
     <div className="row">
       <div className="col-12">
         <Paper className="Login__form" zDepth={1}>
-          <FromErrorNotification message={error} zDepth={2} />
+          <FormErrorNotification message={error} zDepth={2} />
           <form onSubmit={handleSubmit}>
             <Field
               name="email"

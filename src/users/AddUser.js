@@ -30,6 +30,7 @@ export const AddUser = ({ queryLoading, handleSubmit, error }) => (
           <StandardForm
             fields={[
               <Field
+                key="newProfile__firstName"
                 name="firstName"
                 component={renderTextField}
                 label="First name"
@@ -37,6 +38,7 @@ export const AddUser = ({ queryLoading, handleSubmit, error }) => (
                 fullWidth
               />,
               <Field
+                key="newProfile__lastName"
                 name="lastName"
                 component={renderTextField}
                 label="Last Name"
@@ -44,6 +46,7 @@ export const AddUser = ({ queryLoading, handleSubmit, error }) => (
                 fullWidth
               />,
               <Field
+                key="newProfile__email"
                 name="email"
                 component={renderTextField}
                 label="Email"
@@ -51,6 +54,7 @@ export const AddUser = ({ queryLoading, handleSubmit, error }) => (
                 fullWidth
               />,
               <Field
+                key="newProfile__phone"
                 name="phone"
                 component={renderTextField}
                 label="Phone"
@@ -58,6 +62,7 @@ export const AddUser = ({ queryLoading, handleSubmit, error }) => (
                 fullWidth
               />,
               <Field
+                key="newProfile__password"
                 name="password"
                 type="password"
                 component={renderTextField}
@@ -66,6 +71,7 @@ export const AddUser = ({ queryLoading, handleSubmit, error }) => (
                 fullWidth
               />,
               <Field
+                key="newProfile__confirmPassword"
                 name="confirmPassword"
                 type="password"
                 component={renderTextField}

@@ -21,6 +21,7 @@ const EditCompany = ({
       editInProgress={editInProgress}
       fields={[
         <Field
+          key="company__name"
           name="name"
           component={renderTextField}
           label="Name"
@@ -28,6 +29,7 @@ const EditCompany = ({
           fullWidth
         />,
         <Field
+          key="company__address"
           name="address"
           component={renderTextField}
           label="Address"
@@ -35,6 +37,7 @@ const EditCompany = ({
           fullWidth
         />,
         <Field
+          key="company__phone"
           name="phone"
           component={renderTextField}
           label="Phone"

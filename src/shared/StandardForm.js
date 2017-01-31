@@ -4,12 +4,12 @@ import RaisedButton from 'material-ui/RaisedButton';
 import SaveIcon from 'material-ui/svg-icons/action/done';
 import CancelIcon from 'material-ui/svg-icons/content/clear';
 
-import { FromErrorNotification } from './FormElements';
+import { FormErrorNotification } from './FormElements';
 import LoadingSpinner from './LoadingSpinner';
 
 export default ({ error, fields, editingInProgress, handleSubmit, handleCancel }) => (
-  <div className="Profile__details container">
-    <FromErrorNotification message={error} zDepth={2} />
+  <div className="StandardForm container">
+    <FormErrorNotification message={error} zDepth={2} />
     <form onSubmit={handleSubmit}>
       <div className="row">
         {fields}

@@ -1,3 +1,9 @@
+export const CHANGE_SHOWN_USER_PROFILE = 'CHANGE_SHOWN_USER_PROFILE';
+export const changeShownUserProfile = newUserId => ({
+  type: CHANGE_SHOWN_USER_PROFILE,
+  newUserId
+});
+
 export const EDIT_PROFILE = 'EDIT_PROFILE';
 export const editProfile = () => ({
   type: EDIT_PROFILE

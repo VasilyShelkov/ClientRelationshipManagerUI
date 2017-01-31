@@ -17,6 +17,7 @@ const EditPassword = ({
     editingInProgress={editInProgress}
     fields={[
       <Field
+        key="profile__password"
         name="password"
         type="password"
         component={renderTextField}
@@ -25,6 +26,7 @@ const EditPassword = ({
         fullWidth
       />,
       <Field
+        key="profile__confirmPassword"
         name="confirmPassword"
         type="password"
         component={renderTextField}

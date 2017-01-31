@@ -3,7 +3,7 @@ import {
   EDIT_PROFILE_PASSWORD, CANCEL_EDIT_PROFILE_PASSWORD,
   EDIT_PROFILE, CANCEL_EDIT_PROFILE,
   EDIT_COMPANY, CANCEL_EDIT_COMPANY,
-  REMOVE_PROFILE_NOTIFICATION
+  REMOVE_PROFILE_NOTIFICATION, CHANGE_SHOWN_USER_PROFILE
 } from './profileActions';
 import { APOLLO_MUTATION_INIT, APOLLO_MUTATION_RESULT } from '../app/thirdPartyActions';
 
@@ -15,6 +15,11 @@ export const initialState = {
 };
 export default (state = initialState, action) => {
   switch (action.type) {
+    case CHANGE_SHOWN_USER_PROFILE:
+      return {
+        ...initialState,
+        id: action.newUserId
+      };
     case LOGGED_IN_SUCCESSFULLY:
       return {
         ...state,
