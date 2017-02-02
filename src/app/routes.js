@@ -8,8 +8,8 @@ import Home from './Home';
 import NotFound from './NotFound';
 
 import AppWithSideBar from './AppWithSideBar';
-import ProfileWithData from '../profile/Profile';
-import AddUserFormWithData from '../users/AddUser';
+import ProfileWithData from '../profile/ProfileWithData';
+import AddUserFormWithData from '../users/AddUserForm';
 import UsersPerformance from '../users/UsersPerformance';
 import UnprotectedNames from '../names/UnprotectedNames';
 import ProtectedNames from '../names/ProtectedNames';
@@ -19,7 +19,6 @@ export default [
   <Route path="/login" component={LoginPage} />,
   <Route path="/" component={AppWithNavbar}>
     <IndexRoute component={Home} />
-
     <Route path="account" component={AppWithSideBar}>
       <Route path="profile" component={ProfileWithData} />
       <Route path="performance" component={UsersPerformance} />

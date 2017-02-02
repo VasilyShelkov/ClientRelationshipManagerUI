@@ -5,7 +5,7 @@ import { LARGE } from 'material-ui/utils/withWidth';
 import { ListItem } from 'material-ui/List';
 
 import { SideBar } from './SideBar';
-import AdminUserListWithData from './AdminUserList';
+import AdminUserListWithData from './AdminUserListWithData';
 
 const setup = ({
   isAdmin = false, open = false, width = LARGE, currentPage = '/test',

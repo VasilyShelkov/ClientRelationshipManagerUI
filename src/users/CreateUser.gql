@@ -20,6 +20,6 @@ mutation CreateUser (
     lastName
     email
     phone
-    updated_at
+    created_at
   }
 }

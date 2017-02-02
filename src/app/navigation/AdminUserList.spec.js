@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import { ListItem } from 'material-ui/List';
 
-import { AdminUserList } from './AdminUserList';
+import AdminUserList from './AdminUserList';
 import LoadingSpinner from '../../shared/LoadingSpinner';
 
 const setup = ({ loading = false, users = [] }) => {
@@ -30,7 +30,9 @@ describe('src/app/navigation/AdminUserList', () => {
     const createUserLink = wrapper.find(ListItem).first();
     expect(wrapper.find(LoadingSpinner).exists()).to.be.false;
     expect(createUserLink.prop('primaryText')).to.equal('Create New User');
-    expect(createUserLink.prop('value')).to.equal('/account/users/add');
+    expect(createUserLink.prop('value')).to.equal(JSON.stringify({
+      newRoute: '/account/users/add'
+    }));
   });
 
   it('renders default text when there are no users', () => {

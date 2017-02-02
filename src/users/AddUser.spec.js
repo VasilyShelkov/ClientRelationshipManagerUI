@@ -1,10 +1,11 @@
 import React from 'react';
-import { AddUser } from './AddUser';
+import AddUser from './AddUser';
 import LoadingSpinner from '../shared/LoadingSpinner';
 import StandardForm from '../shared/StandardForm';
 
-const setup = ({ queryLoading }) => {
+const setup = ({ creatingUser = false, queryLoading = false }) => {
   const props = {
+    creatingUser,
     queryLoading,
     handleSubmit: () => (''),
     error: ''

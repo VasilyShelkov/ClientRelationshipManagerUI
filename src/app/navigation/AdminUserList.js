@@ -1,5 +1,4 @@
 import React from 'react';
-import { graphql } from 'react-apollo';
 import _ from 'lodash';
 
 import { List, ListItem, makeSelectable } from 'material-ui/List';
@@ -8,13 +7,11 @@ import Avatar from 'material-ui/Avatar';
 import Divider from 'material-ui/Divider';
 import PersonAddIcon from 'material-ui/svg-icons/social/person-add';
 import { cyan500 } from 'material-ui/styles/colors';
-
-import GetAllUsers from './GetAllUsers.gql';
 import LoadingSpinner from '../../shared/LoadingSpinner';
 
 const SelectableList = makeSelectable(List);
 
-export const AdminUserList = ({ loading, users, value, onChange }) => {
+export default ({ currentUserId, loading, users, value, onChange }) => {
   if (loading) {
     return <LoadingSpinner />;
   }
@@ -28,7 +25,7 @@ export const AdminUserList = ({ loading, users, value, onChange }) => {
         rightAvatar={
           <Avatar icon={<PersonAddIcon />} backgroundColor={cyan500} />
         }
-        value="/account/users/add"
+        value={JSON.stringify({ newRoute: '/account/users/add', id: currentUserId })}
       />
 
       <Divider />
@@ -57,15 +54,3 @@ export const AdminUserList = ({ loading, users, value, onChange }) => {
   );
 };
 
-export default graphql(GetAllUsers, {
-  props: ({ ownProps, data: { loading, users } }) => {
-    let usersWithoutSelf = [];
-    if (!loading) {
-      usersWithoutSelf = users.filter(
-        user => user.id !== ownProps.currentUserId
-      );
-    }
-
-    return { loading, users: usersWithoutSelf, ...ownProps };
-  }
-})(AdminUserList);

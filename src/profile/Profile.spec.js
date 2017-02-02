@@ -1,5 +1,5 @@
 import React from 'react';
-import { Profile } from './Profile';
+import Profile from './Profile';
 import LoadingSpinner from '../shared/LoadingSpinner';
 import ShowProfileWithData from './details/ShowProfile';
 import EditProfile from './details/EditProfile';

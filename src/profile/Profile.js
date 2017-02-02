@@ -1,18 +1,14 @@
 import React from 'react';
-import { graphql } from 'react-apollo';
-import { connect } from 'react-redux';
 
-import GetUserProfile from './GetUserProfile.gql';
 import LoadingSpinner from '../shared/LoadingSpinner';
 import ShowProfileWithData from './details/ShowProfile';
 import ShowCompanyWithData from './company/ShowCompany';
 
 import { EDIT_IN_PROGRESS } from './profileReducer';
-import { cancelEditProfile, cancelEditCompany } from './profileActions';
 import EditProfile from './details/EditProfile';
 import EditCompany from './company/EditCompany';
 
-export const Profile = ({
+export default ({
   loading, user, editingProfile, editingCompany,
   onCancelEditProfile, onCancelEditCompany
 }) => {
@@ -71,27 +67,3 @@ export const Profile = ({
   );
 };
 
-const ProfileWithData = graphql(GetUserProfile, {
-  options: ({ id }) => ({ variables: { id } }),
-  props: ({ ownProps, data: { loading, user } }) => ({
-    loading,
-    user,
-    ...ownProps
-  })
-})(Profile);
-
-const mapStateToProps = state => ({
-  id: state.profile.id,
-  editingProfile: state.profile.editing.profile,
-  editingCompany: state.profile.editing.company
-});
-
-const mapDispatchToProps = dispatch => ({
-  onCancelEditProfile: () => dispatch(cancelEditProfile()),
-  onCancelEditCompany: () => dispatch(cancelEditCompany()),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ProfileWithData);

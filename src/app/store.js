@@ -11,6 +11,7 @@ import { reducer as formReducer } from 'redux-form';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
 import account from '../authentication/accountReducer';
 import profile from '../profile/profileReducer';
+import creatingUser from '../users/creatingUserReducer';
 
 import authenticationMiddleware from '../authentication/authenticationMiddleware';
 
@@ -55,7 +56,8 @@ const rootReducer = compose(
     form: formReducer,
     routing: routerReducer,
     account,
-    profile
+    profile,
+    creatingUser
   })
 );
 

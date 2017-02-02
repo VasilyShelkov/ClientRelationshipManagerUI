@@ -1,8 +1,5 @@
 import React from 'react';
-import _ from 'lodash';
-import { connect } from 'react-redux';
-import { graphql } from 'react-apollo';
-import { Field, reduxForm, SubmissionError } from 'redux-form';
+import { Field } from 'redux-form';
 
 import Paper from 'material-ui/Paper';
 import PersonAddIcon from 'material-ui/svg-icons/social/person-add';
@@ -16,7 +13,7 @@ import {
 } from '../shared/FormElements';
 import LoadingSpinner from '../shared/LoadingSpinner';
 
-export const AddUser = ({ queryLoading, handleSubmit, error }) => (
+export default ({ creatingUser, queryLoading, handleSubmit, error }) => (
   <div>
     {
       queryLoading ?
@@ -28,6 +25,7 @@ export const AddUser = ({ queryLoading, handleSubmit, error }) => (
             <h2>Add a new member to the team...</h2>
           </div>
           <StandardForm
+            editingInProgress={creatingUser}
             fields={[
               <Field
                 key="newProfile__firstName"
@@ -88,54 +86,3 @@ export const AddUser = ({ queryLoading, handleSubmit, error }) => (
   </div>
 );
 
-const AddUserForm = reduxForm({ form: 'newUser' })(AddUser);
-
-const AddUserFormWithCompanyData = graphql(CreateUser, {
-  props: ({ ownProps, mutate }) => ({
-    onSubmit: async (values) => {
-      if (values.password === values.confirmPassword) {
-        const { id, __typename, ...companyFields } = ownProps.user.company;
-
-        const { confirmPassword, firstName, lastName, ...otherValues } = values;
-        const userFields = {
-          firstName: _.upperFirst(firstName.trim()),
-          lastName: _.upperFirst(lastName.trim()),
-          ...otherValues
-        };
-
-        try {
-          await mutate({ variables: { ...userFields, companyFields } });
-        } catch (error) {
-          throw new SubmissionError({ _error: error.graphQLErrors[0].message });
-        }
-      } else {
-        throw new SubmissionError({
-          _error: 'Passwords do not match'
-        });
-      }
-    },
-    ...ownProps
-  })
-})(AddUserForm);
-
-const AddUserFormWithProfileData = graphql(GetUserCompany, {
-  options: ({ id }) => ({ variables: { id } }),
-  props: ({ ownProps, data: { loading, user } }) => ({
-    queryLoading: loading,
-    user,
-    ...ownProps
-  })
-})(AddUserFormWithCompanyData);
-
-const mapStateToProps = state => ({
-  id: state.account.id,
-  editingProfile: state.profile.editing.profile,
-  editingCompany: state.profile.editing.company
-});
-
-const mapDispatchToProps = dispatch => ({});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AddUserFormWithProfileData);

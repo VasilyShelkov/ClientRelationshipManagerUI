@@ -14,7 +14,7 @@ import LockClosedIcon from 'material-ui/svg-icons/action/lock-outline';
 import ClientsIcon from 'material-ui/svg-icons/social/group';
 
 import { changeSideBarState } from '../../authentication/accountActions';
-import AdminUserListWithData from './AdminUserList';
+import AdminUserListWithData from './AdminUserListWithData';
 import { changeShownUserProfile } from '../../profile/profileActions';
 
 const SelectableList = makeSelectable(List);
