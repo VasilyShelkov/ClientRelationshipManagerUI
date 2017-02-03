@@ -11,6 +11,7 @@ const setup = ({ loading = false, users = [] }) => {
     users,
     loading,
     value: '',
+    currentUserId: '1',
     onChange: () => ('')
   };
   const wrapper = shallowWithContext(<AdminUserList {...props} />);
@@ -25,13 +26,15 @@ describe('src/app/navigation/AdminUserList', () => {
   });
 
   it('renders the create user link when not loading', () => {
-    const { wrapper } = setup({ loading: false });
+    const { wrapper, props } = setup({ loading: false });
 
     const createUserLink = wrapper.find(ListItem).first();
     expect(wrapper.find(LoadingSpinner).exists()).to.be.false;
     expect(createUserLink.prop('primaryText')).to.equal('Create New User');
     expect(createUserLink.prop('value')).to.equal(JSON.stringify({
-      newRoute: '/account/users/add'
+      newRoute: '/account/users/add',
+      currentUserId: props.currentUserId,
+      userIdToShow: props.currentUserId
     }));
   });
 
@@ -56,7 +59,7 @@ describe('src/app/navigation/AdminUserList', () => {
       firstName: 'lara',
       lastName: 'phillips'
     }];
-    const { wrapper } = setup({ users });
+    const { wrapper, props } = setup({ users });
 
     const listItems = wrapper.find(ListItem);
     expect(listItems).length.to.be(3);
@@ -68,7 +71,8 @@ describe('src/app/navigation/AdminUserList', () => {
     expect(listItems.at(1).prop('value'))
       .to.equal(JSON.stringify({
         newRoute: `/account/users/${_.camelCase(`${users[0].firstName} ${users[0].lastName}`)}/profile`,
-        id: users[0].id
+        currentUserId: props.currentUserId,
+        userIdToShow: users[0].id
       }));
 
     expect(listItems.at(2).key()).to.equal(`profile-${users[1].id}`);
@@ -78,7 +82,8 @@ describe('src/app/navigation/AdminUserList', () => {
     expect(listItems.at(2).prop('value'))
       .to.equal(JSON.stringify({
         newRoute: `/account/users/${_.camelCase(`${users[1].firstName} ${users[1].lastName}`)}/profile`,
-        id: users[1].id
+        currentUserId: props.currentUserId,
+        userIdToShow: users[1].id
       }));
   });
 });

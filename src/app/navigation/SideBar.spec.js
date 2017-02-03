@@ -37,19 +37,35 @@ describe('src/app/navigation/SideBar', () => {
     expect(pageNavigations).length.to.be(4);
     expect(pageNavigations.at(0).prop('primaryText')).to.equal('Profile');
     expect(pageNavigations.at(0).prop('value'))
-      .to.equal(JSON.stringify({ newRoute: '/account/profile', id: props.currentUserId }));
+      .to.equal(JSON.stringify({
+        newRoute: '/account/profile',
+        currentUserId: props.currentUserId,
+        userIdToShow: props.currentUserId
+      }));
 
     expect(pageNavigations.at(1).prop('primaryText')).to.equal('Unprotected');
     expect(pageNavigations.at(1).prop('value'))
-      .to.equal(JSON.stringify({ newRoute: '/account/names/unprotected', id: props.currentUserId }));
+      .to.equal(JSON.stringify({
+        newRoute: '/account/names/unprotected',
+        currentUserId: props.currentUserId,
+        userIdToShow: props.currentUserId
+      }));
 
     expect(pageNavigations.at(2).prop('primaryText')).to.equal('Protected');
     expect(pageNavigations.at(2).prop('value'))
-      .to.equal(JSON.stringify({ newRoute: '/account/names/protected', id: props.currentUserId }));
+      .to.equal(JSON.stringify({
+        newRoute: '/account/names/protected',
+        currentUserId: props.currentUserId,
+        userIdToShow: props.currentUserId
+      }));
 
     expect(pageNavigations.at(3).prop('primaryText')).to.equal('Clients');
     expect(pageNavigations.at(3).prop('value'))
-      .to.equal(JSON.stringify({ newRoute: '/account/names/clients', id: props.currentUserId }));
+      .to.equal(JSON.stringify({
+        newRoute: '/account/names/clients',
+        currentUserId: props.currentUserId,
+        userIdToShow: props.currentUserId
+      }));
   });
 
   it('is docked if the width is large', () => {
@@ -94,7 +110,10 @@ describe('src/app/navigation/SideBar', () => {
     const adminUserList = wrapper.find(AdminUserListWithData);
     expect(adminUserList.exists()).to.be.true;
     expect(adminUserList.prop('currentUserId')).to.equal(props.currentUserId);
-    expect(adminUserList.prop('value')).to.equal(props.currentPage);
+    expect(adminUserList.prop('value')).to.equal(JSON.stringify({
+      newRoute: props.currentPage,
+      currentUserId: props.currentUserId
+    }));
 
     const onRouteChange = adminUserList.prop('onChange');
     onRouteChange();

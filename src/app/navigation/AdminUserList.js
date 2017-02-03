@@ -25,7 +25,11 @@ export default ({ currentUserId, loading, users, value, onChange }) => {
         rightAvatar={
           <Avatar icon={<PersonAddIcon />} backgroundColor={cyan500} />
         }
-        value={JSON.stringify({ newRoute: '/account/users/add', id: currentUserId })}
+        value={JSON.stringify({
+          newRoute: '/account/users/add',
+          currentUserId,
+          userIdToShow: currentUserId
+        })}
       />
 
       <Divider />
@@ -39,7 +43,8 @@ export default ({ currentUserId, loading, users, value, onChange }) => {
               primaryText={`${user.firstName} ${user.lastName}`}
               value={JSON.stringify({
                 newRoute: `/account/users/${_.camelCase(`${user.firstName} ${user.lastName}`)}/profile`,
-                id: user.id
+                currentUserId,
+                userIdToShow: user.id
               })}
               insetChildren
             />

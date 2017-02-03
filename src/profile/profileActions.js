@@ -1,7 +1,11 @@
 export const CHANGE_SHOWN_USER_PROFILE = 'CHANGE_SHOWN_USER_PROFILE';
-export const changeShownUserProfile = newUserId => ({
+export const changeShownUserProfile = ({ currentUserId, userIdToShow, isNewUser }) => ({
   type: CHANGE_SHOWN_USER_PROFILE,
-  newUserId
+  payload: {
+    currentUserId,
+    userIdToShow,
+    isNewUser
+  }
 });
 
 export const EDIT_PROFILE = 'EDIT_PROFILE';

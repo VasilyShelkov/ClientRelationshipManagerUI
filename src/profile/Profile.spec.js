@@ -10,6 +10,8 @@ import { EDIT_IN_PROGRESS } from './profileReducer';
 const setup = ({
   editingProfile = false,
   editingCompany = false,
+  displayCompany = true,
+  displayNewProfileNotification = false,
   onCancelEditProfile = () => (''),
   onCancelEditCompany = () => ('')
 }) => {
@@ -30,6 +32,8 @@ const setup = ({
     },
     editingProfile,
     editingCompany,
+    displayCompany,
+    displayNewProfileNotification,
     onCancelEditProfile,
     onCancelEditCompany
   };
@@ -109,5 +113,25 @@ describe('src/profile/Profile.js', () => {
 
     expect(EditCompanyComponent.exists()).to.be.true;
     expect(EditCompanyComponent.prop('editInProgess')).to.equal(true);
+  });
+
+  it('renders show company when displaying company', () => {
+    const { wrapper } = setup({ displayCompany: true });
+
+    const ShowCompanyComponent = wrapper.find(ShowCompanyWithData);
+    expect(ShowCompanyComponent.exists()).to.be.true;
+
+    const ShowProfileComponent = wrapper.find(ShowProfileWithData);
+    expect(ShowProfileComponent.parent().hasClass('col-12 col-sm-6 push-sm-6 align-self-center')).to.be.true;
+  });
+
+  it('does not render show company when not displaying company', () => {
+    const { wrapper } = setup({ displayCompany: false });
+
+    const ShowCompanyComponent = wrapper.find(ShowCompanyWithData);
+    expect(ShowCompanyComponent.exists()).to.be.false;
+
+    const ShowProfileComponent = wrapper.find(ShowProfileWithData);
+    expect(ShowProfileComponent.parent().hasClass('col-12')).to.be.true;
   });
 });

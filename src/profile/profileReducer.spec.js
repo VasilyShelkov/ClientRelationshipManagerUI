@@ -15,16 +15,66 @@ import {
 } from './profileActions';
 
 describe('src/profile/profileReducer.js', () => {
-  it(CHANGE_SHOWN_USER_PROFILE, () => {
-    const stateBefore = { id: '1' };
-    const newUserId = '2';
-    const action = changeShownUserProfile(newUserId);
+  describe(CHANGE_SHOWN_USER_PROFILE, () => {
+    it('sets the new user id and set display company to true when the user to show and current user are the same', () => {
+      const stateBefore = { ...initialState, id: '1' };
+      const newUserId = '2';
+      const action = changeShownUserProfile({
+        currentUserId: newUserId,
+        userIdToShow: newUserId,
+        isNewUser: false
+      });
 
-    expect(accountReducer(stateBefore, action)).to.deep.equal({
-      ...initialState,
-      id: newUserId
+      expect(accountReducer(stateBefore, action)).to.deep.equal({
+        ...initialState,
+        id: newUserId,
+        display: {
+          company: true,
+        }
+      });
+    });
+
+    it('sets the new user id and set display company to false when the user to show and current user are different', () => {
+      const stateBefore = { ...initialState, id: '1' };
+      const newUserId = '2';
+      const action = changeShownUserProfile({
+        currentUserId: '3',
+        userIdToShow: newUserId,
+        isNewUser: false
+      });
+
+      expect(accountReducer(stateBefore, action)).to.deep.equal({
+        ...initialState,
+        id: newUserId,
+        display: {
+          company: false
+        }
+      });
+    });
+
+    it('sets the new user id and sets isNewUser to true', () => {
+      const stateBefore = { ...initialState, id: '1' };
+      const newUserId = '2';
+      const action = changeShownUserProfile({
+        currentUserId: newUserId,
+        userIdToShow: newUserId,
+        isNewUser: true
+      });
+
+      expect(accountReducer(stateBefore, action)).to.deep.equal({
+        ...initialState,
+        id: newUserId,
+        display: {
+          company: true,
+        },
+        notification: {
+          ...initialState.notification,
+          newUser: 'Successfully created new user'
+        }
+      });
     });
   });
+
   it(LOGGED_IN_SUCCESSFULLY, () => {
     const stateBefore = initialState;
     const user = { id: '123' };

@@ -10,15 +10,23 @@ import { APOLLO_MUTATION_INIT, APOLLO_MUTATION_RESULT } from '../app/thirdPartyA
 export const EDIT_IN_PROGRESS = 'EDIT_IN_PROGRESS';
 export const initialState = {
   id: '',
+  display: { company: true },
   editing: { profile: false, password: false, company: false },
-  notification: { company: '', profile: '' }
+  notification: { company: '', profile: '', newUser: '' },
 };
 export default (state = initialState, action) => {
   switch (action.type) {
     case CHANGE_SHOWN_USER_PROFILE:
       return {
         ...initialState,
-        id: action.newUserId
+        id: action.payload.userIdToShow,
+        display: {
+          company: action.payload.currentUserId === action.payload.userIdToShow,
+        },
+        notification: {
+          ...initialState.notification,
+          newUser: action.payload.isNewUser ? 'Successfully created new user' : ''
+        }
       };
     case LOGGED_IN_SUCCESSFULLY:
       return {

@@ -17,7 +17,9 @@ const ProfileWithData = graphql(GetUserProfile, {
 const mapStateToProps = state => ({
   id: state.profile.id,
   editingProfile: state.profile.editing.profile,
-  editingCompany: state.profile.editing.company
+  editingCompany: state.profile.editing.company,
+  displayCompany: state.profile.display.company,
+  displayNewProfileNotification: state.profile.display.newProfileNotification
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -26,7 +26,10 @@ const AddUserFormWithCompanyData = graphql(CreateUser, {
 
         try {
           const mutationResponse = await mutate({ variables: { ...userFields, companyFields } });
-          ownProps.showNewProfile(mutationResponse.data.createUser);
+          ownProps.showNewProfile({
+            currentUserId: ownProps.id,
+            ...mutationResponse.data.createUser
+          });
         } catch (error) {
           throw new SubmissionError({ _error: error.graphQLErrors[0].message });
         }
@@ -55,8 +58,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  showNewProfile: ({ id, firstName, lastName }) => {
-    dispatch(changeShownUserProfile(id));
+  showNewProfile: ({ currentUserId, id, firstName, lastName }) => {
+    dispatch(changeShownUserProfile({ currentUserId, userIdToShow: id, isNewUser: true }));
     dispatch(push(`/account/users/${_.camelCase(`${firstName} ${lastName}`)}/profile`));
   }
 });

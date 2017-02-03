@@ -16,8 +16,10 @@ import EmailIcon from 'material-ui/svg-icons/communication/email';
 import SecurityIcon from 'material-ui/svg-icons/hardware/security';
 import UpdatedIcon from 'material-ui/svg-icons/action/update';
 import SuccessfulUpdateIcon from 'material-ui/svg-icons/action/done';
-import { cyan500, green900, lightGreen300 } from 'material-ui/styles/colors';
+import SuccessfullyCreatedIcon from 'material-ui/svg-icons/action/check-circle';
+import { cyan500, green900, green700, lightGreen300 } from 'material-ui/styles/colors';
 
+import Notification from '../../shared/Notification';
 import EditPassword from './EditPassword';
 import {
   editProfile, editProfilePassword, cancelEditProfilePassword,
@@ -26,14 +28,25 @@ import {
 import { EDIT_IN_PROGRESS } from '../profileReducer';
 
 export const ShowProfile = ({
-  userId, firstName, lastName, email, phone, updatedAt, editingPassword,
+  userId, firstName, lastName, email, phone, updatedAt, editingPassword, newUserNotification,
   editSuccessProfileNotification, onEditProfile, onEditProfilePassword,
   onCancelEditProfilePassword, onRemoveNotification
 }) => (
   <Paper zDepth={2} style={{ paddingBottom: '10px', margin: '20px 0px' }}>
-    <div style={{ textAlign: 'center' }}>
+    <div style={{ textAlign: 'center', padding: '0px 10px' }}>
       <ProfileIcon style={{ height: '100px', width: '100px' }} color={cyan500} />
       <h2>{firstName} {lastName}</h2>
+      <Notification
+        message={newUserNotification}
+        zDepth={3}
+        backgroundColor={green700}
+        icon={
+          <SuccessfullyCreatedIcon
+            className="Form__notification__icon"
+            style={{ color: 'white' }}
+          />
+        }
+      />
     </div>
 
 
@@ -116,6 +129,7 @@ export const ShowProfile = ({
 const mapStateToProps = state => ({
   editSuccessProfileNotification: state.profile.notification.profile,
   editingPassword: state.profile.editing.password,
+  newUserNotification: state.profile.notification.newUser
 });
 
 const mapDispatchToProps = dispatch => ({
