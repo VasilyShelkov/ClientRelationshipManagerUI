@@ -8,13 +8,15 @@ import { ShowCompany } from './ShowCompany';
 
 const setup = ({
   onEditCompany = () => (''),
-  editSuccessCompanyNotification = ''
+  editSuccessCompanyNotification = '',
+  isAdmin = false
 }) => {
   const props = {
     name: 'testName',
     address: '123 test address',
     phone: '07123456789',
     updatedAt: moment(),
+    isAdmin,
     onEditCompany,
     editSuccessCompanyNotification
   };
@@ -66,9 +68,19 @@ describe('src/profile/ShowCompany', () => {
     expect(successNotification.children().last().text()).to.equal(editSuccessCompanyNotification);
   });
 
-  it('calls onEditCompany when the button is clicked on', sinon.test(function () {
+  it('does not render the edit company button when not an admin', () => {
+    const { wrapper } = setup({ isAdmin: false });
+    expect(wrapper.find('.Profile__cta').exists()).to.be.false;
+  });
+
+  it('renders the edit company button when there is an admin', () => {
+    const { wrapper } = setup({ isAdmin: true });
+    expect(wrapper.find('.Profile__cta').exists()).to.be.true;
+  })
+
+  it('calls onEditCompany when the button is clicked on by admin', sinon.test(function () {
     const onEditCompanySpy = this.spy();
-    const { wrapper } = setup({ onEditCompany: onEditCompanySpy });
+    const { wrapper } = setup({ onEditCompany: onEditCompanySpy, isAdmin: true });
 
     const renderedEditButtonClick = wrapper.find(RaisedButton).prop('onClick');
     renderedEditButtonClick();

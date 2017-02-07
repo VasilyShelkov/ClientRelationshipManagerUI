@@ -4,6 +4,7 @@ mutation CreateUser (
   $email: String!
   $phone: String!
   $password: String!
+  $accountType: UserAccountTypeEnumType!
   $companyFields: CompanyInputType!
 ) {
   createUser(
@@ -12,7 +13,7 @@ mutation CreateUser (
     password: $password
     email: $email
     phone: $phone
-    accountType: admin
+    accountType: $accountType
     companyFields: $companyFields
 ) {
     id

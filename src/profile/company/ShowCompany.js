@@ -20,7 +20,7 @@ import { editCompany, removeProfileNotification } from '../profileActions';
 
 export const ShowCompany = ({
   name, address, phone, updatedAt, editSuccessCompanyNotification,
-  onEditCompany, onRemoveNotification
+  isAdmin, onEditCompany, onRemoveNotification
 }) => (
   <div className="container">
     <div style={{ textAlign: 'center' }}>
@@ -76,14 +76,19 @@ export const ShowCompany = ({
         </Chip>
       </div>
     </div>
-    <div className="Profile__cta row justify-content-center">
-      <RaisedButton label="Edit Company" icon={<EditIcon />} onClick={onEditCompany} />
-    </div>
+    {
+      isAdmin &&
+      <div className="Profile__cta row justify-content-center">
+        <RaisedButton label="Edit Company" icon={<EditIcon />} onClick={onEditCompany} />
+      </div>
+    }
   </div>
 );
 
 const mapStateToProps = state => ({
-  editSuccessCompanyNotification: state.profile.notification.company
+  editSuccessCompanyNotification: state.profile.notification.company,
+  isAdmin: state.account.accountType === 'admin'
+
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -20,6 +20,14 @@ export const renderTextField = ({ input, label, meta: { touched, error }, ...cus
   />
 );
 
+export const renderCheckbox = ({ input, label }) => (
+  <TextField
+    label={label}
+    checked={input.value}
+    onCheck={input.onChange}
+  />
+);
+
 export const FormErrorNotification = ({ message, zDepth, backgroundColor = red600 }) => (
   <Notification
     message={message}

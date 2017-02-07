@@ -17,10 +17,11 @@ const AddUserFormWithCompanyData = graphql(CreateUser, {
       if (values.password === values.confirmPassword) {
         const { id, __typename, ...companyFields } = ownProps.user.company;
 
-        const { confirmPassword, firstName, lastName, ...otherValues } = values;
+        const { confirmPassword, firstName, lastName, accountType, ...otherValues } = values;
         const userFields = {
           firstName: _.upperFirst(firstName.trim()),
           lastName: _.upperFirst(lastName.trim()),
+          accountType: accountType ? 'admin' : 'member',
           ...otherValues
         };
 

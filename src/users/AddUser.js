@@ -1,15 +1,14 @@
 import React from 'react';
 import { Field } from 'redux-form';
+import { TextField, Checkbox } from 'redux-form-material-ui';
 
 import Paper from 'material-ui/Paper';
 import PersonAddIcon from 'material-ui/svg-icons/social/person-add';
 import { cyan500 } from 'material-ui/styles/colors';
 
-import CreateUser from './CreateUser.gql';
-import GetUserCompany from './GetUserCompany.gql';
 import StandardForm from '../shared/StandardForm';
 import {
-  renderTextField, required, emailFormat, minLength
+  renderTextField, required, emailFormat, minLength, renderCheckbox
 } from '../shared/FormElements';
 import LoadingSpinner from '../shared/LoadingSpinner';
 
@@ -27,56 +26,76 @@ export default ({ creatingUser, queryLoading, handleSubmit, error }) => (
           <StandardForm
             editingInProgress={creatingUser}
             fields={[
-              <Field
-                key="newProfile__firstName"
-                name="firstName"
-                component={renderTextField}
-                label="First name"
-                validate={required}
-                fullWidth
-              />,
-              <Field
-                key="newProfile__lastName"
-                name="lastName"
-                component={renderTextField}
-                label="Last Name"
-                validate={required}
-                fullWidth
-              />,
-              <Field
-                key="newProfile__email"
-                name="email"
-                component={renderTextField}
-                label="Email"
-                validate={[required, emailFormat]}
-                fullWidth
-              />,
-              <Field
-                key="newProfile__phone"
-                name="phone"
-                component={renderTextField}
-                label="Phone"
-                validate={required}
-                fullWidth
-              />,
-              <Field
-                key="newProfile__password"
-                name="password"
-                type="password"
-                component={renderTextField}
-                label="New Password"
-                validate={[required, minLength]}
-                fullWidth
-              />,
-              <Field
-                key="newProfile__confirmPassword"
-                name="confirmPassword"
-                type="password"
-                component={renderTextField}
-                label="Confirm New Password"
-                validate={[required, minLength]}
-                fullWidth
-              />
+              <div className="col-12">
+                <Field
+                  key="newProfile__firstName"
+                  name="firstName"
+                  component={TextField}
+                  floatingLabelText="First Name"
+                  validate={required}
+                  fullWidth
+                />
+              </div>,
+              <div className="col-12">
+                <Field
+                  key="newProfile__lastName"
+                  name="lastName"
+                  component={TextField}
+                  floatingLabelText="Last Name"
+                  validate={required}
+                  fullWidth
+                />
+              </div>,
+              <div className="col-12">
+                <Field
+                  key="newProfile__email"
+                  name="email"
+                  component={TextField}
+                  floatingLabelText="Email"
+                  validate={[required, emailFormat]}
+                  fullWidth
+                />
+              </div>,
+              <div className="col-12">
+                <Field
+                  key="newProfile__phone"
+                  name="phone"
+                  component={TextField}
+                  floatingLabelText="Phone"
+                  validate={required}
+                  fullWidth
+                />
+              </div>,
+              <div className="col-12">
+                <Field
+                  key="newProfile__password"
+                  name="password"
+                  type="password"
+                  component={TextField}
+                  floatingLabelText="New Password"
+                  validate={[required, minLength]}
+                  fullWidth
+                />
+              </div>,
+              <div className="col-12">
+                <Field
+                  key="newProfile__confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  component={TextField}
+                  floatingLabelText="Confirm New Password"
+                  validate={[required, minLength]}
+                  fullWidth
+                />
+              </div>,
+              <div className="col-12" style={{ margin: '20px 0px' }}>
+                <Field
+                  key="newProfile__accountType"
+                  name="accountType"
+                  component={Checkbox}
+                  label="Administrator"
+                />
+              </div>
             ]}
             error={error}
             handleSubmit={handleSubmit}

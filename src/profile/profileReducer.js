@@ -30,7 +30,7 @@ export default (state = initialState, action) => {
       };
     case LOGGED_IN_SUCCESSFULLY:
       return {
-        ...state,
+        ...initialState,
         id: action.id
       };
     case EDIT_PROFILE:
