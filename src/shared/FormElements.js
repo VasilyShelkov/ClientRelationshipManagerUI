@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { TextField } from 'redux-form-material-ui';
+import places from 'places.js';
 
 import { red600 } from 'material-ui/styles/colors';
 import ErrorIcon from 'material-ui/svg-icons/alert/error';
@@ -19,6 +20,28 @@ export const renderTextField = ({ input, label, meta: { touched, error }, ...cus
     {...customProps}
   />
 );
+
+export class AddressField extends Component {
+  componentDidMount() {
+    places({
+      container: document.querySelector('#company-address-input')
+    });
+  }
+
+  render() {
+    const { input, label, meta: { touched, error }, ...customProps } = this.props;
+
+    return (
+      <TextField
+        id="company-address-input"
+        floatingLabelText={label}
+        errorText={touched && error}
+        {...input}
+        {...customProps}
+      />
+    );
+  }
+}
 
 export const renderCheckbox = ({ input, label }) => (
   <TextField

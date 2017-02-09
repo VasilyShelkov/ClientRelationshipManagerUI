@@ -1,5 +1,6 @@
 import React from 'react';
 import { Field, reduxForm, SubmissionError } from 'redux-form';
+import { TextField } from 'redux-form-material-ui';
 
 import Paper from 'material-ui/Paper';
 
@@ -7,7 +8,7 @@ import { graphql } from 'react-apollo';
 import EditCompanyDetails from './EditCompanyDetails.gql';
 import { checkIfAnyKeysDifferent } from '../../shared/utils';
 
-import { renderTextField, required } from '../../shared/FormElements';
+import { AddressField, required } from '../../shared/FormElements';
 import StandardForm from '../../shared/StandardForm';
 
 const EditCompany = ({
@@ -20,30 +21,36 @@ const EditCompany = ({
       error={error}
       editInProgress={editInProgress}
       fields={[
-        <Field
-          key="company__name"
-          name="name"
-          component={renderTextField}
-          label="Name"
-          validate={required}
-          fullWidth
-        />,
-        <Field
-          key="company__address"
-          name="address"
-          component={renderTextField}
-          label="Address"
-          validate={required}
-          fullWidth
-        />,
-        <Field
-          key="company__phone"
-          name="phone"
-          component={renderTextField}
-          label="Phone"
-          validate={required}
-          fullWidth
-        />
+        <div className="col-12">
+          <Field
+            key="company__name"
+            name="name"
+            component={TextField}
+            floatingLabelText="Name"
+            validate={required}
+            fullWidth
+          />
+        </div>,
+        <div className="col-12">
+          <Field
+            key="company__address"
+            name="address"
+            component={AddressField}
+            floatingLabelText="Address"
+            validate={required}
+            fullWidth
+          />
+        </div>,
+        <div className="col-12">
+          <Field
+            key="company__phone"
+            name="phone"
+            component={TextField}
+            floatingLabelText="Phone"
+            validate={required}
+            fullWidth
+          />
+        </div>
       ]}
     />
   </Paper>
