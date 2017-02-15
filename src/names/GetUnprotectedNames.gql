@@ -1,0 +1,21 @@
+query GetUnprotectedNames($id: String!) {
+  user (id: $id) {
+    id
+    unprotected {
+      id
+      name {
+        id
+        firstName
+        lastName
+        phone
+        company {
+          id
+          name
+          address
+          phone
+        }
+      }
+      created_at
+    }
+  }
+}

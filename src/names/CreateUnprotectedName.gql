@@ -1,0 +1,32 @@
+mutation CreateUnprotectedName {
+  addUnprotectedNameToUser(
+    userId: "7b542d9c-ee6b-4be9-b562-c763ae65cc82",
+    companyFields: {
+      name: "Regency Wealth"
+      address: "123 street"
+      phone: "-091209128"
+    }
+    firstName: "hello",
+    lastName: "world",
+    phone: "123456"
+  ) {
+    unprotectedId
+    name {
+      nameId
+      firstName
+      lastName
+      phone
+      created_at
+      updated_at
+      company {
+        id
+        name
+        address
+        phone
+        created_at
+        updated_at
+      }
+    }
+    created_at
+  }
+}

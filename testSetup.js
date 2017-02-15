@@ -2,6 +2,7 @@ require('babel-polyfill');
 
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
+const sinon = require('sinon');
 const sinonChai = require('sinon-chai');
 const shallow = require('enzyme').shallow;
 const getMuiTheme = require('material-ui/styles/getMuiTheme').default;
@@ -19,8 +20,10 @@ global.navigator = {
 };
 
 global.expect = chai.expect;
-global.sinon = require('sinon');
+global.sinon = sinon;
 global.shallow = shallow;
 
 const muiTheme = getMuiTheme();
 global.shallowWithContext = node => shallow(node, { context: { muiTheme } });
+
+global.XMLHttpRequest = sinon.useFakeXMLHttpRequest();
