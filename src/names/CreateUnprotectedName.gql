@@ -10,9 +10,9 @@ mutation CreateUnprotectedName {
     lastName: "world",
     phone: "123456"
   ) {
-    unprotectedId
+    id
     name {
-      nameId
+      id
       firstName
       lastName
       phone

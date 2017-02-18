@@ -4,6 +4,7 @@ import {
 } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
 import NamesList from './NamesList';
+import Name from './Name';
 
 const setup = names => shallow(<NamesList names={names} />);
 
@@ -11,7 +12,7 @@ describe('src/names/NamesList.js', () => {
   it('renders a create first names button when there are no names', () => {
     const wrapper = setup([]);
     const createName = wrapper.find(RaisedButton);
-    expect(wrapper.find(Table).exists()).to.be.false;
+    expect(wrapper.find(Name).exists()).to.be.false;
     expect(createName.exists()).to.be.true;
     expect(createName.prop('primary')).to.be.true;
     expect(createName.prop('label')).to.equal('Create first name');
@@ -24,15 +25,27 @@ describe('src/names/NamesList.js', () => {
       name: {
         firstName: 'Vasia',
         lastName: 'Shelkov',
-        phone: '07807886989',
+        phone: '07801234567',
         company: {
           name: 'first company',
-          address: '67 manor road',
-          phone: '02085005226'
+          address: '321 company address',
+          phone: '02081234567'
+        }
+      }
+    }, {
+      created_at: 'today',
+      name: {
+        firstName: 'lara',
+        lastName: 'phillips',
+        phone: '07807654321',
+        company: {
+          name: 'second company',
+          address: '123 company address',
+          phone: '02087654321'
         }
       }
     }];
     const wrapper = setup(names);
-    expect(wrapper.find(Table).exists()).to.be.true;
+    expect(wrapper.find('.name')).length.to.be(names.length);
   });
 });

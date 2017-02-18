@@ -1,24 +1,13 @@
 import React from 'react';
-
-import {
-  Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn
-} from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
+import Name from './Name';
 
 export default ({ names }) => (
   <div>
     {
       names.length ?
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHeaderColumn>First Name</TableHeaderColumn>
-              <TableHeaderColumn>Last Name</TableHeaderColumn>
-              <TableHeaderColumn>Phone</TableHeaderColumn>
-            </TableRow>
-          </TableHeader>
-        </Table>
+        names.map(Name)
       :
         <RaisedButton
           primary
