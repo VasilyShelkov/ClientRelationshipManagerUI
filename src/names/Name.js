@@ -5,12 +5,16 @@ import IconButton from 'material-ui/IconButton';
 import MoreInfoIcon from 'material-ui/svg-icons/navigation/chevron-right';
 
 const moreInfoStyle = {
-  icon: { width: '60', height: '60' },
-  container: { width: '80', height: '80' }
+  icon: { width: '60px', height: '60px' },
+  container: { width: '80px', height: '80px' }
 };
 
-export default ({ name: { firstName, lastName, phone, company }, created_at }) => (
-  <Paper>
+export default ({
+  name: { firstName, lastName, phone, company },
+  created_at,
+  showMoreDetails
+}) => (
+  <Paper onClick={showMoreDetails}>
     <div className="name">
       <div className="name__info">
         <div className="name__info__main">

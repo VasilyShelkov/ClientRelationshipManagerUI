@@ -1,7 +1,7 @@
 import React from 'react';
 import { UnprotectedNames } from './UnprotectedNames';
-import LoadingSpinner from '../shared/LoadingSpinner';
-import NamesList from './NamesList';
+import LoadingSpinner from '../../shared/LoadingSpinner';
+import NamesList from '../NamesList';
 
 const setup = ({ loading = false, names = [] }) => {
   const props = {

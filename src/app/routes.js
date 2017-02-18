@@ -11,7 +11,7 @@ import AppWithSideBar from './AppWithSideBar';
 import ProfileWithData from '../profile/ProfileWithData';
 import AddUserFormWithData from '../users/AddUserForm';
 import UsersPerformance from '../users/UsersPerformance';
-import UnprotectedNames from '../names/UnprotectedNames';
+import UnprotectedNamesWithData from '../names/unprotected/UnprotectedNamesWithData';
 import ProtectedNames from '../names/ProtectedNames';
 import ClientNames from '../names/ClientNames';
 
@@ -27,7 +27,7 @@ export default [
         <Route path=":userName/profile" component={ProfileWithData} />
       </Route>
       <Route path="names">
-        <Route path="unprotected" component={UnprotectedNames} />
+        <Route path="unprotected" component={UnprotectedNamesWithData} />
         <Route path="protected" component={ProtectedNames} />
         <Route path="clients" component={ClientNames} />
       </Route>

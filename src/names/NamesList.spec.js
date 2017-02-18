@@ -1,9 +1,6 @@
 import React from 'react';
-import {
-  Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn
-} from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
-import NamesList from './NamesList';
+import { NamesList } from './NamesList';
 import Name from './Name';
 
 const setup = names => shallow(<NamesList names={names} />);
@@ -46,6 +43,6 @@ describe('src/names/NamesList.js', () => {
       }
     }];
     const wrapper = setup(names);
-    expect(wrapper.find('.name')).length.to.be(names.length);
+    expect(wrapper.find(Name)).length.to.be(names.length);
   });
 });

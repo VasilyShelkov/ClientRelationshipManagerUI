@@ -1,0 +1,11 @@
+mutation RemoveUnprotectedName(
+  $userId: String!
+  $unprotectedId: String!
+) {
+  removeUnprotectedFromUser(
+      userId: $userId
+      unprotectedId: $unprotectedId
+  ) {
+    deletedRowsCount
+  }
+}
