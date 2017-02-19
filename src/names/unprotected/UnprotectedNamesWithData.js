@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import { APOLLO_MUTATION_RESULT } from '../../app/thirdPartyActions';
-import { closeNameDetailsDrawer } from '../nameActions';
+import {
+  closeNameDetailsDrawer, openProtectNameDialog, closeProtectNameDialog
+} from '../nameActions';
 import GetUnprotectedNames from './GetUnprotectedNames.gql';
 import RemoveUnprotectedName from './RemoveUnprotectedName.gql';
 import ProtectName from './ProtectName.gql';
@@ -82,11 +84,14 @@ const UnprotectedNamesWithData = compose(
 const mapStateToProps = state => ({
   id: state.profile.id,
   nameDetailsToShow: state.name.nameDetailsToShow,
-  nameDetailsDrawerOpen: state.name.nameDetailsToShow !== false
+  nameDetailsDrawerOpen: state.name.nameDetailsToShow !== false,
+  protectNameDialogOpen: state.name.protectNameDialogOpen
 });
 
 const mapDispatchToProps = dispatch => ({
   closeNameDetails: () => dispatch(closeNameDetailsDrawer()),
+  openProtectNameDialog: () => dispatch(openProtectNameDialog()),
+  closeProtectNameDialog: () => dispatch(closeProtectNameDialog())
 });
 
 export default connect(

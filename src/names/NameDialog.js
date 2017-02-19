@@ -1,15 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import moment from 'moment';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, getFormValues } from 'redux-form';
 import Dialog from 'material-ui/Dialog';
 import { DatePicker, TimePicker } from 'redux-form-material-ui';
 
-export const NameDialog = ({ displayName, actions }) => (
+export const NameDialog = ({ formValues, open, displayName, actions, close }) => (
   <Dialog
     title={`Protect ${displayName}`}
     actions={actions}
-    open={true}
-    onRequestClose={() => ({})}
+    open={open}
+    onRequestClose={close}
   >
     <form>
       <div className="row">
@@ -32,6 +33,7 @@ export const NameDialog = ({ displayName, actions }) => (
             component={TimePicker}
             defaultValue={null}
             hintText="At what time ?"
+            disabled={!(formValues && formValues.callDay)}
             pedantic
           />
         </div>
@@ -56,8 +58,10 @@ export const NameDialog = ({ displayName, actions }) => (
           <Field
             name="meetingTime"
             component={TimePicker}
+            format={value => moment(value).format('THH:mm:ss.SSSZ')}
             defaultValue={null}
             hintText="At what time ?"
+            disabled={!(formValues && formValues.meetingDay)}
             pedantic
           />
         </div>
@@ -67,6 +71,14 @@ export const NameDialog = ({ displayName, actions }) => (
   </Dialog>
 );
 
-export default reduxForm({
+const NameDialogForm = reduxForm({
   form: 'protectName',
 })(NameDialog);
+
+const mapStateToProps = state => ({
+  formValues: getFormValues('protectName')(state)
+});
+
+export default connect(
+  mapStateToProps
+)(NameDialogForm);

@@ -13,11 +13,11 @@ import CancelIcon from 'material-ui/svg-icons/content/clear';
 import LoadingSpinner from '../../shared/LoadingSpinner';
 import NamesListWithData from '../NamesList';
 import NameDetailsDrawerWithData from '../NameDetails';
-import NameDialog from '../NameDialog';
+import NameDialogForm from '../NameDialog';
 
 export default ({
-  loading, names, nameDetailsToShow, nameDetailsDrawerOpen,
-  removeUnprotectedName, protectName
+  loading, names, nameDetailsToShow, nameDetailsDrawerOpen, protectNameDialogOpen,
+  removeUnprotectedName, protectName, openProtectNameDialog, closeProtectNameDialog
 }) => (
   <div
     style={{
@@ -59,18 +59,18 @@ export default ({
                 >
                   <IconButton
                     tooltip="Protect Name"
-                    onClick={protectName(
-                      names[nameDetailsToShow].id,
-                      names[nameDetailsToShow].name.id
-                    )}
+                    onClick={openProtectNameDialog}
                     touch
                   >
                     <LockClosedIcon color={cyan500} />
                   </IconButton>
-                  <NameDialog
+                  <NameDialogForm
                     displayName={`${names[nameDetailsToShow].name.firstName} ${names[nameDetailsToShow].name.lastName}`}
+                    open={protectNameDialogOpen}
+                    close={closeProtectNameDialog}
                     actions={[
                       <FlatButton
+                        onClick={closeProtectNameDialog}
                         label="Cancel"
                         secondary
                         icon={<CancelIcon />}
