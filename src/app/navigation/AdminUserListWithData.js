@@ -35,8 +35,5 @@ export const reducer = (previousResult, action) => {
 };
 
 export default graphql(GetAllUsers, {
-  props,
-  options: ({ params }) => ({
-    reducer
-  })
+  props, options: ({ params }) => ({ reducer })
 })(AdminUserList);

@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
+import { fullWhite, green500 } from 'material-ui/styles/colors';
+
 import Name from './Name';
 import { openNameDetailsDrawer } from './nameActions';
 
@@ -14,9 +16,10 @@ export const NamesList = ({ names, openNameDetails }) => (
         ))
       :
         <RaisedButton
-          primary
+          labelStyle={{ color: fullWhite }}
+          backgroundColor={green500}
           label="Create first name"
-          icon={<AddIcon />}
+          icon={<AddIcon color={fullWhite} />}
           fullWidth
         />
     }

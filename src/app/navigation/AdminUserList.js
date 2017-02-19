@@ -6,7 +6,7 @@ import Subheader from 'material-ui/Subheader';
 import Avatar from 'material-ui/Avatar';
 import Divider from 'material-ui/Divider';
 import PersonAddIcon from 'material-ui/svg-icons/social/person-add';
-import { cyan500 } from 'material-ui/styles/colors';
+import { green500 } from 'material-ui/styles/colors';
 import LoadingSpinner from '../../shared/LoadingSpinner';
 
 const SelectableList = makeSelectable(List);
@@ -23,7 +23,7 @@ export default ({ currentUserId, loading, users, value, onChange }) => {
       <ListItem
         primaryText="Create New User"
         rightAvatar={
-          <Avatar icon={<PersonAddIcon />} backgroundColor={cyan500} />
+          <Avatar icon={<PersonAddIcon />} backgroundColor={green500} />
         }
         value={JSON.stringify({
           newRoute: '/account/users/add',

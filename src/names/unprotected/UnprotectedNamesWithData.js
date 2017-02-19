@@ -6,6 +6,7 @@ import { APOLLO_MUTATION_RESULT } from '../../app/thirdPartyActions';
 import { closeNameDetailsDrawer } from '../nameActions';
 import GetUnprotectedNames from './GetUnprotectedNames.gql';
 import RemoveUnprotectedName from './RemoveUnprotectedName.gql';
+import ProtectName from './ProtectName.gql';
 
 import UnprotectedNames from './UnprotectedNames';
 
@@ -47,10 +48,29 @@ const UnprotectedNamesWithData = compose(
     props: ({ ownProps, mutate }) => ({
       ...ownProps,
       removeUnprotectedName: async (unprotectedId) => {
-        const previouslyOpenNameDetails = ownProps.nameDetailsToShow;
         try {
           await mutate({ variables: { userId: ownProps.id, unprotectedId } });
           ownProps.closeNameDetails();
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    })
+  }),
+  graphql(RemoveUnprotectedName, {
+    props: ({ ownProps, mutate }) => ({
+      ...ownProps,
+      protectName: (unprotectedId, nameId) => async (callBooked, meetingBooked) => {
+        try {
+          await mutate({
+            variables: {
+              userId: ownProps.id,
+              unprotectedId,
+              nameId,
+              callBooked,
+              meetingBooked
+            }
+          });
         } catch (error) {
           console.log(error);
         }
