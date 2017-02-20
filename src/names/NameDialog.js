@@ -5,14 +5,14 @@ import { Field, reduxForm, getFormValues } from 'redux-form';
 import Dialog from 'material-ui/Dialog';
 import { DatePicker, TimePicker } from 'redux-form-material-ui';
 
-export const NameDialog = ({ formValues, open, displayName, actions, close }) => (
-  <Dialog
-    title={`Protect ${displayName}`}
-    actions={actions}
-    open={open}
-    onRequestClose={close}
-  >
-    <form>
+export const NameDialog = ({ formValues, open, displayName, actions, close, handleSubmit }) => (
+  <form onSubmit={handleSubmit}>
+    <Dialog
+      title={`Protect ${displayName}`}
+      actions={actions}
+      open={open}
+      onRequestClose={close}
+    >
       <div className="row">
         <div className="col-12">
           Calling {displayName}?
@@ -66,9 +66,8 @@ export const NameDialog = ({ formValues, open, displayName, actions, close }) =>
           />
         </div>
       </div>
-    </form>
-
-  </Dialog>
+    </Dialog>
+  </form>
 );
 
 const NameDialogForm = reduxForm({

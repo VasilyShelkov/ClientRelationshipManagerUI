@@ -14,10 +14,12 @@ import LoadingSpinner from '../../shared/LoadingSpinner';
 import NamesListWithData from '../NamesList';
 import NameDetailsDrawerWithData from '../NameDetails';
 import NameDialogForm from '../NameDialog';
+import AddUnprotectedNameForm from './AddUnprotectedNameForm';
 
 export default ({
   loading, names, nameDetailsToShow, nameDetailsDrawerOpen, protectNameDialogOpen,
-  removeUnprotectedName, protectName, openProtectNameDialog, closeProtectNameDialog
+  removeUnprotectedName, onSubmitProtectName, openProtectNameDialog, closeProtectNameDialog,
+  showingCreateForm, showCreateNameForm
 }) => (
   <div
     style={{
@@ -28,10 +30,17 @@ export default ({
     <div style={{ textAlign: 'center' }}>
       <LockOpenIcon style={{ height: '100px', width: '100px' }} color={cyan500} />
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <h2>{names ? names.length : ''} Unprotected Name{!names || names.length > 1 ? 's' : ''}</h2>
+        <h2>
+          {
+            showingCreateForm ?
+              'Create Unprotected Name'
+            :
+              `${names ? names.length : ''} Unprotected Name${!names || names.length > 1 ? 's' : ''}`
+          }
+        </h2>
         {
           names && names.length ?
-            <IconButton>
+            <IconButton onClick={showCreateNameForm}>
               <Avatar icon={<AddIcon />} backgroundColor={green500} />
             </IconButton>
           :
@@ -47,8 +56,16 @@ export default ({
           </Paper>
         :
           <div>
-            <NamesListWithData names={names} />
+            {
+              showingCreateForm ?
+                <AddUnprotectedNameForm />
+              :
+                <NamesListWithData
+                  showCreateNameForm={showCreateNameForm}
+                  names={names}
+                />
 
+            }
             {
               nameDetailsDrawerOpen && nameDetailsToShow < names.length ?
                 <NameDetailsDrawerWithData
@@ -68,6 +85,10 @@ export default ({
                     displayName={`${names[nameDetailsToShow].name.firstName} ${names[nameDetailsToShow].name.lastName}`}
                     open={protectNameDialogOpen}
                     close={closeProtectNameDialog}
+                    handleSubmit={onSubmitProtectName(
+                      names[nameDetailsToShow].id,
+                      names[nameDetailsToShow].name.id
+                    )}
                     actions={[
                       <FlatButton
                         onClick={closeProtectNameDialog}
@@ -76,6 +97,11 @@ export default ({
                         icon={<CancelIcon />}
                       />,
                       <FlatButton
+                        onClick={onSubmitProtectName(
+                          names[nameDetailsToShow].id,
+                          names[nameDetailsToShow].name.id
+                        )}
+                        type="submit"
                         label="Protect"
                         primary
                         icon={<LockClosedIcon />}

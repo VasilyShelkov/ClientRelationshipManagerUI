@@ -7,7 +7,7 @@ import { fullWhite, green500 } from 'material-ui/styles/colors';
 import Name from './Name';
 import { openNameDetailsDrawer } from './nameActions';
 
-export const NamesList = ({ names, openNameDetails }) => (
+export const NamesList = ({ names, showCreateNameForm = null, openNameDetails }) => (
   <div>
     {
       names.length ?
@@ -15,13 +15,21 @@ export const NamesList = ({ names, openNameDetails }) => (
           <Name key={`name-${index}`} showMoreDetails={() => openNameDetails(index)} {...name} />
         ))
       :
-        <RaisedButton
-          labelStyle={{ color: fullWhite }}
-          backgroundColor={green500}
-          label="Create first name"
-          icon={<AddIcon color={fullWhite} />}
-          fullWidth
-        />
+        <div>
+          {
+            showCreateNameForm ?
+              <RaisedButton
+                onClick={showCreateNameForm}
+                labelStyle={{ color: fullWhite }}
+                backgroundColor={green500}
+                label="Create first name"
+                icon={<AddIcon color={fullWhite} />}
+                fullWidth
+              />
+            :
+              'You currently have none'
+          }
+        </div>
     }
   </div>
 );
