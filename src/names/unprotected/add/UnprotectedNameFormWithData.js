@@ -1,13 +1,10 @@
 import { connect } from 'react-redux';
 import { graphql } from 'react-apollo';
-import { reduxForm, SubmissionError } from 'redux-form';
-import _ from 'lodash';
+import { SubmissionError } from 'redux-form';
 
 import CreateUnprotectedName from './CreateUnprotectedName.gql';
-import AddUnprotectedName from './AddUnprotectedName';
-import { hideCreateNameForm } from '../nameActions';
-
-const AddUnprotectedNameForm = reduxForm({ form: 'newName' })(AddUnprotectedName);
+import AddUnprotectedNameForm from './UnprotectedNameForm';
+import { hideCreateNameForm } from '../../nameActions';
 
 const AddUnprotectedNameWithCompanyData = graphql(CreateUnprotectedName, {
   props: ({ ownProps, mutate }) => ({
@@ -40,11 +37,12 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch) => {
-  const handleCancel = () => dispatch(hideCreateNameForm());
+  const cancelCreateName = () => dispatch(hideCreateNameForm());
+
   return {
-    handleCancel,
+    cancelCreateName,
     createUnprotectedNameSuccess: () => {
-      handleCancel();
+      cancelCreateName();
       // show notification of sorts
     }
   };

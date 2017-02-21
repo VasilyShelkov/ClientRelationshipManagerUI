@@ -1,17 +1,11 @@
 import { graphql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 import _ from 'lodash';
 import moment from 'moment';
 
 import { APOLLO_MUTATION_RESULT } from '../../app/thirdPartyActions';
-import {
-  closeNameDetailsDrawer, openProtectNameDialog, closeProtectNameDialog,
-  showCreateNameForm
-} from '../nameActions';
+import { showCreateNameForm } from '../nameActions';
 import GetUnprotectedNames from './GetUnprotectedNames.gql';
-import RemoveUnprotectedName from './RemoveUnprotectedName.gql';
-import ProtectName from './ProtectName.gql';
 
 import UnprotectedNames from './UnprotectedNames';
 
@@ -78,74 +72,24 @@ export const reducer = (previousResult, action) => {
   return previousResult;
 };
 
-const UnprotectedNamesWithData = compose(
-  graphql(GetUnprotectedNames, {
-    options: ({ id }) => ({ variables: { id }, reducer }),
-    props: ({ ownProps, data: { loading, user } }) => ({
-      loading,
-      names: user && user.unprotected,
-      ...ownProps
-    })
-  }),
-  graphql(RemoveUnprotectedName, {
-    props: ({ ownProps, mutate }) => ({
-      ...ownProps,
-      removeUnprotectedName: async (unprotectedId) => {
-        try {
-          await mutate({ variables: { userId: ownProps.id, unprotectedId } });
-          ownProps.closeNameDetails();
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    })
-  }),
-  graphql(ProtectName, {
-    props: ({ ownProps, mutate }) => ({
-      ...ownProps,
-      onSubmitProtectName: (unprotectedId, nameId) =>
-        async ({ callDay, callTime, meetingDay, meetingTime }) => {
-          try {
-            await mutate({
-              variables: {
-                userId: ownProps.id,
-                unprotectedId,
-                nameId,
-                callBooked: callDay + callTime,
-                meetingBooked: meetingDay + meetingTime
-              }
-            });
-            ownProps.protectNameSuccess();
-          } catch (error) {
-            console.log(error);
-          }
-        }
-    })
+const UnprotectedNamesWithData = graphql(GetUnprotectedNames, {
+  options: ({ id }) => ({ variables: { id }, reducer }),
+  props: ({ ownProps, data: { loading, user } }) => ({
+    loading,
+    names: user && user.unprotected,
+    ...ownProps
   })
-)(UnprotectedNames);
+})(UnprotectedNames);
 
 const mapStateToProps = state => ({
   id: state.profile.id,
-  nameDetailsToShow: state.name.nameDetailsToShow,
   nameDetailsDrawerOpen: state.name.nameDetailsToShow !== false,
-  protectNameDialogOpen: state.name.protectNameDialogOpen,
   showingCreateForm: state.name.showingCreateForm
 });
 
-const mapDispatchToProps = (dispatch) => {
-  const dispatchCloseProtectNameDialog = () => dispatch(closeProtectNameDialog());
-
-  return {
-    closeNameDetails: () => dispatch(closeNameDetailsDrawer()),
-    openProtectNameDialog: () => dispatch(openProtectNameDialog()),
-    closeProtectNameDialog: dispatchCloseProtectNameDialog,
-    protectNameSuccess: () => {
-      dispatchCloseProtectNameDialog();
-      dispatch(push('account/names/protected'));
-    },
-    showCreateNameForm: () => dispatch(showCreateNameForm())
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  showCreateNameForm: () => dispatch(showCreateNameForm())
+});
 
 export default connect(
   mapStateToProps,

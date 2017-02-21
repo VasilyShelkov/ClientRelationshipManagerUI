@@ -3,21 +3,17 @@ import React from 'react';
 import LockOpenIcon from 'material-ui/svg-icons/action/lock-open';
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
-import LockClosedIcon from 'material-ui/svg-icons/action/lock-outline';
 import Avatar from 'material-ui/Avatar';
 import AddIcon from 'material-ui/svg-icons/content/add';
 import { cyan500, green500 } from 'material-ui/styles/colors';
-import FlatButton from 'material-ui/FlatButton';
-import CancelIcon from 'material-ui/svg-icons/content/clear';
 
 import LoadingSpinner from '../../shared/LoadingSpinner';
 import NamesListWithData from '../NamesList';
-import NameDetailsDrawerWithData from '../NameDetails';
-import NameDialogForm from '../NameDialog';
-import AddUnprotectedNameForm from './AddUnprotectedNameForm';
+import AddUnprotectedNameFormWithData from './add/UnprotectedNameFormWithData';
+import SelectedUnprotectedNameWithData from './selected/SelectedUnprotectedNameWithData';
 
 export default ({
-  loading, names, nameDetailsToShow, nameDetailsDrawerOpen, protectNameDialogOpen,
+  loading, names, nameDetailsDrawerOpen,
   removeUnprotectedName, onSubmitProtectName, openProtectNameDialog, closeProtectNameDialog,
   showingCreateForm, showCreateNameForm
 }) => (
@@ -58,60 +54,18 @@ export default ({
           <div>
             {
               showingCreateForm ?
-                <AddUnprotectedNameForm />
+                <AddUnprotectedNameFormWithData />
               :
                 <NamesListWithData
                   showCreateNameForm={showCreateNameForm}
                   names={names}
                 />
+            }
 
-            }
-            {
-              nameDetailsDrawerOpen && nameDetailsToShow < names.length ?
-                <NameDetailsDrawerWithData
-                  details={names[nameDetailsToShow]}
-                  removeNameAction={
-                    () => removeUnprotectedName(names[nameDetailsToShow].id)
-                  }
-                >
-                  <IconButton
-                    tooltip="Protect Name"
-                    onClick={openProtectNameDialog}
-                    touch
-                  >
-                    <LockClosedIcon color={cyan500} />
-                  </IconButton>
-                  <NameDialogForm
-                    displayName={`${names[nameDetailsToShow].name.firstName} ${names[nameDetailsToShow].name.lastName}`}
-                    open={protectNameDialogOpen}
-                    close={closeProtectNameDialog}
-                    handleSubmit={onSubmitProtectName(
-                      names[nameDetailsToShow].id,
-                      names[nameDetailsToShow].name.id
-                    )}
-                    actions={[
-                      <FlatButton
-                        onClick={closeProtectNameDialog}
-                        label="Cancel"
-                        secondary
-                        icon={<CancelIcon />}
-                      />,
-                      <FlatButton
-                        onClick={onSubmitProtectName(
-                          names[nameDetailsToShow].id,
-                          names[nameDetailsToShow].name.id
-                        )}
-                        type="submit"
-                        label="Protect"
-                        primary
-                        icon={<LockClosedIcon />}
-                      />
-                    ]}
-                  />
-                </NameDetailsDrawerWithData>
-              :
-                null
-            }
+            <SelectedUnprotectedNameWithData
+              names={names}
+              nameDetailsDrawerOpen={nameDetailsDrawerOpen}
+            />
           </div>
       }
     </div>

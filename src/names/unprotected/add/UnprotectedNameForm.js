@@ -1,20 +1,22 @@
 import React from 'react';
-import { Field } from 'redux-form';
+import { reduxForm, Field } from 'redux-form';
 import { AutoComplete, TextField } from 'redux-form-material-ui';
 
 import { AutoComplete as MUIAutoComplete } from 'material-ui';
 import Paper from 'material-ui/Paper';
-import StandardForm from '../../shared/StandardForm';
-import { required, AddressField } from '../../shared/FormElements';
+import StandardForm from '../../../shared/StandardForm';
+import { required, AddressField } from '../../../shared/FormElements';
 
-export default ({ creatingUnprotectedName, handleSubmit, handleCancel, error }) => (
+export const AddUnprotectedName = ({
+  creatingUnprotectedName, handleSubmit, cancelCreateName, error
+}) => (
   <div>
     <Paper style={{ marginTop: '20px' }}>
       <StandardForm
         editingInProgress={creatingUnprotectedName}
         error={error}
         handleSubmit={handleSubmit}
-        handleCancel={handleCancel}
+        handleCancel={cancelCreateName}
         fields={[
           <div key="unprotectedName__details" className="col-12 col-sm-6">
             <h3>Name</h3>
@@ -91,3 +93,5 @@ export default ({ creatingUnprotectedName, handleSubmit, handleCancel, error }) 
     </Paper>
   </div>
 );
+
+export default reduxForm({ form: 'newName' })(AddUnprotectedName);
