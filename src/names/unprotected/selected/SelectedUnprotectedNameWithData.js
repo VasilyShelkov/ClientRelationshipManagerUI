@@ -6,7 +6,7 @@ import RemoveUnprotectedName from './RemoveUnprotectedName.gql';
 import ProtectName from './ProtectName.gql';
 
 import {
-  closeNameDetailsDrawer, openProtectNameDialog, closeProtectNameDialog,
+  hideUnprotectedName, openProtectNameDialog, closeProtectNameDialog,
 } from '../../nameActions';
 
 import SelectedUnprotectedName from './SelectedUnprotectedName';
@@ -15,10 +15,13 @@ const SelectedUnprotectedNameWithMutations = compose(
   graphql(RemoveUnprotectedName, {
     props: ({ ownProps, mutate }) => ({
       ...ownProps,
-      removeUnprotectedName: async (unprotectedId) => {
+      removeUnprotectedName: async () => {
         try {
-          await mutate({ variables: { userId: ownProps.id, unprotectedId } });
-          ownProps.closeNameDetails();
+          await mutate({ variables: {
+            userId: ownProps.id,
+            unprotectedId: ownProps.names[ownProps.selectedNamePosition].id
+          } });
+          ownProps.hideUnprotectedName();
         } catch (error) {
           console.log(error);
         }
@@ -28,48 +31,56 @@ const SelectedUnprotectedNameWithMutations = compose(
   graphql(ProtectName, {
     props: ({ ownProps, mutate }) => ({
       ...ownProps,
-      onSubmitProtectName: (unprotectedId, nameId) =>
-        async ({ callDay, callTime, meetingDay, meetingTime }) => {
-          try {
-            await mutate({
-              variables: {
-                userId: ownProps.id,
-                unprotectedId,
-                nameId,
-                callBooked: callDay + callTime,
-                meetingBooked: meetingDay + meetingTime
-              }
-            });
-            ownProps.protectNameSuccess();
-          } catch (error) {
-            console.log(error);
-          }
+      onSubmitProtectName: async ({ callDay, callTime, meetingDay, meetingTime }) => {
+        const { names, selectedNamePosition } = ownProps;
+        const selectedUnprotected = names[selectedNamePosition];
+
+        let callBooked = null;
+        if (callDay) {
+          callBooked = callDay.substring(0, callDay.indexOf('T')) + callTime.substring(callTime.indexOf('T'));
         }
+
+        let meetingBooked = null;
+        if (meetingDay) {
+          meetingBooked = meetingDay.substring(0, meetingDay.indexOf('T')) + meetingTime.substring(meetingTime.indexOf('T'));
+        }
+
+        try {
+          await mutate({
+            variables: {
+              userId: ownProps.id,
+              unprotectedId: selectedUnprotected.id,
+              nameId: selectedUnprotected.name.id,
+              callBooked,
+              meetingBooked
+            }
+          });
+          ownProps.closeProtectNameDialog();
+          ownProps.hideUnprotectedName();
+          ownProps.protectNameSuccess();
+        } catch (error) {
+          console.log(error);
+        }
+      }
     })
   })
 )(SelectedUnprotectedName);
 
 const mapStateToProps = state => ({
   id: state.account.id,
-  nameDetailsToShow: state.name.nameDetailsToShow,
-  nameDetailsDrawerOpen: state.name.nameDetailsToShow !== false,
+  selectedNamePosition: state.name.selectedUnprotected,
   protectNameDialogOpen: state.name.protectNameDialogOpen,
   showingCreateForm: state.name.showingCreateForm
 });
 
-const mapDispatchToProps = (dispatch) => {
-  const dispatchCloseProtectNameDialog = () => dispatch(closeProtectNameDialog());
-
-  return {
-    closeNameDetails: () => dispatch(closeNameDetailsDrawer()),
-    openProtectNameDialog: () => dispatch(openProtectNameDialog()),
-    closeProtectNameDialog: dispatchCloseProtectNameDialog,
-    protectNameSuccess: () => {
-      dispatchCloseProtectNameDialog();
-      dispatch(push('account/names/protected'));
-    }
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  hideUnprotectedName: () => dispatch(hideUnprotectedName()),
+  openProtectNameDialog: () => dispatch(openProtectNameDialog()),
+  closeProtectNameDialog: () => dispatch(closeProtectNameDialog()),
+  protectNameSuccess: () => {
+    dispatch(push('account/names/protected'));
+  }
+});
 
 export default connect(
   mapStateToProps, mapDispatchToProps

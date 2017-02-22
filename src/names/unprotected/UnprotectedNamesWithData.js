@@ -1,10 +1,9 @@
-import { graphql, compose } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import moment from 'moment';
 
 import { APOLLO_MUTATION_RESULT } from '../../app/thirdPartyActions';
-import { showCreateNameForm } from '../nameActions';
+import { showCreateNameForm, selectUnprotectedName } from '../nameActions';
 import GetUnprotectedNames from './GetUnprotectedNames.gql';
 
 import UnprotectedNames from './UnprotectedNames';
@@ -83,12 +82,13 @@ const UnprotectedNamesWithData = graphql(GetUnprotectedNames, {
 
 const mapStateToProps = state => ({
   id: state.profile.id,
-  nameDetailsDrawerOpen: state.name.nameDetailsToShow !== false,
+  selectedNameDrawerOpen: state.name.selectedUnprotected !== false,
   showingCreateForm: state.name.showingCreateForm
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  showCreateNameForm: () => dispatch(showCreateNameForm())
+  showCreateNameForm: () => dispatch(showCreateNameForm()),
+  selectUnprotectedName: (index) => dispatch(selectUnprotectedName(index))
 });
 
 export default connect(

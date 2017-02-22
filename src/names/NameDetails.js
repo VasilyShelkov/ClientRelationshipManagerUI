@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Drawer from 'material-ui/Drawer';
 
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
@@ -15,9 +14,7 @@ import PhoneIcon from 'material-ui/svg-icons/communication/phone';
 import LocationIcon from 'material-ui/svg-icons/communication/location-on';
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 
-import { closeNameDetailsDrawer } from './nameActions';
-
-export const NameDetailsDrawer = ({
+export default ({
   details: { name: { firstName, lastName, phone, company } },
   open,
   children,
@@ -43,10 +40,10 @@ export const NameDetailsDrawer = ({
       </ToolbarGroup>
     </Toolbar>
     <List>
-      <ListItem
-        primaryText={`${firstName} ${lastName}`}
-        rightIcon={<EditIcon color={cyan500} />}
-      />
+      <Subheader style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        Name <EditIcon color={cyan500} />
+      </Subheader>
+      <ListItem primaryText={`${firstName} ${lastName}`} />
       <ListItem primaryText={phone} leftIcon={<PhoneIcon />} disabled />
 
       <Divider />
@@ -61,12 +58,3 @@ export const NameDetailsDrawer = ({
     </List>
   </Drawer>
 );
-
-const mapDispatchToProps = dispatch => ({
-  closeNameDetails: () => dispatch(closeNameDetailsDrawer())
-});
-
-export default connect(
-  () => ({}),
-  mapDispatchToProps
-)(NameDetailsDrawer);

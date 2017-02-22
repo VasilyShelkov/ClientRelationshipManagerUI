@@ -8,7 +8,8 @@ import StandardForm from '../../../shared/StandardForm';
 import { required, AddressField } from '../../../shared/FormElements';
 
 export const AddUnprotectedName = ({
-  creatingUnprotectedName, handleSubmit, cancelCreateName, error
+  creatingUnprotectedName, error, nameDetailsDrawerOpen,
+  handleSubmit, cancelCreateName
 }) => (
   <div>
     <Paper style={{ marginTop: '20px' }}>
@@ -18,7 +19,7 @@ export const AddUnprotectedName = ({
         handleSubmit={handleSubmit}
         handleCancel={cancelCreateName}
         fields={[
-          <div key="unprotectedName__details" className="col-12 col-sm-6">
+          <div key="unprotectedName__details" className={`col-12 col-${nameDetailsDrawerOpen ? 'md' : 'sm'}-6`}>
             <h3>Name</h3>
             <div className="row">
               <div className="col-12">
@@ -50,7 +51,7 @@ export const AddUnprotectedName = ({
               </div>
             </div>
           </div>,
-          <div key="unprotectedName__company" className="col-12 col-sm-6">
+          <div key="unprotectedName__company" className={`col-12 col-${nameDetailsDrawerOpen ? 'md' : 'sm'}-6`}>
             <h3>Company</h3>
             <div className="row">
               <div className="col-12">

@@ -1,27 +1,40 @@
 import { APOLLO_MUTATION_INIT, APOLLO_MUTATION_RESULT } from '../app/thirdPartyActions';
 import {
-  OPEN_NAME_DETAILS_DRAWER, CLOSE_NAME_DETAILS_DRAWER,
+  SELECT_UNPROTECTED, HIDE_UNPROTECTED,
+  SELECT_PROTECTED, HIDE_PROTECTED,
   OPEN_PROTECT_NAME_DIALOG, CLOSE_PROTECT_NAME_DIALOG,
   SHOW_CREATE_NAME_FORM, HIDE_CREATE_NAME_FORM
 } from './nameActions';
 
 const initialState = {
-  nameDetailsToShow: false,
+  selectedUnprotected: false,
+  selectedProtected: false,
+  selectedClient: false,
   protectNameDialogOpen: false,
   creating: false,
   showingCreateForm: false
 };
 export default (state = initialState, action) => {
   switch (action.type) {
-    case OPEN_NAME_DETAILS_DRAWER:
+    case SELECT_UNPROTECTED:
       return {
         ...state,
-        nameDetailsToShow: action.nameIndex
+        selectedUnprotected: action.nameIndex
       };
-    case CLOSE_NAME_DETAILS_DRAWER:
+    case HIDE_UNPROTECTED:
       return {
         ...state,
-        nameDetailsToShow: false
+        selectedUnprotected: initialState.selectedUnprotected
+      };
+    case SELECT_PROTECTED:
+      return {
+        ...state,
+        selectedProtected: action.nameIndex
+      };
+    case HIDE_PROTECTED:
+      return {
+        ...state,
+        selectedProtected: initialState.selectedProtected
       };
     case OPEN_PROTECT_NAME_DIALOG:
       return {

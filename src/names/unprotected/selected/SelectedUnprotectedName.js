@@ -10,18 +10,17 @@ import NameDetailsDrawerWithData from '../../NameDetails';
 import NameDialogForm from '../../NameDialog';
 
 export default ({
-  names, nameDetailsToShow, nameDetailsDrawerOpen,
+  names, selectedNamePosition, selectedNameDrawerOpen,
   protectNameDialogOpen, openProtectNameDialog, closeProtectNameDialog,
-  onSubmitProtectName, removeUnprotectedName
+  onSubmitProtectName, removeUnprotectedName, hideUnprotectedName
 }) => {
-  if (nameDetailsDrawerOpen && nameDetailsToShow < names.length) {
-    const nameToShow = names[nameDetailsToShow];
+  if (selectedNameDrawerOpen && selectedNamePosition < names.length) {
+    const nameToShow = names[selectedNamePosition];
     return (
       <NameDetailsDrawerWithData
         details={nameToShow}
-        removeNameAction={
-          () => removeUnprotectedName(nameToShow)
-        }
+        closeNameDetails={hideUnprotectedName}
+        removeNameAction={removeUnprotectedName}
       >
         <IconButton
           tooltip="Protect Name"
@@ -34,10 +33,7 @@ export default ({
           displayName={`${nameToShow.name.firstName} ${nameToShow.name.lastName}`}
           open={protectNameDialogOpen}
           close={closeProtectNameDialog}
-          handleSubmit={onSubmitProtectName(
-            nameToShow.id,
-            nameToShow.name.id
-          )}
+          handleSubmit={onSubmitProtectName}
           actions={[
             <FlatButton
               onClick={closeProtectNameDialog}
@@ -46,10 +42,7 @@ export default ({
               icon={<CancelIcon />}
             />,
             <FlatButton
-              onClick={onSubmitProtectName(
-                nameToShow.id,
-                nameToShow.name.id
-              )}
+              onClick={onSubmitProtectName}
               type="submit"
               label="Protect"
               primary

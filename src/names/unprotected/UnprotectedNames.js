@@ -13,14 +13,13 @@ import AddUnprotectedNameFormWithData from './add/UnprotectedNameFormWithData';
 import SelectedUnprotectedNameWithData from './selected/SelectedUnprotectedNameWithData';
 
 export default ({
-  loading, names, nameDetailsDrawerOpen,
-  removeUnprotectedName, onSubmitProtectName, openProtectNameDialog, closeProtectNameDialog,
-  showingCreateForm, showCreateNameForm
+  loading, names, selectedNameDrawerOpen, showingCreateForm,
+  showCreateNameForm, selectUnprotectedName
 }) => (
   <div
     style={{
       marginTop: '20px',
-      paddingRight: nameDetailsDrawerOpen ? '300px' : undefined
+      paddingRight: selectedNameDrawerOpen ? '300px' : undefined
     }}
   >
     <div style={{ textAlign: 'center' }}>
@@ -54,9 +53,12 @@ export default ({
           <div>
             {
               showingCreateForm ?
-                <AddUnprotectedNameFormWithData />
+                <AddUnprotectedNameFormWithData
+                  selectedNameDrawerOpen={selectedNameDrawerOpen}
+                />
               :
                 <NamesListWithData
+                  openNameDetails={selectUnprotectedName}
                   showCreateNameForm={showCreateNameForm}
                   names={names}
                 />
@@ -64,7 +66,7 @@ export default ({
 
             <SelectedUnprotectedNameWithData
               names={names}
-              nameDetailsDrawerOpen={nameDetailsDrawerOpen}
+              selectedNameDrawerOpen={selectedNameDrawerOpen}
             />
           </div>
       }

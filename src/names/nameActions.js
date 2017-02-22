@@ -1,12 +1,12 @@
-export const OPEN_NAME_DETAILS_DRAWER = 'OPEN_NAME_DETAILS_DRAWER';
-export const openNameDetailsDrawer = (nameIndex) => ({
-  type: OPEN_NAME_DETAILS_DRAWER,
+export const SELECT_UNPROTECTED = 'SELECT_UNPROTECTED';
+export const selectUnprotectedName = (nameIndex) => ({
+  type: SELECT_UNPROTECTED,
   nameIndex
 });
 
-export const CLOSE_NAME_DETAILS_DRAWER = 'CLOSE_NAME_DETAILS_DRAWER';
-export const closeNameDetailsDrawer = () => ({
-  type: CLOSE_NAME_DETAILS_DRAWER
+export const HIDE_UNPROTECTED = 'HIDE_UNPROTECTED';
+export const hideUnprotectedName = () => ({
+  type: HIDE_UNPROTECTED
 });
 
 export const OPEN_PROTECT_NAME_DIALOG = 'OPEN_PROTECT_NAME_DIALOG';
