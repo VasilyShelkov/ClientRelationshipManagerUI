@@ -59,3 +59,9 @@ export const HIDE_EDIT_NAME_COMPANY = 'HIDE_EDIT_NAME_COMPANY';
 export const hideEditNameCompany = () => ({
   type: HIDE_EDIT_NAME_COMPANY
 });
+
+export const PERFORMING_NAME_ACTION = 'PERFORMING_NAME_ACTION';
+export const performingNameAction = message => ({
+  type: PERFORMING_NAME_ACTION,
+  payload: { message }
+});

@@ -7,6 +7,7 @@ import ProtectName from './ProtectName.gql';
 
 import {
   hideUnprotectedName, openProtectNameDialog, closeProtectNameDialog,
+  performingNameAction
 } from '../../nameActions';
 
 import SelectedUnprotectedName from './SelectedUnprotectedName';
@@ -16,12 +17,15 @@ const SelectedUnprotectedNameWithMutations = compose(
     props: ({ ownProps, mutate }) => ({
       ...ownProps,
       removeUnprotectedName: async () => {
+        const { names, selectedNamePosition } = ownProps;
+        const selectedUnprotected = names[selectedNamePosition];
+
         try {
+          ownProps.performingNameAction(`Removing ${selectedUnprotected.firstName} ${selectedUnprotected.lastName}`);
           await mutate({ variables: {
             userId: ownProps.id,
             unprotectedId: ownProps.names[ownProps.selectedNamePosition].id
           } });
-          ownProps.hideUnprotectedName();
         } catch (error) {
           console.log(error);
         }
@@ -46,6 +50,7 @@ const SelectedUnprotectedNameWithMutations = compose(
         }
 
         try {
+          ownProps.performingNameAction(`Protecting ${selectedUnprotected.firstName} ${selectedUnprotected.lastName}`);
           await mutate({
             variables: {
               userId: ownProps.id,
@@ -55,8 +60,6 @@ const SelectedUnprotectedNameWithMutations = compose(
               meetingBooked
             }
           });
-          ownProps.closeProtectNameDialog();
-          ownProps.hideUnprotectedName();
           ownProps.protectNameSuccess();
         } catch (error) {
           console.log(error);
@@ -77,9 +80,8 @@ const mapDispatchToProps = (dispatch) => ({
   hideUnprotectedName: () => dispatch(hideUnprotectedName()),
   openProtectNameDialog: () => dispatch(openProtectNameDialog()),
   closeProtectNameDialog: () => dispatch(closeProtectNameDialog()),
-  protectNameSuccess: () => {
-    dispatch(push('account/names/protected'));
-  }
+  performingNameAction: (message) => dispatch(performingNameAction(message)),
+  protectNameSuccess: () => dispatch(push('account/names/protected'))
 });
 
 export default connect(

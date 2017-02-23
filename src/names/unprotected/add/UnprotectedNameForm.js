@@ -8,13 +8,11 @@ import StandardForm from '../../../shared/StandardForm';
 import { required, AddressField } from '../../../shared/FormElements';
 
 export const AddUnprotectedName = ({
-  creatingUnprotectedName, error, nameDetailsDrawerOpen,
-  handleSubmit, cancelCreateName
+  error, nameDetailsDrawerOpen, handleSubmit, cancelCreateName
 }) => (
   <div>
     <Paper style={{ marginTop: '20px' }}>
       <StandardForm
-        editingInProgress={creatingUnprotectedName}
         error={error}
         handleSubmit={handleSubmit}
         handleCancel={cancelCreateName}

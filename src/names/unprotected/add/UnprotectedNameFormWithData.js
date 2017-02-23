@@ -22,7 +22,6 @@ const AddUnprotectedNameWithCompanyData = graphql(CreateUnprotectedName, {
             }
           }
         });
-        ownProps.createUnprotectedNameSuccess();
       } catch (error) {
         throw new SubmissionError({ _error: error.graphQLErrors[0].message });
       }
@@ -36,17 +35,9 @@ const mapStateToProps = state => ({
   creatingUnprotectedName: state.name.creating
 });
 
-const mapDispatchToProps = (dispatch) => {
-  const cancelCreateName = () => dispatch(hideCreateNameForm());
-
-  return {
-    cancelCreateName,
-    createUnprotectedNameSuccess: () => {
-      cancelCreateName();
-      // show notification of sorts
-    }
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  cancelCreateName: () => dispatch(hideCreateNameForm()),
+});
 
 export default connect(
   mapStateToProps,

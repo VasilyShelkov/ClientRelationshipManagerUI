@@ -83,7 +83,8 @@ const UnprotectedNamesWithData = graphql(GetUnprotectedNames, {
 const mapStateToProps = state => ({
   id: state.profile.id,
   selectedNameDrawerOpen: state.name.selectedUnprotected !== false,
-  showingCreateForm: state.name.showingCreateForm
+  showingCreateForm: state.name.showingCreateForm,
+  nameActionInProgress: state.name.actionInProgress
 });
 
 const mapDispatchToProps = (dispatch) => ({

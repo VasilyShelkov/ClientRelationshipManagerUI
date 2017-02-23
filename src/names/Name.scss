@@ -1,7 +1,33 @@
+.names__overlay {
+  background-color: rgba(0,0,0,.85);
+  position: absolute;
+  top: 64px;
+  left: 7px;
+  width: 100%;
+  height: calc(100% - 64px);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 37px;
+
+  @include media-breakpoint-up(lg)  {
+    left: 255px; 
+    width: calc(100% - 255px);
+  }
+}
+
+.names__content {
+  -webkit-filter: blur(5px) grayscale(.7);
+  filter: blur(5px) grayscale(.7);
+}
+
 .name {
   display: flex;
   justify-content: space-between;
   padding: 15px 30px;
+  margin-bottom: 10px;
 }
 
 .name__info {

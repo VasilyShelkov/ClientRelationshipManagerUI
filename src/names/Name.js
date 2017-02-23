@@ -14,23 +14,21 @@ export default ({
   created_at,
   showMoreDetails
 }) => (
-  <Paper onClick={showMoreDetails}>
-    <div className="name">
-      <div className="name__info">
-        <div className="name__info__main">
-          <span>{firstName} {lastName} - {phone}</span>
-          <span className="name__info__main__meta">{company.name}</span>
-        </div>
-        <span className="name__info__date">created: {moment(created_at).fromNow()}</span>
+  <Paper className="name" onClick={showMoreDetails}>
+    <div className="name__info">
+      <div className="name__info__main">
+        <span>{firstName} {lastName} - {phone}</span>
+        <span className="name__info__main__meta">{company.name}</span>
       </div>
-      <div className="name__more">
-        <IconButton
-          style={moreInfoStyle.container}
-          iconStyle={moreInfoStyle.icon}
-        >
-          <MoreInfoIcon />
-        </IconButton>
-      </div>
+      <span className="name__info__date">created: {moment(created_at).fromNow()}</span>
+    </div>
+    <div className="name__more">
+      <IconButton
+        style={moreInfoStyle.container}
+        iconStyle={moreInfoStyle.icon}
+      >
+        <MoreInfoIcon />
+      </IconButton>
     </div>
   </Paper>
 );
