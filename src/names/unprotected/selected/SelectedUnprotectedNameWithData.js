@@ -1,10 +1,12 @@
 import { graphql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+import { red500 } from 'material-ui/styles/colors';
 
 import RemoveUnprotectedName from './RemoveUnprotectedName.gql';
 import ProtectName from './ProtectName.gql';
 
+import { showNotification } from '../../../app/appActions';
 import {
   hideUnprotectedName, openProtectNameDialog, closeProtectNameDialog,
   performingNameAction
@@ -27,7 +29,7 @@ const SelectedUnprotectedNameWithMutations = compose(
             unprotectedId: ownProps.names[ownProps.selectedNamePosition].id
           } });
         } catch (error) {
-          console.log(error);
+          ownProps.showErrorNotification(error.graphQLErrors[0].message);
         }
       }
     })
@@ -62,7 +64,7 @@ const SelectedUnprotectedNameWithMutations = compose(
           });
           ownProps.protectNameSuccess();
         } catch (error) {
-          console.log(error);
+          ownProps.showErrorNotification(error.graphQLErrors[0].message);
         }
       }
     })
@@ -81,7 +83,8 @@ const mapDispatchToProps = (dispatch) => ({
   openProtectNameDialog: () => dispatch(openProtectNameDialog()),
   closeProtectNameDialog: () => dispatch(closeProtectNameDialog()),
   performingNameAction: (message) => dispatch(performingNameAction(message)),
-  protectNameSuccess: () => dispatch(push('account/names/protected'))
+  protectNameSuccess: () => dispatch(push('account/names/protected')),
+  showErrorNotification: (message) => dispatch(showNotification(message, red500))
 });
 
 export default connect(

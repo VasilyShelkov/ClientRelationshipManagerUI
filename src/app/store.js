@@ -13,6 +13,7 @@ import account from '../authentication/accountReducer';
 import profile from '../profile/profileReducer';
 import name from '../names/nameReducer';
 import creatingUser from '../users/creatingUserReducer';
+import app from './appReducer';
 
 import authenticationMiddleware from '../authentication/authenticationMiddleware';
 
@@ -57,9 +58,10 @@ const rootReducer = compose(
     form: formReducer,
     routing: routerReducer,
     account,
+    app,
+    creatingUser,
     name,
-    profile,
-    creatingUser
+    profile
   })
 );
 

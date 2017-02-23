@@ -64,7 +64,7 @@ export const NameDetails = ({
                 <EditIcon onClick={showEditNameForm} color={cyan500} />
               </IconButton>
             </Subheader>
-            <ListItem primaryText={`${firstName} ${lastName}`} />
+            <ListItem primaryText={`${firstName} ${lastName}`} disabled />
             <ListItem primaryText={phone} leftIcon={<PhoneIcon />} disabled />
           </div>
       }
