@@ -12,7 +12,7 @@ import ProfileWithData from '../profile/ProfileWithData';
 import AddUserFormWithData from '../users/AddUserForm';
 import UsersPerformance from '../users/UsersPerformance';
 import UnprotectedNamesWithData from '../names/unprotected/UnprotectedNamesWithData';
-import ProtectedNames from '../names/ProtectedNames';
+import ProtectedNames from '../names/protected/ProtectedNames';
 import ClientNames from '../names/ClientNames';
 
 export default [

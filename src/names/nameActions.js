@@ -28,3 +28,13 @@ export const HIDE_CREATE_NAME_FORM = 'HIDE_CREATE_NAME_FORM';
 export const hideCreateNameForm = () => ({
   type: HIDE_CREATE_NAME_FORM
 });
+
+export const SHOW_EDIT_NAME = 'SHOW_EDIT_NAME';
+export const showEditName = () => ({
+  type: SHOW_EDIT_NAME
+});
+
+export const HIDE_EDIT_NAME = 'HIDE_EDIT_NAME';
+export const hideEditName = () => ({
+  type: HIDE_EDIT_NAME
+});

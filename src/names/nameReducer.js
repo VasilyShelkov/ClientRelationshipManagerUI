@@ -3,7 +3,8 @@ import {
   SELECT_UNPROTECTED, HIDE_UNPROTECTED,
   SELECT_PROTECTED, HIDE_PROTECTED,
   OPEN_PROTECT_NAME_DIALOG, CLOSE_PROTECT_NAME_DIALOG,
-  SHOW_CREATE_NAME_FORM, HIDE_CREATE_NAME_FORM
+  SHOW_CREATE_NAME_FORM, HIDE_CREATE_NAME_FORM,
+  SHOW_EDIT_NAME, HIDE_EDIT_NAME
 } from './nameActions';
 
 const initialState = {
@@ -12,7 +13,8 @@ const initialState = {
   selectedClient: false,
   protectNameDialogOpen: false,
   creating: false,
-  showingCreateForm: false
+  showingCreateForm: false,
+  showingEditNameForm: false
 };
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -55,6 +57,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         showingCreateForm: false
+      };
+    case SHOW_EDIT_NAME:
+      return {
+        ...state,
+        showingEditNameForm: true
+      };
+    case HIDE_EDIT_NAME:
+      return {
+        ...state,
+        showingEditNameForm: false
       };
     case APOLLO_MUTATION_INIT: {
       if (action.operationName === 'CreateUnprotectedName') {
