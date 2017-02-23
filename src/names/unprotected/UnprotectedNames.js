@@ -19,7 +19,7 @@ export default ({
   <div
     style={{
       marginTop: '20px',
-      paddingRight: selectedNameDrawerOpen ? '310px' : undefined
+      paddingRight: selectedNameDrawerOpen ? '250px' : undefined
     }}
   >
     <div style={{ textAlign: 'center' }}>

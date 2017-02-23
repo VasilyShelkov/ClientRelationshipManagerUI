@@ -3,48 +3,48 @@ import { graphql } from 'react-apollo';
 import { reduxForm, Field, SubmissionError } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
 
-import EditName from './EditName.gql';
+import EditCompany from './EditCompany.gql';
 import { checkIfAnyKeysDifferent } from '../../shared/utils';
-import { required } from '../../shared/FormElements';
+import { AddressField, required } from '../../shared/FormElements';
 import StandardForm from '../../shared/StandardForm';
 
-const EditSelectedName = ({ error, handleSubmit, cancelEditName }) => (
+const EditSelectedName = ({ error, handleSubmit, cancelEditNameCompany }) => (
   <StandardForm
     error={error}
     handleSubmit={handleSubmit}
-    handleCancel={cancelEditName}
+    handleCancel={cancelEditNameCompany}
     fields={[
       <Field
-        key="editName__firstName"
-        name="firstName"
+        key="editNameCompany__name"
+        name="name"
         component={TextField}
         floatingLabelText="First Name"
         validate={required}
         fullWidth
       />,
       <Field
-        key="editName__lastName"
-        name="lastName"
-        component={TextField}
-        floatingLabelText="Last Name"
-        validate={required}
-        fullWidth
-      />,
-      <Field
-        key="editName__phone"
+        key="editNameCompany__phone"
         name="phone"
         component={TextField}
         floatingLabelText="Phone"
         validate={required}
         fullWidth
       />,
+      <Field
+        key="editNameCompany__address"
+        name="address"
+        component={AddressField}
+        floatingLabelText="Address"
+        validate={required}
+        fullWidth
+      />
     ]}
   />
 );
 
 const EditSelectedNameForm = reduxForm({ form: 'editName' })(EditSelectedName);
 
-export default graphql(EditName, {
+export default graphql(EditCompany, {
   props: ({ ownProps, mutate }) => ({
     onSubmit: async ({ id, ...formValues }) => {
       if (checkIfAnyKeysDifferent(ownProps.initialValues, formValues) > 0) {
@@ -52,17 +52,17 @@ export default graphql(EditName, {
           await mutate({
             variables: {
               userId: ownProps.userId,
-              nameId: id,
+              companyId: id,
               ...formValues
             }
           });
-          ownProps.cancelEditName();
+          ownProps.cancelEditNameCompany();
         } catch (error) {
           throw new SubmissionError({ _error: error.graphQLErrors[0].message });
         }
       } else {
         throw new SubmissionError({
-          _error: 'Please change one of the name fields to to update the name...'
+          _error: 'Please change one of the company fields to to update the company...'
         });
       }
     },

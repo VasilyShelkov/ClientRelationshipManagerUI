@@ -9,6 +9,17 @@ export const hideUnprotectedName = () => ({
   type: HIDE_UNPROTECTED
 });
 
+export const SELECT_PROTECTED = 'SELECT_PROTECTED';
+export const selectProtectedName = (nameIndex) => ({
+  type: SELECT_PROTECTED,
+  nameIndex
+});
+
+export const HIDE_PROTECTED = 'HIDE_PROTECTED';
+export const hideProtectedName = () => ({
+  type: HIDE_PROTECTED
+});
+
 export const OPEN_PROTECT_NAME_DIALOG = 'OPEN_PROTECT_NAME_DIALOG';
 export const openProtectNameDialog = () => ({
   type: OPEN_PROTECT_NAME_DIALOG
@@ -37,4 +48,14 @@ export const showEditName = () => ({
 export const HIDE_EDIT_NAME = 'HIDE_EDIT_NAME';
 export const hideEditName = () => ({
   type: HIDE_EDIT_NAME
+});
+
+export const SHOW_EDIT_NAME_COMPANY = 'SHOW_EDIT_NAME_COMPANY';
+export const showEditNameCompany = () => ({
+  type: SHOW_EDIT_NAME_COMPANY
+});
+
+export const HIDE_EDIT_NAME_COMPANY = 'HIDE_EDIT_NAME_COMPANY';
+export const hideEditNameCompany = () => ({
+  type: HIDE_EDIT_NAME_COMPANY
 });
