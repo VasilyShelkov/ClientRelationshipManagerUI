@@ -43,9 +43,19 @@
   font-weight: 500;
 }
 
+.name__info__main-selected {
+  @extend .name__info__main;
+  color: white;
+}
+
 .name__info__main__meta {
   color: rgba(0, 0, 0, 0.541176);
   font-size: 16px
+}
+
+.name__info__main__meta-selected {
+  @extend .name__info__main__meta;
+  color: white;
 }
 
 .name__info__date {
@@ -53,7 +63,11 @@
   font-size: 14px;
   margin-top: 10px;
   font-weight: 100;
-  color: grey;
+}
+
+.name__info__date-selected {
+  @extend .name__info__date;
+  color: white;
 }
 
 .name__more {

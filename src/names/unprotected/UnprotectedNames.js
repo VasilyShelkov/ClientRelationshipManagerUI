@@ -13,7 +13,8 @@ import AddUnprotectedNameFormWithData from './add/UnprotectedNameFormWithData';
 import SelectedUnprotectedNameWithData from './selected/SelectedUnprotectedNameWithData';
 
 export default ({
-  loading, names, selectedNameDrawerOpen, showingCreateForm, nameActionInProgress,
+  loading, names, selectedNameDrawerOpen, selectedNamePosition,
+  showingCreateForm, nameActionInProgress,
   showCreateNameForm, selectUnprotectedName
 }) => (
   <div
@@ -62,6 +63,7 @@ export default ({
                     openNameDetails={selectUnprotectedName}
                     showCreateNameForm={showCreateNameForm}
                     names={names}
+                    selectedNamePosition={selectedNamePosition}
                   />
               }
 

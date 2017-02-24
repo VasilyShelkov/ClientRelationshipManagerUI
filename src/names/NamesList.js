@@ -5,13 +5,16 @@ import { fullWhite, green500 } from 'material-ui/styles/colors';
 
 import Name from './Name';
 
-export default ({ names, showCreateNameForm = null, openNameDetails }) => (
+export default ({
+  names, selectedNamePosition, showCreateNameForm = null, openNameDetails
+}) => (
   <div>
     {
       names.length ?
         names.map((name, index) => (
           <Name
             key={`name-${index}`}
+            selected={index === selectedNamePosition}
             showMoreDetails={() => openNameDetails(index)}
             {...name}
           />

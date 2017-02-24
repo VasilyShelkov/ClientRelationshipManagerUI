@@ -3,6 +3,7 @@ import moment from 'moment';
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
 import MoreInfoIcon from 'material-ui/svg-icons/navigation/chevron-right';
+import { cyan500, fullWhite } from 'material-ui/styles/colors';
 
 const moreInfoStyle = {
   icon: { width: '60px', height: '60px' },
@@ -12,22 +13,32 @@ const moreInfoStyle = {
 export default ({
   name: { firstName, lastName, phone, company },
   created_at,
-  showMoreDetails
+  showMoreDetails,
+  selected = false
 }) => (
-  <Paper className="name" onClick={showMoreDetails}>
+  <Paper
+    className="name"
+    style={{ backgroundColor: selected ? cyan500 : fullWhite }}
+    onClick={showMoreDetails}
+  >
     <div className="name__info">
-      <div className="name__info__main">
+      <div className={`name__info__main${selected ? '-selected' : ''}`}>
         <span>{firstName} {lastName} - {phone}</span>
-        <span className="name__info__main__meta">{company.name}</span>
+        <span className={`name__info__main__meta${selected ? '-selected' : ''}`}>
+          {company.name}
+        </span>
       </div>
-      <span className="name__info__date">created: {moment(created_at).fromNow()}</span>
+      <span className={`name__info__date${selected ? '-selected' : ''}`}>
+        created: {moment(created_at).fromNow()}
+      </span>
     </div>
     <div className="name__more">
       <IconButton
         style={moreInfoStyle.container}
         iconStyle={moreInfoStyle.icon}
       >
-        <MoreInfoIcon />
+        <MoreInfoIcon color={selected ? fullWhite : cyan500} />
+        
       </IconButton>
     </div>
   </Paper>
