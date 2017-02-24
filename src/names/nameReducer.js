@@ -115,6 +115,13 @@ export default (state = initialState, action) => {
         };
       }
 
+      if (action.operationName === 'ProtectName') {
+        return {
+          ...state,
+          protectNameDialogOpen: initialState.protectNameDialogOpen,
+        };
+      }
+
       return state;
     }
     case APOLLO_MUTATION_RESULT: {
@@ -152,7 +159,6 @@ export default (state = initialState, action) => {
       if (action.operationName === 'ProtectName') {
         const standardState = {
           ...state,
-          protectNameDialogOpen: initialState.protectNameDialogOpen,
           actionInProgress: initialState.actionInProgress
         };
 
@@ -165,6 +171,14 @@ export default (state = initialState, action) => {
         }
 
         return standardState;
+      }
+
+      if (action.operationName === 'RemoveProtectedName') {
+        return {
+          ...state,
+          actionInProgress: initialState.actionInProgress,
+          selectedProtected: initialState.selectedProtected
+        };
       }
 
       return state;

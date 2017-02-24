@@ -7,22 +7,7 @@ import { showCreateNameForm, selectUnprotectedName } from '../nameActions';
 import GetUnprotectedNames from './GetUnprotectedNames.gql';
 
 import UnprotectedNames from './UnprotectedNames';
-
-const removeNameFromUnprotected = (previousResult, unprotectedNameToRemoveId) => {
-  const removedNamePosition = previousResult.user.unprotected.findIndex(
-    ({ id }) => id === unprotectedNameToRemoveId
-  );
-
-  return {
-    user: {
-      ...previousResult.user,
-      unprotected: [
-        ...previousResult.user.unprotected.slice(0, removedNamePosition),
-        ...previousResult.user.unprotected.slice(removedNamePosition + 1)
-      ]
-    }
-  };
-};
+import { removeNameFromList } from '../nameListShapeShifter';
 
 export const reducer = (previousResult, action) => {
   if (action.type === APOLLO_MUTATION_RESULT) {
@@ -32,8 +17,8 @@ export const reducer = (previousResult, action) => {
           _.has(action, 'result.data.removeUnprotectedFromUser') &&
           !_.has(action, 'result.errors')
         ) {
-          return removeNameFromUnprotected(
-            previousResult, action.variables.unprotectedId
+          return removeNameFromList(
+            previousResult, action.variables.unprotectedId, 'unprotected'
           );
         }
         break;
@@ -42,8 +27,8 @@ export const reducer = (previousResult, action) => {
           _.has(action, 'result.data.protectNameToUser') &&
           !_.has(action, 'result.errors')
         ) {
-          return removeNameFromUnprotected(
-            previousResult, action.variables.unprotectedId
+          return removeNameFromList(
+            previousResult, action.variables.unprotectedId, 'unprotected'
           );
         }
         break;

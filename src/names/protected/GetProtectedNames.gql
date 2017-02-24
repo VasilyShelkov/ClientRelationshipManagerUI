@@ -1,0 +1,21 @@
+query GetProtectedNames($id: String!) {
+  user (id: $id) {
+    id
+    protected {
+      id
+      name {
+        id
+        firstName
+        lastName
+        phone
+        company {
+          id
+          name
+          address
+          phone
+        }
+      }
+      created_at
+    }
+  }
+}

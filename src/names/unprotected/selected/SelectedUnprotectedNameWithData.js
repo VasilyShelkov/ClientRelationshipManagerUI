@@ -23,13 +23,15 @@ const SelectedUnprotectedNameWithMutations = compose(
         const selectedUnprotected = names[selectedNamePosition];
 
         try {
-          ownProps.performingNameAction(`Removing ${selectedUnprotected.firstName} ${selectedUnprotected.lastName}`);
+          ownProps.performingNameAction(`Removing ${selectedUnprotected.name.firstName} ${selectedUnprotected.name.lastName}`);
           await mutate({ variables: {
             userId: ownProps.id,
-            unprotectedId: ownProps.names[ownProps.selectedNamePosition].id
+            unprotectedId: selectedUnprotected.id
           } });
         } catch (error) {
-          ownProps.showErrorNotification(error.graphQLErrors[0].message);
+          ownProps.showErrorNotification(
+            error.graphQLErrors ? error.graphQLErrors[0].message : 'Oops, something went wrong...'
+          );
         }
       }
     })
@@ -52,7 +54,7 @@ const SelectedUnprotectedNameWithMutations = compose(
         }
 
         try {
-          ownProps.performingNameAction(`Protecting ${selectedUnprotected.firstName} ${selectedUnprotected.lastName}`);
+          ownProps.performingNameAction(`Protecting ${selectedUnprotected.name.firstName} ${selectedUnprotected.name.lastName}`);
           await mutate({
             variables: {
               userId: ownProps.id,
@@ -60,11 +62,24 @@ const SelectedUnprotectedNameWithMutations = compose(
               nameId: selectedUnprotected.name.id,
               callBooked,
               meetingBooked
+            },
+            updateQueries: {
+              GetProtectedNames: (previousResult, { mutationResult }) => ({
+                user: {
+                  ...previousResult.user,
+                  protected: [
+                    mutationResult.data.protectNameToUser,
+                    ...previousResult.user.protected
+                  ]
+                }
+              })
             }
           });
           ownProps.protectNameSuccess();
         } catch (error) {
-          ownProps.showErrorNotification(error.graphQLErrors[0].message);
+          ownProps.showErrorNotification(
+            error.graphQLErrors ? error.graphQLErrors[0].message : 'Oops, something went wrong...'
+          );
         }
       }
     })
@@ -73,7 +88,6 @@ const SelectedUnprotectedNameWithMutations = compose(
 
 const mapStateToProps = state => ({
   id: state.account.id,
-  selectedNamePosition: state.name.selectedUnprotected,
   protectNameDialogOpen: state.name.protectNameDialogOpen,
   showingCreateForm: state.name.showingCreateForm
 });
@@ -83,7 +97,7 @@ const mapDispatchToProps = (dispatch) => ({
   openProtectNameDialog: () => dispatch(openProtectNameDialog()),
   closeProtectNameDialog: () => dispatch(closeProtectNameDialog()),
   performingNameAction: (message) => dispatch(performingNameAction(message)),
-  protectNameSuccess: () => dispatch(push('account/names/protected')),
+  protectNameSuccess: () => dispatch(push('/account/names/protected')),
   showErrorNotification: (message) => dispatch(showNotification(message, red500))
 });
 

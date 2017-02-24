@@ -45,10 +45,9 @@ export default (state = initialState, action) => {
             };
           }
           case 'RemoveUnprotectedName': {
-            const { firstName, lastName } = action.result.data.removeUnprotectedFromUser.name;
             return {
               ...state,
-              notificationMessage: `Removed ${firstName} ${lastName}`,
+              notificationMessage: 'Removed Unprotected Name',
               notificationColor: greenA700
             };
           }
@@ -57,6 +56,13 @@ export default (state = initialState, action) => {
             return {
               ...state,
               notificationMessage: `Protected ${firstName} ${lastName}`,
+              notificationColor: greenA700
+            };
+          }
+          case 'RemoveProtectedName': {
+            return {
+              ...state,
+              notificationMessage: 'Removed Protected Name',
               notificationColor: greenA700
             };
           }

@@ -8,7 +8,7 @@ import AddIcon from 'material-ui/svg-icons/content/add';
 import { cyan500, green500 } from 'material-ui/styles/colors';
 
 import LoadingSpinner from '../../shared/LoadingSpinner';
-import NamesListWithData from '../NamesList';
+import NamesList from '../NamesList';
 import AddUnprotectedNameFormWithData from './add/UnprotectedNameFormWithData';
 import SelectedUnprotectedNameWithData from './selected/SelectedUnprotectedNameWithData';
 
@@ -59,7 +59,7 @@ export default ({
                     selectedNameDrawerOpen={selectedNameDrawerOpen}
                   />
                 :
-                  <NamesListWithData
+                  <NamesList
                     openNameDetails={selectUnprotectedName}
                     showCreateNameForm={showCreateNameForm}
                     names={names}
@@ -70,6 +70,7 @@ export default ({
               <SelectedUnprotectedNameWithData
                 names={names}
                 selectedNameDrawerOpen={selectedNameDrawerOpen}
+                selectedNamePosition={selectedNamePosition}
               />
             </div>
         }
