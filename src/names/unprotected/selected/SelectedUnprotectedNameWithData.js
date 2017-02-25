@@ -40,8 +40,7 @@ const SelectedUnprotectedNameWithMutations = compose(
   graphql(ProtectName, {
     props: ({ ownProps, mutate }) => ({
       ...ownProps,
-      onSubmitProtectName: async (values) => {
-        const { callDay, callTime, meetingDay, meetingTime } = values;
+      onSubmitProtectName: async ({ callDay, callTime, meetingDay, meetingTime }) => {
         const { names, selectedNamePosition } = ownProps;
         const selectedUnprotected = names[selectedNamePosition];
 
@@ -99,8 +98,8 @@ const mapDispatchToProps = (dispatch) => ({
   openProtectNameDialog: () => dispatch(openProtectNameDialog()),
   closeProtectNameDialog: () => dispatch(closeProtectNameDialog()),
   performingNameAction: (message) => dispatch(performingNameAction(message)),
-  protectNameSuccess: () => dispatch(push('/account/names/protected')),
-  showErrorNotification: (message) => dispatch(showNotification(message, red500))
+  showErrorNotification: (message) => dispatch(showNotification(message, red500)),
+  protectNameSuccess: () => dispatch(push('/account/names/protected'))
 });
 
 export default connect(

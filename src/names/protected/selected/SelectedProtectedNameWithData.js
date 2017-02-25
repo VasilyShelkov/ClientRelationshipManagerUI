@@ -1,19 +1,21 @@
 import { graphql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import { push } from 'react-router-redux';
 import { red500 } from 'material-ui/styles/colors';
 
 import RemoveProtectedName from './RemoveProtectedName.gql';
+import MakeClient from './MakeClient.gql';
 
 import { showNotification } from '../../../app/appActions';
 import {
-  hideProtectedName, openProtectNameDialog, closeProtectNameDialog,
+  hideProtectedName, openClientNameDialog, closeClientNameDialog,
   performingNameAction
 } from '../../nameActions';
 
 import SelectedProtectedName from './SelectedProtectedName';
 
-const SelectedUnprotectedNameWithMutations = compose(
+const SelectedProtectedNameWithMutations = compose(
   graphql(RemoveProtectedName, {
     props: ({ ownProps, mutate }) => ({
       ...ownProps,
@@ -34,22 +36,70 @@ const SelectedUnprotectedNameWithMutations = compose(
         }
       }
     })
+  }),
+  graphql(MakeClient, {
+    props: ({ ownProps, mutate }) => ({
+      ...ownProps,
+      onSubmitMakeClient: async ({ callDay, callTime, meetingDay, meetingTime }) => {
+        const { names, selectedNamePosition } = ownProps;
+        const selectedProtected = names[selectedNamePosition];
+
+        let callBooked = null;
+        if (callDay) {
+          callBooked = `${moment(callDay).format('YYYY-MM-DD')}T${moment(callTime).format('HH:mm:ss.sss')}Z`;
+        }
+
+        let meetingBooked = null;
+        if (meetingDay) {
+          meetingBooked = `${moment(meetingDay).format('YYYY-MM-DD')}T${moment(meetingTime).format('HH:mm:ss.sss')}Z`;
+        }
+
+        try {
+          ownProps.performingNameAction(`Making ${selectedProtected.name.firstName} ${selectedProtected.name.lastName} a Client!`);
+          await mutate({
+            variables: {
+              userId: ownProps.id,
+              nameId: selectedProtected.name.id,
+              callBooked,
+              meetingBooked
+            },
+            updateQueries: {
+              GetClientNames: (previousResult, { mutationResult }) => ({
+                user: {
+                  ...previousResult.user,
+                  client: [
+                    mutationResult.data.addClientToUser,
+                    ...previousResult.user.client
+                  ]
+                }
+              })
+            }
+          });
+          ownProps.makeNameClientSuccess();
+        } catch (error) {
+          ownProps.showErrorNotification(
+            error.graphQLErrors ? error.graphQLErrors[0].message : 'Oops, something went wrong...'
+          );
+        }
+      }
+    })
   })
 )(SelectedProtectedName);
 
 const mapStateToProps = state => ({
   id: state.account.id,
-  protectNameDialogOpen: state.name.protectNameDialogOpen,
+  makeNameClientDialogOpen: state.name.makeNameClientDialogOpen,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   hideProtectedName: () => dispatch(hideProtectedName()),
-  openProtectNameDialog: () => dispatch(openProtectNameDialog()),
-  closeProtectNameDialog: () => dispatch(closeProtectNameDialog()),
+  openClientNameDialog: () => dispatch(openClientNameDialog()),
+  closeClientNameDialog: () => dispatch(closeClientNameDialog()),
   performingNameAction: (message) => dispatch(performingNameAction(message)),
-  showErrorNotification: (message) => dispatch(showNotification(message, red500))
+  showErrorNotification: (message) => dispatch(showNotification(message, red500)),
+  makeNameClientSuccess: () => dispatch(push('/account/names/clients'))
 });
 
 export default connect(
   mapStateToProps, mapDispatchToProps
-)(SelectedUnprotectedNameWithMutations);
+)(SelectedProtectedNameWithMutations);

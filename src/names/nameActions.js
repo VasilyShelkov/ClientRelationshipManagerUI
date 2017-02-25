@@ -30,6 +30,16 @@ export const closeProtectNameDialog = () => ({
   type: CLOSE_PROTECT_NAME_DIALOG
 });
 
+export const OPEN_CLIENT_NAME_DIALOG = 'OPEN_CLIENT_NAME_DIALOG';
+export const openClientNameDialog = () => ({
+  type: OPEN_CLIENT_NAME_DIALOG
+});
+
+export const CLOSE_CLIENT_NAME_DIALOG = 'CLOSE_CLIENT_NAME_DIALOG';
+export const closeClientNameDialog = () => ({
+  type: CLOSE_CLIENT_NAME_DIALOG
+});
+
 export const SHOW_CREATE_NAME_FORM = 'SHOW_CREATE_NAME_FORM';
 export const showCreateNameForm = () => ({
   type: SHOW_CREATE_NAME_FORM

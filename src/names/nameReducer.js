@@ -4,6 +4,7 @@ import {
   SELECT_UNPROTECTED, HIDE_UNPROTECTED,
   SELECT_PROTECTED, HIDE_PROTECTED,
   OPEN_PROTECT_NAME_DIALOG, CLOSE_PROTECT_NAME_DIALOG,
+  OPEN_CLIENT_NAME_DIALOG, CLOSE_CLIENT_NAME_DIALOG,
   SHOW_CREATE_NAME_FORM, HIDE_CREATE_NAME_FORM,
   SHOW_EDIT_NAME, HIDE_EDIT_NAME,
   SHOW_EDIT_NAME_COMPANY, HIDE_EDIT_NAME_COMPANY,
@@ -15,6 +16,7 @@ const initialState = {
   selectedProtected: false,
   selectedClient: false,
   protectNameDialogOpen: false,
+  makeNameClientDialogOpen: false,
   showingCreateForm: false,
   showingEditNameForm: false,
   showingEditNameCompanyForm: false,
@@ -57,6 +59,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         protectNameDialogOpen: false
+      };
+    case OPEN_CLIENT_NAME_DIALOG:
+      return {
+        ...state,
+        makeNameClientDialogOpen: true
+      };
+    case CLOSE_CLIENT_NAME_DIALOG:
+      return {
+        ...state,
+        makeNameClientDialogOpen: false
       };
     case SHOW_CREATE_NAME_FORM:
       return {
@@ -122,6 +134,13 @@ export default (state = initialState, action) => {
         };
       }
 
+      if (action.operationName === 'MakeClient') {
+        return {
+          ...state,
+          makeNameClientDialogOpen: initialState.makeNameClientDialogOpen,
+        }
+      }
+
       return state;
     }
     case APOLLO_MUTATION_RESULT: {
@@ -168,6 +187,23 @@ export default (state = initialState, action) => {
             ...standardState,
             selectedUnprotected: initialState.selectedUnprotected,
             selectedProtected: 0
+          };
+        }
+
+        return standardState;
+      }
+
+      if (action.operationName === 'MakeClient') {
+        const standardState = {
+          ...state,
+          actionInProgress: initialState.actionInProgress
+        };
+
+        if (!_.has(action, 'result.errors')) {
+          return {
+            ...standardState,
+            selectedProtected: initialState.selectedProtected,
+            selectedClient: 0
           };
         }
 

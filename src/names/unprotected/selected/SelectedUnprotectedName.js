@@ -16,6 +16,7 @@ export default ({
 }) => {
   if (selectedNameDrawerOpen && selectedNamePosition < names.length) {
     const nameToShow = names[selectedNamePosition];
+    const displayName = `${nameToShow.name.firstName} ${nameToShow.name.lastName}`;
     return (
       <NameDetailsDrawerWithData
         details={nameToShow}
@@ -29,27 +30,31 @@ export default ({
         >
           <LockClosedIcon color={cyan500} />
         </IconButton>
-        <NameDialogForm
-          displayName={`${nameToShow.name.firstName} ${nameToShow.name.lastName}`}
-          open={protectNameDialogOpen}
-          close={closeProtectNameDialog}
-          onSubmit={onSubmitProtectName}
-          actions={[
-            <FlatButton
-              onClick={closeProtectNameDialog}
-              label="Cancel"
-              secondary
-              icon={<CancelIcon />}
-            />,
-            <FlatButton
-              form="protectName"
-              type="submit"
-              label="Protect"
-              primary
-              icon={<LockClosedIcon />}
-            />
-          ]}
-        />
+        {
+          protectNameDialogOpen &&
+          <NameDialogForm
+            title={`Protect ${displayName}`}
+            displayName={displayName}
+            open={protectNameDialogOpen}
+            close={closeProtectNameDialog}
+            onSubmit={onSubmitProtectName}
+            actions={[
+              <FlatButton
+                onClick={closeProtectNameDialog}
+                label="Cancel"
+                secondary
+                icon={<CancelIcon />}
+              />,
+              <FlatButton
+                form="protectName"
+                type="submit"
+                label="Protect"
+                primary
+                icon={<LockClosedIcon />}
+              />
+            ]}
+          />
+        }
       </NameDetailsDrawerWithData>
     );
   }

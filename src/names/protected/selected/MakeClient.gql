@@ -1,0 +1,30 @@
+mutation MakeClient(
+  $userId: String!
+  $nameId: String!
+  $callBooked: String
+  $meetingBooked: String
+) {
+  addClientToUser (
+    userId: $userId
+    nameId: $nameId
+    callBooked: $callBooked
+    meetingBooked: $meetingBooked
+  ) {
+    id
+    name {
+      id
+      firstName
+      lastName
+      phone
+      company {
+        id
+        name
+        address
+        phone
+      }
+    }
+    callBooked
+    meetingBooked
+    created_at
+  }
+}

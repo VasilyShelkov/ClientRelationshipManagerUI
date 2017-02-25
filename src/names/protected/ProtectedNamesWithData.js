@@ -22,6 +22,16 @@ export const reducer = (previousResult, action) => {
           );
         }
         break;
+      case 'MakeClient':
+        if (
+          _.has(action, 'result.data.addClientToUser') &&
+          !_.has(action, 'result.errors')
+        ) {
+          return removeNameFromList(
+            previousResult, action.variables.nameId, 'protected', true
+          );
+        }
+        break;
       default:
         return previousResult;
     }

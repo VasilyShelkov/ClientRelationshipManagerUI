@@ -59,6 +59,14 @@ export default (state = initialState, action) => {
               notificationColor: greenA700
             };
           }
+          case 'MakeClient': {
+            const { firstName, lastName } = action.result.data.addClientToUser.name;
+            return {
+              ...state,
+              notificationMessage: `${firstName} ${lastName} is now a Client!`,
+              notificationColor: greenA700
+            };
+          }
           case 'RemoveProtectedName': {
             return {
               ...state,
