@@ -1,3 +1,9 @@
+.protected__container__names {
+  @include media-breakpoint-up(sm)  {
+    padding-right: 250px;
+  }
+}
+
 .names__overlay {
   background-color: rgba(0,0,0,.85);
   position: absolute;
@@ -34,6 +40,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  flex-grow: 1;
 }
 
 .name__info__main {
@@ -56,6 +63,32 @@
 .name__info__main__meta-selected {
   @extend .name__info__main__meta;
   color: white;
+}
+
+.name__info__protectedInfo {
+  display: flex;
+  justify-content: space-around;
+}
+
+.name__info__protectedInfo-selected {
+  @extend .name__info__protectedInfo;
+  color: white;
+}
+
+.name__info__protectedInfo__detail {
+  @include media-breakpoint-up(sm)  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.name__info__protectedInfo__detail-withDrawer {
+  @include media-breakpoint-up(md)  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .name__info__date {

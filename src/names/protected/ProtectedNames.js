@@ -13,10 +13,8 @@ export default ({
   nameActionInProgress, selectProtectedName
 }) => (
   <div
-    style={{
-      marginTop: '20px',
-      paddingRight: selectedNameDrawerOpen ? '250px' : undefined
-    }}
+    className={selectedNameDrawerOpen && 'protected__container__names'}
+    style={{ marginTop: '20px' }}
   >
     <div className={nameActionInProgress && 'names__content'}>
       <div style={{ textAlign: 'center' }}>
@@ -39,6 +37,7 @@ export default ({
                 openNameDetails={selectProtectedName}
                 names={names}
                 selectedNamePosition={selectedNamePosition}
+                isProtected
               />
 
               <SelectedProtectedNameWithData

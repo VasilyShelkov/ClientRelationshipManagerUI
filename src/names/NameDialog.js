@@ -6,17 +6,18 @@ import Dialog from 'material-ui/Dialog';
 import { DatePicker, TimePicker } from 'redux-form-material-ui';
 
 export const NameDialog = ({ formValues, open, displayName, actions, close, handleSubmit }) => (
-  <form onSubmit={handleSubmit}>
-    <Dialog
-      title={`Protect ${displayName}`}
-      actions={actions}
-      open={open}
-      onRequestClose={close}
-    >
+  <Dialog
+    title={`Protect ${displayName}`}
+    actions={actions}
+    open={open}
+    onRequestClose={close}
+  >
+    <form id="protectName" onSubmit={handleSubmit}>
       <div className="row">
         <div className="col-12">
           Calling {displayName}?
         </div>
+
         <div className="col-12 col-md-6">
           <Field
             name="callDay"
@@ -44,6 +45,7 @@ export const NameDialog = ({ formValues, open, displayName, actions, close, hand
         <div className="col-12">
           Meeting {displayName}?
         </div>
+
         <div className="col-12 col-md-6">
           <Field
             name="meetingDay"
@@ -58,7 +60,6 @@ export const NameDialog = ({ formValues, open, displayName, actions, close, hand
           <Field
             name="meetingTime"
             component={TimePicker}
-            format={value => moment(value).format('THH:mm:ss.SSSZ')}
             defaultValue={null}
             hintText="At what time ?"
             disabled={!(formValues && formValues.meetingDay)}
@@ -66,8 +67,8 @@ export const NameDialog = ({ formValues, open, displayName, actions, close, hand
           />
         </div>
       </div>
-    </Dialog>
-  </form>
+    </form>
+  </Dialog>
 );
 
 const NameDialogForm = reduxForm({

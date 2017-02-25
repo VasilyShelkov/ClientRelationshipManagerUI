@@ -134,6 +134,7 @@ export default (state = initialState, action) => {
 
       if (action.operationName === 'CreateUnprotectedName') {
         const standardState = {
+          ...state,
           showingCreateForm: false,
           actionInProgress: initialState.actionInProgress,
         };

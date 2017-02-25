@@ -1,5 +1,6 @@
 import { graphql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import { push } from 'react-router-redux';
 import { red500 } from 'material-ui/styles/colors';
 
@@ -39,18 +40,19 @@ const SelectedUnprotectedNameWithMutations = compose(
   graphql(ProtectName, {
     props: ({ ownProps, mutate }) => ({
       ...ownProps,
-      onSubmitProtectName: async ({ callDay, callTime, meetingDay, meetingTime }) => {
+      onSubmitProtectName: async (values) => {
+        const { callDay, callTime, meetingDay, meetingTime } = values;
         const { names, selectedNamePosition } = ownProps;
         const selectedUnprotected = names[selectedNamePosition];
 
         let callBooked = null;
         if (callDay) {
-          callBooked = callDay.substring(0, callDay.indexOf('T')) + callTime.substring(callTime.indexOf('T'));
+          callBooked = `${moment(callDay).format('YYYY-MM-DD')}T${moment(callTime).format('HH:mm:ss.sss')}Z`;
         }
 
         let meetingBooked = null;
         if (meetingDay) {
-          meetingBooked = meetingDay.substring(0, meetingDay.indexOf('T')) + meetingTime.substring(meetingTime.indexOf('T'));
+          meetingBooked = `${moment(meetingDay).format('YYYY-MM-DD')}T${moment(meetingTime).format('HH:mm:ss.sss')}Z`;
         }
 
         try {

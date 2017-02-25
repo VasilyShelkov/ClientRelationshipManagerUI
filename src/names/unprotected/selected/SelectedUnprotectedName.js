@@ -33,7 +33,7 @@ export default ({
           displayName={`${nameToShow.name.firstName} ${nameToShow.name.lastName}`}
           open={protectNameDialogOpen}
           close={closeProtectNameDialog}
-          handleSubmit={onSubmitProtectName}
+          onSubmit={onSubmitProtectName}
           actions={[
             <FlatButton
               onClick={closeProtectNameDialog}
@@ -42,7 +42,7 @@ export default ({
               icon={<CancelIcon />}
             />,
             <FlatButton
-              onClick={onSubmitProtectName}
+              form="protectName"
               type="submit"
               label="Protect"
               primary
