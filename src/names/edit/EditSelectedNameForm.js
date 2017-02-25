@@ -8,7 +8,7 @@ import { checkIfAnyKeysDifferent } from '../../shared/utils';
 import { required } from '../../shared/FormElements';
 import StandardForm from '../../shared/StandardForm';
 
-const EditSelectedName = ({ error, handleSubmit, cancelEditName }) => (
+const EditSelectedName = ({ isProtected, error, handleSubmit, cancelEditName }) => (
   <StandardForm
     error={error}
     handleSubmit={handleSubmit}
@@ -20,6 +20,7 @@ const EditSelectedName = ({ error, handleSubmit, cancelEditName }) => (
         component={TextField}
         floatingLabelText="First Name"
         validate={required}
+        disabled={isProtected}
         fullWidth
       />,
       <Field
@@ -28,6 +29,7 @@ const EditSelectedName = ({ error, handleSubmit, cancelEditName }) => (
         component={TextField}
         floatingLabelText="Last Name"
         validate={required}
+        disabled={isProtected}
         fullWidth
       />,
       <Field

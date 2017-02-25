@@ -23,7 +23,7 @@ import EditNameCompanyForm from './edit/EditNameCompanyForm';
 
 export const NameDetails = ({
   userId, details: { name: { id, firstName, lastName, phone, company } },
-  open, showingEditNameForm, showingEditCompanyForm, children,
+  open, showingEditNameForm, showingEditCompanyForm, isProtected, children,
   closeNameDetails, removeNameAction, showEditNameForm, hideEditNameForm,
   showEditCompanyForm, hideEditCompanyForm
 }) => (
@@ -54,6 +54,7 @@ export const NameDetails = ({
               userId={userId}
               initialValues={{ id, firstName, lastName, phone }}
               cancelEditName={hideEditNameForm}
+              isProtected={isProtected}
             />
           </div>
         :

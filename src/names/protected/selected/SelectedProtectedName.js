@@ -21,6 +21,7 @@ export default ({
         details={nameToShow}
         closeNameDetails={hideProtectedName}
         removeNameAction={removeProtectedName}
+        isProtected
       >
         <IconButton
           tooltip="Make Name Client"
