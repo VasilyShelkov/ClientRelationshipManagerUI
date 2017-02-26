@@ -15,13 +15,10 @@ const moreInfoStyle = {
 
 export default ({
   name: { firstName, lastName, phone, company },
-  callBooked,
-  meetingBooked,
-  created_at,
-  showMoreDetails,
-  selected = false,
-  isProtected = false,
-  selectedNameDrawerOpen
+  callBooked, meetingBooked, created_at,
+  selected = false, isProtected = false,
+  showMoreDetails, selectedNameDrawerOpen,
+  editProtectedMeeting, editProtectedCall
 }) => (
   <Paper
     className="name"
@@ -42,6 +39,8 @@ export default ({
             meetingBooked={meetingBooked}
             selected={selected}
             selectedNameDrawerOpen={selectedNameDrawerOpen}
+            editMeeting={editProtectedMeeting}
+            editCall={editProtectedCall}
           />
       }
       <span className={`name__info__date${selected ? '-selected' : ''}`}>

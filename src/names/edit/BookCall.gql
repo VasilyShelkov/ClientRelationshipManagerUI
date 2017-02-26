@@ -1,0 +1,19 @@
+mutation BookCall(
+  $userId: String!
+  $protectedId: String!
+  $callBooked: String!
+){
+  editProtectedName (
+    userId: $userId
+    protectedId: $protectedId
+    callBooked: $callBooked
+  ) {
+    id
+    callBooked
+    name {
+      id
+      firstName
+      lastName
+    }
+  }
+}

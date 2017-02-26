@@ -10,7 +10,9 @@ import SelectedProtectedNameWithData from './selected/SelectedProtectedNameWithD
 
 export default ({
   loading, names, selectedNameDrawerOpen, selectedNamePosition,
-  nameActionInProgress, selectProtectedName
+  nameActionInProgress, selectProtectedName,
+  openEditProtectedNameMeetingDialog, openEditProtectedNameCallDialog,
+  onSubmitBookMeeting, onSubmitBookCall
 }) => (
   <div
     className={selectedNameDrawerOpen && 'protected__container__names'}
@@ -37,6 +39,10 @@ export default ({
                 openNameDetails={selectProtectedName}
                 names={names}
                 selectedNamePosition={selectedNamePosition}
+                openEditProtectedNameMeetingDialog={openEditProtectedNameMeetingDialog}
+                openEditProtectedNameCallDialog={openEditProtectedNameCallDialog}
+                onSubmitBookMeeting={onSubmitBookMeeting}
+                onSubmitBookCall={onSubmitBookCall}
                 isProtected
               />
 

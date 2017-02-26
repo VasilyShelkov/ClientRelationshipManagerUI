@@ -5,6 +5,8 @@ import {
   SELECT_PROTECTED, HIDE_PROTECTED,
   OPEN_PROTECT_NAME_DIALOG, CLOSE_PROTECT_NAME_DIALOG,
   OPEN_CLIENT_NAME_DIALOG, CLOSE_CLIENT_NAME_DIALOG,
+  OPEN_EDIT_PROTECTED_NAME_MEETING_DIALOG, CLOSE_EDIT_PROTECTED_NAME_MEETING_DIALOG,
+  OPEN_EDIT_PROTECTED_NAME_CALL_DIALOG, CLOSE_EDIT_PROTECTED_NAME_CALL_DIALOG,
   SHOW_CREATE_NAME_FORM, HIDE_CREATE_NAME_FORM,
   SHOW_EDIT_NAME, HIDE_EDIT_NAME,
   SHOW_EDIT_NAME_COMPANY, HIDE_EDIT_NAME_COMPANY,
@@ -17,6 +19,8 @@ const initialState = {
   selectedClient: false,
   protectNameDialogOpen: false,
   makeNameClientDialogOpen: false,
+  editProtectedNameMeetingDialogOpen: false,
+  editProtectedNameCallDialogOpen: false,
   showingCreateForm: false,
   showingEditNameForm: false,
   showingEditNameCompanyForm: false,
@@ -59,6 +63,26 @@ export default (state = initialState, action) => {
       return {
         ...state,
         protectNameDialogOpen: false
+      };
+    case OPEN_EDIT_PROTECTED_NAME_MEETING_DIALOG:
+      return {
+        ...state,
+        editProtectedNameMeetingDialogOpen: action.nameId
+      };
+    case OPEN_EDIT_PROTECTED_NAME_CALL_DIALOG:
+      return {
+        ...state,
+        editProtectedNameCallDialogOpen: action.nameId
+      };
+    case CLOSE_EDIT_PROTECTED_NAME_MEETING_DIALOG:
+      return {
+        ...state,
+        editProtectedNameMeetingDialogOpen: false
+      };
+    case CLOSE_EDIT_PROTECTED_NAME_CALL_DIALOG:
+      return {
+        ...state,
+        editProtectedNameCallDialogOpen: false
       };
     case OPEN_CLIENT_NAME_DIALOG:
       return {
@@ -138,13 +162,30 @@ export default (state = initialState, action) => {
         return {
           ...state,
           makeNameClientDialogOpen: initialState.makeNameClientDialogOpen,
-        }
+        };
+      }
+
+      if (action.operationName === 'BookCall') {
+        return {
+          ...state,
+          editProtectedNameCallDialogOpen: initialState.editProtectedNameCallDialogOpen
+        };
+      }
+
+      if (action.operationName === 'BookMeeting') {
+        return {
+          ...state,
+          editProtectedNameMeetingDialogOpen: initialState.editProtectedNameMeetingDialogOpen
+        };
       }
 
       return state;
     }
     case APOLLO_MUTATION_RESULT: {
-      if (action.operationName === 'EditName' || action.operationName === 'EditCompany') {
+      if (
+        action.operationName === 'EditName' || action.operationName === 'EditCompany' ||
+        action.operationName === 'BookCall' || action.operationName === 'BookMeeting'
+      ) {
         return {
           ...state,
           actionInProgress: initialState.actionInProgress

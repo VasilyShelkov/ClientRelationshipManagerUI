@@ -74,6 +74,22 @@ export default (state = initialState, action) => {
               notificationColor: greenA700
             };
           }
+          case 'BookCall': {
+            const { firstName, lastName } = action.result.data.editProtectedName.name;
+            return {
+              ...state,
+              notificationMessage: `Booked call for ${firstName} ${lastName}`,
+              notificationColor: greenA700
+            };
+          }
+          case 'BookMeeting': {
+            const { firstName, lastName } = action.result.data.editProtectedName.name;
+            return {
+              ...state,
+              notificationMessage: `Booked meeting for ${firstName} ${lastName}`,
+              notificationColor: greenA700
+            };
+          }
           default:
             return state;
         }

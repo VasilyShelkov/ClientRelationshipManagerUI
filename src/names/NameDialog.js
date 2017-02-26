@@ -6,70 +6,80 @@ import Dialog from 'material-ui/Dialog';
 import { DatePicker, TimePicker } from 'redux-form-material-ui';
 
 export const NameDialog = ({
-  formValues, open, title, displayName, actions, close, handleSubmit
-}) => (
-  <Dialog
-    title={title}
-    actions={actions}
-    open={open}
-    onRequestClose={close}
-  >
-    <form id="protectName" onSubmit={handleSubmit}>
-      <div className="row">
-        <div className="col-12">
-          Calling {displayName}?
-        </div>
+  formValues, open, title, displayName, actions, close, handleSubmit,
+  initialValues
+}) => {
+  const fieldsToShow = Object.keys(initialValues);
+  return (
+    <Dialog
+      title={title}
+      actions={actions}
+      open={open}
+      onRequestClose={close}
+    >
+      <form id="protectName" onSubmit={handleSubmit}>
+        {
+          fieldsToShow.includes('callDay') &&
+          <div className="row">
+            <div className="col-12">
+              Calling {displayName}?
+            </div>
 
-        <div className="col-12 col-md-6">
-          <Field
-            name="callDay"
-            component={DatePicker}
-            minDate={moment().toDate()}
-            formatDate={date => moment(date).format('LL')}
-            hintText="Day of call"
-            autoOk
-          />
-        </div>
-        <div className="col-12 col-md-6">
-          <Field
-            name="callTime"
-            component={TimePicker}
-            hintText="At what time ?"
-            disabled={!(formValues && formValues.callDay)}
-            pedantic
-          />
-        </div>
-      </div>
+            <div className="col-12 col-md-6">
+              <Field
+                name="callDay"
+                component={DatePicker}
+                minDate={moment().toDate()}
+                formatDate={date => moment(date).format('LL')}
+                hintText="Day of call"
+                autoOk
+              />
+            </div>
+            <div className="col-12 col-md-6">
+              <Field
+                name="callTime"
+                component={TimePicker}
+                hintText="At what time ?"
+                disabled={!(formValues && formValues.callDay)}
+                pedantic
+              />
+            </div>
+          </div>
+        }
 
 
-      <div className="row" style={{ marginTop: '10px' }}>
-        <div className="col-12">
-          Meeting {displayName}?
-        </div>
+        {
+          fieldsToShow.includes('meetingDay') &&
+          <div className="row" style={{ marginTop: '10px' }}>
+            <div className="col-12">
+              Meeting {displayName}?
+            </div>
 
-        <div className="col-12 col-md-6">
-          <Field
-            name="meetingDay"
-            component={DatePicker}
-            minDate={moment().toDate()}
-            formatDate={date => moment(date).format('LL')}
-            hintText="Day of meeting"
-            autoOk
-          />
-        </div>
-        <div className="col-12 col-md-6">
-          <Field
-            name="meetingTime"
-            component={TimePicker}
-            hintText="At what time ?"
-            disabled={!(formValues && formValues.meetingDay)}
-            pedantic
-          />
-        </div>
-      </div>
-    </form>
-  </Dialog>
-);
+            <div className="col-12 col-md-6">
+              <Field
+                name="meetingDay"
+                component={DatePicker}
+                minDate={moment().toDate()}
+                formatDate={date => moment(date).format('LL')}
+                hintText="Day of meeting"
+                autoOk
+              />
+            </div>
+            <div className="col-12 col-md-6">
+              <Field
+                name="meetingTime"
+                component={TimePicker}
+                hintText="At what time ?"
+                disabled={!(formValues && formValues.meetingDay)}
+                pedantic
+              />
+            </div>
+          </div>
+        }
+      </form>
+    </Dialog>
+  );
+};
 
 const NameDialogForm = reduxForm({
   form: 'protectName',
