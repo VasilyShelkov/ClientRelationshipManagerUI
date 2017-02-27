@@ -9,7 +9,7 @@ import ProtectName from './ProtectName.gql';
 
 import { showNotification } from '../../../app/appActions';
 import {
-  hideUnprotectedName, openProtectNameDialog, closeProtectNameDialog,
+  hideName, openProtectNameDialog, closeProtectNameDialog,
   performingNameAction
 } from '../../nameActions';
 
@@ -20,8 +20,7 @@ const SelectedUnprotectedNameWithMutations = compose(
     props: ({ ownProps, mutate }) => ({
       ...ownProps,
       removeUnprotectedName: async () => {
-        const { names, selectedNamePosition } = ownProps;
-        const selectedUnprotected = names[selectedNamePosition];
+        const { selectedUnprotected } = ownProps;
 
         try {
           ownProps.performingNameAction(`Removing ${selectedUnprotected.name.firstName} ${selectedUnprotected.name.lastName}`);
@@ -41,8 +40,7 @@ const SelectedUnprotectedNameWithMutations = compose(
     props: ({ ownProps, mutate }) => ({
       ...ownProps,
       onSubmitProtectName: async ({ callDay, callTime, meetingDay, meetingTime }) => {
-        const { names, selectedNamePosition } = ownProps;
-        const selectedUnprotected = names[selectedNamePosition];
+        const { selectedUnprotected } = ownProps;
 
         let callBooked = null;
         if (callDay) {
@@ -94,7 +92,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  hideUnprotectedName: () => dispatch(hideUnprotectedName()),
+  hideName: () => dispatch(hideName()),
   openProtectNameDialog: () => dispatch(openProtectNameDialog()),
   closeProtectNameDialog: () => dispatch(closeProtectNameDialog()),
   performingNameAction: (message) => dispatch(performingNameAction(message)),

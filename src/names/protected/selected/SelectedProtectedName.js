@@ -11,17 +11,17 @@ import NameDetailsDrawerWithData from '../../NameDetails';
 import NameDialogForm from '../../NameDialog';
 
 export default ({
-  names, selectedNamePosition, selectedNameDrawerOpen,
+  selectedProtected, selectedNameDrawerOpen,
   makeNameClientDialogOpen, openClientNameDialog, closeClientNameDialog,
-  removeProtectedName, hideProtectedName, onSubmitMakeClient
+  removeProtectedName, hideName, onSubmitMakeClient
 }) => {
-  if (selectedNameDrawerOpen && selectedNamePosition < names.length) {
-    const nameToShow = names[selectedNamePosition];
-    const displayName = `${nameToShow.name.firstName} ${nameToShow.name.lastName}`;
+  if (selectedNameDrawerOpen && selectedProtected) {
+    const displayName = `${selectedProtected.name.firstName} ${selectedProtected.name.lastName}`;
     return (
       <NameDetailsDrawerWithData
-        details={nameToShow}
-        closeNameDetails={hideProtectedName}
+        details={selectedProtected}
+        open={selectedNameDrawerOpen}
+        closeNameDetails={hideName}
         removeNameAction={removeProtectedName}
         isProtected
       >
@@ -41,10 +41,10 @@ export default ({
             close={closeClientNameDialog}
             onSubmit={onSubmitMakeClient}
             initialValues={{
-              callDay: nameToShow.callBooked ? moment(nameToShow.callBooked).toDate() : {},
-              callTime: nameToShow.callBooked ? moment(nameToShow.callBooked).toDate() : {},
-              meetingDay: nameToShow.meetingBooked ? moment(nameToShow.meetingBooked).toDate() : {},
-              meetingTime: nameToShow.meetingBooked ? moment(nameToShow.meetingBooked).toDate() : {}
+              callDay: selectedProtected.callBooked ? moment(selectedProtected.callBooked).toDate() : {},
+              callTime: selectedProtected.callBooked ? moment(selectedProtected.callBooked).toDate() : {},
+              meetingDay: selectedProtected.meetingBooked ? moment(selectedProtected.meetingBooked).toDate() : {},
+              meetingTime: selectedProtected.meetingBooked ? moment(selectedProtected.meetingBooked).toDate() : {}
             }}
             actions={[
               <FlatButton

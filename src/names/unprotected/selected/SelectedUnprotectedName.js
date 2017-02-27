@@ -10,17 +10,16 @@ import NameDetailsDrawerWithData from '../../NameDetails';
 import NameDialogForm from '../../NameDialog';
 
 export default ({
-  names, selectedNamePosition, selectedNameDrawerOpen,
+  selectedUnprotected, selectedNameDrawerOpen,
   protectNameDialogOpen, openProtectNameDialog, closeProtectNameDialog,
-  onSubmitProtectName, removeUnprotectedName, hideUnprotectedName
+  onSubmitProtectName, removeUnprotectedName, hideName
 }) => {
-  if (selectedNameDrawerOpen && selectedNamePosition < names.length) {
-    const nameToShow = names[selectedNamePosition];
-    const displayName = `${nameToShow.name.firstName} ${nameToShow.name.lastName}`;
+  if (selectedNameDrawerOpen && selectedUnprotected) {
+    const displayName = `${selectedUnprotected.name.firstName} ${selectedUnprotected.name.lastName}`;
     return (
       <NameDetailsDrawerWithData
-        details={nameToShow}
-        closeNameDetails={hideUnprotectedName}
+        details={selectedUnprotected}
+        closeNameDetails={hideName}
         removeNameAction={removeUnprotectedName}
       >
         <IconButton
@@ -38,6 +37,12 @@ export default ({
             open={protectNameDialogOpen}
             close={closeProtectNameDialog}
             onSubmit={onSubmitProtectName}
+            initialValues={{
+              callDay: null,
+              callTime: null,
+              meetingDay: null,
+              meetingTime: null
+            }}
             actions={[
               <FlatButton
                 onClick={closeProtectNameDialog}

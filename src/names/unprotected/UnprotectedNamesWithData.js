@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import { APOLLO_MUTATION_RESULT } from '../../app/thirdPartyActions';
-import { showCreateNameForm, selectUnprotectedName } from '../nameActions';
+import { showCreateNameForm, selectName } from '../nameActions';
 import GetUnprotectedNames from './GetUnprotectedNames.gql';
 
 import UnprotectedNames from './UnprotectedNames';
@@ -67,15 +67,14 @@ const UnprotectedNamesWithData = graphql(GetUnprotectedNames, {
 
 const mapStateToProps = state => ({
   id: state.profile.id,
-  selectedNameDrawerOpen: state.name.selectedUnprotected !== false,
-  selectedNamePosition: state.name.selectedUnprotected,
+  selectedNameId: state.name.selectedName,
   showingCreateForm: state.name.showingCreateForm,
   nameActionInProgress: state.name.actionInProgress
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   showCreateNameForm: () => dispatch(showCreateNameForm()),
-  selectUnprotectedName: (index) => dispatch(selectUnprotectedName(index))
+  selectName: nameId => dispatch(selectName(nameId))
 });
 
 export default connect(

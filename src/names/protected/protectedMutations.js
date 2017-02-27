@@ -13,6 +13,7 @@ export const onSubmitBookMeeting = ({
 
   try {
     performingNameAction(`Booking meeting for ${selectedProtected.name.firstName} ${selectedProtected.name.lastName}`);
+    debugger;
     await mutate({
       variables: {
         userId,

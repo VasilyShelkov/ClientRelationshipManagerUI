@@ -1,4 +1,4 @@
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
@@ -6,10 +6,10 @@ import GetProtectedNames from './GetProtectedNames.gql';
 import GetMetWithProtectedNames from './GetMetWithProtectedNames.gql';
 import { APOLLO_MUTATION_RESULT } from '../../app/thirdPartyActions';
 
-import StandardProtectedNamesWithData from './StandardProtectedNamesWithData';
+import ProtectedNamesLayout from './ProtectedNamesLayout';
 import { removeNameFromList } from '../nameListShapeShifter';
 
-const reducer = (previousResult, action) => {
+const reducer = (nameListType) => (previousResult, action) => {
   if (action.type === APOLLO_MUTATION_RESULT) {
     switch (action.operationName) {
       case 'RemoveProtectedName':
@@ -18,7 +18,7 @@ const reducer = (previousResult, action) => {
           !_.has(action, 'result.errors')
         ) {
           return removeNameFromList(
-            previousResult, action.variables.protectedId, 'protected'
+            previousResult, action.variables.protectedId, nameListType
           );
         }
         break;
@@ -28,7 +28,7 @@ const reducer = (previousResult, action) => {
           !_.has(action, 'result.errors')
         ) {
           return removeNameFromList(
-            previousResult, action.variables.nameId, 'protected', true
+            previousResult, action.variables.nameId, nameListType, true
           );
         }
         break;
@@ -40,30 +40,35 @@ const reducer = (previousResult, action) => {
   return previousResult;
 };
 
-const ProtectedNames = graphql(GetProtectedNames, {
-  options: ({ id }) => ({ variables: { id }, reducer }),
-  props: ({ ownProps, data: { loading, user } }) => ({
-    loading,
-    names: user && user.protected,
-    nameListType: 'protected',
-    ...ownProps
+const ProtectedNames = compose(
+  graphql(GetProtectedNames, {
+    options: ({ id }) => ({
+      variables: { id },
+      reducer: reducer('protected')
+    }),
+    props: ({ ownProps, data: { loading, user } }) => ({
+      loadingProtected: loading,
+      protectedNames: user && user.protected,
+      ...ownProps
+    })
+  }),
+  graphql(GetMetWithProtectedNames, {
+    options: ({ id }) => ({
+      variables: { id },
+      reducer: reducer('metWithProtected')
+    }),
+    props: ({ ownProps, data: { loading, user } }) => ({
+      loadingMetWithProtected: loading,
+      metWithProtectedNames: user && user.metWithProtected,
+      ...ownProps
+    })
   })
-})(StandardProtectedNamesWithData);
-
-const MetWithProtectedNames = graphql(GetMetWithProtectedNames, {
-  options: ({ id }) => ({ variables: { id }, reducer }),
-  props: ({ ownProps, data: { loading, user } }) => ({
-    loading,
-    names: user && user.metWithProtected,
-    nameListType: 'metWithProtected',
-    ...ownProps
-  })
-})(StandardProtectedNamesWithData);
+)(ProtectedNamesLayout);
 
 const mapStateToProps = state => ({
   id: state.account.id,
+  selectedNameId: state.name.selectedName
 });
 
-export const ProtectedNamesWithData = connect(mapStateToProps)(ProtectedNames);
+export default connect(mapStateToProps)(ProtectedNames);
 
-export const MetWithProtectedNamesWithData = connect(mapStateToProps)(MetWithProtectedNames);

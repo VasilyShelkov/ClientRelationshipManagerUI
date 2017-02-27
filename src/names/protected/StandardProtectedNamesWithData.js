@@ -7,7 +7,7 @@ import BookCall from '../edit/BookCall.gql';
 import BookMeeting from '../edit/BookMeeting.gql';
 import { onSubmitBookCall, onSubmitBookMeeting } from './protectedMutations';
 import {
-  selectProtectedName, performingNameAction,
+  selectName, performingNameAction,
   openEditProtectedNameMeetingDialog, openEditProtectedNameCallDialog
 } from '../nameActions';
 import { showNotification } from '../../app/appActions';
@@ -19,7 +19,7 @@ const ProtectedNamesWithData = compose(
     props: ({ ownProps, mutate }) => ({
       onSubmitBookCall: onSubmitBookCall({
         mutate,
-        userId: ownProps.id,
+        userId: ownProps.userId,
         names: ownProps.names,
         editCallDialogOpen: ownProps.editProtectedNameCallDialogOpen,
         nameListTypeIdKey: 'protectedId',
@@ -33,7 +33,7 @@ const ProtectedNamesWithData = compose(
     props: ({ ownProps, mutate }) => ({
       onSubmitBookMeeting: onSubmitBookMeeting({
         mutate,
-        userId: ownProps.id,
+        userId: ownProps.userId,
         names: ownProps.names,
         editMeetingDialogOpen: ownProps.editProtectedNameMeetingDialogOpen,
         nameListTypeIdKey: 'protectedId',
@@ -46,19 +46,17 @@ const ProtectedNamesWithData = compose(
 )(StandardProtectedNames);
 
 const mapStateToProps = state => ({
-  selectedNameDrawerOpen: state.name.selectedProtected !== false,
-  selectedNamePosition: state.name.selectedProtected,
   nameActionInProgress: state.name.actionInProgress,
   editProtectedNameCallDialogOpen: state.name.editProtectedNameCallDialogOpen,
   editProtectedNameMeetingDialogOpen: state.name.editProtectedNameMeetingDialogOpen,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  selectProtectedName: (index) => dispatch(selectProtectedName(index)),
-  openEditProtectedNameMeetingDialog: (nameId) => dispatch(openEditProtectedNameMeetingDialog(nameId)),
-  openEditProtectedNameCallDialog: (nameId) => dispatch(openEditProtectedNameCallDialog(nameId)),
-  performingNameAction: (message) => dispatch(performingNameAction(message)),
-  showErrorNotification: (message) => dispatch(showNotification(message, red500)),
+const mapDispatchToProps = dispatch => ({
+  selectName: nameId => dispatch(selectName(nameId)),
+  openEditProtectedNameMeetingDialog: nameId => dispatch(openEditProtectedNameMeetingDialog(nameId)),
+  openEditProtectedNameCallDialog: nameId => dispatch(openEditProtectedNameCallDialog(nameId)),
+  performingNameAction: message => dispatch(performingNameAction(message)),
+  showErrorNotification: message => dispatch(showNotification(message, red500)),
 });
 
 export default connect(

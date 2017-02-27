@@ -9,8 +9,9 @@ import NameListHeader from '../NameListHeader';
 import SelectedProtectedNameWithData from './selected/SelectedProtectedNameWithData';
 
 export default ({
-  loading, names, nameListType, selectedNameDrawerOpen, selectedNamePosition,
-  nameActionInProgress, selectProtectedName,
+  loading, names, nameListType, selectedNameId,
+  selectedProtected, selectedNameDrawerOpen,
+  nameActionInProgress, selectName,
   openEditProtectedNameMeetingDialog, openEditProtectedNameCallDialog,
   onSubmitBookMeeting, onSubmitBookCall
 }) => (
@@ -19,16 +20,12 @@ export default ({
       {getNameListHeader(nameListType, names && names.length)}
       <div>
         {
-          loading ?
-            <Paper>
-              <LoadingSpinner />
-            </Paper>
-          :
+          !loading && names ?
             <div>
               <NamesList
-                openNameDetails={selectProtectedName}
                 names={names}
-                selectedNamePosition={selectedNamePosition}
+                selectedNameId={selectedNameId}
+                openNameDetails={selectName}
                 openEditProtectedNameCallDialog={openEditProtectedNameCallDialog}
                 openEditProtectedNameMeetingDialog={openEditProtectedNameMeetingDialog}
                 onSubmitBookMeeting={onSubmitBookMeeting}
@@ -37,11 +34,14 @@ export default ({
               />
 
               <SelectedProtectedNameWithData
-                names={names}
+                selectedProtected={selectedProtected}
                 selectedNameDrawerOpen={selectedNameDrawerOpen}
-                selectedNamePosition={selectedNamePosition}
               />
             </div>
+          :
+            <Paper>
+              <LoadingSpinner />
+            </Paper>
         }
       </div>
     </div>

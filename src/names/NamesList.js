@@ -7,7 +7,7 @@ import Name from './Name';
 import EditNameProtectedInfoWithData from './edit/EditNameProtectedInfo';
 
 export default ({
-  names, selectedNamePosition, isProtected,
+  names, selectedNameId, isProtected, selectedNameDrawerOpen,
   showCreateNameForm = null, openNameDetails,
   openEditProtectedNameMeetingDialog, openEditProtectedNameCallDialog,
   onSubmitBookCall, onSubmitBookMeeting
@@ -18,12 +18,12 @@ export default ({
         names.map((name, index) => (
           <Name
             key={`name-${index}`}
-            selected={index === selectedNamePosition}
-            showMoreDetails={() => openNameDetails(index)}
-            editProtectedMeeting={() => openEditProtectedNameMeetingDialog(name.name.id)}
+            selected={name.name.id === selectedNameId}
+            showMoreDetails={() => openNameDetails(name.name.id)}
             editProtectedCall={() => openEditProtectedNameCallDialog(name.name.id)}
+            editProtectedMeeting={() => openEditProtectedNameMeetingDialog(name.name.id)}
             isProtected={isProtected}
-            selectedNameDrawerOpen={selectedNamePosition !== false}
+            selectedNameDrawerOpen={selectedNameDrawerOpen}
             {...name}
           />
         ))

@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import { APOLLO_MUTATION_INIT, APOLLO_MUTATION_RESULT } from '../app/thirdPartyActions';
+import { SHOW_NOTIFICATION } from '../app/appActions';
 import {
-  SELECT_UNPROTECTED, HIDE_UNPROTECTED,
-  SELECT_PROTECTED, HIDE_PROTECTED,
+  SELECT_NAME, HIDE_NAME,
   OPEN_PROTECT_NAME_DIALOG, CLOSE_PROTECT_NAME_DIALOG,
   OPEN_CLIENT_NAME_DIALOG, CLOSE_CLIENT_NAME_DIALOG,
   OPEN_EDIT_PROTECTED_NAME_MEETING_DIALOG, CLOSE_EDIT_PROTECTED_NAME_MEETING_DIALOG,
@@ -14,9 +14,7 @@ import {
 } from './nameActions';
 
 const initialState = {
-  selectedUnprotected: false,
-  selectedProtected: false,
-  selectedClient: false,
+  selectedName: false,
   protectNameDialogOpen: false,
   makeNameClientDialogOpen: false,
   editProtectedNameMeetingDialogOpen: false,
@@ -28,31 +26,24 @@ const initialState = {
 };
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SELECT_UNPROTECTED:
+    case SHOW_NOTIFICATION:
       return {
         ...state,
-        selectedUnprotected: action.nameIndex,
+        actionInProgress: initialState.actionInProgress
+      };
+    case SELECT_NAME:
+      return {
+        ...state,
+        selectedName: action.nameId,
         showingEditNameForm: initialState.showingEditNameForm,
         showingEditNameCompanyForm: initialState.showingEditNameCompanyForm
       };
-    case HIDE_UNPROTECTED:
+    case HIDE_NAME:
       return {
         ...state,
-        selectedUnprotected: initialState.selectedUnprotected,
+        selectedName: initialState.selectedUnprotected,
         showingEditNameForm: initialState.showingEditNameForm,
         showingEditNameCompanyForm: initialState.showingEditNameCompanyForm
-      };
-    case SELECT_PROTECTED:
-      return {
-        ...state,
-        selectedProtected: action.nameIndex,
-        showingEditNameForm: initialState.showingEditNameForm,
-        showingEditNameCompanyForm: initialState.showingEditNameCompanyForm
-      };
-    case HIDE_PROTECTED:
-      return {
-        ...state,
-        selectedProtected: initialState.selectedProtected
       };
     case OPEN_PROTECT_NAME_DIALOG:
       return {

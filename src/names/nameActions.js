@@ -1,23 +1,12 @@
-export const SELECT_UNPROTECTED = 'SELECT_UNPROTECTED';
-export const selectUnprotectedName = (nameIndex) => ({
-  type: SELECT_UNPROTECTED,
-  nameIndex
+export const SELECT_NAME = 'SELECT_NAME';
+export const selectName = nameId => ({
+  type: SELECT_NAME,
+  nameId
 });
 
-export const HIDE_UNPROTECTED = 'HIDE_UNPROTECTED';
-export const hideUnprotectedName = () => ({
-  type: HIDE_UNPROTECTED
-});
-
-export const SELECT_PROTECTED = 'SELECT_PROTECTED';
-export const selectProtectedName = (nameIndex) => ({
-  type: SELECT_PROTECTED,
-  nameIndex
-});
-
-export const HIDE_PROTECTED = 'HIDE_PROTECTED';
-export const hideProtectedName = () => ({
-  type: HIDE_PROTECTED
+export const HIDE_NAME = 'HIDE_NAME';
+export const hideName = () => ({
+  type: HIDE_NAME
 });
 
 export const OPEN_PROTECT_NAME_DIALOG = 'OPEN_PROTECT_NAME_DIALOG';

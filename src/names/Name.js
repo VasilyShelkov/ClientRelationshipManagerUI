@@ -39,8 +39,8 @@ export default ({
             meetingBooked={meetingBooked}
             selected={selected}
             selectedNameDrawerOpen={selectedNameDrawerOpen}
-            editMeeting={editProtectedMeeting}
             editCall={editProtectedCall}
+            editMeeting={editProtectedMeeting}
           />
       }
       <span className={`name__info__date${selected ? '-selected' : ''}`}>

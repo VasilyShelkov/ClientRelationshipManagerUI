@@ -9,7 +9,7 @@ import MakeClient from './MakeClient.gql';
 
 import { showNotification } from '../../../app/appActions';
 import {
-  hideProtectedName, openClientNameDialog, closeClientNameDialog,
+  hideName, openClientNameDialog, closeClientNameDialog,
   performingNameAction
 } from '../../nameActions';
 
@@ -20,8 +20,7 @@ const SelectedProtectedNameWithMutations = compose(
     props: ({ ownProps, mutate }) => ({
       ...ownProps,
       removeProtectedName: async () => {
-        const { names, selectedNamePosition } = ownProps;
-        const selectedProtected = names[selectedNamePosition];
+        const { selectedProtected } = ownProps;
 
         try {
           ownProps.performingNameAction(`Removing ${selectedProtected.name.firstName} ${selectedProtected.name.lastName}`);
@@ -41,8 +40,7 @@ const SelectedProtectedNameWithMutations = compose(
     props: ({ ownProps, mutate }) => ({
       ...ownProps,
       onSubmitMakeClient: async ({ callDay, callTime, meetingDay, meetingTime }) => {
-        const { names, selectedNamePosition } = ownProps;
-        const selectedProtected = names[selectedNamePosition];
+        const { selectedProtected } = ownProps;
 
         let callBooked = null;
         if (callDay) {
@@ -92,7 +90,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  hideProtectedName: () => dispatch(hideProtectedName()),
+  hideName: () => dispatch(hideName()),
   openClientNameDialog: () => dispatch(openClientNameDialog()),
   closeClientNameDialog: () => dispatch(closeClientNameDialog()),
   performingNameAction: (message) => dispatch(performingNameAction(message)),
