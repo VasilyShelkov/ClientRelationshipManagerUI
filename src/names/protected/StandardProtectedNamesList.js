@@ -1,32 +1,22 @@
 import React from 'react';
 
-import LockClosedIcon from 'material-ui/svg-icons/action/lock-outline';
 import Paper from 'material-ui/Paper';
-import { cyan500 } from 'material-ui/styles/colors';
 
 import LoadingSpinner from '../../shared/LoadingSpinner';
+import { ProtectedIcon, MetWithProtectedIcon, ClientsIcon } from '../../app/icons';
 import NamesList from '../NamesList';
+import NameListHeader from '../NameListHeader';
 import SelectedProtectedNameWithData from './selected/SelectedProtectedNameWithData';
 
 export default ({
-  loading, names, selectedNameDrawerOpen, selectedNamePosition,
+  loading, names, nameListType, selectedNameDrawerOpen, selectedNamePosition,
   nameActionInProgress, selectProtectedName,
   openEditProtectedNameMeetingDialog, openEditProtectedNameCallDialog,
   onSubmitBookMeeting, onSubmitBookCall
 }) => (
-  <div
-    className={selectedNameDrawerOpen && 'protected__container__names'}
-    style={{ marginTop: '20px' }}
-  >
+  <div style={{ marginTop: '10px' }}>
     <div className={nameActionInProgress && 'names__content'}>
-      <div style={{ textAlign: 'center' }}>
-        <LockClosedIcon style={{ height: '100px', width: '100px' }} color={cyan500} />
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <h2>
-            {`${names ? `${names.length}/150` : ''} Protected Name${!names || names.length > 1 ? 's' : ''}`}
-          </h2>
-        </div>
-      </div>
+      {getNameListHeader(nameListType, names && names.length)}
       <div>
         {
           loading ?
@@ -39,8 +29,8 @@ export default ({
                 openNameDetails={selectProtectedName}
                 names={names}
                 selectedNamePosition={selectedNamePosition}
-                openEditProtectedNameMeetingDialog={openEditProtectedNameMeetingDialog}
                 openEditProtectedNameCallDialog={openEditProtectedNameCallDialog}
+                openEditProtectedNameMeetingDialog={openEditProtectedNameMeetingDialog}
                 onSubmitBookMeeting={onSubmitBookMeeting}
                 onSubmitBookCall={onSubmitBookCall}
                 isProtected
@@ -65,3 +55,31 @@ export default ({
     }
   </div>
 );
+
+const getNameListHeader = (nameListType, isMultipleNames) => {
+  if (nameListType === 'protected') {
+    return (
+      <NameListHeader
+        title={`${isMultipleNames ? `${isMultipleNames}/150` : ''} Protected Name${isMultipleNames ? 's' : ''}`}
+        Icon={ProtectedIcon}
+      />
+    );
+  }
+
+  if (nameListType === 'metWithProtected') {
+    return (
+      <NameListHeader
+        title={`${isMultipleNames ? '' : `${isMultipleNames}`} Met With Protected Name${isMultipleNames ? 's' : ''}`}
+        Icon={MetWithProtectedIcon}
+      />
+    );
+  }
+
+  return (
+    <NameListHeader
+      title={`${isMultipleNames ? '' : `${isMultipleNames}`} Client${isMultipleNames ? 's' : ''}`}
+      Icon={ClientsIcon}
+    />
+  );
+};
+

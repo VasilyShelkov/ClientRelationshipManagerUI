@@ -1,0 +1,23 @@
+query GetMetWithProtectedNames($id: String!) {
+  user (id: $id) {
+    id
+    metWithProtected {
+      id
+      name {
+        id
+        firstName
+        lastName
+        phone
+        company {
+          id
+          name
+          address
+          phone
+        }
+      }
+      callBooked
+      meetingBooked
+      metWith
+    }
+  }
+}
