@@ -1,7 +1,7 @@
 query GetClients ($id: String!) {
   user (id: $id) {
     id
-    clients {
+    client {
       id
       name {
         id

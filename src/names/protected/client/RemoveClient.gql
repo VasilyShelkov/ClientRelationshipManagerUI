@@ -1,0 +1,11 @@
+mutation RemoveClient(
+  $userId: String!
+  $clientId: String!
+) {
+  removeClientFromUser(
+    userId: $userId
+    clientId: $clientId
+  ) {
+    deletedRowsCount
+  }
+}

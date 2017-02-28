@@ -1,0 +1,19 @@
+mutation BookMeetingCall(
+  $userId: String!
+  $clientId: String!
+  $meetingBooked: String!
+){
+  editClient (
+    userId: $userId
+    clientId: $clientId
+    meetingBooked: $meetingBooked
+  ) {
+    id
+    name {
+      id
+      firstName
+      lastName
+    }
+    callBooked
+  }
+}

@@ -7,10 +7,11 @@ import { ProtectedIcon, MetWithProtectedIcon, ClientsIcon } from '../../app/icon
 import NamesList from '../NamesList';
 import NameListHeader from '../NameListHeader';
 import SelectedProtectedNameWithData from './selected/SelectedProtectedNameWithData';
+import SelectedClientsWithData from './client/SelectedClientsWithData';
 
 export default ({
   loading, names, nameListType, selectedNameId,
-  selectedProtected, selectedNameDrawerOpen,
+  selectedName, selectedNameDrawerOpen,
   nameActionInProgress, selectName,
   openEditProtectedNameMeetingDialog, openEditProtectedNameCallDialog,
   onSubmitBookMeeting, onSubmitBookCall
@@ -33,10 +34,7 @@ export default ({
                 isProtected
               />
 
-              <SelectedProtectedNameWithData
-                selectedProtected={selectedProtected}
-                selectedNameDrawerOpen={selectedNameDrawerOpen}
-              />
+              {getSelectedName(nameListType, selectedName, selectedNameDrawerOpen)}
             </div>
           :
             <Paper>
@@ -83,3 +81,20 @@ const getNameListHeader = (nameListType, isMultipleNames) => {
   );
 };
 
+const getSelectedName = (nameListType, selectedName, selectedNameDrawerOpen) => {
+  if (nameListType === 'protected' || nameListType === 'metWithProtected') {
+    return (
+      <SelectedProtectedNameWithData
+        selectedProtected={selectedName}
+        selectedNameDrawerOpen={selectedNameDrawerOpen}
+      />
+    );
+  }
+
+  return (
+    <SelectedClientsWithData
+      selectedClient={selectedName}
+      selectedNameDrawerOpen={selectedNameDrawerOpen}
+    />
+  );
+};

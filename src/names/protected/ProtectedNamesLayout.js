@@ -51,7 +51,7 @@ export default class ProtectedNamesLayout extends Component {
             userId={id}
             loading={loadingProtected}
             names={protectedNames}
-            selectedProtected={selectedProtected}
+            selectedName={selectedProtected}
             selectedNameDrawerOpen={selectedProtectedNameDrawerOpen}
             selectedNameId={selectedNameId}
             nameListType="protected"
@@ -67,7 +67,7 @@ export default class ProtectedNamesLayout extends Component {
             userId={id}
             loading={loadingMetWithProtected}
             names={metWithProtectedNames}
-            selectedProtected={selectedMetWithProtected}
+            selectedName={selectedMetWithProtected}
             selectedNameDrawerOpen={selectedProtectedNameDrawerOpen}
             selectedNameId={selectedNameId}
             nameListType="metWithProtected"

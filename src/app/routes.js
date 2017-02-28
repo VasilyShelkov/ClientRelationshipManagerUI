@@ -13,7 +13,7 @@ import AddUserFormWithData from '../users/AddUserForm';
 import UsersPerformance from '../users/UsersPerformance';
 import UnprotectedNamesWithData from '../names/unprotected/UnprotectedNamesWithData';
 import ProtectedNamesWithData from '../names/protected/ProtectedNamesWithData';
-import ClientNames from '../names/ClientNames';
+import ClientsWithData from '../names/protected/client/ClientsWithData';
 
 export default [
   <Route path="/login" component={LoginPage} />,
@@ -29,7 +29,7 @@ export default [
       <Route path="names">
         <Route path="unprotected" component={UnprotectedNamesWithData} />
         <Route path="protected" component={ProtectedNamesWithData} />
-        <Route path="clients" component={ClientNames} />
+        <Route path="clients" component={ClientsWithData} />
       </Route>
     </Route>
   </Route>,

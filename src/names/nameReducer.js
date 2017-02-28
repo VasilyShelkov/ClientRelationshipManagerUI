@@ -41,7 +41,7 @@ export default (state = initialState, action) => {
     case HIDE_NAME:
       return {
         ...state,
-        selectedName: initialState.selectedUnprotected,
+        selectedName: initialState.selectedName,
         showingEditNameForm: initialState.showingEditNameForm,
         showingEditNameCompanyForm: initialState.showingEditNameCompanyForm
       };
@@ -156,14 +156,14 @@ export default (state = initialState, action) => {
         };
       }
 
-      if (action.operationName === 'BookCall') {
+      if (action.operationName === 'BookCall' || action.operationName === 'BookClientCall') {
         return {
           ...state,
           editProtectedNameCallDialogOpen: initialState.editProtectedNameCallDialogOpen
         };
       }
 
-      if (action.operationName === 'BookMeeting') {
+      if (action.operationName === 'BookMeeting' || action.operationName === 'BookClientMeeting') {
         return {
           ...state,
           editProtectedNameMeetingDialogOpen: initialState.editProtectedNameMeetingDialogOpen
@@ -175,7 +175,8 @@ export default (state = initialState, action) => {
     case APOLLO_MUTATION_RESULT: {
       if (
         action.operationName === 'EditName' || action.operationName === 'EditCompany' ||
-        action.operationName === 'BookCall' || action.operationName === 'BookMeeting'
+        action.operationName === 'BookCall' || action.operationName === 'BookMeeting' ||
+        action.operationName === 'BookClientCall' || action.operationName === 'BookClientMeeting'
       ) {
         return {
           ...state,
@@ -193,7 +194,7 @@ export default (state = initialState, action) => {
         if (!_.has(action, 'result.errors')) {
           return {
             ...standardState,
-            selectedUnprotected: 0
+            selectedName: action.result.data.addUnprotectedNameToUser.name.id
           };
         }
 
@@ -204,7 +205,7 @@ export default (state = initialState, action) => {
         return {
           ...state,
           actionInProgress: initialState.actionInProgress,
-          selectedUnprotected: initialState.selectedUnprotected
+          selectedName: initialState.selectedName
         };
       }
 
@@ -217,8 +218,7 @@ export default (state = initialState, action) => {
         if (!_.has(action, 'result.errors')) {
           return {
             ...standardState,
-            selectedUnprotected: initialState.selectedUnprotected,
-            selectedProtected: 0
+            selectedName: action.result.data.protectNameToUser.name.id,
           };
         }
 
@@ -234,8 +234,7 @@ export default (state = initialState, action) => {
         if (!_.has(action, 'result.errors')) {
           return {
             ...standardState,
-            selectedProtected: initialState.selectedProtected,
-            selectedClient: 0
+            selectedName: action.result.data.addClientToUser.name.id
           };
         }
 
@@ -246,7 +245,15 @@ export default (state = initialState, action) => {
         return {
           ...state,
           actionInProgress: initialState.actionInProgress,
-          selectedProtected: initialState.selectedProtected
+          selectedName: initialState.selectedName
+        };
+      }
+
+      if (action.operationName === 'RemoveClient') {
+        return {
+          ...state,
+          actionInProgress: initialState.actionInProgress,
+          selectedName: initialState.selectedName
         };
       }
 
