@@ -106,6 +106,14 @@ export default (state = initialState, action) => {
               notificationColor: greenA700
             };
           }
+          case 'MetWithProtected': {
+            const { firstName, lastName } = action.result.data.editProtectedName.name;
+            return {
+              ...state,
+              notificationMessage: `Met With ${firstName} ${lastName} successfully`,
+              notificationColor: greenA700
+            };
+          }
           default:
             return state;
         }

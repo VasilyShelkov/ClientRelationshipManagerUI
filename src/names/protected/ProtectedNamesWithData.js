@@ -5,6 +5,7 @@ import _ from 'lodash';
 import GetProtectedNames from './GetProtectedNames.gql';
 import GetMetWithProtectedNames from './GetMetWithProtectedNames.gql';
 import { APOLLO_MUTATION_RESULT } from '../../app/thirdPartyActions';
+import { changeShownProtectedList } from '../nameActions';
 
 import ProtectedNamesLayout from './ProtectedNamesLayout';
 import { removeNameFromList } from '../nameListShapeShifter';
@@ -29,6 +30,29 @@ const reducer = (nameListType) => (previousResult, action) => {
         ) {
           return removeNameFromList(
             previousResult, action.variables.nameId, nameListType, true
+          );
+        }
+        break;
+      case 'MetWithProtected':
+        if (
+          _.has(action, 'result.data.editProtectedName') &&
+          !_.has(action, 'result.errors')
+        ) {
+          if (nameListType === 'metWithProtected') {
+            return {
+              ...previousResult,
+              user: {
+                ...previousResult.user,
+                metWithProtected: [
+                  action.result.data.editProtectedName,
+                  ...previousResult.user.metWithProtected
+                ]
+              }
+            };
+          }
+
+          return removeNameFromList(
+            previousResult, action.variables.protectedId, nameListType
           );
         }
         break;
@@ -67,8 +91,16 @@ const ProtectedNames = compose(
 
 const mapStateToProps = state => ({
   id: state.account.id,
-  selectedNameId: state.name.selectedName
+  selectedNameId: state.name.selectedName,
+  listToShow: state.name.protectedListToShow
 });
 
-export default connect(mapStateToProps)(ProtectedNames);
+const mapDispatchToProps = dispatch => ({
+  changeShownProtectedList: (listToShow) => dispatch(changeShownProtectedList(listToShow))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProtectedNames);
 

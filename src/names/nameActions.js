@@ -29,6 +29,22 @@ export const closeClientNameDialog = () => ({
   type: CLOSE_CLIENT_NAME_DIALOG
 });
 
+export const OPEN_MET_WITH_PROTECTED_DIALOG = 'OPEN_MET_WITH_PROTECTED_DIALOG';
+export const openMetWithProtectedDialog = () => ({
+  type: OPEN_MET_WITH_PROTECTED_DIALOG
+});
+
+export const CLOSE_MET_WITH_PROTECTED_DIALOG = 'CLOSE_MET_WITH_PROTECTED_DIALOG';
+export const closeMetWithProtectedDialog = () => ({
+  type: CLOSE_MET_WITH_PROTECTED_DIALOG
+});
+
+export const CHANGE_SHOWN_PROTECTED_LIST = 'CHANGE_SHOWN_PROTECTED_LIST';
+export const changeShownProtectedList = listToShow => ({
+  type: CHANGE_SHOWN_PROTECTED_LIST,
+  listToShow
+});
+
 export const SHOW_CREATE_NAME_FORM = 'SHOW_CREATE_NAME_FORM';
 export const showCreateNameForm = () => ({
   type: SHOW_CREATE_NAME_FORM

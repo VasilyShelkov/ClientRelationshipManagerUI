@@ -1,7 +1,7 @@
 mutation BookClientCall(
   $userId: String!
   $clientId: String!
-  $callBooked: String!
+  $callBooked: String
 ){
   editClient (
     userId: $userId

@@ -3,11 +3,14 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import { Field, reduxForm, getFormValues } from 'redux-form';
 import Dialog from 'material-ui/Dialog';
+import IconButton from 'material-ui/IconButton';
 import { DatePicker, TimePicker } from 'redux-form-material-ui';
+import ClearIcon from 'material-ui/svg-icons/content/clear';
+import { red500 } from 'material-ui/styles/colors';
 
 export const NameDialog = ({
   formValues, open, title, displayName, actions, close, handleSubmit,
-  initialValues
+  initialValues, change
 }) => {
   const fieldsToShow = Object.keys(initialValues);
   return (
@@ -21,8 +24,17 @@ export const NameDialog = ({
         {
           fieldsToShow.includes('callDay') &&
           <div className="row">
-            <div className="col-12">
+            <div className="col-12" style={{ display: 'flex', alignItems: 'center' }}>
               Calling {displayName}?
+              <IconButton
+                onClick={() => {
+                  change('callDay', null);
+                  change('callTime', null);
+                }}
+                tooltip="Clear Call Booking"
+              >
+                <ClearIcon color={red500} />
+              </IconButton>
             </div>
 
             <div className="col-12 col-md-6">
@@ -51,8 +63,17 @@ export const NameDialog = ({
         {
           fieldsToShow.includes('meetingDay') &&
           <div className="row" style={{ marginTop: '10px' }}>
-            <div className="col-12">
+            <div className="col-12" style={{ display: 'flex', alignItems: 'center' }}>
               Meeting {displayName}?
+              <IconButton
+                onClick={() => {
+                  change('meetingDay', null);
+                  change('meetingTime', null);
+                }}
+                tooltip="Clear Meeting Booking"
+              >
+                <ClearIcon color={red500} />
+              </IconButton>
             </div>
 
             <div className="col-12 col-md-6">
@@ -61,7 +82,7 @@ export const NameDialog = ({
                 component={DatePicker}
                 minDate={moment().toDate()}
                 formatDate={date => moment(date).format('LL')}
-                hintText="Day of meeting"
+                hintText="Day of booked meeting"
                 autoOk
               />
             </div>
@@ -71,6 +92,44 @@ export const NameDialog = ({
                 component={TimePicker}
                 hintText="At what time ?"
                 disabled={!(formValues && formValues.meetingDay)}
+                pedantic
+              />
+            </div>
+          </div>
+        }
+
+        {
+          fieldsToShow.includes('pastMeetingDay') &&
+          <div className="row" style={{ marginTop: '10px' }}>
+            <div className="col-12" style={{ display: 'flex', alignItems: 'center' }}>
+              Had a meeting with {displayName}?
+              <IconButton
+                onClick={() => {
+                  change('pastMeetingDay', null);
+                  change('pastMeetingTime', null);
+                }}
+                tooltip="Clear Meeting"
+              >
+                <ClearIcon color={red500} />
+              </IconButton>
+            </div>
+
+            <div className="col-12 col-md-6">
+              <Field
+                name="pastMeetingDay"
+                component={DatePicker}
+                maxDate={moment().toDate()}
+                formatDate={date => moment(date).format('LL')}
+                hintText="When did you meet ?"
+                autoOk
+              />
+            </div>
+            <div className="col-12 col-md-6">
+              <Field
+                name="pastMeetingTime"
+                component={TimePicker}
+                hintText="At what time ?"
+                disabled={!(formValues && formValues.pastMeetingDay)}
                 pedantic
               />
             </div>

@@ -2,9 +2,10 @@ import _ from 'lodash';
 import { APOLLO_MUTATION_INIT, APOLLO_MUTATION_RESULT } from '../app/thirdPartyActions';
 import { SHOW_NOTIFICATION } from '../app/appActions';
 import {
-  SELECT_NAME, HIDE_NAME,
+  SELECT_NAME, HIDE_NAME, CHANGE_SHOWN_PROTECTED_LIST,
   OPEN_PROTECT_NAME_DIALOG, CLOSE_PROTECT_NAME_DIALOG,
   OPEN_CLIENT_NAME_DIALOG, CLOSE_CLIENT_NAME_DIALOG,
+  OPEN_MET_WITH_PROTECTED_DIALOG, CLOSE_MET_WITH_PROTECTED_DIALOG,
   OPEN_EDIT_PROTECTED_NAME_MEETING_DIALOG, CLOSE_EDIT_PROTECTED_NAME_MEETING_DIALOG,
   OPEN_EDIT_PROTECTED_NAME_CALL_DIALOG, CLOSE_EDIT_PROTECTED_NAME_CALL_DIALOG,
   SHOW_CREATE_NAME_FORM, HIDE_CREATE_NAME_FORM,
@@ -15,8 +16,10 @@ import {
 
 const initialState = {
   selectedName: false,
+  protectedListToShow: 'protected',
   protectNameDialogOpen: false,
   makeNameClientDialogOpen: false,
+  metWithProtectedDialogOpen: false,
   editProtectedNameMeetingDialogOpen: false,
   editProtectedNameCallDialogOpen: false,
   showingCreateForm: false,
@@ -44,6 +47,11 @@ export default (state = initialState, action) => {
         selectedName: initialState.selectedName,
         showingEditNameForm: initialState.showingEditNameForm,
         showingEditNameCompanyForm: initialState.showingEditNameCompanyForm
+      };
+    case CHANGE_SHOWN_PROTECTED_LIST:
+      return {
+        ...state,
+        protectedListToShow: action.listToShow
       };
     case OPEN_PROTECT_NAME_DIALOG:
       return {
@@ -84,6 +92,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         makeNameClientDialogOpen: false
+      };
+    case OPEN_MET_WITH_PROTECTED_DIALOG:
+      return {
+        ...state,
+        metWithProtectedDialogOpen: true
+      };
+    case CLOSE_MET_WITH_PROTECTED_DIALOG:
+      return {
+        ...state,
+        metWithProtectedDialogOpen: false
       };
     case SHOW_CREATE_NAME_FORM:
       return {
@@ -147,6 +165,13 @@ export default (state = initialState, action) => {
           ...state,
           protectNameDialogOpen: initialState.protectNameDialogOpen,
         };
+      }
+
+      if (action.operationName === 'MetWithProtected') {
+        return {
+          ...state,
+          metWithProtectedDialogOpen: false
+        }
       }
 
       if (action.operationName === 'MakeClient') {
@@ -219,6 +244,24 @@ export default (state = initialState, action) => {
           return {
             ...standardState,
             selectedName: action.result.data.protectNameToUser.name.id,
+            protectedListToShow: 'protected',
+          };
+        }
+
+        return standardState;
+      }
+
+      if (action.operationName === 'MetWithProtected') {
+        const standardState = {
+          ...state,
+          actionInProgress: initialState.actionInProgress
+        };
+
+        if (!_.has(action, 'result.errors')) {
+          return {
+            ...standardState,
+            selectedName: action.result.data.editProtectedName.name.id,
+            protectedListToShow: 'metWithProtected',
           };
         }
 

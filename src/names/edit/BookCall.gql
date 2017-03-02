@@ -1,7 +1,7 @@
 mutation BookCall(
   $userId: String!
   $protectedId: String!
-  $callBooked: String!
+  $callBooked: String
 ){
   editProtectedName (
     userId: $userId

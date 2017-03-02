@@ -1,19 +1,31 @@
-mutation BookMeeting(
+mutation MetWithProtected(
   $userId: String!
   $protectedId: String!
+  $metWith: String!
   $meetingBooked: String
-){
+) {
   editProtectedName (
     userId: $userId
     protectedId: $protectedId
     meetingBooked: $meetingBooked
+    metWith: $metWith
   ) {
     id
-    meetingBooked
     name {
       id
       firstName
       lastName
+      phone
+      company {
+        id
+        name
+        address
+        phone
+      }
     }
+    callBooked
+    meetingBooked
+    metWith
+    created_at
   }
 }
