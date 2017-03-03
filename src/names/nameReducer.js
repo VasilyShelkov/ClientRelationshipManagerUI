@@ -1,3 +1,4 @@
+import { actionTypes } from 'redux-form';
 import _ from 'lodash';
 import { APOLLO_MUTATION_INIT, APOLLO_MUTATION_RESULT } from '../app/thirdPartyActions';
 import { SHOW_NOTIFICATION } from '../app/appActions';
@@ -29,6 +30,7 @@ const initialState = {
 };
 export default (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.STOP_SUBMIT:
     case SHOW_NOTIFICATION:
       return {
         ...state,
