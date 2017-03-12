@@ -114,6 +114,14 @@ export default (state = initialState, action) => {
               notificationColor: greenA700
             };
           }
+          case 'UnprotectName': {
+            const { firstName, lastName } = action.result.data.unprotectNameFromUser.name;
+            return {
+              ...state,
+              notificationMessage: `Unprotected ${firstName} ${lastName} successfully`,
+              notificationColor: greenA700
+            };
+          }
           default:
             return state;
         }

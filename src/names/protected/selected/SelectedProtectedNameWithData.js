@@ -4,6 +4,7 @@ import moment from 'moment';
 import { push } from 'react-router-redux';
 import { red500 } from 'material-ui/styles/colors';
 
+import UnprotectName from './UnprotectName.gql';
 import RemoveProtectedName from './RemoveProtectedName.gql';
 import MakeClient from './MakeClient.gql';
 import MetWithProtected from './MetWithProtected.gql';
@@ -64,7 +65,7 @@ const SelectedProtectedNameWithMutations = compose(
               meetingBooked
             },
             updateQueries: {
-              GetClientNames: (previousResult, { mutationResult }) => ({
+              GetClient: (previousResult, { mutationResult }) => ({
                 user: {
                   ...previousResult.user,
                   client: [
@@ -112,6 +113,40 @@ const SelectedProtectedNameWithMutations = compose(
         }
       }
     })
+  }),
+  graphql(UnprotectName, {
+    props: ({ ownProps, mutate }) => ({
+      ...ownProps,
+      onSubmitUnprotectName: async () => {
+        const { selectedProtected } = ownProps;
+
+        try {
+          ownProps.performingNameAction(`Unprotecting ${selectedProtected.name.firstName} ${selectedProtected.name.lastName}`);
+          await mutate({
+            variables: {
+              userId: ownProps.id,
+              nameId: selectedProtected.name.id,
+            },
+            updateQueries: {
+              GetUnprotectedNames: (previousResult, { mutationResult }) => ({
+                user: {
+                  ...previousResult.user,
+                  unprotected: [
+                    mutationResult.data.unprotectNameFromUser,
+                    ...previousResult.user.unprotected
+                  ]
+                }
+              })
+            }
+          });
+          ownProps.unprotectNameSuccess();
+        } catch (error) {
+          ownProps.showErrorNotification(
+            error.graphQLErrors ? error.graphQLErrors[0].message : 'Oops, something went wrong...'
+          );
+        }
+      }
+    })
   })
 )(SelectedProtectedName);
 
@@ -129,7 +164,8 @@ const mapDispatchToProps = (dispatch) => ({
   closeClientNameDialog: () => dispatch(closeClientNameDialog()),
   performingNameAction: (message) => dispatch(performingNameAction(message)),
   showErrorNotification: (message) => dispatch(showNotification(message, red500)),
-  makeNameClientSuccess: () => dispatch(push('/account/names/clients'))
+  makeNameClientSuccess: () => dispatch(push('/account/names/clients')),
+  unprotectNameSuccess: () => dispatch(push('/account/names/unprotected'))
 });
 
 export default connect(

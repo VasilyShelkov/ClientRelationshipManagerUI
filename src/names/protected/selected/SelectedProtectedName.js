@@ -5,7 +5,7 @@ import CancelIcon from 'material-ui/svg-icons/content/clear';
 import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
 import { cyan500 } from 'material-ui/styles/colors';
-import { MetWithProtectedIcon, ClientsIcon } from '../../../app/icons';
+import { UnprotectedIcon, MetWithProtectedIcon, ClientsIcon } from '../../../app/icons';
 
 import NameDetailsDrawerWithData from '../../NameDetails';
 import NameDialogForm from '../../NameDialog';
@@ -15,7 +15,8 @@ export default ({
   makeNameClientDialogOpen, metWithProtectedDialogOpen,
   openMetWithProtectedDialog, closeMetWithProtectedDialog,
   openClientNameDialog, closeClientNameDialog,
-  removeProtectedName, hideName, onSubmitMakeClient, onSubmitMeetProtected
+  removeProtectedName, hideName, onSubmitUnprotectName,
+  onSubmitMakeClient, onSubmitMeetProtected
 }) => {
   if (selectedNameDrawerOpen && selectedProtected) {
     const displayName = `${selectedProtected.name.firstName} ${selectedProtected.name.lastName}`;
@@ -31,6 +32,13 @@ export default ({
         removeNameAction={removeProtectedName}
         isProtected
       >
+        <IconButton
+          tooltip="Unprotect Name"
+          onClick={onSubmitUnprotectName}
+          touch
+        >
+          <UnprotectedIcon color={cyan500} />
+        </IconButton>
         {
           !selectedProtected.metWith &&
           <IconButton

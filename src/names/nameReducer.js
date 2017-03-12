@@ -270,6 +270,22 @@ export default (state = initialState, action) => {
         return standardState;
       }
 
+      if (action.operationName === 'UnprotectName') {
+        const standardState = {
+          ...state,
+          actionInProgress: initialState.actionInProgress
+        };
+
+        if (!_.has(action, 'result.errors')) {
+          return {
+            ...standardState,
+            selectedName: action.result.data.unprotectNameFromUser.name.id,
+          };
+        }
+
+        return standardState;
+      }
+
       if (action.operationName === 'MakeClient') {
         const standardState = {
           ...state,

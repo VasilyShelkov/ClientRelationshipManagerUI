@@ -20,6 +20,16 @@ export const reducer = (previousResult, action) => {
           );
         }
         break;
+      case 'UnprotectName':
+        if (
+          _.has(action, 'result.data.unprotectNameFromUser') &&
+          !_.has(action, 'result.errors')
+        ) {
+          return removeNameFromList(
+            previousResult, action.variables.nameId, 'client', true
+          );
+        }
+        break;
       default:
         return previousResult;
     }

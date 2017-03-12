@@ -1,9 +1,14 @@
 import React from 'react';
 
+import IconButton from 'material-ui/IconButton';
+import { cyan500 } from 'material-ui/styles/colors';
+
+import { UnprotectedIcon } from '../../../app/icons';
 import NameDetailsDrawerWithData from '../../NameDetails';
 
 export default ({
-  selectedClient, selectedNameDrawerOpen, removeClient, hideName
+  selectedClient, selectedNameDrawerOpen, hideName,
+  removeClient, onSubmitUnprotectName
 }) => {
   if (selectedNameDrawerOpen && selectedClient) {
     return (
@@ -13,7 +18,15 @@ export default ({
         closeNameDetails={hideName}
         removeNameAction={removeClient}
         isProtected
-      />
+      >
+        <IconButton
+          tooltip="Unprotect Name"
+          onClick={onSubmitUnprotectName}
+          touch
+        >
+          <UnprotectedIcon color={cyan500} />
+        </IconButton>
+      </NameDetailsDrawerWithData>
     );
   }
 

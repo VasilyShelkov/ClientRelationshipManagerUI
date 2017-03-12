@@ -1,0 +1,24 @@
+mutation UnprotectName(
+  $userId: String!
+  $nameId: String!
+) {
+   unprotectNameFromUser(
+    userId: $userId
+    nameId: $nameId
+  ) {
+    id
+    name {
+      id
+      firstName
+      lastName
+      phone
+      company {
+        id
+        name
+        address
+        phone
+      }
+    }
+    created_at
+  }
+},

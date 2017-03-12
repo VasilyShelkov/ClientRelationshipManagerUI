@@ -23,6 +23,16 @@ const reducer = (nameListType) => (previousResult, action) => {
           );
         }
         break;
+      case 'UnprotectName':
+        if (
+          _.has(action, 'result.data.unprotectNameFromUser') &&
+          !_.has(action, 'result.errors')
+        ) {
+          return removeNameFromList(
+            previousResult, action.variables.nameId, nameListType, true
+          );
+        }
+        break;
       case 'MakeClient':
         if (
           _.has(action, 'result.data.addClientToUser') &&
