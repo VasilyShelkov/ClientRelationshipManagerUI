@@ -1,0 +1,10 @@
+query GetAllCompanies {
+  companies {
+    id
+    name
+    address
+    phone
+    created_at
+    updated_at
+  }
+}

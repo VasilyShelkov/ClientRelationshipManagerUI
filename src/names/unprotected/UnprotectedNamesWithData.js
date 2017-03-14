@@ -48,22 +48,6 @@ export const reducer = (previousResult, action) => {
           };
         }
         break;
-      case 'UnprotectName':
-        if (
-          _.has(action, 'result.data.unprotectNameFromUser') &&
-          !_.has(action, 'result.errors')
-        ) {
-          return {
-            user: {
-              ...previousResult.user,
-              client: [
-                action.result.data.unprotectNameFromUser,
-                ...previousResult.user.unprotected
-              ]
-            }
-          };
-        }
-        break;
       default:
         return previousResult;
     }

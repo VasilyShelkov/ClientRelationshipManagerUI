@@ -2,10 +2,7 @@ import React from 'react';
 
 export default ({ pattern, pathname }) => (
   <div>
-    <h1>Router Home</h1>
-    <ul>
-      <li><strong>Pattern</strong>: {pattern}</li>
-      <li><strong>Pathname</strong>: {pathname}</li>
-    </ul>
+    <h1>PLACEHOLDER HOME PAGE</h1>
+    <h2>Super awesome cool homepage coming soon...</h2>
   </div>
  );
