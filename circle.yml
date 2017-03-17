@@ -3,9 +3,6 @@ machine:
     version: 6.1.0
   timezone:
     GB
-test:
-  post:
-    - npm run test:ci-integration
 deployment:
   prod:
     branch: master
