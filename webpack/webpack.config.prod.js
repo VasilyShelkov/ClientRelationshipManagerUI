@@ -11,6 +11,8 @@ module.exports = {
       'react',
       'react-dom',
       'react-router',
+      'material-ui',
+      'moment'
     ],
   },
   output: {
@@ -26,7 +28,7 @@ module.exports = {
       test: /\.(css|scss)$/,
       include: [resolve(__dirname, '../src')],
       loader: ExtractTextPlugin.extract({
-        fallbackLoader: 'style-loader',
+        fallback: 'style-loader',
         loader: 'css-loader?sourceMap!sass-loader?sourceMap'
       })
     }, {
@@ -38,7 +40,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('production'),
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       },
     }),
     new webpack.optimize.UglifyJsPlugin(),
@@ -50,11 +52,5 @@ module.exports = {
       template: 'public/index.html',
     }),
     new ExtractTextPlugin('dist/index.css'),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
-      }
-    })
-
   ],
 };
