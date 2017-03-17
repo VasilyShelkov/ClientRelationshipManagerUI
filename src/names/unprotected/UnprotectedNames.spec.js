@@ -13,7 +13,7 @@ const setup = ({ loading = false, names = [] }) => {
   return { wrapper, props };
 };
 
-describe('src/names/UnprotectedNames.js', () => {
+xdescribe('src/names/UnprotectedNames.js', () => {
   it('renders the loading spinner when getting data', () => {
     const { wrapper } = setup({ loading: true });
     expect(wrapper.find(LoadingSpinner).exists()).to.be.true;

@@ -1,6 +1,6 @@
 --require testSetup.js
 --require ignore-styles
 --require babel-register
---compilers graphql:/Users/vsh05/Projects/forks/mocha-graphql-register/index.js
+--compilers graphql:mocha-graphql-register/index.js
 --inline-diffs 
 --recursive

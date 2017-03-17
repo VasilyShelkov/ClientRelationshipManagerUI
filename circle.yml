@@ -1,0 +1,18 @@
+machine:
+  node:
+    version: 6.1.0
+  timezone:
+    GB
+test:
+  post:
+    - npm run test:ci-integration
+deployment:
+  prod:
+    branch: master
+    heroku:
+      appname: regency-wealth-crm
+  staging:
+    branch: staging
+    heroku:
+      appname: regency-wealth-crm-staging
+

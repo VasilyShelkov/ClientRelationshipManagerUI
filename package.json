@@ -48,6 +48,7 @@
     "js-cookie": "^2.1.3",
     "lodash": "^4.17.4",
     "material-ui": "^0.16.5",
+    "mocha-graphql-register": "git+https://git@github.com/VasilyShelkov/mocha-graphql-register.git",
     "moment": "^2.17.1",
     "node-sass": "^3.13.1",
     "places.js": "^1.4.8",
