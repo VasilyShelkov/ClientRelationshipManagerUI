@@ -10,7 +10,10 @@
     "prebuild": "rimraf dist",
     "build": "webpack --config webpack/webpack.config.prod.js --progress --profile --colors",
     "test": "NODE_ENV=testing mocha --opts ./mocha.opts './src/**/*.spec.js'",
-    "test:watch": "NODE_ENV=testing mocha --watch --opts ./mocha.opts './src/**/*.spec.js'"
+    "test:watch": "NODE_ENV=testing mocha --watch --opts ./mocha.opts './src/**/*.spec.js'",
+    "test:feature": "./node_modules/codeceptjs/bin/codecept.js run --steps",
+    "test:selenium-start": "./node_modules/.bin/selenium-standalone start",
+    "test:selenium-install": "./node_modules/.bin/selenium-standalone install"
   },
   "repository": {
     "type": "git",
@@ -79,7 +82,7 @@
     "babel-register": "^6.22.0",
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
-    "codeceptjs": "^0.4.13",
+    "codeceptjs": "^0.5.1",
     "deep-freeze": "0.0.1",
     "enzyme": "^2.6.0",
     "eslint": "^3.12.0",
@@ -96,8 +99,8 @@
     "mocha-graphql-register": "^1.0.0",
     "react-addons-test-utils": "^15.4.1",
     "react-hot-loader": "^3.0.0-beta.6",
-    "selenium-standalone": "^5.9.1",
-    "selenium-webdriver": "^3.0.1",
+    "selenium-standalone": "^6.1.0",
+    "selenium-webdriver": "^3.3.0",
     "sinon": "^1.17.7",
     "sinon-chai": "^2.8.0",
     "webdriverio": "^4.6.1",
