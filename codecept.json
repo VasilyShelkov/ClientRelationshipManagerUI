@@ -5,8 +5,12 @@
   "helpers": {
     "WebDriverIO": {
       "url": "http://localhost:8080",
-      "browser": "chrome"
-    } 
+      "browser": "chrome",
+      "windowSize": "maximize"
+    },
+    "CreateHelper": {
+      "require": "./test/steps/createHelper.js"
+    }
   },
   "include": {
     "I": "./test/steps/custom_steps.js"

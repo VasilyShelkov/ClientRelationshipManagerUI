@@ -75,6 +75,7 @@ export const ShowProfile = ({
           />
         :
           <ListItem
+            id="resetPassword"
             leftAvatar={<Avatar icon={<SecurityIcon />} backgroundColor={cyan500} />}
             rightIcon={<EditIcon />}
             primaryText="Password"
@@ -92,6 +93,7 @@ export const ShowProfile = ({
         {
           editSuccessProfileNotification &&
             <Chip
+              id="editProfileSuccess"
               style={{ marginBottom: '10px' }}
               backgroundColor={lightGreen300}
               onRequestDelete={onRemoveNotification}

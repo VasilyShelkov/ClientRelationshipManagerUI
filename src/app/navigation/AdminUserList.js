@@ -21,6 +21,7 @@ export default ({ currentUserId, loading, users, value, onChange }) => {
       <Divider />
 
       <ListItem
+        id="createNewUser"
         primaryText="Create New User"
         rightAvatar={
           <Avatar icon={<PersonAddIcon />} backgroundColor={green500} />
@@ -34,7 +35,7 @@ export default ({ currentUserId, loading, users, value, onChange }) => {
 
       <Divider />
 
-      <Subheader>{users.length} Users</Subheader>
+      <Subheader><span id="totalUserCount">{users.length}</span> Users</Subheader>
       {
         users.length ?
           users.map(user =>

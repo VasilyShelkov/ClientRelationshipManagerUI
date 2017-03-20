@@ -54,6 +54,7 @@ export const ShowCompany = ({
         {
           (editSuccessCompanyNotification) &&
             <Chip
+              id="editCompanySuccess"
               style={{ marginBottom: '10px' }}
               backgroundColor={lightGreen300}
               onRequestDelete={onRemoveNotification}
