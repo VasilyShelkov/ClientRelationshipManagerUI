@@ -27,6 +27,7 @@ export const NameDialog = ({
             <div className="col-12" style={{ display: 'flex', alignItems: 'center' }}>
               Calling {displayName}?
               <IconButton
+                id="clearCallBooking"
                 onClick={() => {
                   change('callDay', null);
                   change('callTime', null);
@@ -67,6 +68,7 @@ export const NameDialog = ({
             <div className="col-12" style={{ display: 'flex', alignItems: 'center' }}>
               Meeting {displayName}?
               <IconButton
+                id="clearMeetingBooking"
                 onClick={() => {
                   change('meetingDay', null);
                   change('meetingTime', null);
@@ -105,6 +107,7 @@ export const NameDialog = ({
             <div className="col-12" style={{ display: 'flex', alignItems: 'center' }}>
               Had a meeting with {displayName}?
               <IconButton
+                id="clearMeeting"
                 onClick={() => {
                   change('pastMeetingDay', null);
                   change('pastMeetingTime', null);
