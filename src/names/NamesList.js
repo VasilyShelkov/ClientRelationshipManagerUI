@@ -7,16 +7,17 @@ import Name from './Name';
 import EditNameProtectedInfoWithData from './edit/EditNameProtectedInfo';
 
 export default ({
-  names, selectedNameId, isProtected, selectedNameDrawerOpen,
+  id, names, selectedNameId, isProtected, selectedNameDrawerOpen,
   showCreateNameForm = null, openNameDetails,
   openEditProtectedNameMeetingDialog, openEditProtectedNameCallDialog,
   onSubmitBookCall, onSubmitBookMeeting
 }) => (
-  <div>
+  <div id={id}>
     {
       names.length ?
         names.map((name, index) => (
           <Name
+            id={`name-${index}`}
             key={`name-${index}`}
             selected={name.name.id === selectedNameId}
             showMoreDetails={() => openNameDetails(name.name.id)}
@@ -32,6 +33,7 @@ export default ({
           {
             showCreateNameForm ?
               <RaisedButton
+                id="createUnprotectedName"
                 onClick={showCreateNameForm}
                 labelStyle={{ color: fullWhite }}
                 backgroundColor={green500}

@@ -40,7 +40,7 @@ export const NameDetails = ({
       </ToolbarGroup>
 
       <ToolbarGroup lastChild>
-        <IconButton touch onClick={removeNameAction}>
+        <IconButton id="deleteName" touch onClick={removeNameAction}>
           <DeleteName color={red500} />
         </IconButton>
       </ToolbarGroup>

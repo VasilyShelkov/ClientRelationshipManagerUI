@@ -6,6 +6,7 @@
     "WebDriverIO": {
       "url": "http://localhost:8080",
       "browser": "chrome",
+      "waitForTimeout": 3000,
       "windowSize": "maximize"
     },
     "CreateHelper": {

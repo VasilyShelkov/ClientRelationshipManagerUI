@@ -30,17 +30,17 @@ export default ({
         <div style={{ textAlign: 'center' }}>
           <LockOpenIcon style={{ height: '100px', width: '100px' }} color={cyan500} />
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <h2>
-              {
-                showingCreateForm ?
-                  'Create Unprotected Name'
-                :
-                  `${names ? names.length : ''} Unprotected Name${!names || names.length > 1 ? 's' : ''}`
-              }
-            </h2>
+            {
+              showingCreateForm ?
+                <h2>Create Unprotected Name</h2>
+              :
+                <h2>
+                  <span id="unprotectedNamesCount">{names ? names.length : ''}</span> Unprotected Name{!names || names.length > 1 ? 's' : ''}
+                </h2>
+            }
             {
               (names && names.length) && !showingCreateForm ?
-                <IconButton onClick={showCreateNameForm}>
+                <IconButton id="createUnprotectedName" onClick={showCreateNameForm}>
                   <Avatar icon={<AddIcon />} backgroundColor={green500} />
                 </IconButton>
               :
@@ -63,6 +63,7 @@ export default ({
                     />
                   :
                     <NamesList
+                      id="unprotectedNamesList"
                       names={names}
                       selectedNameId={selectedNameId}
                       openNameDetails={selectName}

@@ -17,6 +17,7 @@ module.exports = function () {
       this.click('Sign in');
     },
     createNewUser: function (newUser) {
+      this.waitForElement('#createNewUser');
       this.click('#createNewUser');
       this.waitForText('Add a new member to the team...');
       this.seeInCurrentUrl('/account/users/add');
@@ -33,6 +34,22 @@ module.exports = function () {
       this.seeInCurrentUrl(
         `account/users/${newUser.firstName.toLowerCase()}${newUser.lastName}/profile`
       );
+    },
+    createNewUnprotectedName: function (newName) {
+      this.waitForElement('#goToUnprotectedList');
+      this.click('#goToUnprotectedList');
+      this.waitForElement('#unprotectedNamesList');
+      this.click('#createUnprotectedName');
+
+      this.fillField('firstName', newName.firstName);
+      this.fillField('lastName', newName.lastName);
+      this.fillField('phone', newName.phone);
+      this.fillField('companyName', newName.company.name);
+      this.fillField('companyAddress', newName.company.address);
+      this.fillField('companyPhone', newName.company.phone);
+      this.click('Save');
+
+      this.waitForElement('#unprotectedNamesList');
     }
   });
 };

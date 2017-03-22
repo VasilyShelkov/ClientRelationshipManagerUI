@@ -23,6 +23,7 @@ export default ({
         removeNameAction={removeUnprotectedName}
       >
         <IconButton
+          id="protectName"
           tooltip="Protect Name"
           onClick={openProtectNameDialog}
           touch
@@ -51,7 +52,8 @@ export default ({
                 icon={<CancelIcon />}
               />,
               <FlatButton
-                form="protectName"
+                id="submitProtectName"
+                form="protectNameForm"
                 type="submit"
                 label="Protect"
                 primary

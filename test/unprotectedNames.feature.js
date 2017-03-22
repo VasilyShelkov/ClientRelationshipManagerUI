@@ -1,0 +1,203 @@
+Feature('Unprotected names');
+
+Scenario('user creates a new name', function *(I) {
+  I.login();
+  I.waitForElement('#goToUnprotectedList');
+  I.click('#goToUnprotectedList');
+  const currentUnprotectedNamesCount = yield I.grabTextFrom('#unprotectedNamesCount');
+  I.waitForElement('#unprotectedNamesList');
+  I.click('#createUnprotectedName');
+
+  const newName = yield I.createFakeName();
+  I.fillField('firstName', newName.firstName);
+  I.fillField('lastName', newName.lastName);
+  I.fillField('phone', newName.phone);
+  I.fillField('companyName', newName.company.name);
+  I.fillField('companyAddress', newName.company.address);
+  I.fillField('companyPhone', newName.company.phone);
+  I.click('Save');
+
+  I.waitForElement('#unprotectedNamesList');
+  I.see(`${parseInt(currentUnprotectedNamesCount, 10) + 1} Unprotected`);
+  I.waitForVisible('#appNotification');
+  within('.name:nth-of-type(1)', () => {
+    I.see(newName.firstName);
+    I.see(newName.lastName);
+    I.see(newName.phone);
+    I.see(newName.company.name);
+  });
+});
+
+Scenario('user deletes an unprotected name', function *(I) {
+  I.login();
+  const newName = yield I.createFakeName();
+  I.createNewUnprotectedName(newName);
+  const currentUnprotectedNamesCount = yield I.grabTextFrom('#unprotectedNamesCount');
+  I.click('#deleteName');
+  I.waitToHide('.names__overlay');
+  I.see(`${parseInt(currentUnprotectedNamesCount, 10) - 1} Unprotected`);
+  I.waitForVisible('#appNotification');
+  within('#unprotectedNamesList', () => {
+    I.dontSee(newName.firstName);
+    I.dontSee(newName.lastName);
+    I.dontSee(newName.phone);
+    I.dontSee(newName.company.name);
+  });
+});
+
+Scenario('user protects an unprotected name with no call or meeting booked', function *(I) {
+  I.login();
+  I.waitForElement('#goToProtectedList');
+  I.click('#goToProtectedList');
+  I.waitForElement('#protectedNamesList');
+  const currentProtectedNamesCount = yield I.grabTextFrom('#protectedNamesCount');
+
+  const newName = yield I.createFakeName();
+  I.createNewUnprotectedName(newName);
+  I.click('#protectName');
+  I.waitForElement('#protectNameForm');
+  I.click('#submitProtectName');
+  I.waitToHide('.names__overlay');
+  I.waitForElement('#protectedNamesList');
+  I.see(`${parseInt(currentProtectedNamesCount, 10) + 1}/150 Protected`);
+  I.waitForVisible('#appNotification');
+  within('.name:nth-of-type(1)', () => {
+    I.see(newName.firstName);
+    I.see(newName.lastName);
+    I.see(newName.phone);
+    I.see(newName.company.name);
+    I.see('BOOK CALL');
+    I.see('BOOK MEETING');
+  });
+});
+
+Scenario('user protects an unprotected name with call booked', function *(I) {
+  I.login();
+  I.waitForElement('#goToProtectedList');
+  I.click('#goToProtectedList');
+  I.waitForElement('#protectedNamesList');
+  const currentProtectedNamesCount = yield I.grabTextFrom('#protectedNamesCount');
+
+  const newName = yield I.createFakeName();
+  I.createNewUnprotectedName(newName);
+  I.click('#protectName');
+  I.waitForElement('#protectNameForm');
+
+  const currentDay = yield I.createCurrentDay();
+  const currentMonth = yield I.createCurrentMonth();
+  I.click('input[name="callDay"]');
+  I.waitForText(currentMonth);
+  I.click(currentDay);
+
+  I.wait(1);
+  I.waitForEnabled('input[name="callTime"]');
+  I.click('input[name="callTime"]');
+  I.waitForText('OK');
+  I.click('OK');
+
+  I.wait(1);
+  I.click('#submitProtectName');
+  I.waitToHide('.names__overlay');
+  I.waitForElement('#protectedNamesList');
+  I.see(`${parseInt(currentProtectedNamesCount, 10) + 1}/150 Protected`);
+  I.waitForVisible('#appNotification');
+  within('.name:nth-of-type(1)', () => {
+    I.see(newName.firstName);
+    I.see(newName.lastName);
+    I.see(newName.phone);
+    I.see(newName.company.name);
+    I.dontSee('BOOK CALL');
+    I.see('BOOK MEETING');
+  });
+});
+
+Scenario('user protects an unprotected name with meeting booked', function *(I) {
+  I.login();
+  I.waitForElement('#goToProtectedList');
+  I.click('#goToProtectedList');
+  I.waitForElement('#protectedNamesList');
+  const currentProtectedNamesCount = yield I.grabTextFrom('#protectedNamesCount');
+
+  const newName = yield I.createFakeName();
+  I.createNewUnprotectedName(newName);
+  I.click('#protectName');
+  I.waitForElement('#protectNameForm');
+
+  const currentDay = yield I.createCurrentDay();
+  const currentMonth = yield I.createCurrentMonth();
+  I.click('input[name="meetingDay"]');
+  I.waitForText(currentMonth);
+  I.click(currentDay);
+
+  I.wait(1);
+  I.waitForEnabled('input[name="meetingTime"]');
+  I.click('input[name="meetingTime"]');
+  I.waitForText('OK');
+  I.click('OK');
+
+  I.wait(1);
+  I.click('#submitProtectName');
+  I.waitToHide('.names__overlay');
+  I.waitForElement('#protectedNamesList');
+  I.see(`${parseInt(currentProtectedNamesCount, 10) + 1}/150 Protected`);
+  I.waitForVisible('#appNotification');
+  within('.name:nth-of-type(1)', () => {
+    I.see(newName.firstName);
+    I.see(newName.lastName);
+    I.see(newName.phone);
+    I.see(newName.company.name);
+    I.see('BOOK CALL');
+    I.dontSee('BOOK MEETING');
+  });
+});
+
+Scenario('user protects an unprotected name with call booked and meeting booked', function *(I) {
+  I.login();
+  I.waitForElement('#goToProtectedList');
+  I.click('#goToProtectedList');
+  I.waitForElement('#protectedNamesList');
+  const currentProtectedNamesCount = yield I.grabTextFrom('#protectedNamesCount');
+
+  const newName = yield I.createFakeName();
+  I.createNewUnprotectedName(newName);
+  I.click('#protectName');
+  I.waitForElement('#protectNameForm');
+
+  const currentDay = yield I.createCurrentDay();
+  const currentMonth = yield I.createCurrentMonth();
+  I.click('input[name="callDay"]');
+  I.waitForText(currentMonth);
+  I.click(currentDay);
+
+  I.waitForEnabled('input[name="callTime"]');
+  I.wait(1);
+  I.click('input[name="callTime"]');
+  I.waitForText('OK');
+  I.click('OK');
+
+  I.wait(1);
+  I.click('input[name="meetingDay"]');
+  I.waitForText(currentMonth);
+  I.click(currentDay);
+
+  I.waitForEnabled('input[name="meetingTime"]');
+  I.wait(1);
+  I.click('input[name="meetingTime"]');
+  I.waitForText('OK');
+  I.click('OK');
+
+  I.wait(1);
+  I.click('#submitProtectName');
+  I.waitToHide('.names__overlay');
+  I.waitForElement('#protectedNamesList');
+  I.see(`${parseInt(currentProtectedNamesCount, 10) + 1}/150 Protected`);
+  I.waitForVisible('#appNotification');
+  within('.name:nth-of-type(1)', () => {
+    I.see(newName.firstName);
+    I.see(newName.lastName);
+    I.see(newName.phone);
+    I.see(newName.company.name);
+    I.dontSee('BOOK CALL');
+    I.dontSee('BOOK MEETING');
+  });
+});
