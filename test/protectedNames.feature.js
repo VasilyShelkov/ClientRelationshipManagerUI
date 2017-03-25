@@ -104,6 +104,22 @@ Scenario('user unprotects a protected name', function* (I) {
   });
 });
 
+Scenario('user deletes a protected name', function* (I) {
+  I.login();
+  const newProtectedName = yield I.createFakeName();
+  I.createProtectedName(newProtectedName);
+  const currentProtectedNamesCount = yield I.grabTextFrom('#protectedNamesCount');
+  I.click('#deleteName');
+  I.waitToHide('.names__overlay');
+  I.see(`${parseInt(currentProtectedNamesCount, 10) - 1}/150 Protected`);
+  I.waitForVisible('#appNotification');
+  within('.name:nth-of-type(1)', () => {
+    I.dontSee(newProtectedName.firstName);
+    I.dontSee(newProtectedName.lastName);
+    I.dontSee(newProtectedName.phone);
+  });
+});
+
 Scenario('user meets with protected name', function* (I) {
   I.login();
   const newProtectedName = yield I.createFakeName();

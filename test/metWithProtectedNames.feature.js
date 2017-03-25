@@ -112,6 +112,22 @@ Scenario('user unprotects a met with protected name', function* (I) {
   });
 });
 
+Scenario('user deletes a met with protected name', function* (I) {
+  I.login();
+  const newMetWithProtectedName = yield I.createFakeName();
+  I.createMetWithProtectedName(newMetWithProtectedName);
+  const currentMetWithProtectedNamesCount = yield I.grabTextFrom('#metWithProtectedNamesCount');
+  I.click('#deleteName');
+  I.waitToHide('.names__overlay');
+  I.see(`${parseInt(currentMetWithProtectedNamesCount, 10) - 1} Met With Protected`);
+  I.waitForVisible('#appNotification');
+  within('.name:nth-of-type(1)', () => {
+    I.dontSee(newMetWithProtectedName.firstName);
+    I.dontSee(newMetWithProtectedName.lastName);
+    I.dontSee(newMetWithProtectedName.phone);
+  });
+});
+
 Scenario('user makes the met with protected name a client with no call or meeting booked', function* (I) {
   I.login();
   const newMetWithProtectedName = yield I.createFakeName();

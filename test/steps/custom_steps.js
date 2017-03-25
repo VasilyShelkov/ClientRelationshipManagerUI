@@ -66,6 +66,14 @@ module.exports = function () {
       this.waitToHide('.names__overlay');
       this.waitForVisible('div[value="metWithProtected"]');
       this.waitForVisible('#metWithProtectedNamesList');
-    }
+    },
+    createClient: function (newName) {
+      this.createProtectedName(newName);
+      this.click('#makeClient');
+      this.waitForElement('#protectNameForm');
+      this.click('#submitClientName');
+      this.waitToHide('.names__overlay');
+      this.waitForElement('#clientNamesList');
+    },
   });
 };

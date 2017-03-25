@@ -122,6 +122,13 @@ export default (state = initialState, action) => {
               notificationColor: greenA700
             };
           }
+          case 'RemoveClient': {
+            return {
+              ...state,
+              notificationMessage: 'Removed Client',
+              notificationColor: greenA700
+            };
+          }
           default:
             return state;
         }

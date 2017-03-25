@@ -20,6 +20,7 @@ export default ({
         isProtected
       >
         <IconButton
+          id="unprotectName"
           tooltip="Unprotect Name"
           onClick={onSubmitUnprotectName}
           touch

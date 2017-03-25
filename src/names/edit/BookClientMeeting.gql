@@ -1,4 +1,4 @@
-mutation BookMeetingCall(
+mutation BookClientMeeting (
   $userId: String!
   $clientId: String!
   $meetingBooked: String
@@ -14,6 +14,6 @@ mutation BookMeetingCall(
       firstName
       lastName
     }
-    callBooked
+    meetingBooked
   }
 }
