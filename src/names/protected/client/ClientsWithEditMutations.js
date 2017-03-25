@@ -17,7 +17,7 @@ import StandardProtectedNames from '../StandardProtectedNamesList';
 
 const ClientLayout = props => (
   <div style={props.selectedNameDrawerOpen ? { paddingRight: '250px' } : {}}>
-    <StandardProtectedNames {...props} />
+    <StandardProtectedNames nameListType="client" {...props} />
   </div>
 );
 

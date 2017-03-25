@@ -33,6 +33,7 @@ export default ({
         isProtected
       >
         <IconButton
+          id="unprotectName"
           tooltip="Unprotect Name"
           onClick={onSubmitUnprotectName}
           touch
@@ -42,6 +43,7 @@ export default ({
         {
           !selectedProtected.metWith &&
           <IconButton
+            id="metWithProtected"
             tooltip="Met With Protected"
             onClick={openMetWithProtectedDialog}
             touch
@@ -50,6 +52,7 @@ export default ({
           </IconButton>
         }
         <IconButton
+          id="makeClient"
           tooltip="Make Name Client"
           onClick={openClientNameDialog}
           touch
@@ -65,10 +68,10 @@ export default ({
             close={closeClientNameDialog}
             onSubmit={onSubmitMakeClient}
             initialValues={{
-              callDay: callBooked ? callBookedDate : {},
-              callTime: callBooked ? callBookedDate : {},
-              meetingDay: meetingBooked ? meetingBookedDate : {},
-              meetingTime: meetingBooked ? meetingBookedDate : {}
+              callDay: callBooked ? callBookedDate : null,
+              callTime: callBooked ? callBookedDate : null,
+              meetingDay: meetingBooked ? meetingBookedDate : null,
+              meetingTime: meetingBooked ? meetingBookedDate : null
             }}
             actions={[
               <FlatButton
@@ -79,7 +82,8 @@ export default ({
               />,
               <FlatButton
                 primary
-                form="protectName"
+                id="submitClientName"
+                form="protectNameForm"
                 type="submit"
                 label="Make Client"
                 icon={<ClientsIcon />}
@@ -108,7 +112,8 @@ export default ({
               />,
               <FlatButton
                 primary
-                form="protectName"
+                id="submitMetWithName"
+                form="protectNameForm"
                 type="submit"
                 label="Confirm Meeting"
                 icon={<MetWithProtectedIcon />}

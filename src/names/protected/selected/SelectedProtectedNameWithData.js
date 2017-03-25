@@ -65,7 +65,7 @@ const SelectedProtectedNameWithMutations = compose(
               meetingBooked
             },
             updateQueries: {
-              GetClient: (previousResult, { mutationResult }) => ({
+              GetClients: (previousResult, { mutationResult }) => ({
                 user: {
                   ...previousResult.user,
                   client: [

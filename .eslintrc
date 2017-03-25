@@ -28,6 +28,7 @@
     "shallow": true,
     "shallowWithContext": true,
     "Feature": true,
-    "Scenario": true
+    "Scenario": true,
+    within: true
   }
 }

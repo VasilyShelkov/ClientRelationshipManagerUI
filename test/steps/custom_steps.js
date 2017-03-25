@@ -50,6 +50,22 @@ module.exports = function () {
       this.click('Save');
 
       this.waitForElement('#unprotectedNamesList');
+    },
+    createProtectedName: function (newName) {
+      this.createNewUnprotectedName(newName);
+      this.click('#protectName');
+      this.waitForElement('#protectNameForm');
+      this.click('#submitProtectName');
+      this.waitToHide('.names__overlay');
+      this.waitForElement('#protectedNamesList');
+    },
+    createMetWithProtectedName: function (newName) {
+      this.createProtectedName(newName);
+      this.click('#metWithProtected');
+      this.click('#submitMetWithName');
+      this.waitToHide('.names__overlay');
+      this.waitForVisible('div[value="metWithProtected"]');
+      this.waitForVisible('#metWithProtectedNamesList');
     }
   });
 };

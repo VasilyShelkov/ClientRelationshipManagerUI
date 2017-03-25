@@ -40,7 +40,8 @@ export const EditNameProtectedInfo = ({
           />,
           <FlatButton
             primary
-            form="protectName"
+            id="submitEditProtectedMeeting"
+            form="protectNameForm"
             type="submit"
             label="Book Meeting"
             icon={<MetWithProtectedIcon />}
@@ -73,7 +74,8 @@ export const EditNameProtectedInfo = ({
           />,
           <FlatButton
             primary
-            form="protectName"
+            id="submitEditProtectedCall"
+            form="protectNameForm"
             type="submit"
             label="Book Call"
             icon={<PhoneIcon />}

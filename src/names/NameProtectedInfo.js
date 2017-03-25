@@ -23,6 +23,7 @@ export default ({
               <PhoneIcon color={selected && 'white'} style={{ marginRight: '10px' }} />
               {moment(callBooked).fromNow()}
               <IconButton
+                id="editCall"
                 onClick={(e) => {
                   e.stopPropagation();
                   editCall();
@@ -35,6 +36,7 @@ export default ({
           :
             <div className={`name__info__protectedInfo__detail${selectedNameDrawerOpen ? '-withDrawer' : ''}`}>
               <RaisedButton
+                id="bookCall"
                 onClick={(e) => {
                   e.stopPropagation();
                   editCall();
@@ -52,6 +54,7 @@ export default ({
               <MetWithProtectedIcon color={selected && 'white'} style={{ marginRight: '10px' }} />
               {moment(meetingBooked).fromNow()}
               <IconButton
+                id="editMeeting"
                 onClick={(e) => {
                   e.stopPropagation();
                   editMeeting();
@@ -64,6 +67,7 @@ export default ({
           :
             <div className={`name__info__protectedInfo__detail${selectedNameDrawerOpen ? '-withDrawer' : ''}`}>
               <RaisedButton
+                id="bookMeeting"
                 onClick={(e) => {
                   e.stopPropagation();
                   editMeeting();

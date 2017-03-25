@@ -29,6 +29,7 @@ export default ({
       onChange={changeShownProtectedList}
     >
       <Tab
+        id="goToProtectedTab"
         label="PROTECTED"
         value="protected"
         icon={loadingProtected ? <CircularProgress /> : <ProtectedIcon />}
@@ -45,6 +46,8 @@ export default ({
       </Tab>
 
       <Tab
+        id="goToMetWithProtectedTab"
+        label="PROTECTED"
         label="MET WITH"
         value="metWithProtected"
         icon={loadingMetWithProtected ? <CircularProgress /> : <MetWithProtectedIcon />}

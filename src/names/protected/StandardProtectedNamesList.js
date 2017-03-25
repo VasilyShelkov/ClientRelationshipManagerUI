@@ -24,7 +24,7 @@ export default ({
           !loading && names ?
             <div>
               <NamesList
-                id="protectedNamesList"
+                id={`${nameListType}NamesList`}
                 names={names}
                 selectedNameId={selectedNameId}
                 openNameDetails={selectName}
@@ -59,6 +59,7 @@ const getNameListHeader = (nameListType, isMultipleNames) => {
   if (nameListType === 'protected') {
     return (
       <NameListHeader
+        countId="protectedNamesCount"
         nameCount={isMultipleNames}
         title={`${isMultipleNames ? '/150' : ''} Protected Name${isMultipleNames ? 's' : ''}`}
         Icon={ProtectedIcon}
@@ -69,6 +70,7 @@ const getNameListHeader = (nameListType, isMultipleNames) => {
   if (nameListType === 'metWithProtected') {
     return (
       <NameListHeader
+        countId="metWithProtectedNamesCount"
         nameCount={isMultipleNames}
         title={` Met With Protected Name${isMultipleNames ? 's' : ''}`}
         Icon={MetWithProtectedIcon}
@@ -78,6 +80,7 @@ const getNameListHeader = (nameListType, isMultipleNames) => {
 
   return (
     <NameListHeader
+      countId="clientsCount"
       nameCount={isMultipleNames}
       title={` Client${isMultipleNames ? 's' : ''}`}
       Icon={ClientsIcon}
