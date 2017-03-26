@@ -42,7 +42,7 @@ module.exports = function () {
       this.waitForElement('#unprotectedNamesList');
       this.click('#createUnprotectedName');
 
-      this.waitForVisible('.StandardForm')
+      this.waitForVisible('.StandardForm');
       this.fillField('firstName', newName.firstName);
       this.fillField('lastName', newName.lastName);
       this.fillField('phone', newName.phone);

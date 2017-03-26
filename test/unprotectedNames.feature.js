@@ -9,6 +9,7 @@ Scenario('user creates a new name', function* (I) {
   I.click('#createUnprotectedName');
 
   const newName = yield I.createFakeName();
+  I.waitForVisible('.StandardForm');
   I.fillField('firstName', newName.firstName);
   I.fillField('lastName', newName.lastName);
   I.fillField('phone', newName.phone);
