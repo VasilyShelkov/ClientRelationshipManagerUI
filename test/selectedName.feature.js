@@ -12,7 +12,7 @@ Scenario('user edits name details for unprotected', function* (I) {
     I.fillField('firstName', editName.firstName);
     I.fillField('lastName', editName.lastName);
     I.fillField('phone', editName.phone);
-    I.click('#standardSubmit');
+    I.click('#standardSubmit[type="submit"]');
   });
 
   I.waitToHide('.names__overlay');
@@ -37,7 +37,7 @@ Scenario('user edits company details for unprotected', function* (I) {
     I.fillField('name', editCompany.name);
     I.fillField('phone', editCompany.address);
     I.fillField('address', editCompany.phone);
-    I.click('#standardSubmit');
+    I.click('#standardSubmit[type="submit"]');
   });
 
   I.waitToHide('.names__overlay');
@@ -64,7 +64,7 @@ Scenario('user edits name details for protected', function* (I) {
   within('#selectedName', () => {
     I.click('#editName');
     I.fillField('phone', editName.phone);
-    I.click('#standardSubmit');
+    I.click('#standardSubmit[type="submit"]');
   });
 
   I.waitToHide('.names__overlay');
@@ -87,7 +87,7 @@ Scenario('user edits company details for protected', function* (I) {
     I.fillField('name', editCompany.name);
     I.fillField('phone', editCompany.address);
     I.fillField('address', editCompany.phone);
-    I.click('#standardSubmit');
+    I.click('#standardSubmit[type="submit"]');
   });
 
   I.waitToHide('.names__overlay');
@@ -114,7 +114,7 @@ Scenario('user edits name details for met with protected', function* (I) {
   within('#selectedName', () => {
     I.click('#editName');
     I.fillField('phone', editName.phone);
-    I.click('#standardSubmit');
+    I.click('#standardSubmit[type="submit"]');
   });
 
   I.waitToHide('.names__overlay');
@@ -137,7 +137,7 @@ Scenario('user edits company details for met with protected', function* (I) {
     I.fillField('name', editCompany.name);
     I.fillField('phone', editCompany.address);
     I.fillField('address', editCompany.phone);
-    I.click('#standardSubmit');
+    I.click('#standardSubmit[type="submit"]');
   });
 
   I.waitToHide('.names__overlay');
@@ -164,7 +164,7 @@ Scenario('user edits name details for client', function* (I) {
   within('#selectedName', () => {
     I.click('#editName');
     I.fillField('phone', editName.phone);
-    I.click('#standardSubmit');
+    I.click('#standardSubmit[type="submit"]');
   });
 
   I.waitToHide('.names__overlay');
@@ -187,7 +187,7 @@ Scenario('user edits company details for client', function* (I) {
     I.fillField('name', editCompany.name);
     I.fillField('phone', editCompany.address);
     I.fillField('address', editCompany.phone);
-    I.click('#standardSubmit');
+    I.click('#standardSubmit[type="submit"]');
   });
 
   I.waitToHide('.names__overlay');
