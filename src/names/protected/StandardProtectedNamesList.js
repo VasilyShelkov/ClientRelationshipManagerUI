@@ -14,7 +14,6 @@ export default ({
   selectedName, selectedNameDrawerOpen,
   nameActionInProgress, selectName,
   openEditProtectedNameMeetingDialog, openEditProtectedNameCallDialog,
-  onSubmitBookMeeting, onSubmitBookCall
 }) => (
   <div style={{ marginTop: '10px' }}>
     <div className={nameActionInProgress && 'names__content'}>
@@ -30,8 +29,6 @@ export default ({
                 openNameDetails={selectName}
                 openEditProtectedNameCallDialog={openEditProtectedNameCallDialog}
                 openEditProtectedNameMeetingDialog={openEditProtectedNameMeetingDialog}
-                onSubmitBookMeeting={onSubmitBookMeeting}
-                onSubmitBookCall={onSubmitBookCall}
                 isProtected
               />
 

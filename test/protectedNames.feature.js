@@ -5,7 +5,7 @@ Scenario('user books a meeting on the protected name', function* (I) {
   const newProtectedName = yield I.createFakeName();
   I.createProtectedName(newProtectedName);
 
-  within('.name:nth-of-type(1)', () => {
+  within('#protectedNamesList .name:nth-of-type(1)', () => {
     I.see(newProtectedName.firstName);
     I.click('#bookMeeting');
   });
@@ -28,7 +28,7 @@ Scenario('user books a meeting on the protected name', function* (I) {
   I.waitToHide('.names__overlay');
 
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#protectedNamesList .name:nth-of-type(1)', () => {
     I.dontSee('Book Meeting');
   });
 });
@@ -38,7 +38,7 @@ Scenario('user books a call on the protected name', function* (I) {
   const newProtectedName = yield I.createFakeName();
   I.createProtectedName(newProtectedName);
 
-  within('.name:nth-of-type(1)', () => {
+  within('#protectedNamesList .name:nth-of-type(1)', () => {
     I.see(newProtectedName.firstName);
     I.click('#bookCall');
   });
@@ -61,7 +61,7 @@ Scenario('user books a call on the protected name', function* (I) {
   I.waitToHide('.names__overlay');
 
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#protectedNamesList .name:nth-of-type(1)', () => {
     I.dontSee('Book Call');
   });
 });
@@ -86,7 +86,7 @@ Scenario('user unprotects a protected name', function* (I) {
   I.waitForElement('#unprotectedNamesList');
   I.see(`${parseInt(currentUnprotectedNamesCount, 10) + 1} Unprotected`);
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#unprotectedNamesList .name:nth-of-type(1)', () => {
     I.see(newProtectedName.firstName);
     I.see(newProtectedName.lastName);
     I.see(newProtectedName.phone);
@@ -97,7 +97,7 @@ Scenario('user unprotects a protected name', function* (I) {
   I.click('#goToProtectedList');
   I.waitForElement('#protectedNamesList');
   I.see(`${parseInt(currentProtectedNamesCount, 10) - 1}/150 Protected`);
-  within('.name:nth-of-type(1)', () => {
+  within('#protectedNamesList .name:nth-of-type(1)', () => {
     I.dontSee(newProtectedName.firstName);
     I.dontSee(newProtectedName.lastName);
     I.dontSee(newProtectedName.phone);
@@ -113,7 +113,7 @@ Scenario('user deletes a protected name', function* (I) {
   I.waitToHide('.names__overlay');
   I.see(`${parseInt(currentProtectedNamesCount, 10) - 1}/150 Protected`);
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#protectedNamesList .name:nth-of-type(1)', () => {
     I.dontSee(newProtectedName.firstName);
     I.dontSee(newProtectedName.lastName);
     I.dontSee(newProtectedName.phone);
@@ -144,7 +144,7 @@ Scenario('user meets with protected name', function* (I) {
   I.waitForVisible('#metWithProtectedNamesList');
   I.see(`${parseInt(currentMetWithProtectedNamesCount, 10) + 1} Met With Protected Name`);
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#metWithProtectedNamesList .name:nth-of-type(1)', () => {
     I.see(newProtectedName.firstName);
     I.see(newProtectedName.lastName);
     I.see(newProtectedName.phone);
@@ -156,7 +156,7 @@ Scenario('user meets with protected name', function* (I) {
   I.waitForVisible('div[value="protected"]');
   I.waitForVisible('#protectedNamesList');
   I.see(`${parseInt(currentProtectedNamesCount, 10) - 1}/150 Protected`);
-  within('.name:nth-of-type(1)', () => {
+  within('#protectedNamesList .name:nth-of-type(1)', () => {
     I.dontSee(newProtectedName.firstName);
     I.dontSee(newProtectedName.lastName);
     I.dontSee(newProtectedName.phone);
@@ -192,7 +192,7 @@ Scenario('user makes the protected name a client with no call or meeting booked'
   I.waitForElement('#clientNamesList');
   I.see(`${parseInt(currentClientsCount, 10) + 1} Clients`);
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#clientNamesList .name:nth-of-type(1)', () => {
     I.see(newProtectedName.firstName);
     I.see(newProtectedName.lastName);
     I.see(newProtectedName.phone);
@@ -208,7 +208,7 @@ Scenario('user makes the protected name a client with no call or meeting booked'
   I.waitForVisible('div[value="protected"]');
   I.waitForElement('#protectedNamesList');
   I.see(`${parseInt(currentProtectedNamesCount, 10) - 1}/150 Protected`);
-  within('.name:nth-of-type(1)', () => {
+  within('#protectedNamesList .name:nth-of-type(1)', () => {
     I.dontSee(newProtectedName.firstName);
     I.dontSee(newProtectedName.lastName);
     I.dontSee(newProtectedName.phone);
@@ -254,7 +254,7 @@ Scenario('user makes the protected name a client with a call booked', function* 
   I.waitForElement('#clientNamesList');
   I.see(`${parseInt(currentClientsCount, 10) + 1} Clients`);
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#clientNamesList .name:nth-of-type(1)', () => {
     I.see(newProtectedName.firstName);
     I.see(newProtectedName.lastName);
     I.see(newProtectedName.phone);
@@ -270,7 +270,7 @@ Scenario('user makes the protected name a client with a call booked', function* 
   I.waitForVisible('div[value="protected"]');
   I.waitForElement('#protectedNamesList');
   I.see(`${parseInt(currentProtectedNamesCount, 10) - 1}/150 Protected`);
-  within('.name:nth-of-type(1)', () => {
+  within('#protectedNamesList .name:nth-of-type(1)', () => {
     I.dontSee(newProtectedName.firstName);
     I.dontSee(newProtectedName.lastName);
     I.dontSee(newProtectedName.phone);
@@ -316,7 +316,7 @@ Scenario('user makes the protected name a client with a meeting booked', functio
   I.waitForElement('#clientNamesList');
   I.see(`${parseInt(currentClientsCount, 10) + 1} Clients`);
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#clientNamesList .name:nth-of-type(1)', () => {
     I.see(newProtectedName.firstName);
     I.see(newProtectedName.lastName);
     I.see(newProtectedName.phone);
@@ -332,7 +332,7 @@ Scenario('user makes the protected name a client with a meeting booked', functio
   I.waitForVisible('div[value="protected"]');
   I.waitForElement('#protectedNamesList');
   I.see(`${parseInt(currentProtectedNamesCount, 10) - 1}/150 Protected`);
-  within('.name:nth-of-type(1)', () => {
+  within('#protectedNamesList .name:nth-of-type(1)', () => {
     I.dontSee(newProtectedName.firstName);
     I.dontSee(newProtectedName.lastName);
     I.dontSee(newProtectedName.phone);

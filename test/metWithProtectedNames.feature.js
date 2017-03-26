@@ -5,7 +5,7 @@ Scenario('user books a meeting on the met with protected name', function* (I) {
   const newMetWithProtectedName = yield I.createFakeName();
   I.createMetWithProtectedName(newMetWithProtectedName);
 
-  within('.name:nth-of-type(1)', () => {
+  within('#metWithProtectedNamesList .name:nth-of-type(1)', () => {
     I.see(newMetWithProtectedName.firstName);
     I.see('BOOK MEETING');
     I.click('#bookMeeting');
@@ -29,7 +29,7 @@ Scenario('user books a meeting on the met with protected name', function* (I) {
   I.waitToHide('.names__overlay');
 
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#metWithProtectedNamesList .name:nth-of-type(1)', () => {
     I.dontSee('BOOK MEETING');
   });
 });
@@ -39,7 +39,7 @@ Scenario('user books a call on the met with protected name', function* (I) {
   const newMetWithProtectedName = yield I.createFakeName();
   I.createMetWithProtectedName(newMetWithProtectedName);
 
-  within('.name:nth-of-type(1)', () => {
+  within('#metWithProtectedNamesList .name:nth-of-type(1)', () => {
     I.see(newMetWithProtectedName.firstName);
     I.see('BOOK CALL');
     I.click('#bookCall');
@@ -63,7 +63,7 @@ Scenario('user books a call on the met with protected name', function* (I) {
   I.waitToHide('.names__overlay');
 
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#metWithProtectedNamesList .name:nth-of-type(1)', () => {
     I.dontSee('BOOK CALL');
   });
 });
@@ -91,7 +91,7 @@ Scenario('user unprotects a met with protected name', function* (I) {
   I.waitForElement('#unprotectedNamesList');
   I.see(`${parseInt(currentUnprotectedNamesCount, 10) + 1} Unprotected`);
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#unprotectedNamesList .name:nth-of-type(1)', () => {
     I.see(newMetWithProtectedName.firstName);
     I.see(newMetWithProtectedName.lastName);
     I.see(newMetWithProtectedName.phone);
@@ -105,7 +105,7 @@ Scenario('user unprotects a met with protected name', function* (I) {
   I.waitForVisible('div[value="metWithProtected"]');
   I.waitForVisible('#metWithProtectedNamesList');
   I.see(`${parseInt(currentMetWithProtectedNamesCount, 10) - 1} Met With Protected`);
-  within('.name:nth-of-type(1)', () => {
+  within('#metWithProtectedNamesList .name:nth-of-type(1)', () => {
     I.dontSee(newMetWithProtectedName.firstName);
     I.dontSee(newMetWithProtectedName.lastName);
     I.dontSee(newMetWithProtectedName.phone);
@@ -121,7 +121,7 @@ Scenario('user deletes a met with protected name', function* (I) {
   I.waitToHide('.names__overlay');
   I.see(`${parseInt(currentMetWithProtectedNamesCount, 10) - 1} Met With Protected`);
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#metWithProtectedNamesList .name:nth-of-type(1)', () => {
     I.dontSee(newMetWithProtectedName.firstName);
     I.dontSee(newMetWithProtectedName.lastName);
     I.dontSee(newMetWithProtectedName.phone);
@@ -157,7 +157,7 @@ Scenario('user makes the met with protected name a client with no call or meetin
   I.waitForElement('#clientNamesList');
   I.see(`${parseInt(currentClientsCount, 10) + 1} Clients`);
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#clientNamesList .name:nth-of-type(1)', () => {
     I.see(newMetWithProtectedName.firstName);
     I.see(newMetWithProtectedName.lastName);
     I.see(newMetWithProtectedName.phone);
@@ -168,12 +168,12 @@ Scenario('user makes the met with protected name a client with no call or meetin
 
   I.waitForElement('#goToProtectedList');
   I.click('#goToProtectedList');
-  I.waitForElement('#goToProtectedTab');
-  I.click('#goToProtectedTab');
-  I.waitForVisible('div[value="protected"]');
-  I.waitForElement('#protectedNamesList');
+  I.waitForElement('#goToMetWithProtectedTab');
+  I.click('#goToMetWithProtectedTab');
+  I.waitForVisible('div[value="metWithProtected"]');
+  I.waitForElement('#metWithProtectedNamesList');
   I.see(`${parseInt(currentMetWithProtectedNamesCount, 10) - 1} Met With Protected`);
-  within('.name:nth-of-type(1)', () => {
+  within('#metWithProtectedNamesList .name:nth-of-type(1)', () => {
     I.dontSee(newMetWithProtectedName.firstName);
     I.dontSee(newMetWithProtectedName.lastName);
     I.dontSee(newMetWithProtectedName.phone);
@@ -219,7 +219,7 @@ Scenario('user makes the met with protected name a client with a call booked', f
   I.waitForElement('#clientNamesList');
   I.see(`${parseInt(currentClientsCount, 10) + 1} Clients`);
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#clientNamesList .name:nth-of-type(1)', () => {
     I.see(newMetWithProtectedName.firstName);
     I.see(newMetWithProtectedName.lastName);
     I.see(newMetWithProtectedName.phone);
@@ -235,7 +235,7 @@ Scenario('user makes the met with protected name a client with a call booked', f
   I.waitForVisible('div[value="metWithProtected"]');
   I.waitForVisible('#metWithProtectedNamesList');
   I.see(`${parseInt(currentMetWithProtectedNamesCount, 10) - 1} Met With Protected`);
-  within('.name:nth-of-type(1)', () => {
+  within('#metWithProtectedNamesList .name:nth-of-type(1)', () => {
     I.dontSee(newMetWithProtectedName.firstName);
     I.dontSee(newMetWithProtectedName.lastName);
     I.dontSee(newMetWithProtectedName.phone);
@@ -281,7 +281,7 @@ Scenario('user makes the met with protected name a client with a meeting booked'
   I.waitForElement('#clientNamesList');
   I.see(`${parseInt(currentClientsCount, 10) + 1} Clients`);
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#clientNamesList .name:nth-of-type(1)', () => {
     I.see(newMetWithProtectedName.firstName);
     I.see(newMetWithProtectedName.lastName);
     I.see(newMetWithProtectedName.phone);
@@ -297,7 +297,7 @@ Scenario('user makes the met with protected name a client with a meeting booked'
   I.waitForVisible('div[value="metWithProtected"]');
   I.waitForVisible('#metWithProtectedNamesList');
   I.see(`${parseInt(currentMetWithProtectedNamesCount, 10) - 1} Met With Protected`);
-  within('.name:nth-of-type(1)', () => {
+  within('#metWithProtectedNamesList .name:nth-of-type(1)', () => {
     I.dontSee(newMetWithProtectedName.firstName);
     I.dontSee(newMetWithProtectedName.lastName);
     I.dontSee(newMetWithProtectedName.phone);

@@ -1,11 +1,17 @@
 import { graphql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { red500 } from 'material-ui/styles/colors';
 
 import GetProtectedNames from './GetProtectedNames.gql';
 import GetMetWithProtectedNames from './GetMetWithProtectedNames.gql';
+import BookCall from '../edit/BookCall.gql';
+import BookMeeting from '../edit/BookMeeting.gql';
+
+import { onSubmitBookCall, onSubmitBookMeeting } from './protectedMutations';
 import { APOLLO_MUTATION_RESULT } from '../../app/thirdPartyActions';
-import { changeShownProtectedList } from '../nameActions';
+import { changeShownProtectedList, performingNameAction } from '../nameActions';
+import { showNotification } from '../../app/appActions';
 
 import ProtectedNamesLayout from './ProtectedNamesLayout';
 import { removeNameFromList } from '../nameListShapeShifter';
@@ -96,17 +102,49 @@ const ProtectedNames = compose(
       metWithProtectedNames: user && user.metWithProtected,
       ...ownProps
     })
+  }),
+  graphql(BookCall, {
+    props: ({ ownProps, mutate }) => ({
+      onSubmitBookCall: names => onSubmitBookCall({
+        mutate,
+        userId: ownProps.id,
+        names,
+        editCallDialogOpen: ownProps.editProtectedNameCallDialogOpen,
+        nameListTypeIdKey: 'protectedId',
+        performingNameAction: ownProps.performingNameAction,
+        showErrorNotification: ownProps.showErrorNotification
+      }),
+      ...ownProps
+    })
+  }),
+  graphql(BookMeeting, {
+    props: ({ ownProps, mutate }) => ({
+      onSubmitBookMeeting: names => onSubmitBookMeeting({
+        mutate,
+        userId: ownProps.id,
+        names,
+        editMeetingDialogOpen: ownProps.editProtectedNameMeetingDialogOpen,
+        nameListTypeIdKey: 'protectedId',
+        performingNameAction: ownProps.performingNameAction,
+        showErrorNotification: ownProps.showErrorNotification
+      }),
+      ...ownProps
+    })
   })
 )(ProtectedNamesLayout);
 
 const mapStateToProps = state => ({
   id: state.account.id,
   selectedNameId: state.name.selectedName,
-  listToShow: state.name.protectedListToShow
+  listToShow: state.name.protectedListToShow,
+  editProtectedNameCallDialogOpen: state.name.editProtectedNameCallDialogOpen,
+  editProtectedNameMeetingDialogOpen: state.name.editProtectedNameMeetingDialogOpen,
 });
 
 const mapDispatchToProps = dispatch => ({
-  changeShownProtectedList: (listToShow) => dispatch(changeShownProtectedList(listToShow))
+  changeShownProtectedList: listToShow => dispatch(changeShownProtectedList(listToShow)),
+  performingNameAction: message => dispatch(performingNameAction(message)),
+  showErrorNotification: message => dispatch(showNotification(message, red500))
 });
 
 export default connect(

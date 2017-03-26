@@ -28,76 +28,78 @@ export const NameDetails = ({
   showEditCompanyForm, hideEditCompanyForm
 }) => (
   <Drawer containerStyle={{ zIndex: '1100' }} width={250} openSecondary open={open}>
-    <Toolbar>
-      <ToolbarGroup firstChild>
-        <IconButton onClick={closeNameDetails}>
-          <NavigationClose />
-        </IconButton>
-      </ToolbarGroup>
+    <div id="selectedName">
+      <Toolbar>
+        <ToolbarGroup firstChild>
+          <IconButton onClick={closeNameDetails}>
+            <NavigationClose />
+          </IconButton>
+        </ToolbarGroup>
 
-      <ToolbarGroup>
-        {children}
-      </ToolbarGroup>
+        <ToolbarGroup>
+          {children}
+        </ToolbarGroup>
 
-      <ToolbarGroup lastChild>
-        <IconButton id="deleteName" touch onClick={removeNameAction}>
-          <DeleteName color={red500} />
-        </IconButton>
-      </ToolbarGroup>
-    </Toolbar>
-    <List>
-      {
-        showingEditNameForm ?
-          <div>
-            <Subheader>Editing Name</Subheader>
-            <EditNameForm
-              userId={userId}
-              initialValues={{ id, firstName, lastName, phone }}
-              cancelEditName={hideEditNameForm}
-              isProtected={isProtected}
-            />
-          </div>
-        :
-          <div>
-            <Subheader style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              Name
-              <IconButton>
-                <EditIcon onClick={showEditNameForm} color={cyan500} />
-              </IconButton>
-            </Subheader>
-            <ListItem primaryText={`${firstName} ${lastName}`} disabled />
-            <ListItem primaryText={phone} leftIcon={<PhoneIcon />} disabled />
-          </div>
-      }
+        <ToolbarGroup lastChild>
+          <IconButton id="deleteName" touch onClick={removeNameAction}>
+            <DeleteName color={red500} />
+          </IconButton>
+        </ToolbarGroup>
+      </Toolbar>
+      <List>
+        {
+          showingEditNameForm ?
+            <div>
+              <Subheader>Editing Name</Subheader>
+              <EditNameForm
+                userId={userId}
+                initialValues={{ id, firstName, lastName, phone }}
+                cancelEditName={hideEditNameForm}
+                isProtected={isProtected}
+              />
+            </div>
+          :
+            <div>
+              <Subheader style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                Name
+                <IconButton>
+                  <EditIcon id="editName" onClick={showEditNameForm} color={cyan500} />
+                </IconButton>
+              </Subheader>
+              <ListItem primaryText={`${firstName} ${lastName}`} disabled />
+              <ListItem primaryText={phone} leftIcon={<PhoneIcon />} disabled />
+            </div>
+        }
 
-      <Divider />
+        <Divider />
 
-      {
-        showingEditCompanyForm ?
-          <div>
-            <Subheader>Editing Company</Subheader>
-            <EditNameCompanyForm
-              userId={userId}
-              initialValues={company}
-              cancelEditNameCompany={hideEditCompanyForm}
-            />
-          </div>
-        :
-          <div>
-            <Subheader style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              Company
-              <IconButton>
-                <EditIcon onClick={showEditCompanyForm} color={cyan500} />
-              </IconButton>
-            </Subheader>
-            <ListItem primaryText={company.name} disabled />
-            <ListItem primaryText={company.phone} leftIcon={<PhoneIcon />} disabled />
-            <ListItem primaryText={company.address} leftIcon={<LocationIcon />} disabled />
-          </div>
-      }
+        {
+          showingEditCompanyForm ?
+            <div>
+              <Subheader>Editing Company</Subheader>
+              <EditNameCompanyForm
+                userId={userId}
+                initialValues={company}
+                cancelEditNameCompany={hideEditCompanyForm}
+              />
+            </div>
+          :
+            <div>
+              <Subheader style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                Company
+                <IconButton>
+                  <EditIcon id="editCompany" onClick={showEditCompanyForm} color={cyan500} />
+                </IconButton>
+              </Subheader>
+              <ListItem primaryText={company.name} disabled />
+              <ListItem primaryText={company.phone} leftIcon={<PhoneIcon />} disabled />
+              <ListItem primaryText={company.address} leftIcon={<LocationIcon />} disabled />
+            </div>
+        }
 
-      <Divider />
-    </List>
+        <Divider />
+      </List>
+    </div>
   </Drawer>
 );
 

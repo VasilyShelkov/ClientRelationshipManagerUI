@@ -14,20 +14,31 @@ import {
 import { showNotification } from '../../../app/appActions';
 
 import StandardProtectedNames from '../StandardProtectedNamesList';
+import EditNameProtectedInfoWithData from '../../edit/EditNameProtectedInfo';
 
 const ClientLayout = props => (
   <div style={props.selectedNameDrawerOpen ? { paddingRight: '250px' } : {}}>
     <StandardProtectedNames nameListType="client" {...props} />
+    {
+      props.names ?
+        <EditNameProtectedInfoWithData
+          names={props.names}
+          onSubmitBookCall={props.onSubmitBookCall}
+          onSubmitBookMeeting={props.onSubmitBookMeeting}
+        />
+      :
+        null
+    }
   </div>
 );
 
 const ClientsWithEditMutations = compose(
   graphql(BookClientCall, {
     props: ({ ownProps, mutate }) => ({
-      onSubmitBookCall: onSubmitBookCall({
+      onSubmitBookCall: names => onSubmitBookCall({
         mutate,
         userId: ownProps.id,
-        names: ownProps.names,
+        names,
         editCallDialogOpen: ownProps.editProtectedNameCallDialogOpen,
         nameListTypeIdKey: 'clientId',
         performingNameAction: ownProps.performingNameAction,
@@ -38,10 +49,10 @@ const ClientsWithEditMutations = compose(
   }),
   graphql(BookClientMeeting, {
     props: ({ ownProps, mutate }) => ({
-      onSubmitBookMeeting: onSubmitBookMeeting({
+      onSubmitBookMeeting: names => onSubmitBookMeeting({
         mutate,
         userId: ownProps.id,
-        names: ownProps.names,
+        names,
         editMeetingDialogOpen: ownProps.editProtectedNameMeetingDialogOpen,
         nameListTypeIdKey: 'clientId',
         performingNameAction: ownProps.performingNameAction,

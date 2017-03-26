@@ -39,6 +39,7 @@ export default ({ error, fields, editingInProgress, handleSubmit, handleCancel }
 
             <div className={handleCancel ? 'col-6' : 'col-12'}>
               <RaisedButton
+                id="standardSubmit"
                 primary
                 fullWidth
                 label="Save"

@@ -26,7 +26,7 @@ export const EditNameProtectedInfo = ({
         displayName={displayName}
         open={editMeetingDialogOpen !== false}
         close={closeEditMeetingDialog}
-        onSubmit={onSubmitBookMeeting}
+        onSubmit={onSubmitBookMeeting(names)}
         initialValues={{
           meetingDay: nameMeetingToEdit.meetingBooked ? moment(nameMeetingToEdit.meetingBooked).toDate() : null,
           meetingTime: nameMeetingToEdit.meetingBooked ? moment(nameMeetingToEdit.meetingBooked).toDate() : null
@@ -60,7 +60,7 @@ export const EditNameProtectedInfo = ({
         displayName={displayName}
         open={editCallDialogOpen !== false}
         close={closeEditCallDialog}
-        onSubmit={onSubmitBookCall}
+        onSubmit={onSubmitBookCall(names)}
         initialValues={{
           callDay: nameCallToEdit.callBooked ? moment(nameCallToEdit.callBooked).toDate() : null,
           callTime: nameCallToEdit.callBooked ? moment(nameCallToEdit.callBooked).toDate() : null

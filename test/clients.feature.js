@@ -5,7 +5,7 @@ Scenario('user books a meeting on the client', function* (I) {
   const newClient = yield I.createFakeName();
   I.createClient(newClient);
 
-  within('.name:nth-of-type(1)', () => {
+  within('#clientNamesList .name:nth-of-type(1)', () => {
     I.see(newClient.firstName);
     I.see('BOOK MEETING');
     I.click('#bookMeeting');
@@ -28,7 +28,7 @@ Scenario('user books a meeting on the client', function* (I) {
   I.click('#submitEditProtectedMeeting');
   I.waitToHide('.names__overlay');
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#clientNamesList .name:nth-of-type(1)', () => {
     I.dontSee('BOOK MEETING');
   });
 });
@@ -38,7 +38,7 @@ Scenario('user books a call on the client', function* (I) {
   const newClient = yield I.createFakeName();
   I.createClient(newClient);
 
-  within('.name:nth-of-type(1)', () => {
+  within('#clientNamesList .name:nth-of-type(1)', () => {
     I.see(newClient.firstName);
     I.see('BOOK CALL');
     I.click('#bookCall');
@@ -61,7 +61,7 @@ Scenario('user books a call on the client', function* (I) {
   I.click('#submitEditProtectedCall');
   I.waitToHide('.names__overlay');
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#clientNamesList .name:nth-of-type(1)', () => {
     I.dontSee('BOOK CALL');
   });
 });
@@ -86,7 +86,7 @@ Scenario('user unprotects a client', function* (I) {
   I.waitForElement('#unprotectedNamesList');
   I.see(`${parseInt(currentUnprotectedNamesCount, 10) + 1} Unprotected`);
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#unprotectedNamesList .name:nth-of-type(1)', () => {
     I.see(newClient.firstName);
     I.see(newClient.lastName);
     I.see(newClient.phone);
@@ -97,14 +97,14 @@ Scenario('user unprotects a client', function* (I) {
   I.click('#goToClientsList');
   I.waitForElement('#clientNamesList');
   I.see(`${parseInt(currentClientsCount, 10) - 1} Clients`);
-  within('.name:nth-of-type(1)', () => {
+  within('#clientNamesList .name:nth-of-type(1)', () => {
     I.dontSee(newClient.firstName);
     I.dontSee(newClient.lastName);
     I.dontSee(newClient.phone);
   });
 });
 
-Scenario.only('user deletes a client', function* (I) {
+Scenario('user deletes a client', function* (I) {
   I.login();
   const newClient = yield I.createFakeName();
   I.createClient(newClient);
@@ -113,7 +113,7 @@ Scenario.only('user deletes a client', function* (I) {
   I.waitToHide('.names__overlay');
   I.see(`${parseInt(currentClientsCount, 10) - 1} Clients`);
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#clientNamesList .name:nth-of-type(1)', () => {
     I.dontSee(newClient.firstName);
     I.dontSee(newClient.lastName);
     I.dontSee(newClient.phone);

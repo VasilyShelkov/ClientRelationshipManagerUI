@@ -20,7 +20,7 @@ Scenario('user creates a new name', function* (I) {
   I.waitForElement('#unprotectedNamesList');
   I.see(`${parseInt(currentUnprotectedNamesCount, 10) + 1} Unprotected`);
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#unprotectedNamesList .name:nth-of-type(1)', () => {
     I.see(newName.firstName);
     I.see(newName.lastName);
     I.see(newName.phone);
@@ -37,7 +37,7 @@ Scenario('user deletes an unprotected name', function* (I) {
   I.waitToHide('.names__overlay');
   I.see(`${parseInt(currentUnprotectedNamesCount, 10) - 1} Unprotected`);
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#unprotectedNamesList .name:nth-of-type(1)', () => {
     I.dontSee(newName.firstName);
     I.dontSee(newName.lastName);
     I.dontSee(newName.phone);
@@ -64,7 +64,7 @@ Scenario('user protects an unprotected name', function* (I) {
   I.waitForElement('#protectedNamesList');
   I.see(`${parseInt(currentProtectedNamesCount, 10) + 1}/150 Protected`);
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#protectedNamesList .name:nth-of-type(1)', () => {
     I.see(newName.firstName);
     I.see(newName.lastName);
     I.see(newName.phone);
@@ -77,7 +77,7 @@ Scenario('user protects an unprotected name', function* (I) {
   I.click('#goToUnprotectedList');
   I.waitForElement('#unprotectedNamesList');
   I.see(`${parseInt(currentUnprotectedNamesCount, 10) - 1} Unprotected`);
-  within('.name:nth-of-type(1)', () => {
+  within('#unprotectedNamesList .name:nth-of-type(1)', () => {
     I.dontSee(newName.firstName);
     I.dontSee(newName.lastName);
     I.dontSee(newName.phone);
@@ -115,7 +115,7 @@ Scenario('user protects an unprotected name with call booked', function* (I) {
   I.waitForElement('#protectedNamesList');
   I.see(`${parseInt(currentProtectedNamesCount, 10) + 1}/150 Protected`);
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#protectedNamesList .name:nth-of-type(1)', () => {
     I.see(newName.firstName);
     I.see(newName.lastName);
     I.see(newName.phone);
@@ -155,7 +155,7 @@ Scenario('user protects an unprotected name with meeting booked', function* (I) 
   I.waitForElement('#protectedNamesList');
   I.see(`${parseInt(currentProtectedNamesCount, 10) + 1}/150 Protected`);
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#protectedNamesList .name:nth-of-type(1)', () => {
     I.see(newName.firstName);
     I.see(newName.lastName);
     I.see(newName.phone);
@@ -206,7 +206,7 @@ Scenario('user protects an unprotected name with call booked and meeting booked'
   I.waitForElement('#protectedNamesList');
   I.see(`${parseInt(currentProtectedNamesCount, 10) + 1}/150 Protected`);
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#protectedNamesList .name:nth-of-type(1)', () => {
     I.see(newName.firstName);
     I.see(newName.lastName);
     I.see(newName.phone);
@@ -260,7 +260,7 @@ Scenario('user protects an unprotected name after clearing call booked and meeti
   I.waitForElement('#protectedNamesList');
   I.see(`${parseInt(currentProtectedNamesCount, 10) + 1}/150 Protected`);
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#protectedNamesList .name:nth-of-type(1)', () => {
     I.see(newName.firstName);
     I.see(newName.lastName);
     I.see(newName.phone);

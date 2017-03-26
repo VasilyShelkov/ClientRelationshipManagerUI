@@ -10,7 +10,6 @@ export default ({
   id, names, selectedNameId, isProtected, selectedNameDrawerOpen,
   showCreateNameForm = null, openNameDetails,
   openEditProtectedNameMeetingDialog, openEditProtectedNameCallDialog,
-  onSubmitBookCall, onSubmitBookMeeting
 }) => (
   <div id={id}>
     {
@@ -45,16 +44,6 @@ export default ({
               'You currently have none'
           }
         </div>
-    }
-    {
-      names.length && isProtected ?
-        <EditNameProtectedInfoWithData
-          names={names}
-          onSubmitBookCall={onSubmitBookCall}
-          onSubmitBookMeeting={onSubmitBookMeeting}
-        />
-      :
-        null
     }
   </div>
 );
