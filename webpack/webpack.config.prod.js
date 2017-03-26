@@ -16,7 +16,8 @@ module.exports = {
     ],
   },
   output: {
-    path: resolve(__dirname, '../dist/assets'),
+    publicPath: '/',
+    path: resolve(__dirname, '../dist'),
     filename: '[name].[chunkhash].js',
   },
   module: {
@@ -43,14 +44,23 @@ module.exports = {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       },
     }),
-    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      beautify: false,
+      mangle: {
+        screw_ie8: true,
+        keep_fnames: true
+      },
+      compress: {
+        screw_ie8: true
+      },
+      comments: false
+    }),
     new webpack.optimize.CommonsChunkPlugin({
       names: ['vendor', 'manifest'],
     }),
     new HtmlWebpackPlugin({
-      filename: '../index.html',
-      template: 'public/index.html',
+      template: 'src/index.ejs',
     }),
-    new ExtractTextPlugin('dist/index.css'),
+    new ExtractTextPlugin('index.css'),
   ],
 };

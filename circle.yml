@@ -3,6 +3,13 @@ machine:
     version: 6.1.0
   timezone:
     GB
+test: 
+  pre:
+    - npm run test:selenium-install
+    - npm run test:selenium-start
+    - npm run start:staging
+  post:
+    - npm run test:feature:staging
 deployment:
   prod:
     branch: master

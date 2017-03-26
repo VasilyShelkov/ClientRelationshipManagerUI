@@ -34,7 +34,7 @@ Scenario('can create new users', function *(I) {
   I.see('**********');
 
   I.click('Logout');
-  I.login(newUser.email);
+  I.login(newUser.email, 'test1234');
 
   I.waitForElement('.Profile');
   I.seeInCurrentUrl('account/profile');

@@ -46,7 +46,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new HtmlWebpackPlugin({
-      template: '../public/index.html',
+      template: '../src/index.ejs',
     }),
     new ExtractTextPlugin('index.css'),
     new DashboardPlugin(),

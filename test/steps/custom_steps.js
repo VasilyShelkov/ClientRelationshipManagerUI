@@ -1,10 +1,11 @@
-const defaultUser = require('./userAccount').defaultUser;
+const getTestUserDetails = require('./userAccount');
 
 module.exports = function () {
   return actor({
     login: function (email, password) {
-      let loginEmail = defaultUser;
-      let loginPassword = 'test1234';
+      const testUser = getTestUserDetails(process.env.NODE_ENV);
+      let loginEmail = testUser.email;
+      let loginPassword = testUser.password;
       if (email) {
         loginEmail = email;
       }
@@ -41,6 +42,7 @@ module.exports = function () {
       this.waitForElement('#unprotectedNamesList');
       this.click('#createUnprotectedName');
 
+      this.waitForVisible('.StandardForm')
       this.fillField('firstName', newName.firstName);
       this.fillField('lastName', newName.lastName);
       this.fillField('phone', newName.phone);
