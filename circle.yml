@@ -6,11 +6,12 @@ machine:
 dependencies:
   post:
     - npm run test:selenium-install
+    - npm run build:staging
 test: 
   pre:
     - npm run test:selenium-start:
         background: true
-    - npm run start:staging:
+    - npm run start:only-server:
         background: true
   post:
     - npm run test:feature:staging
