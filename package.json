@@ -13,7 +13,7 @@
     "build:staging": "NODE_ENV=staging webpack --config webpack/webpack.config.prod.js --progress --profile --colors",
     "test": "NODE_ENV=testing mocha --opts ./mocha.opts './src/**/*.spec.js'",
     "test:watch": "NODE_ENV=testing mocha --watch --opts ./mocha.opts './src/**/*.spec.js'",
-    "test:feature": "./node_modules/codeceptjs/bin/codecept.js run --steps",
+    "test:feature": "./node_modules/codeceptjs/bin/codecept.js run",
     "test:feature:staging": "NODE_ENV=staging ./node_modules/codeceptjs/bin/codecept.js run --steps",
     "test:selenium-start": "./node_modules/.bin/selenium-standalone start",
     "test:selenium-install": "./node_modules/.bin/selenium-standalone install"
