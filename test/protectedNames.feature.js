@@ -59,7 +59,7 @@ Scenario('user books a call on the protected name', function* (I) {
   I.wait(1);
   I.click('#submitEditProtectedCall');
   I.waitToHide('.names__overlay');
-
+  I.waitForVisible('#protectedNamesList');
   I.waitForVisible('#appNotification');
   within('#protectedNamesList .name:nth-of-type(1)', () => {
     I.dontSee('Book Call');

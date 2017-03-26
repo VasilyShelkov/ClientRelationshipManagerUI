@@ -15,7 +15,7 @@ export default ({
 }) => {
   if (loading) {
     return (
-      <div className="container-fluid Profile">
+      <div className="container-fluid">
         <LoadingSpinner />
       </div>
     );

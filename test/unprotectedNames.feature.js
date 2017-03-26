@@ -4,6 +4,7 @@ Scenario('user creates a new name', function* (I) {
   I.login();
   I.waitForElement('#goToUnprotectedList');
   I.click('#goToUnprotectedList');
+  I.waitForElement('#unprotectedNamesList');
   const currentUnprotectedNamesCount = yield I.grabTextFrom('#unprotectedNamesCount');
   I.waitForElement('#unprotectedNamesList');
   I.click('#createUnprotectedName');
@@ -33,6 +34,7 @@ Scenario('user deletes an unprotected name', function* (I) {
   I.login();
   const newName = yield I.createFakeName();
   I.createNewUnprotectedName(newName);
+  I.waitForElement('#unprotectedNamesList');
   const currentUnprotectedNamesCount = yield I.grabTextFrom('#unprotectedNamesCount');
   I.click('#deleteName');
   I.waitToHide('.names__overlay');

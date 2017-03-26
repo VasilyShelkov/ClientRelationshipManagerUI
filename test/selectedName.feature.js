@@ -5,18 +5,20 @@ Scenario('user edits name details for unprotected', function* (I) {
   const newUnprotectedName = yield I.createFakeName();
   I.createNewUnprotectedName(newUnprotectedName);
 
-  I.click('#editName');
-
   const editName = yield I.createFakeName();
-  I.fillField('firstName', editName.firstName);
-  I.fillField('lastName', editName.lastName);
-  I.fillField('phone', editName.phone);
-  I.click('#standardSubmit');
+  I.waitForVisible('#selectedName');
+  within('#selectedName', () => {
+    I.click('#editName');
+    I.fillField('firstName', editName.firstName);
+    I.fillField('lastName', editName.lastName);
+    I.fillField('phone', editName.phone);
+    I.click('#standardSubmit');
+  });
 
   I.waitToHide('.names__overlay');
   I.waitForElement('#unprotectedNamesList');
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#unprotectedNamesList .name:nth-of-type(1)', () => {
     I.see(editName.firstName);
     I.see(editName.lastName);
     I.see(editName.phone);
@@ -28,18 +30,20 @@ Scenario('user edits company details for unprotected', function* (I) {
   const newUnprotectedName = yield I.createFakeName();
   I.createNewUnprotectedName(newUnprotectedName);
 
-  I.click('#editCompany');
-
   const editCompany = yield I.createFakeCompany();
-  I.fillField('name', editCompany.name);
-  I.fillField('phone', editCompany.address);
-  I.fillField('address', editCompany.phone);
-  I.click('#standardSubmit');
+  I.waitForVisible('#selectedName');
+  within('#selectedName', () => {
+    I.click('#editCompany');
+    I.fillField('name', editCompany.name);
+    I.fillField('phone', editCompany.address);
+    I.fillField('address', editCompany.phone);
+    I.click('#standardSubmit');
+  });
 
   I.waitToHide('.names__overlay');
   I.waitForElement('#unprotectedNamesList');
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#unprotectedNamesList .name:nth-of-type(1)', () => {
     I.see(editCompany.name);
   });
 
@@ -55,16 +59,18 @@ Scenario('user edits name details for protected', function* (I) {
   const newProtectedName = yield I.createFakeName();
   I.createProtectedName(newProtectedName);
 
-  I.click('#editName');
-
   const editName = yield I.createFakeName();
-  I.fillField('phone', editName.phone);
-  I.click('#standardSubmit');
+  I.waitForVisible('#selectedName');
+  within('#selectedName', () => {
+    I.click('#editName');
+    I.fillField('phone', editName.phone);
+    I.click('#standardSubmit');
+  });
 
   I.waitToHide('.names__overlay');
   I.waitForElement('#protectedNamesList');
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#protectedNamesList .name:nth-of-type(1)', () => {
     I.see(editName.phone);
   });
 });
@@ -74,18 +80,20 @@ Scenario('user edits company details for protected', function* (I) {
   const newProtectedName = yield I.createFakeName();
   I.createProtectedName(newProtectedName);
 
-  I.click('#editCompany');
-
   const editCompany = yield I.createFakeCompany();
-  I.fillField('name', editCompany.name);
-  I.fillField('phone', editCompany.address);
-  I.fillField('address', editCompany.phone);
-  I.click('#standardSubmit');
+  I.waitForVisible('#selectedName');
+  within('#selectedName', () => {
+    I.click('#editCompany');
+    I.fillField('name', editCompany.name);
+    I.fillField('phone', editCompany.address);
+    I.fillField('address', editCompany.phone);
+    I.click('#standardSubmit');
+  });
 
   I.waitToHide('.names__overlay');
   I.waitForElement('#protectedNamesList');
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#protectedNamesList .name:nth-of-type(1)', () => {
     I.see(editCompany.name);
   });
 
@@ -101,37 +109,41 @@ Scenario('user edits name details for met with protected', function* (I) {
   const newMetWithProtectedName = yield I.createFakeName();
   I.createMetWithProtectedName(newMetWithProtectedName);
 
-  I.click('#editName');
-
   const editName = yield I.createFakeName();
-  I.fillField('phone', editName.phone);
-  I.click('#standardSubmit');
-
-  I.waitToHide('.names__overlay');
-  I.waitForElement('#protectedNamesList');
-  I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
-    I.see(editName.phone);
+  I.waitForVisible('#selectedName');
+  within('#selectedName', () => {
+    I.click('#editName');
+    I.fillField('phone', editName.phone);
+    I.click('#standardSubmit');
   });
-});
-
-Scenario('user edits comapny details for met with protected', function* (I) {
-  I.login();
-  const newMetWithProtectedName = yield I.createFakeName();
-  I.createMetWithProtectedName(newMetWithProtectedName);
-
-  I.click('#editCompany');
-
-  const editCompany = yield I.createFakeCompany();
-  I.fillField('name', editCompany.name);
-  I.fillField('phone', editCompany.address);
-  I.fillField('address', editCompany.phone);
-  I.click('#standardSubmit');
 
   I.waitToHide('.names__overlay');
   I.waitForElement('#metWithProtectedNamesList');
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#metWithProtectedNamesList .name:nth-of-type(1)', () => {
+    I.see(editName.phone);
+  });
+});
+
+Scenario('user edits company details for met with protected', function* (I) {
+  I.login();
+  const newMetWithProtectedName = yield I.createFakeName();
+  I.createMetWithProtectedName(newMetWithProtectedName);
+
+  const editCompany = yield I.createFakeCompany();
+  I.waitForVisible('#selectedName');
+  within('#selectedName', () => {
+    I.click('#editCompany');
+    I.fillField('name', editCompany.name);
+    I.fillField('phone', editCompany.address);
+    I.fillField('address', editCompany.phone);
+    I.click('#standardSubmit');
+  });
+
+  I.waitToHide('.names__overlay');
+  I.waitForElement('#metWithProtectedNamesList');
+  I.waitForVisible('#appNotification');
+  within('#metWithProtectedNamesList .name:nth-of-type(1)', () => {
     I.see(editCompany.name);
   });
 
@@ -147,16 +159,18 @@ Scenario('user edits name details for client', function* (I) {
   const newClient = yield I.createFakeName();
   I.createClient(newClient);
 
-  I.click('#editName');
-
   const editName = yield I.createFakeName();
-  I.fillField('phone', editName.phone);
-  I.click('#standardSubmit');
+  I.waitForVisible('#selectedName');
+  within('#selectedName', () => {
+    I.click('#editName');
+    I.fillField('phone', editName.phone);
+    I.click('#standardSubmit');
+  });
 
   I.waitToHide('.names__overlay');
   I.waitForElement('#clientNamesList');
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#clientNamesList .name:nth-of-type(1)', () => {
     I.see(editName.phone);
   });
 });
@@ -166,18 +180,20 @@ Scenario('user edits company details for client', function* (I) {
   const newClient = yield I.createFakeName();
   I.createClient(newClient);
 
-  I.click('#editCompany');
-
   const editCompany = yield I.createFakeCompany();
-  I.fillField('name', editCompany.name);
-  I.fillField('phone', editCompany.address);
-  I.fillField('address', editCompany.phone);
-  I.click('#standardSubmit');
+  I.waitForVisible('#selectedName');
+  within('#selectedName', () => {
+    I.click('#editCompany');
+    I.fillField('name', editCompany.name);
+    I.fillField('phone', editCompany.address);
+    I.fillField('address', editCompany.phone);
+    I.click('#standardSubmit');
+  });
 
   I.waitToHide('.names__overlay');
   I.waitForElement('#clientNamesList');
   I.waitForVisible('#appNotification');
-  within('.name:nth-of-type(1)', () => {
+  within('#clientNamesList .name:nth-of-type(1)', () => {
     I.see(editCompany.name);
   });
 

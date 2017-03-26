@@ -48,7 +48,7 @@ Scenario('can create new users', function *(I) {
 
 Scenario('can edit company details', function *(I) {
   I.login();
-  I.waitForElement('.Profile');
+  I.waitForVisible('.Profile');
 
   const newCompany = yield I.createFakeCompany();
   I.click('Edit Company');
