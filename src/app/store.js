@@ -1,21 +1,16 @@
-import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
+import { combineReducers, compose } from 'redux';
 
-import persistState, { mergePersistedState } from 'redux-localstorage';
-import adapter from 'redux-localstorage/lib/adapters/localStorage';
-import filter from 'redux-localstorage-filter';
+import { mergePersistedState } from 'redux-localstorage';
 
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
 
 import { reducer as formReducer } from 'redux-form';
-import { routerReducer, routerMiddleware } from 'react-router-redux';
+import { routerReducer } from 'react-router-redux';
 import account from '../authentication/accountReducer';
 import profile from '../profile/profileReducer';
 import name from '../names/nameReducer';
 import creatingUser from '../users/creatingUserReducer';
 import app from './appReducer';
-
-import authenticationMiddleware from '../authentication/authenticationMiddleware';
 
 import config from '../../config';
 
@@ -39,7 +34,7 @@ export const client = new ApolloClient({
   dataIdFromObject: o => o.id
 });
 
-const rootReducer = compose(
+export default compose(
   mergePersistedState((initialState, persistedState) => ({
     ...initialState,
     ...persistedState,
@@ -65,21 +60,4 @@ const rootReducer = compose(
   })
 );
 
-const storage = compose(filter([
-  'account.token',
-  'account.id',
-  'account.accountType'
-]))(adapter(window.sessionStorage));
-
-export default browserHistory => createStore(
-  rootReducer,
-  composeWithDevTools(
-    persistState(storage, 'account'),
-    applyMiddleware(
-      client.middleware(),
-      routerMiddleware(browserHistory),
-      authenticationMiddleware,
-    )
-  )
-);
 

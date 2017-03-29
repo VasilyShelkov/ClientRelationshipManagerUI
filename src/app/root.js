@@ -1,31 +1,28 @@
-import 'babel-polyfill';
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import React, { Component } from 'react';
 
-import React from 'react';
-import { render } from 'react-dom';
 import { browserHistory, Router } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { ApolloProvider } from 'react-apollo';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import './root.scss';
-import store, { client } from './store';
 import routes from './routes';
 
-injectTapEventPlugin();
-
-const rootStore = store(browserHistory);
-const history = syncHistoryWithStore(browserHistory, rootStore);
-
-const Root = () => (
-  <MuiThemeProvider>
-    <ApolloProvider client={client} store={rootStore}>
-      <Router history={history} routes={routes} />
-    </ApolloProvider>
-  </MuiThemeProvider>
-);
+class Root extends Component {
+  render() {
+    const { store, client } = this.props;
+    const rootStore = store(browserHistory);
+    const history = syncHistoryWithStore(browserHistory, rootStore);
+    return (
+      <MuiThemeProvider>
+        <ApolloProvider client={client} store={rootStore}>
+          <Router key={Math.random()} history={history}>
+            { routes }
+          </Router>
+        </ApolloProvider>
+      </MuiThemeProvider>
+    );
+  }
+}
 
 export default Root;
-
-
-if (!module.hot) render(<Root />, document.querySelector('react'));

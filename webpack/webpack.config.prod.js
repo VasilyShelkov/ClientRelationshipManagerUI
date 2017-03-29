@@ -5,12 +5,24 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
-    main: resolve(__dirname, '../src/app/root.js'),
-    vendor: [
+    main: [
       'babel-polyfill',
+      resolve(__dirname, '../src/app/app.js'),
+    ],
+    vendor: [
+      'apollo-client',
+      'axios',
+      'babel-polyfill',
+      'lodash',
       'react',
+      'react-apollo',
       'react-dom',
+      'react-redux',
       'react-router',
+      'react-router-redux',
+      'redux',
+      'redux-form',
+      'redux-form-material-ui',
       'material-ui',
       'moment'
     ],
