@@ -2,16 +2,12 @@ import React from 'react';
 
 import LoadingSpinner from '../shared/LoadingSpinner';
 import ShowProfileWithData from './details/ShowProfile';
-import ShowCompanyWithData from './company/ShowCompany';
-
 import { EDIT_IN_PROGRESS } from './profileReducer';
 import EditProfile from './details/EditProfile';
-import EditCompany from './company/EditCompany';
+import CompanyProfile from './company/Company';
 
 export default ({
-  loading, user, editingProfile, editingCompany,
-  displayCompany, displayNewProfileNotification,
-  onCancelEditProfile, onCancelEditCompany
+  loading, user, editingProfile, displayCompany, onCancelEditProfile
 }) => {
   if (loading) {
     return (
@@ -43,29 +39,7 @@ export default ({
               />
           }
         </div>
-
-        {
-          displayCompany &&
-          <div className="col-12 col-sm-6 pull-sm-6 align-self-center">
-            {
-              editingCompany ?
-                <EditCompany
-                  userId={user.id}
-                  initialValues={user.company}
-                  handleCancelEditCompany={onCancelEditCompany}
-                  editInProgess={editingCompany === EDIT_IN_PROGRESS}
-                />
-              :
-                <ShowCompanyWithData
-                  name={user.company.name}
-                  address={user.company.address}
-                  phone={user.company.phone}
-                  updatedAt={user.company.updated_at}
-
-                />
-            }
-          </div>
-        }
+        <CompanyProfile user={user} display={displayCompany} />
       </div>
     </div>
   );
