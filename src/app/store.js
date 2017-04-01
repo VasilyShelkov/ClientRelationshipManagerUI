@@ -10,6 +10,8 @@ import account from '../authentication/accountReducer';
 import profile from '../profile/profileReducer';
 import name from '../names/nameReducer';
 import creatingUser from '../users/creatingUserReducer';
+import selectedName from '../names/selected/selectedReducer';
+import nameList from '../names/list/nameListReducer';
 import app from './appReducer';
 
 import config from '../../config';
@@ -56,8 +58,9 @@ export default compose(
     app,
     creatingUser,
     name,
-    profile
+    profile,
+    selectedName,
+    nameList
   })
 );
-
 

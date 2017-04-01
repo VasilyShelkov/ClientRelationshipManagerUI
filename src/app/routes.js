@@ -11,9 +11,9 @@ import AppWithSideBar from './AppWithSideBar';
 import ProfileWithData from '../profile/ProfileWithData';
 import AddUserFormWithData from '../users/AddUserForm';
 import UsersPerformance from '../users/UsersPerformance';
-import UnprotectedNamesWithData from '../names/unprotected/UnprotectedNamesWithData';
-import ProtectedNamesWithData from '../names/protected/ProtectedNamesWithData';
-import ClientsWithData from '../names/protected/client/ClientsWithData';
+import UnprotectedNamesWithData from '../names/list/unprotected/UnprotectedNamesWithData';
+import ProtectedNamesWithData from '../names/list/locked/protected/ProtectedNamesWithData';
+import ClientsWithData from '../names/list/locked/client/ClientsWithData';
 
 export default [
   <Route path="/login" component={LoginPage} />,
