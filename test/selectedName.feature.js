@@ -1,4 +1,4 @@
-Feature('Selected Name');
+Feature('Selected Name', { retries: 3 });
 
 Scenario('user edits name details for unprotected', function* (I) {
   I.login();
