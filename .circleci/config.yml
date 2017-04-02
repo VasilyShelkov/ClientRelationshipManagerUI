@@ -8,46 +8,48 @@ jobs:
       - checkout
 
       - restore_cache:
-        key: projectname-{{ .Branch }}-{{ checksum "package.json" }}
-        key: projectname-{{ .Branch }}
-        key: projectname-master
+          key: projectname-{{ .Branch }}-{{ checksum "package.json" }}
+          key: projectname-{{ .Branch }}
+          key: projectname-master
       - run:
-        name: Install Dependencies
-        command: npm install
+          name: Install Dependencies
+          command: npm install
       - run:
-        name: setup Heroku
-        command: bash .circleci/setup-heroku.sh
+          name: setup Heroku
+          command: bash .circleci/setup-heroku.sh
       - save_cache:
-        key: projectname-{{ .Branch }}-{{ checksum "package.json" }}
-        paths:
-          - "~/node_modules"
+          key: projectname-{{ .Branch }}-{{ checksum "package.json" }}
+          paths:
+            - "~/node_modules"
 
       - run:
-        name: Run unit tests
-        command: npm test
+          name: Run unit tests
+          command: npm test
 
       - run:
-        name: Build against Staging
-        command: npm run build:staging
+          name: Build against Staging
+          command: npm run build:staging
       - run:
-        name: Start server
-        command: npm run start:server-only
+          name: Start server
+          command: npm run start:server-only
       - run:
-        name: Run Feature tests
-        command: npm run test:feature:staging
+          name: Run Feature tests
+          command: npm run test:feature:staging
 
       - add_ssh_keys:
-        fingerprints:
-          - "8f:b8:f9:f1:fb:87:a2:84:58:b8:6b:a8:de:b1:54:60"
+          fingerprints:
+            - "8f:b8:f9:f1:fb:87:a2:84:58:b8:6b:a8:de:b1:54:60"
       - deploy:
-        command: |
-          if [ "${CIRCLE_BRANCH}" == "staging" ]; then
-            git push heroku-staging
-            heroku restart
-          fi
+          name: Deploy to heroku staging
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "staging" ]; then
+              git push heroku-staging
+              heroku restart
+            fi
       - deploy:
-        command: |
-          if [ "${CIRCLE_BRANCH}" == "master" ]; then
-            git push heroku-master
-            heroku restart
-          fi
+          name: Deploy to heroku master
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              git push heroku-master
+              heroku restart
+            fi
