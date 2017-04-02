@@ -23,7 +23,7 @@ const EditSelectedName = ({
       handleCancel={cancelEditNameCompany}
       fields={[
         <Field
-          name="companyName"
+          name="name"
           component={AutoComplete}
           floatingLabelText="Company Name"
           openOnFocus
