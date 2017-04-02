@@ -79,7 +79,7 @@ export const NameDetails = ({
               <Subheader>Editing Company</Subheader>
               <EditNameCompanyForm
                 userId={userId}
-                initialValues={company}
+                initialValues={{ companyName: company.name, ...company }}
                 cancelEditNameCompany={hideEditCompanyForm}
               />
             </div>

@@ -37,6 +37,7 @@ Scenario('user edits company details for unprotected', function* (I) {
     I.fillField('name', editCompany.name);
     I.fillField('phone', editCompany.address);
     I.fillField('address', editCompany.phone);
+    I.pressKey('Enter');
     I.click('#standardSubmit[type="submit"]');
   });
 
@@ -87,6 +88,7 @@ Scenario('user edits company details for protected', function* (I) {
     I.fillField('name', editCompany.name);
     I.fillField('phone', editCompany.address);
     I.fillField('address', editCompany.phone);
+    I.pressKey('Enter');
     I.click('#standardSubmit[type="submit"]');
   });
 
@@ -137,6 +139,7 @@ Scenario('user edits company details for met with protected', function* (I) {
     I.fillField('name', editCompany.name);
     I.fillField('phone', editCompany.address);
     I.fillField('address', editCompany.phone);
+    I.pressKey('Enter');
     I.click('#standardSubmit[type="submit"]');
   });
 
@@ -187,6 +190,7 @@ Scenario('user edits company details for client', function* (I) {
     I.fillField('name', editCompany.name);
     I.fillField('phone', editCompany.address);
     I.fillField('address', editCompany.phone);
+    I.pressKey('Enter');
     I.click('#standardSubmit[type="submit"]');
   });
 

@@ -2,11 +2,10 @@ import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
 import { SubmissionError } from 'redux-form';
 
-import GetAllCompanies from './GetAllCompanies.gql';
+import GetAllCompanies from '../../../GetAllCompanies.gql';
 import CreateUnprotectedName from './CreateUnprotectedName.gql';
 import AddUnprotectedNameForm from './UnprotectedNameForm';
 import { hideCreateNameForm } from '../../nameListActions';
-
 
 const AddUnprotectedNameWithCompanyData = compose(
   graphql(CreateUnprotectedName, {
