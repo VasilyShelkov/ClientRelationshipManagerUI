@@ -5,7 +5,7 @@
   "main": "index.html",
   "scripts": {
     "start": "npm run build && node server.js",
-    "start:only-server": "node server.js",
+    "start:server-only": "node server.js",
     "start:dev": "webpack-dashboard -- webpack-dev-server --open --config webpack/webpack.config.dev.js --progress",
     "start:staging": "npm run build:staging && node server.js",
     "prebuild": "rimraf dist",
