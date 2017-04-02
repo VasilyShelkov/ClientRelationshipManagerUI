@@ -33,6 +33,7 @@ jobs:
       - run:
           name: Start server
           command: npm run start:server-only
+          background: true
       - run:
           name: Run Feature tests
           command: npm run test:feature:staging
