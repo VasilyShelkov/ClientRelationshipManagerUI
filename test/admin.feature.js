@@ -51,12 +51,9 @@ Scenario('can edit company details', function *(I) {
   I.waitForVisible('.Profile');
 
   const newCompany = yield I.createFakeCompany();
-  let companyAddress = editCompany.address;
   I.click('Edit Company');
   I.fillField('name', newCompany.name);
   I.fillField('address', newCompany.address);
-  I.pressKey('Enter');
-  companyAddress = yield I.grabValueFrom('input[name=address]');
   I.fillField('phone', newCompany.phone);
   I.click('Save');
 

@@ -25,25 +25,18 @@ Scenario('user edits name details for unprotected', function* (I) {
   });
 });
 
-Scenario('user edits company details for unprotected', function* (I) {
+Scenario.only('user edits company details for unprotected', function* (I) {
   I.login();
   const newUnprotectedName = yield I.createFakeName();
   I.createNewUnprotectedName(newUnprotectedName);
 
   const editCompany = yield I.createFakeCompany();
-  let companyAddress = editCompany.address;
   I.waitForVisible('#selectedName');
   within('#selectedName', () => {
     I.click('#editCompany');
     I.fillField('name', editCompany.name);
-    I.fillField('phone', editCompany.address);
-    I.fillField('address', editCompany.phone);
-    I.pressKey('Enter');
-  });
-
-  companyAddress = yield I.grabValueFrom('input[name=address]');
-
-  within('#selectedName', () => {
+    I.fillField('address', editCompany.address);
+    I.fillField('phone', editCompany.phone);
     I.click('#standardSubmit[type="submit"]');
   });
 
@@ -56,7 +49,7 @@ Scenario('user edits company details for unprotected', function* (I) {
 
   within('#selectedName', () => {
     I.see(editCompany.name);
-    I.see(companyAddress);
+    I.see(company.address);
     I.see(editCompany.phone);
   });
 });
@@ -88,20 +81,12 @@ Scenario('user edits company details for protected', function* (I) {
   I.createProtectedName(newProtectedName);
 
   const editCompany = yield I.createFakeCompany();
-  let companyAddress = editCompany.address;
   I.waitForVisible('#selectedName');
   within('#selectedName', () => {
     I.click('#editCompany');
     I.fillField('name', editCompany.name);
-    I.fillField('phone', editCompany.phone);
     I.fillField('address', editCompany.address);
-    I.waitForVisible('.ap-dropdown-menu')
-    I.pressKey('Enter');
-  });
-
-  companyAddress = yield I.grabValueFrom('input[name=address]');
-
-  within('#selectedName', () => {
+    I.fillField('phone', editCompany.phone);
     I.click('#standardSubmit[type="submit"]');
   });
 
@@ -114,7 +99,7 @@ Scenario('user edits company details for protected', function* (I) {
 
   within('#selectedName', () => {
     I.see(editCompany.name);
-    I.see(companyAddress);
+    I.see(company.address);
     I.see(editCompany.phone);
   });
 });
@@ -146,19 +131,12 @@ Scenario('user edits company details for met with protected', function* (I) {
   I.createMetWithProtectedName(newMetWithProtectedName);
 
   const editCompany = yield I.createFakeCompany();
-  let companyAddress = editCompany.address;
   I.waitForVisible('#selectedName');
   within('#selectedName', () => {
     I.click('#editCompany');
     I.fillField('name', editCompany.name);
-    I.fillField('phone', editCompany.address);
-    I.fillField('address', editCompany.phone);
-    I.pressKey('Enter');
-  });
-
-  companyAddress = yield I.grabValueFrom('input[name=address]');
-
-  within('#selectedName', () => {
+    I.fillField('address', editCompany.address);
+    I.fillField('phone', editCompany.phone);
     I.click('#standardSubmit[type="submit"]');
   });
 
@@ -171,7 +149,7 @@ Scenario('user edits company details for met with protected', function* (I) {
 
   within('#selectedName', () => {
     I.see(editCompany.name);
-    I.see(companyAddress);
+    I.see(company.address);
     I.see(editCompany.phone);
   });
 });
@@ -203,19 +181,12 @@ Scenario('user edits company details for client', function* (I) {
   I.createClient(newClient);
 
   const editCompany = yield I.createFakeCompany();
-  let companyAddress = editCompany.address;
   I.waitForVisible('#selectedName');
   within('#selectedName', () => {
     I.click('#editCompany');
     I.fillField('name', editCompany.name);
-    I.fillField('phone', editCompany.address);
-    I.fillField('address', editCompany.phone);
-    I.pressKey('Enter');
-  });
-
-  companyAddress = yield I.grabValueFrom('input[name=address]');
-
-  within('#selectedName', () => {
+    I.fillField('address', editCompany.address);
+    I.fillField('phone', editCompany.phone);
     I.click('#standardSubmit[type="submit"]');
   });
 
@@ -228,7 +199,7 @@ Scenario('user edits company details for client', function* (I) {
 
   within('#selectedName', () => {
     I.see(editCompany.name);
-    I.see(companyAddress);
+    I.see(company.address);
     I.see(editCompany.phone);
   });
 });
