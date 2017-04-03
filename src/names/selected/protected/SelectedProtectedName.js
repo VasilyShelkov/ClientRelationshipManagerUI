@@ -7,7 +7,7 @@ import FlatButton from 'material-ui/FlatButton';
 import { cyan500 } from 'material-ui/styles/colors';
 import { UnprotectedIcon, MetWithProtectedIcon, ClientsIcon } from '../../../app/icons';
 
-import NameDetailsDrawerWithData from '../NameDetails';
+import SelectedName from '../SelectedName';
 import NameDialogForm from '../../NameDialog';
 
 export default ({
@@ -25,7 +25,7 @@ export default ({
     const meetingBookedDate = moment(meetingBooked).toDate();
 
     return (
-      <NameDetailsDrawerWithData
+      <SelectedName
         details={selectedProtected}
         open={selectedNameDrawerOpen}
         closeNameDetails={hideName}
@@ -121,7 +121,7 @@ export default ({
             ]}
           />
         }
-      </NameDetailsDrawerWithData>
+      </SelectedName>
     );
   }
 

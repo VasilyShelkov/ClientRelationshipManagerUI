@@ -6,7 +6,7 @@ import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
 import { cyan500 } from 'material-ui/styles/colors';
 
-import NameDetailsWithData from '../NameDetails';
+import SelectedName from '../SelectedName';
 import NameDialogForm from '../../NameDialog';
 
 export default ({
@@ -17,7 +17,7 @@ export default ({
   if (selectedNameDrawerOpen && selectedUnprotected) {
     const displayName = `${selectedUnprotected.name.firstName} ${selectedUnprotected.name.lastName}`;
     return (
-      <NameDetailsWithData
+      <SelectedName
         details={selectedUnprotected}
         closeNameDetails={hideName}
         removeNameAction={removeUnprotectedName}
@@ -62,7 +62,7 @@ export default ({
             ]}
           />
         }
-      </NameDetailsWithData>
+      </SelectedName>
     );
   }
 

@@ -25,7 +25,7 @@ Scenario('user edits name details for unprotected', function* (I) {
   });
 });
 
-Scenario.only('user edits company details for unprotected', function* (I) {
+Scenario('user edits company details for unprotected', function* (I) {
   I.login();
   const newUnprotectedName = yield I.createFakeName();
   I.createNewUnprotectedName(newUnprotectedName);
@@ -49,7 +49,7 @@ Scenario.only('user edits company details for unprotected', function* (I) {
 
   within('#selectedName', () => {
     I.see(editCompany.name);
-    I.see(company.address);
+    I.see(editCompany.address);
     I.see(editCompany.phone);
   });
 });
@@ -99,7 +99,7 @@ Scenario('user edits company details for protected', function* (I) {
 
   within('#selectedName', () => {
     I.see(editCompany.name);
-    I.see(company.address);
+    I.see(editCompany.address);
     I.see(editCompany.phone);
   });
 });
@@ -149,7 +149,7 @@ Scenario('user edits company details for met with protected', function* (I) {
 
   within('#selectedName', () => {
     I.see(editCompany.name);
-    I.see(company.address);
+    I.see(editCompany.address);
     I.see(editCompany.phone);
   });
 });
@@ -199,7 +199,7 @@ Scenario('user edits company details for client', function* (I) {
 
   within('#selectedName', () => {
     I.see(editCompany.name);
-    I.see(company.address);
+    I.see(editCompany.address);
     I.see(editCompany.phone);
   });
 });

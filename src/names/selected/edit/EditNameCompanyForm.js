@@ -5,11 +5,11 @@ import { AutoComplete, TextField } from 'redux-form-material-ui';
 import { AutoComplete as MUIAutoComplete } from 'material-ui';
 
 import EditCompany from './EditCompany.gql';
-import GetAllCompanies from '../GetAllCompanies.gql';
-import { checkIfAnyKeysDifferent } from '../../shared/utils';
-import LoadingSpinner from '../../shared/LoadingSpinner';
-import StandardForm from '../../shared/StandardForm';
-import { AddressField, required } from '../../shared/FormElements';
+import GetAllCompanies from '../../GetAllCompanies.gql';
+import { checkIfAnyKeysDifferent } from '../../../shared/utils';
+import LoadingSpinner from '../../../shared/LoadingSpinner';
+import StandardForm from '../../../shared/StandardForm';
+import { AddressField, required } from '../../../shared/FormElements';
 
 const EditSelectedName = ({
   existingCompanies, loading, error, handleSubmit, cancelEditNameCompany, change
@@ -23,6 +23,7 @@ const EditSelectedName = ({
       handleCancel={cancelEditNameCompany}
       fields={[
         <Field
+          key="editNameCompany__name"
           name="name"
           component={AutoComplete}
           floatingLabelText="Company Name"
@@ -61,7 +62,7 @@ const EditSelectedName = ({
     />
 );
 
-const EditSelectedNameForm = reduxForm({ form: 'editName' })(EditSelectedName);
+const EditSelectedNameForm = reduxForm({ form: 'editNameCompany' })(EditSelectedName);
 
 export default compose(
   graphql(EditCompany, {

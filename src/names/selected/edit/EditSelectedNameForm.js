@@ -4,9 +4,9 @@ import { reduxForm, Field, SubmissionError } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
 
 import EditName from './EditName.gql';
-import { checkIfAnyKeysDifferent } from '../../shared/utils';
-import { required } from '../../shared/FormElements';
-import StandardForm from '../../shared/StandardForm';
+import { checkIfAnyKeysDifferent } from '../../../shared/utils';
+import { required } from '../../../shared/FormElements';
+import StandardForm from '../../../shared/StandardForm';
 
 const EditSelectedName = ({ isProtected, error, handleSubmit, cancelEditName }) => (
   <StandardForm

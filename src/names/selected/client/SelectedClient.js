@@ -4,7 +4,7 @@ import IconButton from 'material-ui/IconButton';
 import { cyan500 } from 'material-ui/styles/colors';
 
 import { UnprotectedIcon } from '../../../app/icons';
-import NameDetailsDrawerWithData from '../NameDetails';
+import SelectedName from '../SelectedName';
 
 export default ({
   selectedClient, selectedNameDrawerOpen, hideName,
@@ -12,7 +12,7 @@ export default ({
 }) => {
   if (selectedNameDrawerOpen && selectedClient) {
     return (
-      <NameDetailsDrawerWithData
+      <SelectedName
         details={selectedClient}
         open={selectedNameDrawerOpen}
         closeNameDetails={hideName}
@@ -27,7 +27,7 @@ export default ({
         >
           <UnprotectedIcon color={cyan500} />
         </IconButton>
-      </NameDetailsDrawerWithData>
+      </SelectedName>
     );
   }
 
