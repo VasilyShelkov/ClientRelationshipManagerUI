@@ -1,4 +1,4 @@
-Feature('Met with protected names');
+Feature('Met with protected names', { retries: 3 });
 
 Scenario('user books a meeting on the met with protected name', function* (I) {
   I.login();

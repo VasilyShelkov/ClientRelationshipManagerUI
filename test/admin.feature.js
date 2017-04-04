@@ -1,4 +1,4 @@
-Feature('Administrator user');
+Feature('Administrator user', { retries: 3 });
 
 Scenario('can create new users', function* (I) {
   I.login();

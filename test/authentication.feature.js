@@ -1,4 +1,4 @@
-Feature('Authentication');
+Feature('Authentication', { retries: 3 });
 
 Scenario('User is redirected to login when not logged in', (I) => {
   I.amOnPage('/account/profile');

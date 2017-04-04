@@ -1,4 +1,4 @@
-Feature('Clients');
+Feature('Clients', { retries: 3 });
 
 Scenario('user books a meeting on the client', function* (I) {
   I.login();

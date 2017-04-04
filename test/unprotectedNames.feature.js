@@ -1,4 +1,4 @@
-Feature('Unprotected names');
+Feature('Unprotected names', { retries: 3 });
 
 Scenario('user creates a new name', function* (I) {
   I.login();
