@@ -2,6 +2,7 @@ import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
 import { fullWhite, green500 } from 'material-ui/styles/colors';
+import ReactList from 'react-list';
 
 import Name from './Name';
 
@@ -13,19 +14,29 @@ export default ({
   <div id={id}>
     {
       names.length ?
-        names.map((name, index) => (
-          <Name
-            id={`name-${index}`}
-            key={`name-${index}`}
-            selected={name.name.id === selectedNameId}
-            showMoreDetails={() => openNameDetails(name.name.id)}
-            editProtectedCall={() => openEditProtectedNameCallDialog(name.name.id)}
-            editProtectedMeeting={() => openEditProtectedNameMeetingDialog(name.name.id)}
-            isProtected={isProtected}
-            selectedNameDrawerOpen={selectedNameDrawerOpen}
-            {...name}
+        <div style={{ overflow: 'auto', maxHeight: 400 }}>
+          <ReactList
+            length={names.length}
+            itemRenderer={
+              (index, key) => {
+                const typedName = names[index];
+                return (
+                  <Name
+                    id={`name-${key}`}
+                    key={`name-${index}`}
+                    selected={typedName.name.id === selectedNameId}
+                    showMoreDetails={() => openNameDetails(typedName.name.id)}
+                    editProtectedCall={() => openEditProtectedNameCallDialog(typedName.name.id)}
+                    editProtectedMeeting={() => openEditProtectedNameMeetingDialog(typedName.name.id)}
+                    isProtected={isProtected}
+                    selectedNameDrawerOpen={selectedNameDrawerOpen}
+                    {...typedName}
+                  />
+                );
+              }
+            }
           />
-        ))
+        </div>
       :
         <div>
           {
