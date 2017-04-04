@@ -52,6 +52,7 @@ Scenario('can edit company details', function* (I) {
 
   const newCompany = yield I.createFakeCompany();
   I.click('Edit Company');
+  I.waitForElement('#StandardForm');
   I.fillField('name', newCompany.name);
   I.fillField('address', newCompany.address);
   I.fillField('phone', newCompany.phone);

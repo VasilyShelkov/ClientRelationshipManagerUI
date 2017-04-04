@@ -34,6 +34,7 @@ Scenario('user edits company details for unprotected', function* (I) {
   I.waitForVisible('#selectedName');
   within('#selectedName', () => {
     I.click('#editCompany');
+    I.waitForElement('#StandardForm');
     I.fillField('name', editCompany.name);
     I.fillField('address', editCompany.address);
     I.fillField('phone', editCompany.phone);
@@ -84,6 +85,7 @@ Scenario('user edits company details for protected', function* (I) {
   I.waitForVisible('#selectedName');
   within('#selectedName', () => {
     I.click('#editCompany');
+    I.waitForElement('#StandardForm');
     I.fillField('name', editCompany.name);
     I.fillField('address', editCompany.address);
     I.fillField('phone', editCompany.phone);
@@ -134,6 +136,7 @@ Scenario('user edits company details for met with protected', function* (I) {
   I.waitForVisible('#selectedName');
   within('#selectedName', () => {
     I.click('#editCompany');
+    I.waitForElement('#StandardForm');
     I.fillField('name', editCompany.name);
     I.fillField('address', editCompany.address);
     I.fillField('phone', editCompany.phone);
@@ -184,6 +187,7 @@ Scenario('user edits company details for client', function* (I) {
   I.waitForVisible('#selectedName');
   within('#selectedName', () => {
     I.click('#editCompany');
+    I.waitForElement('#StandardForm');
     I.fillField('name', editCompany.name);
     I.fillField('address', editCompany.address);
     I.fillField('phone', editCompany.phone);

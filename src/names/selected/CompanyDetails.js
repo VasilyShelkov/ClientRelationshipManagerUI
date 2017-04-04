@@ -12,7 +12,7 @@ import { cyan500 } from 'material-ui/styles/colors';
 import { showEditNameCompany, hideEditNameCompany } from './selectedActions';
 import EditNameCompanyForm from './edit/EditNameCompanyForm';
 
-export const NameDetails = ({
+export const CompanyDetails = ({
   userId, company, showingEditCompanyForm, isProtected,
   showEditCompanyForm, hideEditCompanyForm
 }) => (
@@ -52,4 +52,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(NameDetails);
+)(CompanyDetails);

@@ -8,7 +8,7 @@ import { FormErrorNotification } from './FormElements';
 import LoadingSpinner from './LoadingSpinner';
 
 export default ({ error, fields, editingInProgress, handleSubmit, handleCancel }) => (
-  <div className="StandardForm container">
+  <div id="StandardForm" className="StandardForm container">
     <FormErrorNotification message={error} zDepth={2} />
     <form onSubmit={handleSubmit}>
       <div className="row">
