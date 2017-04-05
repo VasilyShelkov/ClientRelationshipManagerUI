@@ -20,14 +20,9 @@ export default ({
   const selectedUnprotected = loading ? null : getNameByNameId(names, selectedNameId);
   const selectedNameDrawerOpen = Boolean(selectedUnprotected);
   return (
-    <div
-      style={{
-        marginTop: '20px',
-        paddingRight: selectedNameDrawerOpen ? '250px' : undefined
-      }}
-    >
+    <div className={selectedUnprotected && !showingCreateForm &&'unprotected__container__names'}>
       <div className={nameActionInProgress && 'names__content'}>
-        <div style={{ textAlign: 'center' }}>
+        <div style={{ textAlign: 'center', marginTop: '10px' }}>
           <LockOpenIcon style={{ height: '100px', width: '100px' }} color={cyan500} />
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             {
@@ -62,20 +57,23 @@ export default ({
                       selectedNameDrawerOpen={selectedNameDrawerOpen}
                     />
                   :
-                    <NamesList
-                      id="unprotectedNamesList"
-                      names={names}
-                      selectedNameId={selectedNameId}
-                      openNameDetails={selectName}
-                      showCreateNameForm={showCreateNameForm}
-                      selectedNameDrawerOpen={selectedNameDrawerOpen}
-                    />
+                    <div>
+                      <NamesList
+                        id="unprotectedNamesList"
+                        names={names}
+                        selectedNameId={selectedNameId}
+                        openNameDetails={selectName}
+                        showCreateNameForm={showCreateNameForm}
+                        selectedNameDrawerOpen={selectedNameDrawerOpen}
+                      />
+
+                      <SelectedUnprotectedNameWithData
+                        selectedNameDrawerOpen={selectedNameDrawerOpen}
+                        selectedUnprotected={selectedUnprotected}
+                      />
+                    </div>
                 }
 
-                <SelectedUnprotectedNameWithData
-                  selectedNameDrawerOpen={selectedNameDrawerOpen}
-                  selectedUnprotected={selectedUnprotected}
-                />
               </div>
           }
         </div>

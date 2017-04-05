@@ -28,6 +28,7 @@ export default ({
                 openNameDetails={selectName}
                 openEditProtectedNameCallDialog={openEditProtectedNameCallDialog}
                 openEditProtectedNameMeetingDialog={openEditProtectedNameMeetingDialog}
+                selectedNameDrawerOpen={selectedNameDrawerOpen}
                 isProtected
               />
 

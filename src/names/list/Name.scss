@@ -1,7 +1,19 @@
-.protected__container__names {
+.names__list__container {
   @include media-breakpoint-up(sm)  {
     padding-right: 250px;
   }
+}
+
+.unprotected__container__names {
+  @extend .names__list__container;
+}
+
+.protected__container__names {
+  @extend .names__list__container;
+}
+
+.client__container__names {
+  @extend .names__list__container;
 }
 
 .names__overlay {

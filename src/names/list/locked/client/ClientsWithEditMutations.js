@@ -14,7 +14,7 @@ import LockedNamesWithData from '../LockedNamesListWithData';
 import EditLockedNameInfo from '../EditLockedNameInfo';
 
 const ClientLayout = props => (
-  <div style={props.selectedNameDrawerOpen ? { paddingRight: '250px' } : {}}>
+  <div className={props.selectedNameDrawerOpen && 'client__container__names'}>
     <LockedNamesWithData nameListType="client" {...props} />
     {
       props.names ?
