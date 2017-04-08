@@ -9,9 +9,10 @@ jobs:
       - checkout
 
       - restore_cache:
-          key: projectname-{{ .Branch }}-{{ checksum "package.json" }}
-          key: projectname-{{ .Branch }}
-          key: projectname-master
+          keys:
+            - projectname-{{ .Branch }}-{{ checksum "package.json" }}
+            - projectname-{{ .Branch }}
+            - projectname-master
       - run:
           name: Install Dependencies
           command: npm install
