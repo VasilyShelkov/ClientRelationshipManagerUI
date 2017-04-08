@@ -45,13 +45,13 @@ jobs:
           name: Deploy to heroku staging
           command: |
             if [ "${CIRCLE_BRANCH}" == "staging" ]; then
-              git push heroku-staging
+              git push heroku-staging master
               heroku restart
             fi
       - deploy:
           name: Deploy to heroku master
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              git push heroku-master
+              git push heroku-master master
               heroku restart
             fi
