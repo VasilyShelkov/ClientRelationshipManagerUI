@@ -1,0 +1,17 @@
+query GetNameComments($id: String!, $userId: String!) {
+  name(id: $id, userId: $userId) {
+    id
+    comments {
+      id
+      subject
+      text
+      created_at
+      updated_at
+      commentUser {
+        firstName
+        lastName
+      }
+    }
+  }
+}
+

@@ -7,11 +7,12 @@ import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import DeleteName from 'material-ui/svg-icons/action/delete';
 import { red500 } from 'material-ui/styles/colors';
 
-import { List, ListItem } from 'material-ui/List';
+import { List } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 
 import NameDetails from './NameDetails';
 import CompanyDetails from './CompanyDetails';
+// import Comments from './comments/CommentsWithData';
 
 export default ({
   details: { name: { id, firstName, lastName, phone, company } },
@@ -37,10 +38,13 @@ export default ({
         </ToolbarGroup>
       </Toolbar>
       <List>
-        <NameDetails isProtected={isProtected} name={{ id, firstName, lastName, phone }}/>
+        <NameDetails isProtected={isProtected} name={{ id, firstName, lastName, phone }} />
         <Divider />
         <CompanyDetails company={company} />
         <Divider />
+        {
+          // <Comments id={id} />
+        }
       </List>
     </div>
   </Drawer>

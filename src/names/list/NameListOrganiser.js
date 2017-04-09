@@ -28,7 +28,8 @@ export default ({
           <TextField
             name="searchName"
             hintText="Search by name, company or phone..."
-            errorText={searchValue ? `${searchResultsLength} results` : ''}
+            hintStyle={{ whiteSpace: 'nowrap' }}
+            errorText={searchValue && searchResultsLength !== false ? `${searchResultsLength} results` : ''}
             underlineStyle={searchValue && { borderColor: searchColor }}
             errorStyle={{ color: searchColor }}
             onChange={updateSearch}
@@ -45,6 +46,7 @@ export default ({
                 value={sortBy}
                 onChange={updateSort}
                 underlineStyle={{ borderTop: '0px' }}
+                style={{ width: '100%' }}
               >
                 <MenuItem value={sortTypes.createdAsc} primaryText="Newest Added" />
                 <MenuItem value={sortTypes.createdDesc} primaryText="Oldest Added" />
@@ -58,7 +60,12 @@ export default ({
                 <MenuItem value={sortTypes.meetingBookedDesc} primaryText="Latest Meeting Booked" />
               </DropDownMenu>
             :
-              <DropDownMenu value={sortBy} onChange={updateSort}>
+              <DropDownMenu
+                value={sortBy}
+                onChange={updateSort}
+                underlineStyle={{ borderTop: '0px' }}
+                style={{ width: '100%' }}
+              >
                 <MenuItem value={sortTypes.createdAsc} primaryText="Newest Added" />
                 <MenuItem value={sortTypes.createdDesc} primaryText="Oldest Added" />
                 <MenuItem value={sortTypes.nameAsc} primaryText="Name Alphabetically Ascending" />
