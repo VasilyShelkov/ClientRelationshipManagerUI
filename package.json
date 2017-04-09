@@ -1,7 +1,10 @@
 {
   "name": "ClientRelationshipManagerUI",
-  "version": "1.0.0",
   "description": "Web client for CRM graphql api",
+  "version": "1.0.0",
+  "engines": {
+    "node": "7.3.0"
+  },
   "main": "index.html",
   "scripts": {
     "start": "npm run start:server-only",
