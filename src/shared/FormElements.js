@@ -4,6 +4,11 @@ import places from 'places.js';
 
 import { red600 } from 'material-ui/styles/colors';
 import ErrorIcon from 'material-ui/svg-icons/alert/error';
+
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
+import PrivateIcon from 'material-ui/svg-icons/action/visibility';
+import PublicIcon from 'material-ui/svg-icons/social/people';
 import Notification from './Notification';
 
 export const required = value => (value ? undefined : 'Required');
@@ -49,6 +54,41 @@ export const renderCheckbox = ({ input, label }) => (
     checked={input.value}
     onCheck={input.onChange}
   />
+);
+
+export const renderIconDropdown = ({ input: { value, onChange } }) => (
+  <DropDownMenu
+    anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+    value={value}
+    onChange={(event, index, dropdownValue) => onChange(dropdownValue)}
+    style={{ height: '35px' }}
+    iconStyle={{ top: '-1px', right: '-35px', padding: '0px' }}
+    labelStyle={{ padding: '0px' }}
+    underlineStyle={{ borderTop: '0px' }}
+  >
+    <MenuItem
+      value="private"
+      leftIcon={<PrivateIcon />}
+      label={<PrivateIcon />}
+      primaryText={
+        <div style={{ lineHeight: '20px' }}>
+          <strong>Private</strong>
+          <div>Only you can see it</div>
+        </div>
+      }
+    />
+    <MenuItem
+      value="public"
+      leftIcon={<PublicIcon />}
+      label={<PublicIcon />}
+      primaryText={
+        <div style={{ lineHeight: '20px' }}>
+          <strong>Public</strong>
+          <div>Whole company can see it</div>
+        </div>
+      }
+    />
+  </DropDownMenu>
 );
 
 export const FormErrorNotification = ({ message, zDepth, backgroundColor = red600 }) => (

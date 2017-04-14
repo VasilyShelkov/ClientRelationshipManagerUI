@@ -5,9 +5,11 @@ query GetNameComments($id: String!, $userId: String!) {
       id
       subject
       text
+      visibility
       created_at
       updated_at
       commentUser {
+        id
         firstName
         lastName
       }

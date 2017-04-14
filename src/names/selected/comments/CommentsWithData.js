@@ -1,40 +1,72 @@
-import { graphql, compose } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
-import { red500 } from 'material-ui/styles/colors';
+import _ from 'lodash';
 
+import { APOLLO_MUTATION_RESULT } from '../../../app/thirdPartyActions';
 import GetNameComments from './GetNameComments.gql';
-import AddComment from './AddComment.gql';
-
-import { showNotification } from '../../../app/appActions';
-import { performingNameAction } from '../../nameActions';
-
 import CommentsList from './CommentsList';
 
-const SelectedUnprotectedNameWithMutations = compose(
-  graphql(GetNameComments, {
-    options: ({ id, userId }) => ({ variables: { id, userId } }),
-    props: ({ ownProps, data: { loading, name } }) => ({
-      loading,
-      comments: name && name.comments,
-      ...ownProps
-    })
-  }),
-  graphql(AddComment, {
-    props: ({ ownProps, mutate }) => ({
-      ...ownProps,
-      onSubmitAddComment: async ({ callDay, callTime, meetingDay, meetingTime }) => {
-      }
-    })
+export const reducer = (previousResult, action) => {
+  if (action.type === APOLLO_MUTATION_RESULT) {
+    switch (action.operationName) {
+      case 'AddComment':
+        if (
+          _.has(action, 'result.data.addCommentToName') &&
+          !_.has(action, 'result.errors')
+        ) {
+          return {
+            name: {
+              ...previousResult.name,
+              comments: [
+                action.result.data.addCommentToName,
+                ...previousResult.name.comments
+              ]
+            }
+          };
+        }
+        break;
+      case 'DeleteComment':
+        if (
+          _.has(action, 'result.data.deleteNameComment') &&
+          !_.has(action, 'result.errors')
+        ) {
+          const removedCommentPosition = previousResult.name.comments
+            .findIndex(({ id }) => id === action.variables.commentId);
+
+          if (removedCommentPosition >= 0) {
+            return {
+              name: {
+                ...previousResult.name,
+                comments: [
+                  ...previousResult.name.comments.slice(0, removedCommentPosition),
+                  ...previousResult.name.comments.slice(removedCommentPosition + 1)
+                ]
+              }
+            };
+          }
+
+          return previousResult;
+        }
+        break;
+      default:
+        return previousResult;
+    }
+  }
+
+  return previousResult;
+};
+
+const CommentsWithData = graphql(GetNameComments, {
+  options: ({ id, userId }) => ({ variables: { id, userId }, reducer }),
+  props: ({ ownProps, data: { loading, name } }) => ({
+    loading,
+    comments: name && name.comments,
+    ...ownProps
   })
-)(CommentsList);
+})(CommentsList);
 
 const mapStateToProps = state => ({
-  userId: state.account.id,
+  userId: state.profile.id,
 });
 
-const mapDispatchToProps = dispatch => ({});
-
-export default connect(
-  mapStateToProps, mapDispatchToProps
-)(SelectedUnprotectedNameWithMutations);
+export default connect(mapStateToProps)(CommentsWithData);

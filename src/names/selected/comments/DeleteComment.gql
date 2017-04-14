@@ -1,0 +1,11 @@
+mutation DeleteComment(
+  $commentId: String!
+  $userId: String!
+) {
+  deleteNameComment(
+    commentId: $commentId
+    userId: $userId
+  ) {
+    deletedRowsCount
+  }
+}

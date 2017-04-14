@@ -30,9 +30,32 @@ export default (state = initialState, action) => {
             };
           }
           case 'EditCompany': {
+            const { name } = action.result.data.editCompany;
             return {
               ...state,
-              notificationMessage: `Edited ${action.result.data.editCompany.name}`,
+              notificationMessage: `Edited ${name}`,
+              notificationColor: greenA700
+            };
+          }
+          case 'AddComment': {
+            const { firstName, lastName } = action.result.data.addCommentToName.commentUser;
+            return {
+              ...state,
+              notificationMessage: `Added Comment to ${firstName} ${lastName}`,
+              notificationColor: greenA700
+            };
+          }
+          case 'DeleteComment': {
+            return {
+              ...state,
+              notificationMessage: 'Deleted Comment',
+              notificationColor: greenA700
+            };
+          }
+          case 'EditComment': {
+            return {
+              ...state,
+              notificationMessage: 'Edited Comment',
               notificationColor: greenA700
             };
           }

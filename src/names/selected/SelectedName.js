@@ -12,7 +12,7 @@ import Divider from 'material-ui/Divider';
 
 import NameDetails from './NameDetails';
 import CompanyDetails from './CompanyDetails';
-// import Comments from './comments/CommentsWithData';
+import Comments from './comments/CommentsWithData';
 
 export default ({
   details: { name: { id, firstName, lastName, phone, company } },
@@ -42,9 +42,7 @@ export default ({
         <Divider />
         <CompanyDetails company={company} />
         <Divider />
-        {
-          // <Comments id={id} />
-        }
+        <Comments id={id} firstName={firstName} lastName={lastName} />
       </List>
     </div>
   </Drawer>
