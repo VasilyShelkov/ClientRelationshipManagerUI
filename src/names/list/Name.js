@@ -15,7 +15,7 @@ const moreInfoStyle = {
 
 export default ({
   name: { firstName, lastName, phone, company },
-  callBooked, meetingBooked, created_at,
+  callBooked, meetingBooked, metWith, createdText, created_at,
   selected = false, isProtected = false,
   showMoreDetails, selectedNameDrawerOpen,
   editProtectedMeeting, editProtectedCall
@@ -44,7 +44,7 @@ export default ({
           />
       }
       <span className={`name__info__date${selected ? '-selected' : ''}`}>
-        created: {moment(created_at).fromNow()}
+        {createdText}: {moment(metWith || created_at).fromNow()}
       </span>
     </div>
 

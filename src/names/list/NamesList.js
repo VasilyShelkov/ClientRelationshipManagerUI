@@ -43,6 +43,24 @@ export default class NamesList extends Component {
 
     const sortedNames = sortNamesByType(this.state.sortBy, namesFromSearch);
 
+    let createdText = 'created';
+    switch (id) {
+      case 'unprotectedNamesList':
+        createdText = 'created';
+        break;
+      case 'protectedNamesList':
+        createdText = 'protected';
+        break;
+      case 'metWithProtectedNamesList':
+        createdText = 'met with';
+        break;
+      case 'clientNamesList':
+        createdText = 'client since';
+        break;
+      default:
+        createdText = 'created';
+    }
+
     return (
       <div id={id}>
         {
@@ -69,6 +87,7 @@ export default class NamesList extends Component {
                       return (
                         <Name
                           id={`name-${key}`}
+                          createdText={createdText}
                           key={`name-${index}`}
                           selected={typedName.name.id === selectedNameId}
                           showMoreDetails={() => openNameDetails(typedName.name.id)}

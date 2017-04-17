@@ -180,6 +180,7 @@ Scenario('Delete comment for an Unprotected name', function* (I) {
   I.waitForVisible('#delete-comment');
   I.click('#delete-comment');
   I.waitForVisible('#appNotification');
+  I.wait(1);
   within('#name-comments', () => {
     I.dontSeeElement('.Comment');
   });
@@ -365,6 +366,7 @@ Scenario('Delete comment for an Protected name', function* (I) {
   I.waitForVisible('#delete-comment');
   I.click('#delete-comment');
   I.waitForVisible('#appNotification');
+  I.wait(1);
   within('#name-comments', () => {
     I.dontSeeElement('.Comment');
   });
@@ -550,6 +552,7 @@ Scenario('Delete comment for a Met With Protected name', function* (I) {
   I.waitForVisible('#delete-comment');
   I.click('#delete-comment');
   I.waitForVisible('#appNotification');
+  I.wait(1);
   within('#name-comments', () => {
     I.dontSeeElement('.Comment');
   });
@@ -735,6 +738,7 @@ Scenario('Delete comment for a Client', function* (I) {
   I.waitForVisible('#delete-comment');
   I.click('#delete-comment');
   I.waitForVisible('#appNotification');
+  I.wait(1);
   within('#name-comments', () => {
     I.dontSeeElement('.Comment');
   });
