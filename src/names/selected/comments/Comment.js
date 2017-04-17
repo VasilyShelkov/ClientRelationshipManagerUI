@@ -24,7 +24,7 @@ export default class Comment extends Component {
     } = this.props;
 
     const menuIconButton = (
-      <IconButton touch>
+      <IconButton id="edit-or-delete-comment" touch>
         <MoreVertIcon color={grey400} />
       </IconButton>
     );
@@ -51,10 +51,18 @@ export default class Comment extends Component {
                 anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
                 targetOrigin={{ horizontal: 'right', vertical: 'top' }}
               >
-                <MenuItem onTouchTap={this.showEditComment} leftIcon={<EditIcon color={cyan500} />}>
+                <MenuItem
+                  id="edit-comment"
+                  onTouchTap={this.showEditComment}
+                  leftIcon={<EditIcon color={cyan500} />}
+                >
                   Edit
                 </MenuItem>
-                <MenuItem onTouchTap={deleteComment} leftIcon={<DeleteName color={red500} />}>
+                <MenuItem
+                  id="delete-comment"
+                  onTouchTap={deleteComment}
+                  leftIcon={<DeleteName color={red500} />}
+                >
                   Delete
                 </MenuItem>
               </IconMenu>

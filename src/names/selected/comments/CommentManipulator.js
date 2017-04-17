@@ -37,11 +37,19 @@ export default ({
             </div>
             {
               visibility === 'private' ?
-                <IconButton iconStyle={{ cursor: 'default' }} tooltip="Private">
+                <IconButton
+                  className="Comment__visibility__private"
+                  iconStyle={{ cursor: 'default' }}
+                  tooltip="Private"
+                >
                   <PrivateIcon />
                 </IconButton>
               :
-                <IconButton iconStyle={{ cursor: 'default' }} tooltip="Public">
+                <IconButton
+                  className="Comment__visibility__public"
+                  iconStyle={{ cursor: 'default' }}
+                  tooltip="Public"
+                >
                   <PublicIcon />
                 </IconButton>
             }

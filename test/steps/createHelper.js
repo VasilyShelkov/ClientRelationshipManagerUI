@@ -29,6 +29,10 @@ class CreateHelper extends Helper {
     };
   }
 
+  createFakeComment() {
+    return faker.lorem.sentence();
+  }
+
   createCurrentDay() {
     return moment().format('D');
   }

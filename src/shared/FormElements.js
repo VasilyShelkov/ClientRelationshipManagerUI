@@ -58,6 +58,7 @@ export const renderCheckbox = ({ input, label }) => (
 
 export const renderIconDropdown = ({ input: { value, onChange } }) => (
   <DropDownMenu
+    id="name-visibility-field"
     anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
     value={value}
     onChange={(event, index, dropdownValue) => onChange(dropdownValue)}
@@ -67,6 +68,7 @@ export const renderIconDropdown = ({ input: { value, onChange } }) => (
     underlineStyle={{ borderTop: '0px' }}
   >
     <MenuItem
+      id="private-comment-visibility-choice"
       value="private"
       leftIcon={<PrivateIcon />}
       label={<PrivateIcon />}
@@ -78,6 +80,7 @@ export const renderIconDropdown = ({ input: { value, onChange } }) => (
       }
     />
     <MenuItem
+      id="public-comment-visibility-choice"
       value="public"
       leftIcon={<PublicIcon />}
       label={<PublicIcon />}

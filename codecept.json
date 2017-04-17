@@ -1,5 +1,5 @@
 {
-  "tests": "./test/*.feature.js",
+  "tests": "./test/**/*.feature.js",
   "timeout": 10000,
   "output": "./output",
   "helpers": {

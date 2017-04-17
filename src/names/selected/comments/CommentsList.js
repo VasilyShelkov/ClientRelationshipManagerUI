@@ -22,7 +22,7 @@ export default class CommentsList extends Component {
     }
 
     return (
-      <div>
+      <div id="name-comments">
         <Subheader style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           {comments.length} Comments
           <IconButton>
