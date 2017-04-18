@@ -8,7 +8,9 @@ export const onSubmitBookMeeting = ({
 
   let meetingBooked = null;
   if (meetingDay) {
-    meetingBooked = `${moment(meetingDay).format('YYYY-MM-DD')}T${moment(meetingTime).format('HH:mm:ss.sss')}Z`;
+    const meetingDayMoment = moment(meetingDay).format();
+    const meetingTimeMoment = moment(meetingTime).format();
+    meetingBooked = `${meetingDayMoment.substr(0, meetingDayMoment.indexOf('T'))}T${meetingTimeMoment.substr(meetingTimeMoment.indexOf('T') + 1)}`;
   }
 
   try {
@@ -35,7 +37,9 @@ export const onSubmitBookCall = ({
 
   let callBooked = null;
   if (callDay) {
-    callBooked = `${moment(callDay).format('YYYY-MM-DD')}T${moment(callTime).format('HH:mm:ss.sss')}Z`;
+    const callDayMoment = moment(callDay).format();
+    const callTimeMoment = moment(callTime).format();
+    callBooked = `${callDayMoment.substr(0, callDayMoment.indexOf('T'))}T${callTimeMoment.substr(callTimeMoment.indexOf('T') + 1)}`;
   }
 
   try {
