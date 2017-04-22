@@ -3,12 +3,14 @@ mutation MakeClient(
   $nameId: String!
   $callBooked: String
   $meetingBooked: String
+  $comment: String
 ) {
   addClientToUser (
     userId: $userId
     nameId: $nameId
     callBooked: $callBooked
     meetingBooked: $meetingBooked
+    comment: $comment
   ) {
     id
     name {

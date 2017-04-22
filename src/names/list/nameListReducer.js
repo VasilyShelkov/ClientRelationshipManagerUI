@@ -39,7 +39,8 @@ export default (state = initialState, action) => {
         case 'ProtectName':
           return {
             ...state,
-            actionInProgress: initialState.actionInProgress,
+            protectedListToShow: initialState.protectedListToShow,
+            actionInProgress: initialState.actionInProgress
           };
         case 'MetWithProtected':
           return {

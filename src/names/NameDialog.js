@@ -4,7 +4,7 @@ import moment from 'moment';
 import { Field, reduxForm, getFormValues } from 'redux-form';
 import Dialog from 'material-ui/Dialog';
 import IconButton from 'material-ui/IconButton';
-import { DatePicker, TimePicker } from 'redux-form-material-ui';
+import { DatePicker, TimePicker, TextField } from 'redux-form-material-ui';
 import ClearIcon from 'material-ui/svg-icons/content/clear';
 import { red500 } from 'material-ui/styles/colors';
 
@@ -139,6 +139,19 @@ export const NameDialog = ({
             </div>
           </div>
         }
+
+        <div>
+          <Field
+            name="comment"
+            component={TextField}
+            floatingLabelText="Write a comment..."
+            floatingLabelFixed
+            fullWidth
+            multiLine
+            rows={2}
+            rowsMax={4}
+          />
+        </div>
       </form>
     </Dialog>
   );

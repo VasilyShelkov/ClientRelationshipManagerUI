@@ -3,12 +3,14 @@ mutation MetWithProtected(
   $protectedId: String!
   $metWith: String!
   $meetingBooked: String
+  $comment: String
 ) {
   editProtectedName (
     userId: $userId
     protectedId: $protectedId
     meetingBooked: $meetingBooked
     metWith: $metWith
+    comment: $comment
   ) {
     id
     name {

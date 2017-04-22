@@ -33,7 +33,7 @@ export default ({
             <div className="Comment__time">
               <div>{moment(updated_at).fromNow()}</div>
               &nbsp;·&nbsp;
-              {created_at !== updated_at ? <div>Edited</div> : ''}
+              {moment(created_at).isSame(updated_at, 'second') ? '' : <div>Edited</div>}
             </div>
             {
               visibility === 'private' ?

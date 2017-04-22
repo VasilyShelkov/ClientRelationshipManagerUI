@@ -4,6 +4,7 @@ mutation ProtectName (
   $userId: String!
   $callBooked: String
   $meetingBooked: String
+  $comment: String
 ) { 
   protectNameToUser (
     unprotectedId: $unprotectedId
@@ -11,6 +12,7 @@ mutation ProtectName (
     userId: $userId
     callBooked: $callBooked
     meetingBooked: $meetingBooked
+    comment: $comment
   ) {
     id
     name {

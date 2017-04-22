@@ -8,6 +8,7 @@ import UnprotectName from '../UnprotectName.gql';
 import RemoveProtectedName from './RemoveProtectedName.gql';
 import MakeClient from './MakeClient.gql';
 import MetWithProtected from './MetWithProtected.gql';
+import GetNameComments from '../comments/GetNameComments.gql';
 
 import { showNotification } from '../../../app/appActions';
 import { performingNameAction } from '../../nameActions';
@@ -43,7 +44,7 @@ const SelectedProtectedNameWithMutations = compose(
   graphql(MakeClient, {
     props: ({ ownProps, mutate }) => ({
       ...ownProps,
-      onSubmitMakeClient: async ({ callDay, callTime, meetingDay, meetingTime }) => {
+      onSubmitMakeClient: async ({ callDay, callTime, meetingDay, meetingTime, comment }) => {
         const { selectedProtected } = ownProps;
 
         let callBooked = null;
@@ -67,7 +68,8 @@ const SelectedProtectedNameWithMutations = compose(
               userId: ownProps.id,
               nameId: selectedProtected.name.id,
               callBooked,
-              meetingBooked
+              meetingBooked,
+              comment
             },
             updateQueries: {
               GetClients: (previousResult, { mutationResult }) => ({
@@ -88,12 +90,22 @@ const SelectedProtectedNameWithMutations = compose(
           );
         }
       }
+    }),
+    options: props => ({
+      refetchQueries: [{
+        query: GetNameComments,
+        variables: {
+          userId: props.id,
+          id: props.selectedProtected && props.selectedProtected.name.id
+        },
+      }]
     })
+
   }),
   graphql(MetWithProtected, {
     props: ({ ownProps, mutate }) => ({
       ...ownProps,
-      onSubmitMeetProtected: async ({ pastMeetingDay, pastMeetingTime }) => {
+      onSubmitMeetProtected: async ({ pastMeetingDay, pastMeetingTime, comment }) => {
         const { selectedProtected } = ownProps;
 
         let metWith = null;
@@ -110,7 +122,8 @@ const SelectedProtectedNameWithMutations = compose(
               userId: ownProps.id,
               protectedId: selectedProtected.id,
               metWith,
-              meetingBooked: null
+              meetingBooked: null,
+              comment
             }
           });
         } catch (error) {
@@ -119,6 +132,15 @@ const SelectedProtectedNameWithMutations = compose(
           );
         }
       }
+    }),
+    options: props => ({
+      refetchQueries: [{
+        query: GetNameComments,
+        variables: {
+          userId: props.id,
+          id: props.selectedProtected && props.selectedProtected.name.id
+        },
+      }]
     })
   }),
   graphql(UnprotectName, {

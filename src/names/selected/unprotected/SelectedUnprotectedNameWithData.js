@@ -6,6 +6,7 @@ import { red500 } from 'material-ui/styles/colors';
 
 import RemoveUnprotectedName from './RemoveUnprotectedName.gql';
 import ProtectName from './ProtectName.gql';
+import GetNameComments from '../comments/GetNameComments.gql';
 
 import { showNotification } from '../../../app/appActions';
 import {
@@ -39,7 +40,7 @@ const SelectedUnprotectedNameWithMutations = compose(
   graphql(ProtectName, {
     props: ({ ownProps, mutate }) => ({
       ...ownProps,
-      onSubmitProtectName: async ({ callDay, callTime, meetingDay, meetingTime }) => {
+      onSubmitProtectName: async ({ callDay, callTime, meetingDay, meetingTime, comment }) => {
         const { selectedUnprotected } = ownProps;
 
         let callBooked = null;
@@ -64,7 +65,8 @@ const SelectedUnprotectedNameWithMutations = compose(
               unprotectedId: selectedUnprotected.id,
               nameId: selectedUnprotected.name.id,
               callBooked,
-              meetingBooked
+              meetingBooked,
+              comment
             },
             updateQueries: {
               GetProtectedNames: (previousResult, { mutationResult }) => ({
@@ -85,6 +87,15 @@ const SelectedUnprotectedNameWithMutations = compose(
           );
         }
       }
+    }),
+    options: props => ({
+      refetchQueries: [{
+        query: GetNameComments,
+        variables: {
+          userId: props.id,
+          id: props.selectedUnprotected && props.selectedUnprotected.name.id
+        },
+      }]
     })
   })
 )(SelectedUnprotectedName);
