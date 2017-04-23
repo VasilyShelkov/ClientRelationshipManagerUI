@@ -60,7 +60,7 @@ Scenario('user edits company details for protected', function* (I) {
   });
 });
 
-Scenario.only('user edits company details for met with protected', function* (I) {
+Scenario('user edits company details for met with protected', function* (I) {
   I.login();
   const newMetWithProtectedName = yield I.createFakeName();
   I.createMetWithProtectedName(newMetWithProtectedName);

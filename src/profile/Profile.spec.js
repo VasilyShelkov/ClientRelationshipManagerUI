@@ -17,7 +17,8 @@ const setup = ({
       lastName: 'testLastName',
       phone: '07123456789',
       email: 'test@email.com',
-      updated_at: 'today',
+      protectedNamesLimit: 150,
+      updated_at: 'today'
     },
     editingProfile,
     onCancelEditProfile,
@@ -40,12 +41,13 @@ describe('src/profile/Profile.js', () => {
 
     expect(wrapper.find(EditProfile).exists()).to.be.false;
     expect(ShowProfileComponent.exists()).to.be.true;
-    expect(ShowProfileComponent.prop('userId')).to.equal(props.user.id);
+    expect(ShowProfileComponent.prop('id')).to.equal(props.user.id);
     expect(ShowProfileComponent.prop('firstName')).to.equal(props.user.firstName);
     expect(ShowProfileComponent.prop('lastName')).to.equal(props.user.lastName);
     expect(ShowProfileComponent.prop('phone')).to.equal(props.user.phone);
     expect(ShowProfileComponent.prop('email')).to.equal(props.user.email);
-    expect(ShowProfileComponent.prop('updatedAt')).to.equal(props.user.updated_at);
+    expect(ShowProfileComponent.prop('updated_at')).to.equal(props.user.updated_at);
+    expect(ShowProfileComponent.prop('protectedNamesLimit')).to.equal(props.user.protectedNamesLimit);
     expect(ShowProfileComponent.parent().hasClass('col-12')).to.be.true;
   });
 

@@ -29,7 +29,7 @@ import {
 import { EDIT_IN_PROGRESS } from '../profileReducer';
 
 export const ShowProfile = ({
-  userId, firstName, lastName, email, phone, updatedAt, protectedNamesLimit,
+  id, firstName, lastName, email, phone, updated_at, protectedNamesLimit,
   newUserNotification, editingPassword,
   editSuccessProfileNotification, onEditProfile, onEditProfilePassword,
   onCancelEditProfilePassword, onRemoveNotification
@@ -76,7 +76,7 @@ export const ShowProfile = ({
       {
         editingPassword ?
           <EditPassword
-            userId={userId}
+            userId={id}
             editInProgress={editingPassword === EDIT_IN_PROGRESS}
             handleCancelEditProfilePassword={onCancelEditProfilePassword}
           />
@@ -120,7 +120,7 @@ export const ShowProfile = ({
       <div className="row justify-content-center">
         <Chip>
           <Avatar size={32} icon={<UpdatedIcon />} backgroundColor={cyan500} />
-          <strong>Last Updated</strong>: {moment(updatedAt).fromNow()}
+          <strong>Last Updated</strong>: {moment(updated_at).fromNow()}
         </Chip>
       </div>
     </div>
