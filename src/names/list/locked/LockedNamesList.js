@@ -11,12 +11,12 @@ import SelectedClientsWithData from '../../selected/client/SelectedClientsWithDa
 
 export default ({
   loading, names, nameListType, selectedName, selectedNameDrawerOpen,
-  nameActionInProgress, selectName,
+  nameActionInProgress, selectName, protectedNamesLimit,
   openEditProtectedNameMeetingDialog, openEditProtectedNameCallDialog,
 }) => (
   <div style={{ marginTop: '10px' }}>
     <div className={nameActionInProgress && 'names__content'}>
-      {getNameListHeader(nameListType, names && names.length)}
+      {getNameListHeader(nameListType, names && names.length, protectedNamesLimit)}
       <div>
         {
           !loading && names ?
@@ -52,13 +52,13 @@ export default ({
   </div>
 );
 
-const getNameListHeader = (nameListType, isMultipleNames) => {
+const getNameListHeader = (nameListType, isMultipleNames, protectedNamesLimit) => {
   if (nameListType === 'protected') {
     return (
       <NameListHeader
         countId="protectedNamesCount"
         nameCount={isMultipleNames}
-        title={`${isMultipleNames ? '/150' : ''} Protected Name${isMultipleNames ? 's' : ''}`}
+        title={`${isMultipleNames !== false && protectedNamesLimit ? `/${protectedNamesLimit}` : ''} Protected Name${isMultipleNames === 1 ? '' : 's'}`}
         Icon={ProtectedIcon}
       />
     );
@@ -69,7 +69,7 @@ const getNameListHeader = (nameListType, isMultipleNames) => {
       <NameListHeader
         countId="metWithProtectedNamesCount"
         nameCount={isMultipleNames}
-        title={` Met With Protected Name${isMultipleNames ? 's' : ''}`}
+        title={` Met With Protected Name${isMultipleNames === 1 ? '' : 's'}`}
         Icon={MetWithProtectedIcon}
       />
     );
@@ -79,7 +79,7 @@ const getNameListHeader = (nameListType, isMultipleNames) => {
     <NameListHeader
       countId="clientsCount"
       nameCount={isMultipleNames}
-      title={` Client${isMultipleNames ? 's' : ''}`}
+      title={` Client${isMultipleNames === 1 ? '' : 's'}`}
       Icon={ClientsIcon}
     />
   );

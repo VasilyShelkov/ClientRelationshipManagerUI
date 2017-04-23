@@ -9,7 +9,7 @@ import EditLockedName from '../EditLockedNameInfo';
 import { getNameByNameId } from '../../nameListShapeShifter';
 
 export default ({
-  id, loadingProtected, protectedNames,
+  id, loadingProtected, protectedNames, protectedNamesLimit,
   loadingMetWithProtected, metWithProtectedNames,
   selectedNameId, listToShow, changeShownProtectedList,
   onSubmitBookCall, onSubmitBookMeeting
@@ -44,6 +44,7 @@ export default ({
             selectedName={selectedProtected}
             selectedNameDrawerOpen={selectedProtectedNameDrawerOpen}
             nameListType="protected"
+            protectedNamesLimit={protectedNamesLimit}
           />
         </Tab>
 

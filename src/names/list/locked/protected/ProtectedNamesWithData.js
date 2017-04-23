@@ -4,6 +4,7 @@ import _ from 'lodash';
 import { red500 } from 'material-ui/styles/colors';
 
 import GetProtectedNames from './GetProtectedNames.gql';
+import GetProtectedNamesLimit from './GetProtectedNamesLimit.gql';
 import GetMetWithProtectedNames from './GetMetWithProtectedNames.gql';
 import BookCall from './BookCall.gql';
 import BookMeeting from './BookMeeting.gql';
@@ -94,6 +95,13 @@ const ProtectedNames = compose(
       ...ownProps
     })
   }),
+  graphql(GetProtectedNamesLimit, {
+    options: ({ id }) => ({ variables: { id } }),
+    props: ({ ownProps, data: { user } }) => ({
+      protectedNamesLimit: user && user.protectedNamesLimit,
+      ...ownProps
+    })
+  }),
   graphql(GetMetWithProtectedNames, {
     options: ({ id }) => ({
       variables: { id },
@@ -171,4 +179,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(ProtectedNames);
-

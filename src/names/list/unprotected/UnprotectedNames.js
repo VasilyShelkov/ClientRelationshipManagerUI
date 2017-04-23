@@ -30,7 +30,7 @@ export default ({
                 <h2>Create Unprotected Name</h2>
               :
                 <h2>
-                  <span id="unprotectedNamesCount">{names ? names.length : ''}</span> Unprotected Name{!names || names.length > 1 ? 's' : ''}
+                  <span id="unprotectedNamesCount">{names ? names.length : ''}</span> Unprotected Name{!names || names.length === 1 ? '' : 's'}
                 </h2>
             }
             {
