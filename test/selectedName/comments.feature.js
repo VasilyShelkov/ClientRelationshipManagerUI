@@ -266,7 +266,7 @@ Scenario('Add public comment for an Protected name', function* (I) {
   });
 });
 
-Scenario('Edit comment for an Protected name', function* (I) {
+Scenario('Edit comment for a Protected name', function* (I) {
   I.login();
   const newProtectedName = yield I.createFakeName();
   I.createProtectedName(newProtectedName);
@@ -339,7 +339,7 @@ Scenario('Edit comment for an Protected name', function* (I) {
   });
 });
 
-Scenario('Delete comment for an Protected name', function* (I) {
+Scenario('Delete comment for a Protected name', function* (I) {
   I.login();
   const newProtectedName = yield I.createFakeName();
   I.createProtectedName(newProtectedName);
@@ -368,7 +368,7 @@ Scenario('Delete comment for an Protected name', function* (I) {
   I.waitForVisible('#appNotification');
   I.wait(1);
   within('#name-comments', () => {
-    I.dontSeeElement('.Comment');
+    I.dontSee(newComment);
   });
 });
 
@@ -554,7 +554,7 @@ Scenario('Delete comment for a Met With Protected name', function* (I) {
   I.waitForVisible('#appNotification');
   I.wait(1);
   within('#name-comments', () => {
-    I.dontSeeElement('.Comment');
+    I.dontSee(newComment);
   });
 });
 
@@ -740,6 +740,6 @@ Scenario('Delete comment for a Client', function* (I) {
   I.waitForVisible('#appNotification');
   I.wait(1);
   within('#name-comments', () => {
-    I.dontSeeElement('.Comment');
+    I.dontSee(newComment);
   });
 });
