@@ -6,6 +6,7 @@ import { red500 } from 'material-ui/styles/colors';
 
 import BookClientCall from './BookCall.gql';
 import BookClientMeeting from './BookMeeting.gql';
+import GetNameComments from '../../../selected/comments/GetNameComments.gql';
 import { onSubmitBookCall, onSubmitBookMeeting } from '../lockedMutations';
 import { performingNameAction, } from '../../../nameActions';
 import { showNotification } from '../../../../app/appActions';
@@ -42,6 +43,15 @@ const ClientsWithEditMutations = compose(
         showErrorNotification: ownProps.showErrorNotification
       }),
       ...ownProps
+    }),
+    options: props => ({
+      refetchQueries: [{
+        query: GetNameComments,
+        variables: {
+          userId: props.id,
+          id: props.selectedNameId
+        },
+      }]
     })
   }),
   graphql(BookClientMeeting, {
@@ -56,7 +66,17 @@ const ClientsWithEditMutations = compose(
         showErrorNotification: ownProps.showErrorNotification
       }),
       ...ownProps
+    }),
+    options: props => ({
+      refetchQueries: [{
+        query: GetNameComments,
+        variables: {
+          userId: props.id,
+          id: props.selectedNameId
+        },
+      }]
     })
+
   })
 )(ClientLayout);
 

@@ -6,22 +6,21 @@
 .Comment__header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 
 .Comment__header__container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  flex-grow: 1;
 }
 
 .Comment__header__container__text {
   display: flex;
   flex-direction: column;
   padding-left: 10px;
-  max-width: 125px;
   overflow: hidden;
   text-overflow: ellipsis;
+  flex-grow: 1;
 }
 
 .Comment__header__container__text__username {
@@ -29,6 +28,7 @@
   max-width: 125px;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .Comment__header__container__text__title {

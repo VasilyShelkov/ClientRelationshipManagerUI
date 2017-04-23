@@ -2,11 +2,13 @@ mutation BookMeeting(
   $userId: String!
   $protectedId: String!
   $meetingBooked: String
+  $comment: String
 ){
   editProtectedName (
     userId: $userId
     protectedId: $protectedId
     meetingBooked: $meetingBooked
+    comment: $comment
   ) {
     id
     meetingBooked

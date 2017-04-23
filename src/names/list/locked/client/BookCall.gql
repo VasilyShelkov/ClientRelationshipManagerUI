@@ -2,11 +2,13 @@ mutation BookClientCall(
   $userId: String!
   $clientId: String!
   $callBooked: String
+  $comment: String
 ){
   editClient (
     userId: $userId
     clientId: $clientId
     callBooked: $callBooked
+    comment: $comment
   ) {
     id
     name {

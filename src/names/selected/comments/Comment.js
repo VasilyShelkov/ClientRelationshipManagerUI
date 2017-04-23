@@ -33,7 +33,9 @@ export default class Comment extends Component {
       <div className="Comment">
         <div className="Comment__header">
           <div className="Comment__header__container">
-            <Avatar>{commentUser.firstName[0].toUpperCase()}</Avatar>
+            <Avatar style={{ minWidth: '40px' }}>
+              {commentUser.firstName[0].toUpperCase()}
+            </Avatar>
 
             <div className="Comment__header__container__text">
               <div className="Comment__header__container__text__username">

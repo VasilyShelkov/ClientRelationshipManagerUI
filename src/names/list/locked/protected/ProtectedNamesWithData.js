@@ -7,6 +7,7 @@ import GetProtectedNames from './GetProtectedNames.gql';
 import GetMetWithProtectedNames from './GetMetWithProtectedNames.gql';
 import BookCall from './BookCall.gql';
 import BookMeeting from './BookMeeting.gql';
+import GetNameComments from '../../../selected/comments/GetNameComments.gql';
 
 import { onSubmitBookCall, onSubmitBookMeeting } from '../lockedMutations';
 import { APOLLO_MUTATION_RESULT } from '../../../../app/thirdPartyActions';
@@ -116,6 +117,15 @@ const ProtectedNames = compose(
         showErrorNotification: ownProps.showErrorNotification
       }),
       ...ownProps
+    }),
+    options: props => ({
+      refetchQueries: [{
+        query: GetNameComments,
+        variables: {
+          userId: props.id,
+          id: props.selectedNameId
+        },
+      }]
     })
   }),
   graphql(BookMeeting, {
@@ -130,6 +140,15 @@ const ProtectedNames = compose(
         showErrorNotification: ownProps.showErrorNotification
       }),
       ...ownProps
+    }),
+    options: props => ({
+      refetchQueries: [{
+        query: GetNameComments,
+        variables: {
+          userId: props.id,
+          id: props.selectedNameId
+        },
+      }]
     })
   })
 )(ProtectedNamesLayout);

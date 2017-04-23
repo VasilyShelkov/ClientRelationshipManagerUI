@@ -3,7 +3,7 @@ import moment from 'moment';
 export const onSubmitBookMeeting = ({
   mutate, userId, names, editMeetingDialogOpen, nameListTypeIdKey,
   performingNameAction, showErrorNotification
-}) => async ({ meetingDay, meetingTime }) => {
+}) => async ({ meetingDay, meetingTime, comment }) => {
   const selectedProtected = names.find(name => name.name.id === editMeetingDialogOpen);
 
   let meetingBooked = null;
@@ -19,7 +19,8 @@ export const onSubmitBookMeeting = ({
       variables: {
         userId,
         [nameListTypeIdKey]: selectedProtected.id,
-        meetingBooked
+        meetingBooked,
+        comment
       }
     });
   } catch (error) {
@@ -32,7 +33,7 @@ export const onSubmitBookMeeting = ({
 export const onSubmitBookCall = ({
   mutate, userId, names, editCallDialogOpen, nameListTypeIdKey,
   performingNameAction, showErrorNotification
-}) => async ({ callDay, callTime }) => {
+}) => async ({ callDay, callTime, comment }) => {
   const selectedProtected = names.find(name => name.name.id === editCallDialogOpen);
 
   let callBooked = null;
@@ -49,6 +50,7 @@ export const onSubmitBookCall = ({
         userId,
         [nameListTypeIdKey]: selectedProtected.id,
         callBooked,
+        comment
       }
     });
   } catch (error) {

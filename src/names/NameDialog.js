@@ -7,6 +7,7 @@ import IconButton from 'material-ui/IconButton';
 import { DatePicker, TimePicker, TextField } from 'redux-form-material-ui';
 import ClearIcon from 'material-ui/svg-icons/content/clear';
 import { red500 } from 'material-ui/styles/colors';
+import { required } from '../shared/FormElements';
 
 export const NameDialog = ({
   formValues, open, title, displayName, actions, close, handleSubmit,
@@ -46,6 +47,7 @@ export const NameDialog = ({
                 minDate={moment().toDate()}
                 formatDate={date => moment(date).format('LL')}
                 hintText="Day of call"
+                validate={Object.keys(fieldsToShow).length === 2 && required}
                 autoOk
               />
             </div>
@@ -55,6 +57,7 @@ export const NameDialog = ({
                 component={TimePicker}
                 hintText="At what time ?"
                 disabled={!(formValues && formValues.callDay)}
+                validate={Object.keys(fieldsToShow).length === 2 && required}
                 pedantic
               />
             </div>
@@ -86,6 +89,7 @@ export const NameDialog = ({
                 minDate={moment().toDate()}
                 formatDate={date => moment(date).format('LL')}
                 hintText="Day of booked meeting"
+                validate={Object.keys(fieldsToShow).length === 2 && required}
                 autoOk
               />
             </div>
@@ -95,6 +99,7 @@ export const NameDialog = ({
                 component={TimePicker}
                 hintText="At what time ?"
                 disabled={!(formValues && formValues.meetingDay)}
+                validate={Object.keys(fieldsToShow).length === 2 && required}
                 pedantic
               />
             </div>
@@ -125,6 +130,7 @@ export const NameDialog = ({
                 maxDate={moment().toDate()}
                 formatDate={date => moment(date).format('LL')}
                 hintText="When did you meet ?"
+                validate={Object.keys(fieldsToShow).length === 2 && required}
                 autoOk
               />
             </div>
@@ -134,6 +140,7 @@ export const NameDialog = ({
                 component={TimePicker}
                 hintText="At what time ?"
                 disabled={!(formValues && formValues.pastMeetingDay)}
+                validate={Object.keys(fieldsToShow).length === 2 && required}
                 pedantic
               />
             </div>
