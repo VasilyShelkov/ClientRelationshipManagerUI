@@ -29,14 +29,7 @@ export default ({
                 editInProgess={editingProfile === EDIT_IN_PROGRESS}
               />
             :
-              <ShowProfileWithData
-                userId={user.id}
-                firstName={user.firstName}
-                lastName={user.lastName}
-                phone={user.phone}
-                email={user.email}
-                updatedAt={user.updated_at}
-              />
+              <ShowProfileWithData {...user} />
           }
         </div>
         <CompanyProfile user={user} display={displayCompany} />

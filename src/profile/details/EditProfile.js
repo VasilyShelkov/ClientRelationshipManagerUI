@@ -1,16 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { graphql } from 'react-apollo';
-import { Field, reduxForm, SubmissionError } from 'redux-form';
+import {
+  Field, reduxForm, SubmissionError, formValueSelector
+} from 'redux-form';
+import { TextField, Slider } from 'redux-form-material-ui';
 import Paper from 'material-ui/Paper';
 
 import EditUserDetails from './EditUserDetails.gql';
 import { checkIfAnyKeysDifferent } from '../../shared/utils';
 
-import { renderTextField, required, emailFormat } from '../../shared/FormElements';
+import { required, emailFormat } from '../../shared/FormElements';
 import StandardForm from '../../shared/StandardForm';
 
 const EditProfile = ({
-  handleSubmit, handleCancelEditProfile, error, editInProgess
+  currentProtectedNamesLimit, handleSubmit, handleCancelEditProfile,
+  error, editInProgess
 }) => (
   <Paper zDepth={2} >
     <StandardForm
@@ -22,41 +27,66 @@ const EditProfile = ({
         <Field
           key="profile__firstName"
           name="firstName"
-          component={renderTextField}
-          label="First name"
+          component={TextField}
+          floatingLabelText="First name"
           validate={required}
           fullWidth
         />,
         <Field
           key="profile__lastName"
           name="lastName"
-          component={renderTextField}
-          label="Last Name"
+          component={TextField}
+          floatingLabelText="Last Name"
           validate={required}
           fullWidth
         />,
         <Field
           key="profile__email"
           name="email"
-          component={renderTextField}
-          label="Email"
+          component={TextField}
+          floatingLabelText="Email"
           validate={[required, emailFormat]}
           fullWidth
         />,
         <Field
           key="profile__phone"
           name="phone"
-          component={renderTextField}
-          label="Phone"
+          component={TextField}
+          floatingLabelText="Phone"
           validate={required}
           fullWidth
-        />
+        />,
+        <div style={{ marginTop: '10px', textAlign: 'center', width: '100%' }}>
+          <div>Protected Names Limit</div>
+          <div>{currentProtectedNamesLimit}</div>
+          <div>
+            <Field
+              key="profile__protectedNamesLimit"
+              name="protectedNamesLimit"
+              sliderStyle={{ marginBottom: '0px' }}
+              component={Slider}
+              defaultValue={currentProtectedNamesLimit}
+              format={null}
+              min={0}
+              max={1000}
+              step={1}
+            />
+          </div>
+        </div>
       ]}
     />
   </Paper>
 );
 
-const EditProfileForm = reduxForm({ form: 'profile' })(EditProfile);
+const selector = formValueSelector('profile');
+
+const FormWithSelectors = connect(
+  state => ({ currentProtectedNamesLimit: selector(state, 'protectedNamesLimit') })
+)(EditProfile);
+
+const EditProfileForm = reduxForm({
+  form: 'profile'
+})(FormWithSelectors);
 
 export default graphql(EditUserDetails, {
   props: ({ ownProps, mutate }) => ({

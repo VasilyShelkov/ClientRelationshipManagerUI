@@ -18,6 +18,7 @@ import UpdatedIcon from 'material-ui/svg-icons/action/update';
 import SuccessfulUpdateIcon from 'material-ui/svg-icons/action/done';
 import SuccessfullyCreatedIcon from 'material-ui/svg-icons/action/check-circle';
 import { cyan500, green900, green700, lightGreen300 } from 'material-ui/styles/colors';
+import { ProtectedIcon } from '../../app/icons';
 
 import Notification from '../../shared/Notification';
 import EditPassword from './EditPassword';
@@ -28,7 +29,8 @@ import {
 import { EDIT_IN_PROGRESS } from '../profileReducer';
 
 export const ShowProfile = ({
-  userId, firstName, lastName, email, phone, updatedAt, editingPassword, newUserNotification,
+  userId, firstName, lastName, email, phone, updatedAt, protectedNamesLimit,
+  newUserNotification, editingPassword,
   editSuccessProfileNotification, onEditProfile, onEditProfilePassword,
   onCancelEditProfilePassword, onRemoveNotification
 }) => (
@@ -53,6 +55,11 @@ export const ShowProfile = ({
     <List >
       <Divider />
 
+      <ListItem
+        leftAvatar={<Avatar icon={<ProtectedIcon />} backgroundColor={cyan500} />}
+        primaryText={`Limit: ${protectedNamesLimit}`}
+        disabled
+      />
       <ListItem
         leftAvatar={<Avatar icon={<EmailIcon />} backgroundColor={cyan500} />}
         primaryText={email}
