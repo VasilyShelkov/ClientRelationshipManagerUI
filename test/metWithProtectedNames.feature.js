@@ -1,6 +1,6 @@
 Feature('Met with protected names', { retries: 3 });
 
-Scenario.only('user books a meeting on the met with protected name', function* (I) {
+Scenario('user books a meeting on the met with protected name', function* (I) {
   I.login();
   const newMetWithProtectedName = yield I.createFakeName();
   I.createMetWithProtectedName(newMetWithProtectedName);
