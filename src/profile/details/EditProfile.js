@@ -14,8 +14,8 @@ import { required, emailFormat } from '../../shared/FormElements';
 import StandardForm from '../../shared/StandardForm';
 
 const EditProfile = ({
-  currentProtectedNamesLimit, handleSubmit, handleCancelEditProfile,
-  error, editInProgess
+  currentProtectedNamesLimit, isAdmin, error, editInProgess,
+  handleSubmit, handleCancelEditProfile
 }) => (
   <Paper zDepth={2} >
     <StandardForm
@@ -56,23 +56,25 @@ const EditProfile = ({
           validate={required}
           fullWidth
         />,
-        <div style={{ marginTop: '10px', textAlign: 'center', width: '100%' }}>
-          <div>Protected Names Limit</div>
-          <div>{currentProtectedNamesLimit}</div>
-          <div>
-            <Field
-              key="profile__protectedNamesLimit"
-              name="protectedNamesLimit"
-              sliderStyle={{ marginBottom: '0px' }}
-              component={Slider}
-              defaultValue={currentProtectedNamesLimit}
-              format={null}
-              min={0}
-              max={1000}
-              step={1}
-            />
+        isAdmin && (
+          <div style={{ marginTop: '10px', textAlign: 'center', width: '100%' }}>
+            <div>Protected Names Limit</div>
+            <div>{currentProtectedNamesLimit}</div>
+            <div>
+              <Field
+                key="profile__protectedNamesLimit"
+                name="protectedNamesLimit"
+                sliderStyle={{ marginBottom: '0px' }}
+                component={Slider}
+                defaultValue={currentProtectedNamesLimit}
+                format={null}
+                min={0}
+                max={1000}
+                step={1}
+              />
+            </div>
           </div>
-        </div>
+        )
       ]}
     />
   </Paper>
@@ -81,7 +83,10 @@ const EditProfile = ({
 const selector = formValueSelector('profile');
 
 const FormWithSelectors = connect(
-  state => ({ currentProtectedNamesLimit: selector(state, 'protectedNamesLimit') })
+  state => ({
+    currentProtectedNamesLimit: selector(state, 'protectedNamesLimit'),
+    isAdmin: state.account.accountType === 'admin'
+  })
 )(EditProfile);
 
 const EditProfileForm = reduxForm({
