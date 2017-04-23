@@ -41,7 +41,9 @@ export default class NamesList extends Component {
       namesFromSearch = this.state.fuse.search(this.state.searchValue);
     }
 
-    const sortedNames = sortNamesByType(this.state.sortBy, namesFromSearch);
+    const sortedNames = sortNamesByType(
+      this.state.sortBy, namesFromSearch, id === 'metWithProtectedNamesList'
+    );
 
     let createdText = 'created';
     switch (id) {

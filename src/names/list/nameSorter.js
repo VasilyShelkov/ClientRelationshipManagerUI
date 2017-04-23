@@ -1,16 +1,21 @@
 import moment from 'moment';
 
-export const sortNamesByType = (sortType, names) => {
-  let unsortedNamesList = names.map(a => a);
+export const sortNamesByType = (
+  sortType, unsortedNamesList, metWithProtected = false
+) => {
   switch (sortType) {
-    case sortTypes.createdAsc:
+    case sortTypes.createdAsc: {
+      const createdKey = metWithProtected ? 'metWith' : 'created_at';
       return unsortedNamesList.sort((nameA, nameB) =>
-        moment(nameB.created_at).diff(moment(nameA.created_at))
+        moment(nameB[createdKey]).diff(moment(nameA[createdKey]))
       );
-    case sortTypes.createdDesc:
+    }
+    case sortTypes.createdDesc: {
+      const createdKey = metWithProtected ? 'metWith' : 'created_at';
       return unsortedNamesList.sort((nameA, nameB) =>
-        moment(nameA.created_at).diff(moment(nameB.created_at))
+        moment(nameA[createdKey]).diff(moment(nameB[createdKey]))
       );
+    }
     case sortTypes.nameAsc:
       return unsortedNamesList.sort((nameA, nameB) => {
         const nameAFull = nameA.name.firstName.toLowerCase();
