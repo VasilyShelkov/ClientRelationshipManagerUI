@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker: 
-      - image: node-yarn
+      - image: kkarczmarczyk/node-yarn:7.4
       - image: selenium/standalone-chrome:3.3.0
     working_directory: ~/ClientRelationshipManagerUI
     steps:
