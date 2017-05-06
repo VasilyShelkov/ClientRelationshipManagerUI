@@ -90,7 +90,7 @@ export const SideBar = ({
 const mapStateToProps = state => ({
   isAdmin: state.account.accountType === 'admin',
   open: state.account.sideBarOpen,
-  currentPage: state.routing.locationBeforeTransitions.pathname,
+  currentPage: state.routing.location.pathname,
   currentUserId: state.account.id,
   profiileUserId: state.profile.id
 });

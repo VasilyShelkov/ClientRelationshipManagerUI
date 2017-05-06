@@ -1,9 +1,13 @@
 import React from 'react';
+import { Switch, Route } from 'react-router';
 import { connect } from 'react-redux';
 import withWidth, { LARGE } from 'material-ui/utils/withWidth';
 import Snackbar from 'material-ui/Snackbar';
 
 import SideBarWithData from './navigation/SideBar';
+import ProfileWithData from '../profile/ProfileWithData';
+import AddUserFormWithData from '../users/AddUserForm';
+import NameTypeList from '../names/NameTypeList';
 import { closeNotification } from './appActions';
 
 const mapStateToProps = state => ({
@@ -17,14 +21,19 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(
   withWidth()(({
-    children, width, showNotification, notificationColor, closeNotificationMessage
+    match, width, showNotification, notificationColor, closeNotificationMessage
   }) => (
     <div>
       <SideBarWithData width={width} />
 
       <div style={width === LARGE ? { paddingLeft: 256 } : {}}>
-        {children}
+        <Switch>
+          <Route exact path={`${match.path}/(users)?/:userName?/profile`} component={ProfileWithData} />
+          <Route exact path={`${match.path}/users/add`} component={AddUserFormWithData} />
+          <Route path={`${match.path}/names`} component={NameTypeList} />
+        </Switch>
       </div>
+
       <Snackbar
         id="appNotification"
         open={showNotification}

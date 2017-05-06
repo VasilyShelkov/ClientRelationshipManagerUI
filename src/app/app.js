@@ -48,6 +48,11 @@ const render = (Component) => {
 render(Root);
 
 if (module.hot) {
+  module.hot.dispose(() => {
+    // Force Apollo to fetch the latest data from the server
+    delete window.__APOLLO_STATE__;
+  });
+
   module.hot.accept('./Root', () => { render(Root); });
 
   module.hot.accept('./store', () => {
