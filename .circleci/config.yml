@@ -28,14 +28,14 @@ jobs:
 
       - run:
           name: Build against Staging
-          command: npm run build:staging
+          command: yarn run build:staging
       - run:
           name: Start server
-          command: npm run start:server-only
+          command: yarn run start:server-only
           background: true
       - run:
           name: Run Feature tests
-          command: npm run test:feature:staging
+          command: yarn run test:feature:staging
 
       - add_ssh_keys:
           fingerprints:
