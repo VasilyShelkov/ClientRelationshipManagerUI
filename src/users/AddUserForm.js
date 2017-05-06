@@ -11,11 +11,9 @@ import AddUser from './AddUser';
 
 const selector = formValueSelector('newUser');
 
-const AddUserWithFormSelector = connect(
-  state => ({
-    currentProtectedNamesLimit: selector(state, 'protectedNamesLimit')
-  })
-)(AddUser);
+const AddUserWithFormSelector = connect(state => ({
+  currentProtectedNamesLimit: selector(state, 'protectedNamesLimit')
+}))(AddUser);
 
 const AddUserForm = reduxForm({
   form: 'newUser',

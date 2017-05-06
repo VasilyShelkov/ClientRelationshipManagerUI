@@ -10,9 +10,16 @@ import SelectedProtectedNameWithData from '../../selected/protected/SelectedProt
 import SelectedClientsWithData from '../../selected/client/SelectedClientsWithData';
 
 export default ({
-  loading, names, nameListType, selectedName, selectedNameDrawerOpen,
-  nameActionInProgress, selectName, protectedNamesLimit,
-  openEditProtectedNameMeetingDialog, openEditProtectedNameCallDialog,
+  loading,
+  names,
+  nameListType,
+  selectedName,
+  selectedNameDrawerOpen,
+  nameActionInProgress,
+  selectName,
+  protectedNamesLimit,
+  openEditProtectedNameMeetingDialog,
+  openEditProtectedNameCallDialog
 }) => (
   <div style={{ marginTop: '10px' }}>
     <div className={nameActionInProgress && 'names__content'}>

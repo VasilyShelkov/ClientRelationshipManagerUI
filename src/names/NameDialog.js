@@ -22,15 +22,9 @@ export const NameDialog = ({
 }) => {
   const fieldsToShow = Object.keys(initialValues);
   return (
-    <Dialog
-      title={title}
-      actions={actions}
-      open={open}
-      onRequestClose={close}
-    >
+    <Dialog title={title} actions={actions} open={open} onRequestClose={close}>
       <form id="protectNameForm" onSubmit={handleSubmit}>
-        {
-          fieldsToShow.includes('callDay') &&
+        {fieldsToShow.includes('callDay') &&
           <div className="row">
             <div className="col-12" style={{ display: 'flex', alignItems: 'center' }}>
               Calling {displayName}?
@@ -146,8 +140,7 @@ export const NameDialog = ({
                 pedantic
               />
             </div>
-          </div>
-        }
+          </div>}
 
         <div>
           <Field

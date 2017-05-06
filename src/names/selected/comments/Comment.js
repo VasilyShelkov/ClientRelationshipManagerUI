@@ -12,16 +12,13 @@ import { grey400, red500, cyan500 } from 'material-ui/styles/colors';
 import CommentManipulator from './CommentManipulator';
 
 export default class Comment extends Component {
-  state = ({ editingComment: false });
+  state = { editingComment: false };
 
   showEditComment = () => this.setState(() => ({ editingComment: true }));
   hideEditComment = () => this.setState(() => ({ editingComment: false }));
 
   render() {
-    const {
-      userId, subject, commentUser, deleteComment,
-      ...propsForManipulator
-    } = this.props;
+    const { userId, subject, commentUser, deleteComment, ...propsForManipulator } = this.props;
 
     const menuIconButton = (
       <IconButton id="edit-or-delete-comment" touch>
@@ -46,30 +43,19 @@ export default class Comment extends Component {
               </div>
             </div>
           </div>
-          {
-            userId === commentUser.id && (
-              <IconMenu
-                iconButtonElement={menuIconButton}
-                anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-                targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-              >
-                <MenuItem
-                  id="edit-comment"
-                  onTouchTap={this.showEditComment}
-                  leftIcon={<EditIcon color={cyan500} />}
-                >
-                  Edit
-                </MenuItem>
-                <MenuItem
-                  id="delete-comment"
-                  onTouchTap={deleteComment}
-                  leftIcon={<DeleteName color={red500} />}
-                >
-                  Delete
-                </MenuItem>
-              </IconMenu>
-            )
-          }
+          {userId === commentUser.id &&
+            <IconMenu
+              iconButtonElement={menuIconButton}
+              anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+              targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+            >
+              <MenuItem id="edit-comment" onTouchTap={this.showEditComment} leftIcon={<EditIcon color={cyan500} />}>
+                Edit
+              </MenuItem>
+              <MenuItem id="delete-comment" onTouchTap={deleteComment} leftIcon={<DeleteName color={red500} />}>
+                Delete
+              </MenuItem>
+            </IconMenu>}
         </div>
         <CommentManipulator
           userId={userId}

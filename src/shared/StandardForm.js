@@ -27,14 +27,7 @@ export default ({ error, fields, editingInProgress, handleSubmit, handleCancel }
               : null}
 
             <div className={handleCancel ? 'col-6' : 'col-12'}>
-              <RaisedButton
-                id="standardSubmit"
-                primary
-                fullWidth
-                label="Save"
-                type="submit"
-                icon={<SaveIcon />}
-              />
+              <RaisedButton id="standardSubmit" primary fullWidth label="Save" type="submit" icon={<SaveIcon />} />
             </div>
           </div>}
     </form>

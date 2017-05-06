@@ -5,11 +5,7 @@ import ShowProfileWithData from './details/ShowProfile';
 import EditProfile from './details/EditProfile';
 import { EDIT_IN_PROGRESS } from './profileReducer';
 
-const setup = ({
-  editingProfile = false,
-  displayCompany = false,
-  onCancelEditProfile = () => (''),
-}) => {
+const setup = ({ editingProfile = false, displayCompany = false, onCancelEditProfile = () => '' }) => {
   const props = {
     user: {
       id: '123',

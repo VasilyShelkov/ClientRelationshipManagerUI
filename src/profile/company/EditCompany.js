@@ -13,15 +13,18 @@ import LoadingSpinner from '../../shared/LoadingSpinner';
 import StandardForm from '../../shared/StandardForm';
 
 const EditCompany = ({
-  existingCompanies, loading, error, editInProgress,
-  change, handleSubmit, handleCancelEditCompany,
+  existingCompanies,
+  loading,
+  error,
+  editInProgress,
+  change,
+  handleSubmit,
+  handleCancelEditCompany
 }) => (
-  <Paper zDepth={2} >
-    {
-      loading ?
-        <LoadingSpinner />
-      :
-        <StandardForm
+  <Paper zDepth={2}>
+    {loading
+      ? <LoadingSpinner />
+      : <StandardForm
           handleSubmit={handleSubmit}
           handleCancel={handleCancelEditCompany}
           error={error}
@@ -35,10 +38,8 @@ const EditCompany = ({
                 floatingLabelText="Company Name"
                 openOnFocus
                 filter={MUIAutoComplete.fuzzyFilter}
-                onNewRequest={(companyName) => {
-                  const companyInfo = existingCompanies.find(
-                    company => company.name === companyName
-                  );
+                onNewRequest={companyName => {
+                  const companyInfo = existingCompanies.find(company => company.name === companyName);
 
                   change('companyAddress', companyInfo.address);
                   change('companyPhone', companyInfo.phone);
@@ -70,8 +71,7 @@ const EditCompany = ({
               />
             </div>
           ]}
-        />
-    }
+        />}
   </Paper>
 );
 
@@ -80,7 +80,7 @@ const EditCompanyForm = reduxForm({ form: 'company' })(EditCompany);
 export default compose(
   graphql(EditCompanyDetails, {
     props: ({ ownProps, mutate }) => ({
-      onSubmit: async (values) => {
+      onSubmit: async values => {
         if (checkIfAnyKeysDifferent(ownProps.initialValues, values) > 0) {
           const { id, updated_at, ...formValues } = values;
           try {

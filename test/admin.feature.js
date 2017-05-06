@@ -1,6 +1,6 @@
 Feature('Administrator user', { retries: 3 });
 
-Scenario('can create new users', function* (I) {
+Scenario('can create new users', function*(I) {
   I.login();
   I.waitForElement('#createNewUser');
   const totalUsersBeforeAddingUser = yield I.grabTextFrom('#totalUserCount');
@@ -21,9 +21,7 @@ Scenario('can create new users', function* (I) {
 
   // profile check
   I.waitForElement('.Form__notification');
-  I.seeInCurrentUrl(
-    `account/users/${newUser.firstName.toLowerCase()}${newUser.lastName}/profile`
-  );
+  I.seeInCurrentUrl(`account/users/${newUser.firstName.toLowerCase()}${newUser.lastName}/profile`);
   I.see('Successfully created new user', '.Form__notification');
   I.see(`${parseInt(totalUsersBeforeAddingUser, 10) + 1} Users`);
   I.see(newUser.firstName);
@@ -46,7 +44,7 @@ Scenario('can create new users', function* (I) {
   I.see('**********');
 });
 
-Scenario('can edit company details', function* (I) {
+Scenario('can edit company details', function*(I) {
   I.login();
   I.waitForVisible('.Profile');
 
@@ -64,7 +62,7 @@ Scenario('can edit company details', function* (I) {
   I.see(newCompany.phone);
 });
 
-Scenario('can edit a different user details', function* (I) {
+Scenario('can edit a different user details', function*(I) {
   I.login();
   I.waitForElement('.Profile');
   const originalUser = yield I.createFakeUser();
@@ -85,7 +83,7 @@ Scenario('can edit a different user details', function* (I) {
   I.see(newUserDetails.phone);
 });
 
-Scenario('can edit a different user password', function* (I) {
+Scenario('can edit a different user password', function*(I) {
   I.login();
   I.waitForElement('.Profile');
   const originalUser = yield I.createFakeUser();

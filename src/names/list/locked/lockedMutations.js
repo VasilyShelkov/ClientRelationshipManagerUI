@@ -1,8 +1,13 @@
 import moment from 'moment';
 
 export const onSubmitBookMeeting = ({
-  mutate, userId, names, editMeetingDialogOpen, nameListTypeIdKey,
-  performingNameAction, showErrorNotification
+  mutate,
+  userId,
+  names,
+  editMeetingDialogOpen,
+  nameListTypeIdKey,
+  performingNameAction,
+  showErrorNotification
 }) => async ({ meetingDay, meetingTime, comment }) => {
   const selectedProtected = names.find(name => name.name.id === editMeetingDialogOpen);
 
@@ -29,8 +34,13 @@ export const onSubmitBookMeeting = ({
 };
 
 export const onSubmitBookCall = ({
-  mutate, userId, names, editCallDialogOpen, nameListTypeIdKey,
-  performingNameAction, showErrorNotification
+  mutate,
+  userId,
+  names,
+  editCallDialogOpen,
+  nameListTypeIdKey,
+  performingNameAction,
+  showErrorNotification
 }) => async ({ callDay, callTime, comment }) => {
   const selectedProtected = names.find(name => name.name.id === editCallDialogOpen);
 

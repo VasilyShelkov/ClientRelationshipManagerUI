@@ -16,14 +16,11 @@ export default class NamesList extends Component {
     this.state = {
       searchValue: '',
       sortBy: sortTypes.createdAsc,
-      fuse: new Fuse(
-        this.props.names,
-        { keys: ['name.firstName', 'name.lastName', 'name.phone', 'name.company'] }
-      )
+      fuse: new Fuse(this.props.names, { keys: ['name.firstName', 'name.lastName', 'name.phone', 'name.company'] })
     };
   }
 
-  updateSearch = (event) => {
+  updateSearch = event => {
     this.setState({ searchValue: event.target.value });
   };
 
@@ -31,9 +28,15 @@ export default class NamesList extends Component {
 
   render() {
     const {
-      id, names, selectedNameId, isProtected, selectedNameDrawerOpen,
-      showCreateNameForm = null, openNameDetails,
-      openEditProtectedNameMeetingDialog, openEditProtectedNameCallDialog,
+      id,
+      names,
+      selectedNameId,
+      isProtected,
+      selectedNameDrawerOpen,
+      showCreateNameForm = null,
+      openNameDetails,
+      openEditProtectedNameMeetingDialog,
+      openEditProtectedNameCallDialog
     } = this.props;
     let namesFromSearch = names;
 
@@ -41,9 +44,7 @@ export default class NamesList extends Component {
       namesFromSearch = this.state.fuse.search(this.state.searchValue);
     }
 
-    const sortedNames = sortNamesByType(
-      this.state.sortBy, namesFromSearch, id === 'metWithProtectedNamesList'
-    );
+    const sortedNames = sortNamesByType(this.state.sortBy, namesFromSearch, id === 'metWithProtectedNamesList');
 
     let createdText = 'created';
     switch (id) {
@@ -65,16 +66,12 @@ export default class NamesList extends Component {
 
     return (
       <div id={id}>
-        {
-          names.length ?
-            <div>
+        {names.length
+          ? <div>
               <NameOrganiser
                 searchValue={this.state.searchValue}
                 sortBy={this.state.sortBy}
-                searchResultsLength={
-                  (namesFromSearch.length !== names.length)
-                  && namesFromSearch.length
-                }
+                searchResultsLength={namesFromSearch.length !== names.length && namesFromSearch.length}
                 showProtectedNameOptions={isProtected}
                 selectedNameDrawerOpen={selectedNameDrawerOpen}
                 updateSearch={this.updateSearch}
@@ -83,33 +80,29 @@ export default class NamesList extends Component {
               <div style={{ overflow: 'auto', maxHeight: 400 }}>
                 <ReactList
                   length={sortedNames.length}
-                  itemRenderer={
-                    (index, key) => {
-                      const typedName = sortedNames[index];
-                      return (
-                        <Name
-                          id={`name-${key}`}
-                          createdText={createdText}
-                          key={`name-${index}`}
-                          selected={typedName.name.id === selectedNameId}
-                          showMoreDetails={() => openNameDetails(typedName.name.id)}
-                          editProtectedCall={() => openEditProtectedNameCallDialog(typedName.name.id)}
-                          editProtectedMeeting={() => openEditProtectedNameMeetingDialog(typedName.name.id)}
-                          isProtected={isProtected}
-                          selectedNameDrawerOpen={selectedNameDrawerOpen}
-                          {...typedName}
-                        />
-                      );
-                    }
-                  }
+                  itemRenderer={(index, key) => {
+                    const typedName = sortedNames[index];
+                    return (
+                      <Name
+                        id={`name-${key}`}
+                        createdText={createdText}
+                        key={`name-${index}`}
+                        selected={typedName.name.id === selectedNameId}
+                        showMoreDetails={() => openNameDetails(typedName.name.id)}
+                        editProtectedCall={() => openEditProtectedNameCallDialog(typedName.name.id)}
+                        editProtectedMeeting={() => openEditProtectedNameMeetingDialog(typedName.name.id)}
+                        isProtected={isProtected}
+                        selectedNameDrawerOpen={selectedNameDrawerOpen}
+                        {...typedName}
+                      />
+                    );
+                  }}
                 />
               </div>
             </div>
-            :
-            <div>
-              {
-                showCreateNameForm ?
-                  <RaisedButton
+          : <div>
+              {showCreateNameForm
+                ? <RaisedButton
                     id="createUnprotectedName"
                     onClick={showCreateNameForm}
                     labelStyle={{ color: fullWhite }}
@@ -118,11 +111,8 @@ export default class NamesList extends Component {
                     icon={<AddIcon color={fullWhite} />}
                     fullWidth
                   />
-                  :
-                  'You currently have none'
-              }
-            </div>
-        }
+                : 'You currently have none'}
+            </div>}
       </div>
     );
   }

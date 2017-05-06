@@ -34,9 +34,8 @@ export default ({ currentUserId, loading, users, value, onChange }) => {
       <Divider />
 
       <Subheader><span id="totalUserCount">{users.length}</span> Users</Subheader>
-      {
-        users.length ?
-          users.map(user =>
+      {users.length
+        ? users.map(user => (
             <ListItem
               key={`profile-${user.id}`}
               primaryText={`${user.firstName} ${user.lastName}`}

@@ -39,31 +39,14 @@ export default ({
         removeNameAction={removeProtectedName}
         isProtected
       >
-        <IconButton
-          id="unprotectName"
-          tooltip="Unprotect Name"
-          onClick={onSubmitUnprotectName}
-          touch
-        >
+        <IconButton id="unprotectName" tooltip="Unprotect Name" onClick={onSubmitUnprotectName} touch>
           <UnprotectedIcon color={cyan500} />
         </IconButton>
-        {
-          !selectedProtected.metWith &&
-          <IconButton
-            id="metWithProtected"
-            tooltip="Met With Protected"
-            onClick={openMetWithProtectedDialog}
-            touch
-          >
+        {!selectedProtected.metWith &&
+          <IconButton id="metWithProtected" tooltip="Met With Protected" onClick={openMetWithProtectedDialog} touch>
             <MetWithProtectedIcon color={cyan500} />
-          </IconButton>
-        }
-        <IconButton
-          id="makeClient"
-          tooltip="Make Name Client"
-          onClick={openClientNameDialog}
-          touch
-        >
+          </IconButton>}
+        <IconButton id="makeClient" tooltip="Make Name Client" onClick={openClientNameDialog} touch>
           <ClientsIcon color={cyan500} />
         </IconButton>
         {makeNameClientDialogOpen &&
@@ -80,12 +63,7 @@ export default ({
               meetingTime: meetingBooked ? meetingBookedDate : null
             }}
             actions={[
-              <FlatButton
-                secondary
-                onClick={closeClientNameDialog}
-                label="Cancel"
-                icon={<CancelIcon />}
-              />,
+              <FlatButton secondary onClick={closeClientNameDialog} label="Cancel" icon={<CancelIcon />} />,
               <FlatButton
                 primary
                 id="submitClientName"
@@ -119,8 +97,7 @@ export default ({
                 icon={<MetWithProtectedIcon />}
               />
             ]}
-          />
-        }
+          />}
       </SelectedName>
     );
   }

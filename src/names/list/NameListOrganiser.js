@@ -7,8 +7,13 @@ import { green500, red500, cyan500 } from 'material-ui/styles/colors';
 import { sortTypes } from './nameSorter';
 
 export default ({
-  searchValue, searchResultsLength, sortBy, showProtectedNameOptions,
-  selectedNameDrawerOpen, updateSearch, updateSort
+  searchValue,
+  searchResultsLength,
+  sortBy,
+  showProtectedNameOptions,
+  selectedNameDrawerOpen,
+  updateSearch,
+  updateSort
 }) => {
   let searchColor = cyan500;
   if (searchResultsLength) {
@@ -40,9 +45,8 @@ export default ({
 
       <div className={sortGridSize}>
         <Paper className="">
-          {
-            showProtectedNameOptions ?
-              <DropDownMenu
+          {showProtectedNameOptions
+            ? <DropDownMenu
                 value={sortBy}
                 onChange={updateSort}
                 underlineStyle={{ borderTop: '0px' }}
@@ -59,8 +63,7 @@ export default ({
                 <MenuItem value={sortTypes.meetingBookedAsc} primaryText="Soonest Meeting Booked" />
                 <MenuItem value={sortTypes.meetingBookedDesc} primaryText="Latest Meeting Booked" />
               </DropDownMenu>
-            :
-              <DropDownMenu
+            : <DropDownMenu
                 value={sortBy}
                 onChange={updateSort}
                 underlineStyle={{ borderTop: '0px' }}
@@ -72,8 +75,7 @@ export default ({
                 <MenuItem value={sortTypes.nameDesc} primaryText="Name Alphabetically Descending" />
                 <MenuItem value={sortTypes.companyAsc} primaryText="Company Alphabetically Ascending" />
                 <MenuItem value={sortTypes.companyDesc} primaryText="Company Alphabetically Descending" />
-              </DropDownMenu>
-            }
+              </DropDownMenu>}
         </Paper>
       </div>
     </div>

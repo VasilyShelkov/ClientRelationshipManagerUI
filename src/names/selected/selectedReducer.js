@@ -1,14 +1,19 @@
 import _ from 'lodash';
 
+import { APOLLO_MUTATION_INIT, APOLLO_MUTATION_RESULT } from '../../app/thirdPartyActions';
 import {
-  APOLLO_MUTATION_INIT, APOLLO_MUTATION_RESULT
-} from '../../app/thirdPartyActions';
-import {
-  OPEN_PROTECT_NAME_DIALOG, CLOSE_PROTECT_NAME_DIALOG,
-  OPEN_CLIENT_NAME_DIALOG, CLOSE_CLIENT_NAME_DIALOG,
-  OPEN_MET_WITH_PROTECTED_DIALOG, CLOSE_MET_WITH_PROTECTED_DIALOG,
-  SELECT_NAME, HIDE_NAME, SHOW_EDIT_NAME, HIDE_EDIT_NAME,
-  SHOW_EDIT_NAME_COMPANY, HIDE_EDIT_NAME_COMPANY
+  OPEN_PROTECT_NAME_DIALOG,
+  CLOSE_PROTECT_NAME_DIALOG,
+  OPEN_CLIENT_NAME_DIALOG,
+  CLOSE_CLIENT_NAME_DIALOG,
+  OPEN_MET_WITH_PROTECTED_DIALOG,
+  CLOSE_MET_WITH_PROTECTED_DIALOG,
+  SELECT_NAME,
+  HIDE_NAME,
+  SHOW_EDIT_NAME,
+  HIDE_EDIT_NAME,
+  SHOW_EDIT_NAME_COMPANY,
+  HIDE_EDIT_NAME_COMPANY
 } from './selectedActions';
 
 const initialState = {
@@ -17,7 +22,7 @@ const initialState = {
   showingEditNameCompanyForm: false,
   protectNameDialogOpen: false,
   makeNameClientDialogOpen: false,
-  metWithProtectedDialogOpen: false,
+  metWithProtectedDialogOpen: false
 };
 
 export default (state = initialState, action) => {
@@ -91,7 +96,7 @@ export default (state = initialState, action) => {
         case 'ProtectName':
           return {
             ...state,
-            protectNameDialogOpen: initialState.protectNameDialogOpen,
+            protectNameDialogOpen: initialState.protectNameDialogOpen
           };
         case 'MetWithProtected':
           return {
@@ -101,7 +106,7 @@ export default (state = initialState, action) => {
         case 'MakeClient':
           return {
             ...state,
-            makeNameClientDialogOpen: initialState.makeNameClientDialogOpen,
+            makeNameClientDialogOpen: initialState.makeNameClientDialogOpen
           };
         default:
           return state;
@@ -129,7 +134,7 @@ export default (state = initialState, action) => {
           if (!_.has(action, 'result.errors')) {
             return {
               ...state,
-              id: action.result.data.protectNameToUser.name.id,
+              id: action.result.data.protectNameToUser.name.id
             };
           }
 
@@ -138,7 +143,7 @@ export default (state = initialState, action) => {
           if (!_.has(action, 'result.errors')) {
             return {
               ...state,
-              id: action.result.data.editProtectedName.name.id,
+              id: action.result.data.editProtectedName.name.id
             };
           }
 
@@ -147,7 +152,7 @@ export default (state = initialState, action) => {
           if (!_.has(action, 'result.errors')) {
             return {
               ...state,
-              id: action.result.data.unprotectNameFromUser.name.id,
+              id: action.result.data.unprotectNameFromUser.name.id
             };
           }
 

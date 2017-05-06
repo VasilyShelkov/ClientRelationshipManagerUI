@@ -16,7 +16,11 @@ import Comments from './comments/CommentsWithData';
 
 export default ({
   details: { name: { id, firstName, lastName, phone, company } },
-  open, isProtected, children, closeNameDetails, removeNameAction
+  open,
+  isProtected,
+  children,
+  closeNameDetails,
+  removeNameAction
 }) => (
   <Drawer containerStyle={{ zIndex: '1100' }} width={250} openSecondary open={open}>
     <div id="selectedName">

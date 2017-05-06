@@ -16,12 +16,7 @@ export default ({ selectedClient, selectedNameDrawerOpen, hideName, removeClient
         removeNameAction={removeClient}
         isProtected
       >
-        <IconButton
-          id="unprotectName"
-          tooltip="Unprotect Name"
-          onClick={onSubmitUnprotectName}
-          touch
-        >
+        <IconButton id="unprotectName" tooltip="Unprotect Name" onClick={onSubmitUnprotectName} touch>
           <UnprotectedIcon color={cyan500} />
         </IconButton>
       </SelectedName>

@@ -20,7 +20,7 @@ export default ({ callBooked, meetingBooked, selected, selectedNameDrawerOpen, e
               {moment(callBooked).fromNow()}
               <IconButton
                 id="editCall"
-                onClick={(e) => {
+                onClick={e => {
                   e.stopPropagation();
                   editCall();
                 }}
@@ -32,7 +32,7 @@ export default ({ callBooked, meetingBooked, selected, selectedNameDrawerOpen, e
           : <div className={`name__info__protectedInfo__detail${selectedNameDrawerOpen ? '-withDrawer' : ''}`}>
               <RaisedButton
                 id="bookCall"
-                onClick={(e) => {
+                onClick={e => {
                   e.stopPropagation();
                   editCall();
                 }}
@@ -48,7 +48,7 @@ export default ({ callBooked, meetingBooked, selected, selectedNameDrawerOpen, e
               {moment(meetingBooked).fromNow()}
               <IconButton
                 id="editMeeting"
-                onClick={(e) => {
+                onClick={e => {
                   e.stopPropagation();
                   editMeeting();
                 }}
@@ -60,7 +60,7 @@ export default ({ callBooked, meetingBooked, selected, selectedNameDrawerOpen, e
           : <div className={`name__info__protectedInfo__detail${selectedNameDrawerOpen ? '-withDrawer' : ''}`}>
               <RaisedButton
                 id="bookMeeting"
-                onClick={(e) => {
+                onClick={e => {
                   e.stopPropagation();
                   editMeeting();
                 }}

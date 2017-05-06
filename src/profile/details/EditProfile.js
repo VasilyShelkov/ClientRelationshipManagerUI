@@ -1,9 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { graphql } from 'react-apollo';
-import {
-  Field, reduxForm, SubmissionError, formValueSelector
-} from 'redux-form';
+import { Field, reduxForm, SubmissionError, formValueSelector } from 'redux-form';
 import { TextField, Slider } from 'redux-form-material-ui';
 import Paper from 'material-ui/Paper';
 
@@ -14,10 +12,14 @@ import { required, emailFormat } from '../../shared/FormElements';
 import StandardForm from '../../shared/StandardForm';
 
 const EditProfile = ({
-  currentProtectedNamesLimit, isAdmin, error, editInProgess,
-  handleSubmit, handleCancelEditProfile
+  currentProtectedNamesLimit,
+  isAdmin,
+  error,
+  editInProgess,
+  handleSubmit,
+  handleCancelEditProfile
 }) => (
-  <Paper zDepth={2} >
+  <Paper zDepth={2}>
     <StandardForm
       handleSubmit={handleSubmit}
       handleCancel={handleCancelEditProfile}
@@ -56,7 +58,7 @@ const EditProfile = ({
           validate={required}
           fullWidth
         />,
-        isAdmin && (
+        isAdmin &&
           <div style={{ marginTop: '10px', textAlign: 'center', width: '100%' }}>
             <div>Protected Names Limit</div>
             <div>{currentProtectedNamesLimit}</div>
@@ -74,7 +76,6 @@ const EditProfile = ({
               />
             </div>
           </div>
-        )
       ]}
     />
   </Paper>
@@ -82,12 +83,10 @@ const EditProfile = ({
 
 const selector = formValueSelector('profile');
 
-const FormWithSelectors = connect(
-  state => ({
-    currentProtectedNamesLimit: selector(state, 'protectedNamesLimit'),
-    isAdmin: state.account.accountType === 'admin'
-  })
-)(EditProfile);
+const FormWithSelectors = connect(state => ({
+  currentProtectedNamesLimit: selector(state, 'protectedNamesLimit'),
+  isAdmin: state.account.accountType === 'admin'
+}))(EditProfile);
 
 const EditProfileForm = reduxForm({
   form: 'profile'

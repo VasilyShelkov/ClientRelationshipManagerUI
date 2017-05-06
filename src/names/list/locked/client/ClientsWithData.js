@@ -44,7 +44,7 @@ const Clients = graphql(GetClients, {
 
 const mapStateToProps = state => ({
   id: state.account.id,
-  selectedNameId: state.selectedName.id,
+  selectedNameId: state.selectedName.id
 });
 
 export default connect(mapStateToProps)(Clients);

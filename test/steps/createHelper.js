@@ -16,7 +16,7 @@ class CreateHelper extends Helper {
     return {
       name: faker.company.companyName(),
       address: faker.address.streetAddress(),
-      phone: faker.phone.phoneNumberFormat(),
+      phone: faker.phone.phoneNumberFormat()
     };
   }
 

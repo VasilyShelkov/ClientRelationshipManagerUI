@@ -18,12 +18,14 @@ const EditCommentFormWithMutation = graphql(EditComment, {
       const { commentId, userId } = ownProps;
 
       try {
-        await mutate({ variables: {
-          userId,
-          commentId,
-          text,
-          visibility
-        } });
+        await mutate({
+          variables: {
+            userId,
+            commentId,
+            text,
+            visibility
+          }
+        });
         ownProps.hideCommentForm();
       } catch (error) {
         ownProps.showErrorNotification(
@@ -35,9 +37,7 @@ const EditCommentFormWithMutation = graphql(EditComment, {
 })(EditCommentForm);
 
 const mapDispatchToProps = dispatch => ({
-  showErrorNotification: message => dispatch(showNotification(message, red500)),
+  showErrorNotification: message => dispatch(showNotification(message, red500))
 });
 
-export default connect(
-  () => ({}), mapDispatchToProps
-)(EditCommentFormWithMutation);
+export default connect(() => ({}), mapDispatchToProps)(EditCommentFormWithMutation);

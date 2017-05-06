@@ -10,9 +10,7 @@ import StandardForm from '../shared/StandardForm';
 import { required, emailFormat, minLength } from '../shared/FormElements';
 import LoadingSpinner from '../shared/LoadingSpinner';
 
-export default ({
-  creatingUser, currentProtectedNamesLimit, queryLoading, handleSubmit, error
-}) => (
+export default ({ creatingUser, currentProtectedNamesLimit, queryLoading, handleSubmit, error }) => (
   <div>
     {queryLoading
       ? <LoadingSpinner />

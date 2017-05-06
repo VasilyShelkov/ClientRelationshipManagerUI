@@ -9,9 +9,7 @@ import ProtectName from './ProtectName.gql';
 import GetNameComments from '../comments/GetNameComments.gql';
 
 import { showNotification } from '../../../app/appActions';
-import {
-  hideName, openProtectNameDialog, closeProtectNameDialog,
-} from '../selectedActions';
+import { hideName, openProtectNameDialog, closeProtectNameDialog } from '../selectedActions';
 import { performingNameAction } from '../../nameActions';
 
 import SelectedUnprotectedName from './SelectedUnprotectedName';
@@ -92,13 +90,15 @@ const SelectedUnprotectedNameWithMutations = compose(
       }
     }),
     options: props => ({
-      refetchQueries: [{
-        query: GetNameComments,
-        variables: {
-          userId: props.id,
-          id: props.selectedUnprotected && props.selectedUnprotected.name.id
-        },
-      }]
+      refetchQueries: [
+        {
+          query: GetNameComments,
+          variables: {
+            userId: props.id,
+            id: props.selectedUnprotected && props.selectedUnprotected.name.id
+          }
+        }
+      ]
     })
   })
 )(SelectedUnprotectedName);

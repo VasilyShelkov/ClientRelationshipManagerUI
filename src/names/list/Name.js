@@ -15,10 +15,17 @@ const moreInfoStyle = {
 
 export default ({
   name: { firstName, lastName, phone, company },
-  callBooked, meetingBooked, metWith, createdText, created_at,
-  selected = false, isProtected = false,
-  showMoreDetails, selectedNameDrawerOpen,
-  editProtectedMeeting, editProtectedCall
+  callBooked,
+  meetingBooked,
+  metWith,
+  createdText,
+  created_at,
+  selected = false,
+  isProtected = false,
+  showMoreDetails,
+  selectedNameDrawerOpen,
+  editProtectedMeeting,
+  editProtectedCall
 }) => (
   <Paper className="name" style={{ backgroundColor: selected ? cyan500 : fullWhite }} onClick={showMoreDetails}>
     <div className="name__info">

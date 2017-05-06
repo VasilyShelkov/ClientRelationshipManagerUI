@@ -2,7 +2,7 @@ const getTestUserDetails = require('./userAccount');
 
 module.exports = function() {
   return actor({
-    login: function (email, password) {
+    login: function(email, password) {
       const testUser = getTestUserDetails(process.env.NODE_ENV);
       let loginEmail = testUser.email;
       let loginPassword = testUser.password;
@@ -17,7 +17,7 @@ module.exports = function() {
       this.fillField('password', loginPassword);
       this.click('Sign in');
     },
-    createNewUser: function (newUser) {
+    createNewUser: function(newUser) {
       this.waitForElement('#createNewUser');
       this.click('#createNewUser');
       this.waitForText('Add a new member to the team...');
@@ -32,11 +32,9 @@ module.exports = function() {
       this.click('Save');
 
       this.waitForElement('.Profile');
-      this.seeInCurrentUrl(
-        `account/users/${newUser.firstName.toLowerCase()}${newUser.lastName}/profile`
-      );
+      this.seeInCurrentUrl(`account/users/${newUser.firstName.toLowerCase()}${newUser.lastName}/profile`);
     },
-    createNewUnprotectedName: function (newName) {
+    createNewUnprotectedName: function(newName) {
       this.waitForElement('#goToUnprotectedList');
       this.click('#goToUnprotectedList');
       this.waitForElement('#unprotectedNamesList');
@@ -53,7 +51,7 @@ module.exports = function() {
 
       this.waitForElement('#unprotectedNamesList');
     },
-    createProtectedName: function (newName) {
+    createProtectedName: function(newName) {
       this.createNewUnprotectedName(newName);
       this.click('#protectName');
       this.waitForElement('#protectNameForm');
@@ -61,7 +59,7 @@ module.exports = function() {
       this.waitToHide('.names__overlay');
       this.waitForElement('#protectedNamesList');
     },
-    createMetWithProtectedName: function (newName) {
+    createMetWithProtectedName: function(newName) {
       this.createProtectedName(newName);
       this.click('#metWithProtected');
       this.click('#submitMetWithName');
@@ -69,13 +67,13 @@ module.exports = function() {
       this.waitForVisible('div[value="metWithProtected"]');
       this.waitForVisible('#metWithProtectedNamesList');
     },
-    createClient: function (newName) {
+    createClient: function(newName) {
       this.createProtectedName(newName);
       this.click('#makeClient');
       this.waitForElement('#protectNameForm');
       this.click('#submitClientName');
       this.waitToHide('.names__overlay');
       this.waitForElement('#clientNamesList');
-    },
+    }
   });
 };

@@ -13,8 +13,10 @@ import GetNameComments from '../comments/GetNameComments.gql';
 import { showNotification } from '../../../app/appActions';
 import { performingNameAction } from '../../nameActions';
 import {
-  openClientNameDialog, closeClientNameDialog,
-  openMetWithProtectedDialog, closeMetWithProtectedDialog,
+  openClientNameDialog,
+  closeClientNameDialog,
+  openMetWithProtectedDialog,
+  closeMetWithProtectedDialog,
   hideName
 } from '../selectedActions';
 
@@ -95,15 +97,16 @@ const SelectedProtectedNameWithMutations = compose(
       }
     }),
     options: props => ({
-      refetchQueries: [{
-        query: GetNameComments,
-        variables: {
-          userId: props.id,
-          id: props.selectedProtected && props.selectedProtected.name.id
-        },
-      }]
+      refetchQueries: [
+        {
+          query: GetNameComments,
+          variables: {
+            userId: props.id,
+            id: props.selectedProtected && props.selectedProtected.name.id
+          }
+        }
+      ]
     })
-
   }),
   graphql(MetWithProtected, {
     props: ({ ownProps, mutate }) => ({
@@ -139,13 +142,15 @@ const SelectedProtectedNameWithMutations = compose(
       }
     }),
     options: props => ({
-      refetchQueries: [{
-        query: GetNameComments,
-        variables: {
-          userId: props.id,
-          id: props.selectedProtected && props.selectedProtected.name.id
-        },
-      }]
+      refetchQueries: [
+        {
+          query: GetNameComments,
+          variables: {
+            userId: props.id,
+            id: props.selectedProtected && props.selectedProtected.name.id
+          }
+        }
+      ]
     })
   }),
   graphql(UnprotectName, {
@@ -186,7 +191,7 @@ const SelectedProtectedNameWithMutations = compose(
 const mapStateToProps = state => ({
   id: state.account.id,
   makeNameClientDialogOpen: state.selectedName.makeNameClientDialogOpen,
-  metWithProtectedDialogOpen: state.selectedName.metWithProtectedDialogOpen,
+  metWithProtectedDialogOpen: state.selectedName.metWithProtectedDialogOpen
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -134,8 +134,8 @@ describe('src/profile/ShowProfile', () => {
       const onEditProfilePassword = this.spy();
       const { wrapper } = setup({ onEditProfilePassword });
 
-    const renderedEditButtonClick = wrapper.find(ListItem).at(3).prop('onClick');
-    renderedEditButtonClick();
+      const renderedEditButtonClick = wrapper.find(ListItem).at(3).prop('onClick');
+      renderedEditButtonClick();
 
       expect(onEditProfilePassword).to.have.been.called;
     })

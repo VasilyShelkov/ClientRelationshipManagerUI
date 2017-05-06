@@ -1,6 +1,6 @@
 Feature('Selected Name Details', { retries: 3 });
 
-Scenario('user edits name details for unprotected', function* (I) {
+Scenario('user edits name details for unprotected', function*(I) {
   I.login();
   const newUnprotectedName = yield I.createFakeName();
   I.createNewUnprotectedName(newUnprotectedName);
@@ -25,7 +25,7 @@ Scenario('user edits name details for unprotected', function* (I) {
   });
 });
 
-Scenario('user edits name details for protected', function* (I) {
+Scenario('user edits name details for protected', function*(I) {
   I.login();
   const newProtectedName = yield I.createFakeName();
   I.createProtectedName(newProtectedName);
@@ -46,7 +46,7 @@ Scenario('user edits name details for protected', function* (I) {
   });
 });
 
-Scenario('user edits name details for met with protected', function* (I) {
+Scenario('user edits name details for met with protected', function*(I) {
   I.login();
   const newMetWithProtectedName = yield I.createFakeName();
   I.createMetWithProtectedName(newMetWithProtectedName);
@@ -67,7 +67,7 @@ Scenario('user edits name details for met with protected', function* (I) {
   });
 });
 
-Scenario('user edits name details for client', function* (I) {
+Scenario('user edits name details for client', function*(I) {
   I.login();
   const newClient = yield I.createFakeName();
   I.createClient(newClient);

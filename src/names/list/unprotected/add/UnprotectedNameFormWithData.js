@@ -41,7 +41,7 @@ const AddUnprotectedNameWithCompanyData = compose(
 )(AddUnprotectedNameForm);
 
 const mapStateToProps = state => ({
-  id: state.account.id,
+  id: state.account.id
 });
 
 const mapDispatchToProps = dispatch => ({
