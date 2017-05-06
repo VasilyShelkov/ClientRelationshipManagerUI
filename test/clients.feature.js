@@ -1,6 +1,6 @@
 Feature('Clients', { retries: 3 });
 
-Scenario('user books a meeting on the client', function* (I) {
+Scenario('user books a meeting on the client', function*(I) {
   I.login();
   const newClient = yield I.createFakeName();
   I.createClient(newClient);
@@ -33,7 +33,7 @@ Scenario('user books a meeting on the client', function* (I) {
   });
 });
 
-Scenario('user books a call on the client', function* (I) {
+Scenario('user books a call on the client', function*(I) {
   I.login();
   const newClient = yield I.createFakeName();
   I.createClient(newClient);
@@ -66,7 +66,7 @@ Scenario('user books a call on the client', function* (I) {
   });
 });
 
-Scenario('user unprotects a client', function* (I) {
+Scenario('user unprotects a client', function*(I) {
   I.login();
   const newClient = yield I.createFakeName();
   I.createClient(newClient);
@@ -104,7 +104,7 @@ Scenario('user unprotects a client', function* (I) {
   });
 });
 
-Scenario('user deletes a client', function* (I) {
+Scenario('user deletes a client', function*(I) {
   I.login();
   const newClient = yield I.createFakeName();
   I.createClient(newClient);

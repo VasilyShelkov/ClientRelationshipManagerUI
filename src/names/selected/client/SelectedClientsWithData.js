@@ -20,10 +20,12 @@ const SelectedClientWithMutations = compose(
 
         try {
           ownProps.performingNameAction(`Removing ${selectedClient.name.firstName} ${selectedClient.name.lastName}`);
-          await mutate({ variables: {
-            userId: ownProps.id,
-            clientId: selectedClient.id
-          } });
+          await mutate({
+            variables: {
+              userId: ownProps.id,
+              clientId: selectedClient.id
+            }
+          });
         } catch (error) {
           ownProps.showErrorNotification(
             error.graphQLErrors ? error.graphQLErrors[0].message : 'Oops, something went wrong...'
@@ -39,20 +41,19 @@ const SelectedClientWithMutations = compose(
         const { selectedClient } = ownProps;
 
         try {
-          ownProps.performingNameAction(`Unprotecting ${selectedClient.name.firstName} ${selectedClient.name.lastName}`);
+          ownProps.performingNameAction(
+            `Unprotecting ${selectedClient.name.firstName} ${selectedClient.name.lastName}`
+          );
           await mutate({
             variables: {
               userId: ownProps.id,
-              nameId: selectedClient.name.id,
+              nameId: selectedClient.name.id
             },
             updateQueries: {
               GetUnprotectedNames: (previousResult, { mutationResult }) => ({
                 user: {
                   ...previousResult.user,
-                  unprotected: [
-                    mutationResult.data.unprotectNameFromUser,
-                    ...previousResult.user.unprotected
-                  ]
+                  unprotected: [mutationResult.data.unprotectNameFromUser, ...previousResult.user.unprotected]
                 }
               })
             }
@@ -69,7 +70,7 @@ const SelectedClientWithMutations = compose(
 )(SelectedClient);
 
 const mapStateToProps = state => ({
-  id: state.account.id,
+  id: state.account.id
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -79,6 +80,4 @@ const mapDispatchToProps = dispatch => ({
   unprotectNameSuccess: () => dispatch(push('/account/names/unprotected'))
 });
 
-export default connect(
-  mapStateToProps, mapDispatchToProps
-)(SelectedClientWithMutations);
+export default connect(mapStateToProps, mapDispatchToProps)(SelectedClientWithMutations);

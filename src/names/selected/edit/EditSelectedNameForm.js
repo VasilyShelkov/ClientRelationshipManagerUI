@@ -39,7 +39,7 @@ const EditSelectedName = ({ isProtected, error, handleSubmit, cancelEditName }) 
         floatingLabelText="Phone"
         validate={required}
         fullWidth
-      />,
+      />
     ]}
   />
 );

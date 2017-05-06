@@ -12,7 +12,6 @@ describe('src/shared/utils.js', () => {
     expect(utils.checkIfAnyKeysDifferent(originalObject, fieldsToEdit)).to.equal(0);
   });
 
-
   it('returns truthy when some fields to edit are different to the original object', () => {
     const originalObject = {
       fieldOne: 'originalFieldOne',

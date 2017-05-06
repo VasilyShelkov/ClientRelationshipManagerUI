@@ -23,9 +23,7 @@ export default ({ currentUserId, loading, users, value, onChange }) => {
       <ListItem
         id="createNewUser"
         primaryText="Create New User"
-        rightAvatar={
-          <Avatar icon={<PersonAddIcon />} backgroundColor={green500} />
-        }
+        rightAvatar={<Avatar icon={<PersonAddIcon />} backgroundColor={green500} />}
         value={JSON.stringify({
           newRoute: '/account/users/add',
           currentUserId,
@@ -36,9 +34,8 @@ export default ({ currentUserId, loading, users, value, onChange }) => {
       <Divider />
 
       <Subheader><span id="totalUserCount">{users.length}</span> Users</Subheader>
-      {
-        users.length ?
-          users.map(user =>
+      {users.length
+        ? users.map(user => (
             <ListItem
               key={`profile-${user.id}`}
               primaryText={`${user.firstName} ${user.lastName}`}
@@ -49,14 +46,8 @@ export default ({ currentUserId, loading, users, value, onChange }) => {
               })}
               insetChildren
             />
-          )
-        :
-          <ListItem
-            secondaryText="There are no other users..."
-            disabled
-          />
-      }
+          ))
+        : <ListItem secondaryText="There are no other users..." disabled />}
     </SelectableList>
   );
 };
-

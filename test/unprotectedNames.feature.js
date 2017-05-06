@@ -1,6 +1,6 @@
 Feature('Unprotected names', { retries: 3 });
 
-Scenario('user creates a new name', function* (I) {
+Scenario('user creates a new name', function*(I) {
   I.login();
   I.waitForElement('#goToUnprotectedList');
   I.click('#goToUnprotectedList');
@@ -30,7 +30,7 @@ Scenario('user creates a new name', function* (I) {
   });
 });
 
-Scenario('user deletes an unprotected name', function* (I) {
+Scenario('user deletes an unprotected name', function*(I) {
   I.login();
   const newName = yield I.createFakeName();
   I.createNewUnprotectedName(newName);
@@ -47,7 +47,7 @@ Scenario('user deletes an unprotected name', function* (I) {
   });
 });
 
-Scenario('user protects an unprotected name', function* (I) {
+Scenario('user protects an unprotected name', function*(I) {
   I.login();
   I.waitForElement('#goToProtectedList');
   I.click('#goToProtectedList');
@@ -88,7 +88,7 @@ Scenario('user protects an unprotected name', function* (I) {
   });
 });
 
-Scenario('user protects an unprotected name with call booked', function* (I) {
+Scenario('user protects an unprotected name with call booked', function*(I) {
   I.login();
   I.waitForElement('#goToProtectedList');
   I.click('#goToProtectedList');
@@ -128,7 +128,7 @@ Scenario('user protects an unprotected name with call booked', function* (I) {
   });
 });
 
-Scenario('user protects an unprotected name with meeting booked', function* (I) {
+Scenario('user protects an unprotected name with meeting booked', function*(I) {
   I.login();
   I.waitForElement('#goToProtectedList');
   I.click('#goToProtectedList');
@@ -168,7 +168,7 @@ Scenario('user protects an unprotected name with meeting booked', function* (I) 
   });
 });
 
-Scenario('user protects an unprotected name with call booked and meeting booked', function* (I) {
+Scenario('user protects an unprotected name with call booked and meeting booked', function*(I) {
   I.login();
   I.waitForElement('#goToProtectedList');
   I.click('#goToProtectedList');
@@ -219,7 +219,7 @@ Scenario('user protects an unprotected name with call booked and meeting booked'
   });
 });
 
-Scenario('user protects an unprotected name after clearing call booked and meeting booked', function* (I) {
+Scenario('user protects an unprotected name after clearing call booked and meeting booked', function*(I) {
   I.login();
   I.waitForElement('#goToProtectedList');
   I.click('#goToProtectedList');

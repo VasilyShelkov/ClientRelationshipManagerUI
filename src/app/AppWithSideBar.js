@@ -16,9 +16,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  withWidth()(({
-    children, width, showNotification, notificationColor, closeNotificationMessage
-  }) => (
+  withWidth()(({ children, width, showNotification, notificationColor, closeNotificationMessage }) => (
     <div>
       <SideBarWithData width={width} />
 
@@ -38,5 +36,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         }}
       />
     </div>
-)));
-
+  ))
+);

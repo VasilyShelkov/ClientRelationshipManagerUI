@@ -17,7 +17,7 @@ class Root extends Component {
       <MuiThemeProvider>
         <ApolloProvider client={client} store={rootStore}>
           <Router key={Math.random()} history={history}>
-            { routes }
+            {routes}
           </Router>
         </ApolloProvider>
       </MuiThemeProvider>

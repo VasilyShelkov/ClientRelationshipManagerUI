@@ -13,8 +13,10 @@ import GetNameComments from '../comments/GetNameComments.gql';
 import { showNotification } from '../../../app/appActions';
 import { performingNameAction } from '../../nameActions';
 import {
-  openClientNameDialog, closeClientNameDialog,
-  openMetWithProtectedDialog, closeMetWithProtectedDialog,
+  openClientNameDialog,
+  closeClientNameDialog,
+  openMetWithProtectedDialog,
+  closeMetWithProtectedDialog,
   hideName
 } from '../selectedActions';
 
@@ -28,11 +30,15 @@ const SelectedProtectedNameWithMutations = compose(
         const { selectedProtected } = ownProps;
 
         try {
-          ownProps.performingNameAction(`Removing ${selectedProtected.name.firstName} ${selectedProtected.name.lastName}`);
-          await mutate({ variables: {
-            userId: ownProps.id,
-            protectedId: selectedProtected.id
-          } });
+          ownProps.performingNameAction(
+            `Removing ${selectedProtected.name.firstName} ${selectedProtected.name.lastName}`
+          );
+          await mutate({
+            variables: {
+              userId: ownProps.id,
+              protectedId: selectedProtected.id
+            }
+          });
         } catch (error) {
           ownProps.showErrorNotification(
             error.graphQLErrors ? error.graphQLErrors[0].message : 'Oops, something went wrong...'
@@ -62,7 +68,9 @@ const SelectedProtectedNameWithMutations = compose(
         }
 
         try {
-          ownProps.performingNameAction(`Making ${selectedProtected.name.firstName} ${selectedProtected.name.lastName} a Client!`);
+          ownProps.performingNameAction(
+            `Making ${selectedProtected.name.firstName} ${selectedProtected.name.lastName} a Client!`
+          );
           await mutate({
             variables: {
               userId: ownProps.id,
@@ -75,10 +83,7 @@ const SelectedProtectedNameWithMutations = compose(
               GetClients: (previousResult, { mutationResult }) => ({
                 user: {
                   ...previousResult.user,
-                  client: [
-                    mutationResult.data.addClientToUser,
-                    ...previousResult.user.client
-                  ]
+                  client: [mutationResult.data.addClientToUser, ...previousResult.user.client]
                 }
               })
             }
@@ -92,15 +97,16 @@ const SelectedProtectedNameWithMutations = compose(
       }
     }),
     options: props => ({
-      refetchQueries: [{
-        query: GetNameComments,
-        variables: {
-          userId: props.id,
-          id: props.selectedProtected && props.selectedProtected.name.id
-        },
-      }]
+      refetchQueries: [
+        {
+          query: GetNameComments,
+          variables: {
+            userId: props.id,
+            id: props.selectedProtected && props.selectedProtected.name.id
+          }
+        }
+      ]
     })
-
   }),
   graphql(MetWithProtected, {
     props: ({ ownProps, mutate }) => ({
@@ -116,7 +122,9 @@ const SelectedProtectedNameWithMutations = compose(
         }
 
         try {
-          ownProps.performingNameAction(`Changing ${selectedProtected.name.firstName} ${selectedProtected.name.lastName} to Met With Protected`);
+          ownProps.performingNameAction(
+            `Changing ${selectedProtected.name.firstName} ${selectedProtected.name.lastName} to Met With Protected`
+          );
           await mutate({
             variables: {
               userId: ownProps.id,
@@ -134,13 +142,15 @@ const SelectedProtectedNameWithMutations = compose(
       }
     }),
     options: props => ({
-      refetchQueries: [{
-        query: GetNameComments,
-        variables: {
-          userId: props.id,
-          id: props.selectedProtected && props.selectedProtected.name.id
-        },
-      }]
+      refetchQueries: [
+        {
+          query: GetNameComments,
+          variables: {
+            userId: props.id,
+            id: props.selectedProtected && props.selectedProtected.name.id
+          }
+        }
+      ]
     })
   }),
   graphql(UnprotectName, {
@@ -150,20 +160,19 @@ const SelectedProtectedNameWithMutations = compose(
         const { selectedProtected } = ownProps;
 
         try {
-          ownProps.performingNameAction(`Unprotecting ${selectedProtected.name.firstName} ${selectedProtected.name.lastName}`);
+          ownProps.performingNameAction(
+            `Unprotecting ${selectedProtected.name.firstName} ${selectedProtected.name.lastName}`
+          );
           await mutate({
             variables: {
               userId: ownProps.id,
-              nameId: selectedProtected.name.id,
+              nameId: selectedProtected.name.id
             },
             updateQueries: {
               GetUnprotectedNames: (previousResult, { mutationResult }) => ({
                 user: {
                   ...previousResult.user,
-                  unprotected: [
-                    mutationResult.data.unprotectNameFromUser,
-                    ...previousResult.user.unprotected
-                  ]
+                  unprotected: [mutationResult.data.unprotectNameFromUser, ...previousResult.user.unprotected]
                 }
               })
             }
@@ -182,7 +191,7 @@ const SelectedProtectedNameWithMutations = compose(
 const mapStateToProps = state => ({
   id: state.account.id,
   makeNameClientDialogOpen: state.selectedName.makeNameClientDialogOpen,
-  metWithProtectedDialogOpen: state.selectedName.metWithProtectedDialogOpen,
+  metWithProtectedDialogOpen: state.selectedName.metWithProtectedDialogOpen
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -197,6 +206,4 @@ const mapDispatchToProps = dispatch => ({
   unprotectNameSuccess: () => dispatch(push('/account/names/unprotected'))
 });
 
-export default connect(
-  mapStateToProps, mapDispatchToProps
-)(SelectedProtectedNameWithMutations);
+export default connect(mapStateToProps, mapDispatchToProps)(SelectedProtectedNameWithMutations);

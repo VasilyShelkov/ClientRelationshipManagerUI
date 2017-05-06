@@ -13,4 +13,3 @@ export const HIDE_CREATE_NAME_FORM = 'HIDE_CREATE_NAME_FORM';
 export const hideCreateNameForm = () => ({
   type: HIDE_CREATE_NAME_FORM
 });
-

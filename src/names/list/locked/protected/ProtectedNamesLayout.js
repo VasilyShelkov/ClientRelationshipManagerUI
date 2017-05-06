@@ -9,19 +9,24 @@ import EditLockedName from '../EditLockedNameInfo';
 import { getNameByNameId } from '../../nameListShapeShifter';
 
 export default ({
-  id, loadingProtected, protectedNames, protectedNamesLimit,
-  loadingMetWithProtected, metWithProtectedNames,
-  selectedNameId, listToShow, changeShownProtectedList,
-  onSubmitBookCall, onSubmitBookMeeting
+  id,
+  loadingProtected,
+  protectedNames,
+  protectedNamesLimit,
+  loadingMetWithProtected,
+  metWithProtectedNames,
+  selectedNameId,
+  listToShow,
+  changeShownProtectedList,
+  onSubmitBookCall,
+  onSubmitBookMeeting
 }) => {
   const selectedProtected = getNameByNameId(protectedNames, selectedNameId);
   const selectedProtectedNameDrawerOpen = Boolean(selectedProtected) && listToShow === 'protected';
 
   const selectedMetWithProtected = getNameByNameId(metWithProtectedNames, selectedNameId);
   const selectedMetWithProtectedNameDrawerOpen = Boolean(selectedMetWithProtected) && listToShow === 'metWithProtected';
-  const selectedNameDrawerOpen = (
-    selectedProtectedNameDrawerOpen || selectedMetWithProtectedNameDrawerOpen
-  );
+  const selectedNameDrawerOpen = selectedProtectedNameDrawerOpen || selectedMetWithProtectedNameDrawerOpen;
 
   return (
     <div>
@@ -64,16 +69,13 @@ export default ({
           />
         </Tab>
       </Tabs>
-      {
-        protectedNames && metWithProtectedNames ?
-          <EditLockedName
+      {protectedNames && metWithProtectedNames
+        ? <EditLockedName
             names={[...protectedNames, ...metWithProtectedNames]}
             onSubmitBookCall={onSubmitBookCall}
             onSubmitBookMeeting={onSubmitBookMeeting}
           />
-        :
-          null
-      }
+        : null}
     </div>
   );
 };

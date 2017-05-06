@@ -14,37 +14,21 @@ export const reducer = (previousResult, action) => {
   if (action.type === APOLLO_MUTATION_RESULT) {
     switch (action.operationName) {
       case 'RemoveUnprotectedName':
-        if (
-          _.has(action, 'result.data.removeUnprotectedFromUser') &&
-          !_.has(action, 'result.errors')
-        ) {
-          return removeNameFromList(
-            previousResult, action.variables.unprotectedId, 'unprotected'
-          );
+        if (_.has(action, 'result.data.removeUnprotectedFromUser') && !_.has(action, 'result.errors')) {
+          return removeNameFromList(previousResult, action.variables.unprotectedId, 'unprotected');
         }
         break;
       case 'ProtectName':
-        if (
-          _.has(action, 'result.data.protectNameToUser') &&
-          !_.has(action, 'result.errors')
-        ) {
-          return removeNameFromList(
-            previousResult, action.variables.unprotectedId, 'unprotected'
-          );
+        if (_.has(action, 'result.data.protectNameToUser') && !_.has(action, 'result.errors')) {
+          return removeNameFromList(previousResult, action.variables.unprotectedId, 'unprotected');
         }
         break;
       case 'CreateUnprotectedName':
-        if (
-          _.has(action, 'result.data.addUnprotectedNameToUser') &&
-          !_.has(action, 'result.errors')
-        ) {
+        if (_.has(action, 'result.data.addUnprotectedNameToUser') && !_.has(action, 'result.errors')) {
           return {
             user: {
               ...previousResult.user,
-              unprotected: [
-                action.result.data.addUnprotectedNameToUser,
-                ...previousResult.user.unprotected
-              ]
+              unprotected: [action.result.data.addUnprotectedNameToUser, ...previousResult.user.unprotected]
             }
           };
         }
@@ -78,7 +62,4 @@ const mapDispatchToProps = dispatch => ({
   selectName: nameId => dispatch(selectName(nameId))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UnprotectedNamesWithData);
+export default connect(mapStateToProps, mapDispatchToProps)(UnprotectedNamesWithData);

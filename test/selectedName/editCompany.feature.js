@@ -1,6 +1,6 @@
 Feature('Selected Name Company', { retries: 3 });
 
-Scenario('user edits company details for unprotected', function* (I) {
+Scenario('user edits company details for unprotected', function*(I) {
   I.login();
   const newUnprotectedName = yield I.createFakeName();
   I.createNewUnprotectedName(newUnprotectedName);
@@ -30,7 +30,7 @@ Scenario('user edits company details for unprotected', function* (I) {
   });
 });
 
-Scenario('user edits company details for protected', function* (I) {
+Scenario('user edits company details for protected', function*(I) {
   I.login();
   const newProtectedName = yield I.createFakeName();
   I.createProtectedName(newProtectedName);
@@ -60,7 +60,7 @@ Scenario('user edits company details for protected', function* (I) {
   });
 });
 
-Scenario('user edits company details for met with protected', function* (I) {
+Scenario('user edits company details for met with protected', function*(I) {
   I.login();
   const newMetWithProtectedName = yield I.createFakeName();
   I.createMetWithProtectedName(newMetWithProtectedName);
@@ -90,7 +90,7 @@ Scenario('user edits company details for met with protected', function* (I) {
   });
 });
 
-Scenario('user edits company details for client', function* (I) {
+Scenario('user edits company details for client', function*(I) {
   I.login();
   const newClient = yield I.createFakeName();
   I.createClient(newClient);

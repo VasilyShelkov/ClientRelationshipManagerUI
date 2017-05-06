@@ -7,18 +7,21 @@ describe('src/navigation/AdminUserListWithData', () => {
       const actualProps = props({ data: { loading: true } });
       expect(actualProps).to.deep.equal({
         loading: true,
-        users: [],
+        users: []
       });
     });
 
     it('sends users without passed in user', () => {
       const currentUserId = '2';
       const currentUser = { id: currentUserId };
-      const expectedUsers = [{
-        id: '1'
-      }, {
-        id: '3'
-      }];
+      const expectedUsers = [
+        {
+          id: '1'
+        },
+        {
+          id: '3'
+        }
+      ];
       const usersWithSelf = [...expectedUsers, currentUser];
       const actualProps = props({
         ownProps: { currentUserId },
@@ -78,11 +81,14 @@ describe('src/navigation/AdminUserListWithData', () => {
       };
 
       expect(reducer(previousState, action)).to.deep.equal({
-        users: [{
-          id: '1'
-        }, {
-          id: '2'
-        }]
+        users: [
+          {
+            id: '1'
+          },
+          {
+            id: '2'
+          }
+        ]
       });
     });
   });

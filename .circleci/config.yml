@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker: 
-      - image: node:7.4.0
+      - image: kkarczmarczyk/node-yarn:7.4
       - image: selenium/standalone-chrome:3.3.0
     working_directory: ~/ClientRelationshipManagerUI
     steps:
@@ -10,34 +10,36 @@ jobs:
 
       - restore_cache:
           keys:
-            - projectname-{{ .Branch }}-{{ checksum "package.json" }}
-            - projectname-{{ .Branch }}
-            - projectname-master
+            - yarn-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run:
           name: Install Dependencies
-          command: npm install
+          command: yarn install
       - run:
           name: setup Heroku
           command: bash .circleci/setup-heroku.sh
       - save_cache:
-          key: projectname-{{ .Branch }}-{{ checksum "package.json" }}
+          key: yarn-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
-            - "~/node_modules"
+            - "~/.yarn-cache"
 
       - run:
           name: Run unit tests
-          command: npm test
+          command: yarn test
+
+      - run:
+          name: Report Coverage
+          command: yarn run report-coverage
 
       - run:
           name: Build against Staging
-          command: npm run build:staging
+          command: yarn run build:staging
       - run:
           name: Start server
-          command: npm run start:server-only
+          command: yarn run start:server-only
           background: true
       - run:
           name: Run Feature tests
-          command: npm run test:feature:staging
+          command: yarn run test:feature:staging
 
       - add_ssh_keys:
           fingerprints:

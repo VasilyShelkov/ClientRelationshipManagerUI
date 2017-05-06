@@ -7,15 +7,17 @@ import PhoneIcon from 'material-ui/svg-icons/communication/phone';
 import CancelIcon from 'material-ui/svg-icons/content/clear';
 
 import NameDialogForm from '../../NameDialog';
-import {
-  closeEditProtectedNameCallDialog, closeEditProtectedNameMeetingDialog
-} from '../../nameActions';
+import { closeEditProtectedNameCallDialog, closeEditProtectedNameMeetingDialog } from '../../nameActions';
 import { MetWithProtectedIcon } from '../../../app/icons';
 
 export const EditNameProtectedInfo = ({
-  names, editMeetingDialogOpen, editCallDialogOpen,
-  onSubmitBookMeeting, onSubmitBookCall,
-  closeEditMeetingDialog, closeEditCallDialog
+  names,
+  editMeetingDialogOpen,
+  editCallDialogOpen,
+  onSubmitBookMeeting,
+  onSubmitBookCall,
+  closeEditMeetingDialog,
+  closeEditCallDialog
 }) => {
   if (editMeetingDialogOpen !== false) {
     const nameMeetingToEdit = names.find(name => name.name.id === editMeetingDialogOpen);
@@ -32,12 +34,7 @@ export const EditNameProtectedInfo = ({
           meetingTime: nameMeetingToEdit.meetingBooked ? moment(nameMeetingToEdit.meetingBooked).toDate() : null
         }}
         actions={[
-          <FlatButton
-            secondary
-            onClick={closeEditMeetingDialog}
-            label="Cancel"
-            icon={<CancelIcon />}
-          />,
+          <FlatButton secondary onClick={closeEditMeetingDialog} label="Cancel" icon={<CancelIcon />} />,
           <FlatButton
             primary
             id="submitEditProtectedMeeting"
@@ -66,12 +63,7 @@ export const EditNameProtectedInfo = ({
           callTime: nameCallToEdit.callBooked ? moment(nameCallToEdit.callBooked).toDate() : null
         }}
         actions={[
-          <FlatButton
-            secondary
-            onClick={closeEditCallDialog}
-            label="Cancel"
-            icon={<CancelIcon />}
-          />,
+          <FlatButton secondary onClick={closeEditCallDialog} label="Cancel" icon={<CancelIcon />} />,
           <FlatButton
             primary
             id="submitEditProtectedCall"
@@ -90,7 +82,7 @@ export const EditNameProtectedInfo = ({
 
 const mapStateToProps = state => ({
   editCallDialogOpen: state.name.editProtectedNameCallDialogOpen,
-  editMeetingDialogOpen: state.name.editProtectedNameMeetingDialogOpen,
+  editMeetingDialogOpen: state.name.editProtectedNameMeetingDialogOpen
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -98,7 +90,4 @@ const mapDispatchToProps = dispatch => ({
   closeEditMeetingDialog: () => dispatch(closeEditProtectedNameMeetingDialog())
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EditNameProtectedInfo);
+export default connect(mapStateToProps, mapDispatchToProps)(EditNameProtectedInfo);

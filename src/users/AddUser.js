@@ -10,15 +10,11 @@ import StandardForm from '../shared/StandardForm';
 import { required, emailFormat, minLength } from '../shared/FormElements';
 import LoadingSpinner from '../shared/LoadingSpinner';
 
-export default ({
-  creatingUser, currentProtectedNamesLimit, queryLoading, handleSubmit, error
-}) => (
+export default ({ creatingUser, currentProtectedNamesLimit, queryLoading, handleSubmit, error }) => (
   <div>
-    {
-      queryLoading ?
-        <LoadingSpinner />
-      :
-        <Paper style={{ marginTop: '20px' }}>
+    {queryLoading
+      ? <LoadingSpinner />
+      : <Paper style={{ marginTop: '20px' }}>
           <div style={{ textAlign: 'center' }}>
             <PersonAddIcon style={{ height: '100px', width: '100px' }} color={cyan500} />
             <h2>Add a new member to the team...</h2>
@@ -106,19 +102,12 @@ export default ({
                 />
               </div>,
               <div className="col-12" style={{ margin: '20px 0px' }}>
-                <Field
-                  key="newProfile__accountType"
-                  name="accountType"
-                  component={Checkbox}
-                  label="Administrator"
-                />
+                <Field key="newProfile__accountType" name="accountType" component={Checkbox} label="Administrator" />
               </div>
             ]}
             error={error}
             handleSubmit={handleSubmit}
           />
-        </Paper>
-    }
+        </Paper>}
   </div>
 );
-

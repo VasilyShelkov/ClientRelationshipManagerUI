@@ -1,7 +1,16 @@
 import accountReducer, { initialState } from './accountReducer';
 import {
-  logIn, logInSuccess, logInError, logOut, toggleSideBar, changeSideBarState,
-  LOGGING_IN, LOGGED_IN_SUCCESSFULLY, LOGGED_IN_ERROR, LOG_OUT, TOGGLE_SIDE_BAR,
+  logIn,
+  logInSuccess,
+  logInError,
+  logOut,
+  toggleSideBar,
+  changeSideBarState,
+  LOGGING_IN,
+  LOGGED_IN_SUCCESSFULLY,
+  LOGGED_IN_ERROR,
+  LOG_OUT,
+  TOGGLE_SIDE_BAR,
   CHANGE_SIDE_BAR_STATE
 } from './accountActions';
 
@@ -38,7 +47,7 @@ describe('src/authentication/accountReducer.js', () => {
 
     expect(accountReducer(stateBefore, action)).to.deep.equal({
       ...stateBefore,
-      loggingIn: false,
+      loggingIn: false
     });
   });
 

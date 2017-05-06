@@ -10,20 +10,21 @@ import { red500 } from 'material-ui/styles/colors';
 import { required } from '../shared/FormElements';
 
 export const NameDialog = ({
-  formValues, open, title, displayName, actions, close, handleSubmit,
-  initialValues, change
+  formValues,
+  open,
+  title,
+  displayName,
+  actions,
+  close,
+  handleSubmit,
+  initialValues,
+  change
 }) => {
   const fieldsToShow = Object.keys(initialValues);
   return (
-    <Dialog
-      title={title}
-      actions={actions}
-      open={open}
-      onRequestClose={close}
-    >
+    <Dialog title={title} actions={actions} open={open} onRequestClose={close}>
       <form id="protectNameForm" onSubmit={handleSubmit}>
-        {
-          fieldsToShow.includes('callDay') &&
+        {fieldsToShow.includes('callDay') &&
           <div className="row">
             <div className="col-12" style={{ display: 'flex', alignItems: 'center' }}>
               Calling {displayName}?
@@ -61,12 +62,9 @@ export const NameDialog = ({
                 pedantic
               />
             </div>
-          </div>
-        }
+          </div>}
 
-
-        {
-          fieldsToShow.includes('meetingDay') &&
+        {fieldsToShow.includes('meetingDay') &&
           <div className="row" style={{ marginTop: '10px' }}>
             <div className="col-12" style={{ display: 'flex', alignItems: 'center' }}>
               Meeting {displayName}?
@@ -103,11 +101,9 @@ export const NameDialog = ({
                 pedantic
               />
             </div>
-          </div>
-        }
+          </div>}
 
-        {
-          fieldsToShow.includes('pastMeetingDay') &&
+        {fieldsToShow.includes('pastMeetingDay') &&
           <div className="row" style={{ marginTop: '10px' }}>
             <div className="col-12" style={{ display: 'flex', alignItems: 'center' }}>
               Had a meeting with {displayName}?
@@ -144,8 +140,7 @@ export const NameDialog = ({
                 pedantic
               />
             </div>
-          </div>
-        }
+          </div>}
 
         <div>
           <Field
@@ -165,13 +160,11 @@ export const NameDialog = ({
 };
 
 const NameDialogForm = reduxForm({
-  form: 'protectName',
+  form: 'protectName'
 })(NameDialog);
 
 const mapStateToProps = state => ({
   formValues: getFormValues('protectName')(state)
 });
 
-export default connect(
-  mapStateToProps
-)(NameDialogForm);
+export default connect(mapStateToProps)(NameDialogForm);

@@ -1,16 +1,19 @@
 import { APOLLO_MUTATION_RESULT } from '../../app/thirdPartyActions';
 import {
   CHANGE_SHOWN_PROTECTED_LIST,
-  OPEN_EDIT_PROTECTED_NAME_MEETING_DIALOG, CLOSE_EDIT_PROTECTED_NAME_MEETING_DIALOG,
-  OPEN_EDIT_PROTECTED_NAME_CALL_DIALOG, CLOSE_EDIT_PROTECTED_NAME_CALL_DIALOG,
-  SHOW_CREATE_NAME_FORM, HIDE_CREATE_NAME_FORM,
+  OPEN_EDIT_PROTECTED_NAME_MEETING_DIALOG,
+  CLOSE_EDIT_PROTECTED_NAME_MEETING_DIALOG,
+  OPEN_EDIT_PROTECTED_NAME_CALL_DIALOG,
+  CLOSE_EDIT_PROTECTED_NAME_CALL_DIALOG,
+  SHOW_CREATE_NAME_FORM,
+  HIDE_CREATE_NAME_FORM
 } from './nameListActions';
 
 const initialState = {
   protectedListToShow: 'protected',
   editProtectedNameMeetingDialogOpen: false,
   editProtectedNameCallDialogOpen: false,
-  showingCreateForm: false,
+  showingCreateForm: false
 };
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -34,7 +37,7 @@ export default (state = initialState, action) => {
         case 'CreateUnprotectedName':
           return {
             ...state,
-            showingCreateForm: false,
+            showingCreateForm: false
           };
         case 'ProtectName':
           return {

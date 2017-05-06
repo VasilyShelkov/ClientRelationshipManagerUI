@@ -14,50 +14,46 @@ import SelectedUnprotectedNameWithData from '../../selected/unprotected/Selected
 import { getNameByNameId } from '../nameListShapeShifter';
 
 export default ({
-  loading, names, selectedNameId, showingCreateForm, nameActionInProgress,
-  showCreateNameForm, selectName
+  loading,
+  names,
+  selectedNameId,
+  showingCreateForm,
+  nameActionInProgress,
+  showCreateNameForm,
+  selectName
 }) => {
   const selectedUnprotected = loading ? null : getNameByNameId(names, selectedNameId);
   const selectedNameDrawerOpen = Boolean(selectedUnprotected);
   return (
-    <div className={selectedUnprotected && !showingCreateForm &&'unprotected__container__names'}>
+    <div className={selectedUnprotected && !showingCreateForm && 'unprotected__container__names'}>
       <div className={nameActionInProgress && 'names__content'}>
         <div style={{ textAlign: 'center', marginTop: '10px' }}>
           <LockOpenIcon style={{ height: '100px', width: '100px' }} color={cyan500} />
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            {
-              showingCreateForm ?
-                <h2>Create Unprotected Name</h2>
-              :
-                <h2>
-                  <span id="unprotectedNamesCount">{names ? names.length : ''}</span> Unprotected Name{!names || names.length === 1 ? '' : 's'}
-                </h2>
-            }
-            {
-              (names && names.length) && !showingCreateForm ?
-                <IconButton id="createUnprotectedName" onClick={showCreateNameForm}>
+            {showingCreateForm
+              ? <h2>Create Unprotected Name</h2>
+              : <h2>
+                  <span id="unprotectedNamesCount">{names ? names.length : ''}</span>
+                  {' '}
+                  Unprotected Name
+                  {!names || names.length === 1 ? '' : 's'}
+                </h2>}
+            {names && names.length && !showingCreateForm
+              ? <IconButton id="createUnprotectedName" onClick={showCreateNameForm}>
                   <Avatar icon={<AddIcon />} backgroundColor={green500} />
                 </IconButton>
-              :
-                null
-            }
+              : null}
           </div>
         </div>
         <div>
-          {
-            loading ?
-              <Paper>
+          {loading
+            ? <Paper>
                 <LoadingSpinner />
               </Paper>
-            :
-              <div>
-                {
-                  showingCreateForm ?
-                    <AddUnprotectedNameFormWithData
-                      selectedNameDrawerOpen={selectedNameDrawerOpen}
-                    />
-                  :
-                    <div>
+            : <div>
+                {showingCreateForm
+                  ? <AddUnprotectedNameFormWithData selectedNameDrawerOpen={selectedNameDrawerOpen} />
+                  : <div>
                       <NamesList
                         id="unprotectedNamesList"
                         names={names}
@@ -71,21 +67,17 @@ export default ({
                         selectedNameDrawerOpen={selectedNameDrawerOpen}
                         selectedUnprotected={selectedUnprotected}
                       />
-                    </div>
-                }
+                    </div>}
 
-              </div>
-          }
+              </div>}
         </div>
       </div>
 
-      {
-        nameActionInProgress &&
+      {nameActionInProgress &&
         <div className="names__overlay">
           <LoadingSpinner />
           {nameActionInProgress}
-        </div>
-      }
+        </div>}
     </div>
   );
 };

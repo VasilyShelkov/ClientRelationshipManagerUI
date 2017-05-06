@@ -4,11 +4,7 @@ import ShowCompanyWithData from './ShowCompany';
 import EditCompany from './EditCompany';
 import { EDIT_IN_PROGRESS } from '../profileReducer';
 
-const setup = ({
-  editingCompany = false,
-  display = true,
-  onCancelEditCompany = () => ('')
-}) => {
+const setup = ({ editingCompany = false, display = true, onCancelEditCompany = () => '' }) => {
   const props = {
     user: {
       id: '123',
@@ -56,7 +52,7 @@ describe('src/profile/company/Company', () => {
   });
 
   it('renders edit company when editing their company', () => {
-    const onCancelEditCompany = () => ('test function');
+    const onCancelEditCompany = () => 'test function';
     const { wrapper, props } = setup({ editingCompany: true, onCancelEditCompany });
     const EditCompanyComponent = wrapper.find(EditCompany);
 

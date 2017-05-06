@@ -1,17 +1,23 @@
 import accountReducer, { initialState, EDIT_IN_PROGRESS } from './profileReducer';
 import { logInSuccess, LOGGED_IN_SUCCESSFULLY } from '../authentication/accountActions';
+import { APOLLO_MUTATION_INIT, APOLLO_MUTATION_RESULT } from '../app/thirdPartyActions';
 import {
-  APOLLO_MUTATION_INIT, APOLLO_MUTATION_RESULT
-} from '../app/thirdPartyActions';
-import {
-  editProfile, EDIT_PROFILE,
-  cancelEditProfile, CANCEL_EDIT_PROFILE,
-  editProfilePassword, EDIT_PROFILE_PASSWORD,
-  cancelEditProfilePassword, CANCEL_EDIT_PROFILE_PASSWORD,
-  editCompany, EDIT_COMPANY,
-  cancelEditCompany, CANCEL_EDIT_COMPANY,
-  removeProfileNotification, REMOVE_PROFILE_NOTIFICATION,
-  changeShownUserProfile, CHANGE_SHOWN_USER_PROFILE
+  editProfile,
+  EDIT_PROFILE,
+  cancelEditProfile,
+  CANCEL_EDIT_PROFILE,
+  editProfilePassword,
+  EDIT_PROFILE_PASSWORD,
+  cancelEditProfilePassword,
+  CANCEL_EDIT_PROFILE_PASSWORD,
+  editCompany,
+  EDIT_COMPANY,
+  cancelEditCompany,
+  CANCEL_EDIT_COMPANY,
+  removeProfileNotification,
+  REMOVE_PROFILE_NOTIFICATION,
+  changeShownUserProfile,
+  CHANGE_SHOWN_USER_PROFILE
 } from './profileActions';
 
 describe('src/profile/profileReducer.js', () => {
@@ -29,7 +35,7 @@ describe('src/profile/profileReducer.js', () => {
         ...initialState,
         id: newUserId,
         display: {
-          company: true,
+          company: true
         }
       });
     });
@@ -65,7 +71,7 @@ describe('src/profile/profileReducer.js', () => {
         ...initialState,
         id: newUserId,
         display: {
-          company: true,
+          company: true
         },
         notification: {
           ...initialState.notification,
@@ -184,7 +190,7 @@ describe('src/profile/profileReducer.js', () => {
 
       expect(accountReducer(stateBefore, action)).to.deep.equal({
         ...stateBefore,
-        editing: { ...stateBefore.editing, profile: EDIT_IN_PROGRESS },
+        editing: { ...stateBefore.editing, profile: EDIT_IN_PROGRESS }
       });
     });
 
@@ -194,7 +200,7 @@ describe('src/profile/profileReducer.js', () => {
 
       expect(accountReducer(stateBefore, action)).to.deep.equal({
         ...stateBefore,
-        editing: { ...stateBefore.editing, password: EDIT_IN_PROGRESS },
+        editing: { ...stateBefore.editing, password: EDIT_IN_PROGRESS }
       });
     });
 
@@ -204,7 +210,7 @@ describe('src/profile/profileReducer.js', () => {
 
       expect(accountReducer(stateBefore, action)).to.deep.equal({
         ...stateBefore,
-        editing: { ...stateBefore.editing, company: EDIT_IN_PROGRESS },
+        editing: { ...stateBefore.editing, company: EDIT_IN_PROGRESS }
       });
     });
   });

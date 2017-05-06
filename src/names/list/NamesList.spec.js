@@ -17,31 +17,34 @@ xdescribe('src/names/NamesList.js', () => {
   });
 
   it('renders a table when there are names', () => {
-    const names = [{
-      created_at: 'today',
-      name: {
-        firstName: 'Vasia',
-        lastName: 'Shelkov',
-        phone: '07801234567',
-        company: {
-          name: 'first company',
-          address: '321 company address',
-          phone: '02081234567'
+    const names = [
+      {
+        created_at: 'today',
+        name: {
+          firstName: 'Vasia',
+          lastName: 'Shelkov',
+          phone: '07801234567',
+          company: {
+            name: 'first company',
+            address: '321 company address',
+            phone: '02081234567'
+          }
+        }
+      },
+      {
+        created_at: 'today',
+        name: {
+          firstName: 'lara',
+          lastName: 'phillips',
+          phone: '07807654321',
+          company: {
+            name: 'second company',
+            address: '123 company address',
+            phone: '02087654321'
+          }
         }
       }
-    }, {
-      created_at: 'today',
-      name: {
-        firstName: 'lara',
-        lastName: 'phillips',
-        phone: '07807654321',
-        company: {
-          name: 'second company',
-          address: '123 company address',
-          phone: '02087654321'
-        }
-      }
-    }];
+    ];
     const wrapper = setup(names);
     expect(wrapper.find(Name)).length.to.be(names.length);
   });
