@@ -3,7 +3,7 @@ import React from 'react';
 import createHistory from 'history/createBrowserHistory';
 import { Switch, Route } from 'react-router';
 import { ConnectedRouter } from 'react-router-redux';
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 

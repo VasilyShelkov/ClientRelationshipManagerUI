@@ -19,8 +19,14 @@ import { cyan500, green900, lightGreen300 } from 'material-ui/styles/colors';
 import { editCompany, removeProfileNotification } from '../profileActions';
 
 export const ShowCompany = ({
-  name, address, phone, updatedAt, editSuccessCompanyNotification,
-  isAdmin, onEditCompany, onRemoveNotification
+  name,
+  address,
+  phone,
+  updatedAt,
+  editSuccessCompanyNotification,
+  isAdmin,
+  onEditCompany,
+  onRemoveNotification
 }) => (
   <div className="container">
     <div style={{ textAlign: 'center' }}>
@@ -31,7 +37,7 @@ export const ShowCompany = ({
     <Divider />
 
     <div className="row">
-      <List >
+      <List>
         <ListItem
           style={{ color: 'white' }}
           leftAvatar={<Avatar icon={<LocationIcon />} backgroundColor="#FFFFFF" color={cyan500} />}
@@ -51,24 +57,17 @@ export const ShowCompany = ({
 
     <div className="Profile__meta-info">
       <div className="row justify-content-center">
-        {
-          (editSuccessCompanyNotification) &&
-            <Chip
-              id="editCompanySuccess"
-              style={{ marginBottom: '10px' }}
-              backgroundColor={lightGreen300}
-              onRequestDelete={onRemoveNotification}
-              onTouchTap={onRemoveNotification}
-            >
-              <Avatar
-                size={32}
-                icon={<SuccessfulUpdateIcon />}
-                color={lightGreen300}
-                backgroundColor={green900}
-              />
-              {editSuccessCompanyNotification}
-            </Chip>
-        }
+        {editSuccessCompanyNotification &&
+          <Chip
+            id="editCompanySuccess"
+            style={{ marginBottom: '10px' }}
+            backgroundColor={lightGreen300}
+            onRequestDelete={onRemoveNotification}
+            onTouchTap={onRemoveNotification}
+          >
+            <Avatar size={32} icon={<SuccessfulUpdateIcon />} color={lightGreen300} backgroundColor={green900} />
+            {editSuccessCompanyNotification}
+          </Chip>}
       </div>
       <div className="row justify-content-center">
         <Chip>
@@ -77,19 +76,16 @@ export const ShowCompany = ({
         </Chip>
       </div>
     </div>
-    {
-      isAdmin &&
+    {isAdmin &&
       <div className="Profile__cta row justify-content-center">
         <RaisedButton label="Edit Company" icon={<EditIcon />} onClick={onEditCompany} />
-      </div>
-    }
+      </div>}
   </div>
 );
 
 const mapStateToProps = state => ({
   editSuccessCompanyNotification: state.profile.notification.company,
   isAdmin: state.account.accountType === 'admin'
-
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -97,7 +93,4 @@ const mapDispatchToProps = dispatch => ({
   onRemoveNotification: () => dispatch(removeProfileNotification())
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ShowCompany);
+export default connect(mapStateToProps, mapDispatchToProps)(ShowCompany);

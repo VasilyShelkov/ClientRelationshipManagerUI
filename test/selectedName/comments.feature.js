@@ -1,6 +1,6 @@
 Feature('Selected Name Comments', { retries: 3 });
 
-Scenario('Add private comment for an Unprotected name', function* (I) {
+Scenario('Add private comment for an Unprotected name', function*(I) {
   I.login();
   const newUnprotectedName = yield I.createFakeName();
   I.createNewUnprotectedName(newUnprotectedName);
@@ -24,7 +24,7 @@ Scenario('Add private comment for an Unprotected name', function* (I) {
   });
 });
 
-Scenario('Add public comment for an Unprotected name', function* (I) {
+Scenario('Add public comment for an Unprotected name', function*(I) {
   I.login();
   const newUnprotectedName = yield I.createFakeName();
   I.createNewUnprotectedName(newUnprotectedName);
@@ -80,7 +80,7 @@ Scenario('Add public comment for an Unprotected name', function* (I) {
   });
 });
 
-Scenario('Edit comment for an Unprotected name', function* (I) {
+Scenario('Edit comment for an Unprotected name', function*(I) {
   I.login();
   const newUnprotectedName = yield I.createFakeName();
   I.createNewUnprotectedName(newUnprotectedName);
@@ -153,7 +153,7 @@ Scenario('Edit comment for an Unprotected name', function* (I) {
   });
 });
 
-Scenario('Delete comment for an Unprotected name', function* (I) {
+Scenario('Delete comment for an Unprotected name', function*(I) {
   I.login();
   const newUnprotectedName = yield I.createFakeName();
   I.createNewUnprotectedName(newUnprotectedName);
@@ -186,7 +186,7 @@ Scenario('Delete comment for an Unprotected name', function* (I) {
   });
 });
 
-Scenario('Add private comment for an Protected name', function* (I) {
+Scenario('Add private comment for an Protected name', function*(I) {
   I.login();
   const newProtectedName = yield I.createFakeName();
   I.createProtectedName(newProtectedName);
@@ -210,7 +210,7 @@ Scenario('Add private comment for an Protected name', function* (I) {
   });
 });
 
-Scenario('Add public comment for an Protected name', function* (I) {
+Scenario('Add public comment for an Protected name', function*(I) {
   I.login();
   const newProtectedName = yield I.createFakeName();
   I.createProtectedName(newProtectedName);
@@ -266,7 +266,7 @@ Scenario('Add public comment for an Protected name', function* (I) {
   });
 });
 
-Scenario('Edit comment for a Protected name', function* (I) {
+Scenario('Edit comment for a Protected name', function*(I) {
   I.login();
   const newProtectedName = yield I.createFakeName();
   I.createProtectedName(newProtectedName);
@@ -339,7 +339,7 @@ Scenario('Edit comment for a Protected name', function* (I) {
   });
 });
 
-Scenario('Delete comment for a Protected name', function* (I) {
+Scenario('Delete comment for a Protected name', function*(I) {
   I.login();
   const newProtectedName = yield I.createFakeName();
   I.createProtectedName(newProtectedName);
@@ -372,7 +372,7 @@ Scenario('Delete comment for a Protected name', function* (I) {
   });
 });
 
-Scenario('Add private comment for a Met With Protected name', function* (I) {
+Scenario('Add private comment for a Met With Protected name', function*(I) {
   I.login();
   const newMetWithProtectedName = yield I.createFakeName();
   I.createMetWithProtectedName(newMetWithProtectedName);
@@ -396,7 +396,7 @@ Scenario('Add private comment for a Met With Protected name', function* (I) {
   });
 });
 
-Scenario('Add public comment for a Met With Protected name', function* (I) {
+Scenario('Add public comment for a Met With Protected name', function*(I) {
   I.login();
   const newMetWithProtectedName = yield I.createFakeName();
   I.createMetWithProtectedName(newMetWithProtectedName);
@@ -452,7 +452,7 @@ Scenario('Add public comment for a Met With Protected name', function* (I) {
   });
 });
 
-Scenario('Edit comment for a Met With Protected name', function* (I) {
+Scenario('Edit comment for a Met With Protected name', function*(I) {
   I.login();
   const newMetWithProtectedName = yield I.createFakeName();
   I.createMetWithProtectedName(newMetWithProtectedName);
@@ -525,7 +525,7 @@ Scenario('Edit comment for a Met With Protected name', function* (I) {
   });
 });
 
-Scenario('Delete comment for a Met With Protected name', function* (I) {
+Scenario('Delete comment for a Met With Protected name', function*(I) {
   I.login();
   const newMetWithProtectedName = yield I.createFakeName();
   I.createMetWithProtectedName(newMetWithProtectedName);
@@ -558,7 +558,7 @@ Scenario('Delete comment for a Met With Protected name', function* (I) {
   });
 });
 
-Scenario('Add private comment for a Client', function* (I) {
+Scenario('Add private comment for a Client', function*(I) {
   I.login();
   const newClientName = yield I.createFakeName();
   I.createClient(newClientName);
@@ -582,7 +582,7 @@ Scenario('Add private comment for a Client', function* (I) {
   });
 });
 
-Scenario('Add public comment for a Client', function* (I) {
+Scenario('Add public comment for a Client', function*(I) {
   I.login();
   const newClientName = yield I.createFakeName();
   I.createClient(newClientName);
@@ -638,7 +638,7 @@ Scenario('Add public comment for a Client', function* (I) {
   });
 });
 
-Scenario('Edit comment for a Client', function* (I) {
+Scenario('Edit comment for a Client', function*(I) {
   I.login();
   const newClientName = yield I.createFakeName();
   I.createClient(newClientName);
@@ -711,7 +711,7 @@ Scenario('Edit comment for a Client', function* (I) {
   });
 });
 
-Scenario('Delete comment for a Client', function* (I) {
+Scenario('Delete comment for a Client', function*(I) {
   I.login();
   const newClientName = yield I.createFakeName();
   I.createClient(newClientName);

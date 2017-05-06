@@ -23,16 +23,28 @@ import { ProtectedIcon } from '../../app/icons';
 import Notification from '../../shared/Notification';
 import EditPassword from './EditPassword';
 import {
-  editProfile, editProfilePassword, cancelEditProfilePassword,
+  editProfile,
+  editProfilePassword,
+  cancelEditProfilePassword,
   removeProfileNotification
 } from '../profileActions';
 import { EDIT_IN_PROGRESS } from '../profileReducer';
 
 export const ShowProfile = ({
-  id, firstName, lastName, email, phone, updated_at, protectedNamesLimit,
-  newUserNotification, editingPassword,
-  editSuccessProfileNotification, onEditProfile, onEditProfilePassword,
-  onCancelEditProfilePassword, onRemoveNotification
+  id,
+  firstName,
+  lastName,
+  email,
+  phone,
+  updated_at,
+  protectedNamesLimit,
+  newUserNotification,
+  editingPassword,
+  editSuccessProfileNotification,
+  onEditProfile,
+  onEditProfilePassword,
+  onCancelEditProfilePassword,
+  onRemoveNotification
 }) => (
   <Paper zDepth={2} style={{ paddingBottom: '10px', margin: '20px 0px' }}>
     <div style={{ textAlign: 'center', padding: '0px 10px' }}>
@@ -42,17 +54,11 @@ export const ShowProfile = ({
         message={newUserNotification}
         zDepth={3}
         backgroundColor={green700}
-        icon={
-          <SuccessfullyCreatedIcon
-            className="Form__notification__icon"
-            style={{ color: 'white' }}
-          />
-        }
+        icon={<SuccessfullyCreatedIcon className="Form__notification__icon" style={{ color: 'white' }} />}
       />
     </div>
 
-
-    <List >
+    <List>
       <Divider />
 
       <ListItem
@@ -60,61 +66,42 @@ export const ShowProfile = ({
         primaryText={`Limit: ${protectedNamesLimit}`}
         disabled
       />
-      <ListItem
-        leftAvatar={<Avatar icon={<EmailIcon />} backgroundColor={cyan500} />}
-        primaryText={email}
-        disabled
-      />
-      <ListItem
-        leftAvatar={<Avatar icon={<PhoneIcon />} backgroundColor={cyan500} />}
-        primaryText={phone}
-        disabled
-      />
+      <ListItem leftAvatar={<Avatar icon={<EmailIcon />} backgroundColor={cyan500} />} primaryText={email} disabled />
+      <ListItem leftAvatar={<Avatar icon={<PhoneIcon />} backgroundColor={cyan500} />} primaryText={phone} disabled />
 
       <Divider />
 
-      {
-        editingPassword ?
-          <EditPassword
+      {editingPassword
+        ? <EditPassword
             userId={id}
             editInProgress={editingPassword === EDIT_IN_PROGRESS}
             handleCancelEditProfilePassword={onCancelEditProfilePassword}
           />
-        :
-          <ListItem
+        : <ListItem
             id="resetPassword"
             leftAvatar={<Avatar icon={<SecurityIcon />} backgroundColor={cyan500} />}
             rightIcon={<EditIcon />}
             primaryText="Password"
             secondaryText="**********"
             onClick={onEditProfilePassword}
-          />
-      }
+          />}
 
       <Divider />
     </List>
 
-
     <div className="Profile__meta-info">
       <div className="row justify-content-center">
-        {
-          editSuccessProfileNotification &&
-            <Chip
-              id="editProfileSuccess"
-              style={{ marginBottom: '10px' }}
-              backgroundColor={lightGreen300}
-              onRequestDelete={onRemoveNotification}
-              onTouchTap={onRemoveNotification}
-            >
-              <Avatar
-                size={32}
-                icon={<SuccessfulUpdateIcon />}
-                color={lightGreen300}
-                backgroundColor={green900}
-              />
-              {editSuccessProfileNotification}
-            </Chip>
-        }
+        {editSuccessProfileNotification &&
+          <Chip
+            id="editProfileSuccess"
+            style={{ marginBottom: '10px' }}
+            backgroundColor={lightGreen300}
+            onRequestDelete={onRemoveNotification}
+            onTouchTap={onRemoveNotification}
+          >
+            <Avatar size={32} icon={<SuccessfulUpdateIcon />} color={lightGreen300} backgroundColor={green900} />
+            {editSuccessProfileNotification}
+          </Chip>}
 
       </div>
       <div className="row justify-content-center">
@@ -125,12 +112,7 @@ export const ShowProfile = ({
       </div>
     </div>
     <div className="Profile__cta row justify-content-center">
-      <RaisedButton
-        primary
-        label="Edit Profile"
-        icon={<EditIcon />}
-        onClick={onEditProfile}
-      />
+      <RaisedButton primary label="Edit Profile" icon={<EditIcon />} onClick={onEditProfile} />
     </div>
   </Paper>
 );
@@ -148,7 +130,4 @@ const mapDispatchToProps = dispatch => ({
   onRemoveNotification: () => dispatch(removeProfileNotification())
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ShowProfile);
+export default connect(mapStateToProps, mapDispatchToProps)(ShowProfile);

@@ -58,4 +58,3 @@ export const HIDE_EDIT_NAME_COMPANY = 'HIDE_EDIT_NAME_COMPANY';
 export const hideEditNameCompany = () => ({
   type: HIDE_EDIT_NAME_COMPANY
 });
-

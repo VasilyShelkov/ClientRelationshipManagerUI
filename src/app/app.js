@@ -18,25 +18,18 @@ import Root from './Root';
 
 injectTapEventPlugin();
 
-const storage = compose(filter([
-  'account.token',
-  'account.id',
-  'account.accountType'
-]))(adapter(window.sessionStorage));
+const storage = compose(filter(['account.token', 'account.id', 'account.accountType']))(adapter(window.sessionStorage));
 
-const store = browserHistory => createStore(
-  rootReducer,
-  composeWithDevTools(
-    persistState(storage, 'account'),
-    applyMiddleware(
-      client.middleware(),
-      routerMiddleware(browserHistory),
-      authenticationMiddleware,
+const store = browserHistory =>
+  createStore(
+    rootReducer,
+    composeWithDevTools(
+      persistState(storage, 'account'),
+      applyMiddleware(client.middleware(), routerMiddleware(browserHistory), authenticationMiddleware)
     )
-  )
-);
+  );
 
-const render = (Component) => {
+const render = Component => {
   ReactDOM.render(
     <Hot>
       <Component store={store} client={client} />
@@ -53,7 +46,9 @@ if (module.hot) {
     delete window.__APOLLO_STATE__;
   });
 
-  module.hot.accept('./Root', () => { render(Root); });
+  module.hot.accept('./Root', () => {
+    render(Root);
+  });
 
   module.hot.accept('./store', () => {
     const reducers = require('./store').default;

@@ -18,12 +18,14 @@ const AddCommentFormWithMutation = graphql(AddCommentToName, {
       const { nameId, userId } = ownProps;
 
       try {
-        await mutate({ variables: {
-          userId,
-          nameId,
-          text,
-          visibility
-        } });
+        await mutate({
+          variables: {
+            userId,
+            nameId,
+            text,
+            visibility
+          }
+        });
         ownProps.hideCommentForm();
       } catch (error) {
         ownProps.showErrorNotification(
@@ -36,13 +38,11 @@ const AddCommentFormWithMutation = graphql(AddCommentToName, {
 
 const mapStateToProps = state => ({
   userId: state.account.id,
-  nameId: state.selectedName.id,
+  nameId: state.selectedName.id
 });
 
 const mapDispatchToProps = dispatch => ({
-  showErrorNotification: message => dispatch(showNotification(message, red500)),
+  showErrorNotification: message => dispatch(showNotification(message, red500))
 });
 
-export default connect(
-  mapStateToProps, mapDispatchToProps
-)(AddCommentFormWithMutation);
+export default connect(mapStateToProps, mapDispatchToProps)(AddCommentFormWithMutation);

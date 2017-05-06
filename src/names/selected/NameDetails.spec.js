@@ -15,11 +15,7 @@ describe('src/names/selected/NameDetails', () => {
     const showEditNameForm = () => 'show form';
 
     const wrapper = shallow(
-      <NameDetails
-        showingEditNameForm={showingEditNameForm}
-        name={name}
-        showEditNameForm={showEditNameForm}
-      />
+      <NameDetails showingEditNameForm={showingEditNameForm} name={name} showEditNameForm={showEditNameForm} />
     );
 
     // id used for feature testing
@@ -38,7 +34,6 @@ describe('src/names/selected/NameDetails', () => {
     const name = { firstName: 'first', lastName: 'last', phone: '12345' };
     const hideEditNameForm = () => 'hide form';
     const isProtected = true;
-
 
     const wrapper = shallow(
       <NameDetails

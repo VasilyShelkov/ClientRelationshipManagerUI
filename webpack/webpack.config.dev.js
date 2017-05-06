@@ -15,7 +15,7 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: resolve(__dirname, 'dist'),
-    publicPath: '/',
+    publicPath: '/'
   },
   context: resolve(__dirname, '../src'),
   devtool: 'inline-source-map',
@@ -27,28 +27,32 @@ module.exports = {
     historyApiFallback: true
   },
   module: {
-    rules: [{
-      test: /\.(js|jsx)$/,
-      include: [resolve(__dirname, '../src'), resolve(__dirname)],
-      use: 'babel-loader',
-    }, {
-      test: /\.(css|scss)$/,
-      include: [resolve(__dirname, '../src')],
-      use: ExtractTextPlugin.extract({
-        fallbackLoader: 'style-loader',
-        loader: 'css-loader?sourceMap!sass-loader?sourceMap'
-      })
-    }, {
-      test: /\.(graphql|gql)$/,
-      include: [resolve(__dirname, '../src')],
-      use: 'graphql-tag/loader'
-    }],
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        include: [resolve(__dirname, '../src'), resolve(__dirname)],
+        use: 'babel-loader'
+      },
+      {
+        test: /\.(css|scss)$/,
+        include: [resolve(__dirname, '../src')],
+        use: ExtractTextPlugin.extract({
+          fallbackLoader: 'style-loader',
+          loader: 'css-loader?sourceMap!sass-loader?sourceMap'
+        })
+      },
+      {
+        test: /\.(graphql|gql)$/,
+        include: [resolve(__dirname, '../src')],
+        use: 'graphql-tag/loader'
+      }
+    ]
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new HtmlWebpackPlugin({
-      template: '../src/index.ejs',
+      template: '../src/index.ejs'
     }),
     new ExtractTextPlugin('index.css'),
     new DashboardPlugin(),
@@ -57,5 +61,5 @@ module.exports = {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV)
       }
     })
-  ],
+  ]
 };

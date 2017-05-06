@@ -17,38 +17,19 @@ export default ({ error, fields, editingInProgress, handleSubmit, handleCancel }
 
       <br />
 
-      {
-        editingInProgress ?
-          <LoadingSpinner />
-        :
-          <div className="row">
-            {
-              handleCancel ?
-                <div className="col-6">
-                  <RaisedButton
-                    secondary
-                    fullWidth
-                    label="Cancel"
-                    onClick={handleCancel}
-                    icon={<CancelIcon />}
-                  />
+      {editingInProgress
+        ? <LoadingSpinner />
+        : <div className="row">
+            {handleCancel
+              ? <div className="col-6">
+                  <RaisedButton secondary fullWidth label="Cancel" onClick={handleCancel} icon={<CancelIcon />} />
                 </div>
-              :
-                null
-            }
+              : null}
 
             <div className={handleCancel ? 'col-6' : 'col-12'}>
-              <RaisedButton
-                id="standardSubmit"
-                primary
-                fullWidth
-                label="Save"
-                type="submit"
-                icon={<SaveIcon />}
-              />
+              <RaisedButton id="standardSubmit" primary fullWidth label="Save" type="submit" icon={<SaveIcon />} />
             </div>
-          </div>
-      }
+          </div>}
     </form>
   </div>
 );

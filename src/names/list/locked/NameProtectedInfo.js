@@ -9,22 +9,18 @@ import { cyan500 } from 'material-ui/styles/colors';
 
 import { MetWithProtectedIcon } from '../../../app/icons';
 
-export default ({
-  callBooked, meetingBooked, selected, selectedNameDrawerOpen,
-  editMeeting, editCall
-}) => {
+export default ({ callBooked, meetingBooked, selected, selectedNameDrawerOpen, editMeeting, editCall }) => {
   const protectedNameClassName = `col-12 col-${selectedNameDrawerOpen ? 'md' : 'sm'}-6`;
   return (
     <div className={`row name__info__protectedInfo${selected ? '-selected' : ''}`}>
       <div className={protectedNameClassName} style={{ marginTop: '10px' }}>
-        {
-          callBooked ?
-            <div className={`name__info__protectedInfo__detail${selectedNameDrawerOpen ? '-withDrawer' : ''}`}>
+        {callBooked
+          ? <div className={`name__info__protectedInfo__detail${selectedNameDrawerOpen ? '-withDrawer' : ''}`}>
               <PhoneIcon color={selected && 'white'} style={{ marginRight: '10px' }} />
               {moment(callBooked).fromNow()}
               <IconButton
                 id="editCall"
-                onClick={(e) => {
+                onClick={e => {
                   e.stopPropagation();
                   editCall();
                 }}
@@ -33,29 +29,26 @@ export default ({
                 <EditIcon color={selected ? '' : cyan500} />
               </IconButton>
             </div>
-          :
-            <div className={`name__info__protectedInfo__detail${selectedNameDrawerOpen ? '-withDrawer' : ''}`}>
+          : <div className={`name__info__protectedInfo__detail${selectedNameDrawerOpen ? '-withDrawer' : ''}`}>
               <RaisedButton
                 id="bookCall"
-                onClick={(e) => {
+                onClick={e => {
                   e.stopPropagation();
                   editCall();
                 }}
                 primary={!selected}
                 label="Book call"
               />
-            </div>
-        }
+            </div>}
       </div>
       <div className={protectedNameClassName} style={{ marginTop: '10px' }}>
-        {
-          meetingBooked ?
-            <div className={`name__info__protectedInfo__detail${selectedNameDrawerOpen ? '-withDrawer' : ''}`}>
+        {meetingBooked
+          ? <div className={`name__info__protectedInfo__detail${selectedNameDrawerOpen ? '-withDrawer' : ''}`}>
               <MetWithProtectedIcon color={selected && 'white'} style={{ marginRight: '10px' }} />
               {moment(meetingBooked).fromNow()}
               <IconButton
                 id="editMeeting"
-                onClick={(e) => {
+                onClick={e => {
                   e.stopPropagation();
                   editMeeting();
                 }}
@@ -64,21 +57,18 @@ export default ({
                 <EditIcon color={selected ? '' : cyan500} />
               </IconButton>
             </div>
-          :
-            <div className={`name__info__protectedInfo__detail${selectedNameDrawerOpen ? '-withDrawer' : ''}`}>
+          : <div className={`name__info__protectedInfo__detail${selectedNameDrawerOpen ? '-withDrawer' : ''}`}>
               <RaisedButton
                 id="bookMeeting"
-                onClick={(e) => {
+                onClick={e => {
                   e.stopPropagation();
                   editMeeting();
                 }}
                 primary={!selected}
                 label="Book meeting"
               />
-            </div>
-        }
+            </div>}
       </div>
     </div>
   );
 };
-

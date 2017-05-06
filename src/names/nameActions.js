@@ -12,7 +12,7 @@ export const openEditProtectedNameMeetingDialog = nameId => ({
 
 export const CLOSE_EDIT_PROTECTED_NAME_MEETING_DIALOG = 'CLOSE_EDIT_PROTECTED_NAME_MEETING_DIALOG';
 export const closeEditProtectedNameMeetingDialog = () => ({
-  type: CLOSE_EDIT_PROTECTED_NAME_MEETING_DIALOG,
+  type: CLOSE_EDIT_PROTECTED_NAME_MEETING_DIALOG
 });
 
 export const OPEN_EDIT_PROTECTED_NAME_CALL_DIALOG = 'OPEN_EDIT_PROTECTED_NAME_CALL_DIALOG';
@@ -23,5 +23,5 @@ export const openEditProtectedNameCallDialog = nameId => ({
 
 export const CLOSE_EDIT_PROTECTED_NAME_CALL_DIALOG = 'CLOSE_EDIT_PROTECTED_NAME_CALL_DIALOG';
 export const closeEditProtectedNameCallDialog = () => ({
-  type: CLOSE_EDIT_PROTECTED_NAME_CALL_DIALOG,
+  type: CLOSE_EDIT_PROTECTED_NAME_CALL_DIALOG
 });

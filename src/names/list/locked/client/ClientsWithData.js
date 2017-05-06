@@ -11,23 +11,13 @@ export const reducer = (previousResult, action) => {
   if (action.type === APOLLO_MUTATION_RESULT) {
     switch (action.operationName) {
       case 'RemoveClient':
-        if (
-          _.has(action, 'result.data.removeClientFromUser') &&
-          !_.has(action, 'result.errors')
-        ) {
-          return removeNameFromList(
-            previousResult, action.variables.clientId, 'client'
-          );
+        if (_.has(action, 'result.data.removeClientFromUser') && !_.has(action, 'result.errors')) {
+          return removeNameFromList(previousResult, action.variables.clientId, 'client');
         }
         break;
       case 'UnprotectName':
-        if (
-          _.has(action, 'result.data.unprotectNameFromUser') &&
-          !_.has(action, 'result.errors')
-        ) {
-          return removeNameFromList(
-            previousResult, action.variables.nameId, 'client', true
-          );
+        if (_.has(action, 'result.data.unprotectNameFromUser') && !_.has(action, 'result.errors')) {
+          return removeNameFromList(previousResult, action.variables.nameId, 'client', true);
         }
         break;
       default:
@@ -54,7 +44,7 @@ const Clients = graphql(GetClients, {
 
 const mapStateToProps = state => ({
   id: state.account.id,
-  selectedNameId: state.selectedName.id,
+  selectedNameId: state.selectedName.id
 });
 
 export default connect(mapStateToProps)(Clients);

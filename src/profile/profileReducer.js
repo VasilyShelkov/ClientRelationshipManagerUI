@@ -1,9 +1,13 @@
 import { LOGGED_IN_SUCCESSFULLY } from '../authentication/accountActions';
 import {
-  EDIT_PROFILE_PASSWORD, CANCEL_EDIT_PROFILE_PASSWORD,
-  EDIT_PROFILE, CANCEL_EDIT_PROFILE,
-  EDIT_COMPANY, CANCEL_EDIT_COMPANY,
-  REMOVE_PROFILE_NOTIFICATION, CHANGE_SHOWN_USER_PROFILE
+  EDIT_PROFILE_PASSWORD,
+  CANCEL_EDIT_PROFILE_PASSWORD,
+  EDIT_PROFILE,
+  CANCEL_EDIT_PROFILE,
+  EDIT_COMPANY,
+  CANCEL_EDIT_COMPANY,
+  REMOVE_PROFILE_NOTIFICATION,
+  CHANGE_SHOWN_USER_PROFILE
 } from './profileActions';
 import { APOLLO_MUTATION_INIT, APOLLO_MUTATION_RESULT } from '../app/thirdPartyActions';
 
@@ -12,7 +16,7 @@ export const initialState = {
   id: '',
   display: { company: true },
   editing: { profile: false, password: false, company: false },
-  notification: { company: '', profile: '', newUser: '' },
+  notification: { company: '', profile: '', newUser: '' }
 };
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -21,7 +25,7 @@ export default (state = initialState, action) => {
         ...initialState,
         id: action.payload.userIdToShow,
         display: {
-          company: action.payload.currentUserId === action.payload.userIdToShow,
+          company: action.payload.currentUserId === action.payload.userIdToShow
         },
         notification: {
           ...initialState.notification,
@@ -73,17 +77,17 @@ export default (state = initialState, action) => {
         case 'EditUserDetails':
           return {
             ...state,
-            editing: { ...state.editing, profile: EDIT_IN_PROGRESS },
+            editing: { ...state.editing, profile: EDIT_IN_PROGRESS }
           };
         case 'EditUserPassword':
           return {
             ...state,
-            editing: { ...state.editing, password: EDIT_IN_PROGRESS },
+            editing: { ...state.editing, password: EDIT_IN_PROGRESS }
           };
         case 'EditCompanyDetails':
           return {
             ...state,
-            editing: { ...state.editing, company: EDIT_IN_PROGRESS },
+            editing: { ...state.editing, company: EDIT_IN_PROGRESS }
           };
         default:
           return state;

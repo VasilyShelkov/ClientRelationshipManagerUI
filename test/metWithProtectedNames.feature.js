@@ -1,6 +1,6 @@
 Feature('Met with protected names', { retries: 3 });
 
-Scenario('user books a meeting on the met with protected name', function* (I) {
+Scenario('user books a meeting on the met with protected name', function*(I) {
   I.login();
   const newMetWithProtectedName = yield I.createFakeName();
   I.createMetWithProtectedName(newMetWithProtectedName);
@@ -34,7 +34,7 @@ Scenario('user books a meeting on the met with protected name', function* (I) {
   });
 });
 
-Scenario('user books a call on the met with protected name', function* (I) {
+Scenario('user books a call on the met with protected name', function*(I) {
   I.login();
   const newMetWithProtectedName = yield I.createFakeName();
   I.createMetWithProtectedName(newMetWithProtectedName);
@@ -68,7 +68,7 @@ Scenario('user books a call on the met with protected name', function* (I) {
   });
 });
 
-Scenario('user unprotects a met with protected name', function* (I) {
+Scenario('user unprotects a met with protected name', function*(I) {
   I.login();
   const newMetWithProtectedName = yield I.createFakeName();
   I.createMetWithProtectedName(newMetWithProtectedName);
@@ -112,7 +112,7 @@ Scenario('user unprotects a met with protected name', function* (I) {
   });
 });
 
-Scenario('user deletes a met with protected name', function* (I) {
+Scenario('user deletes a met with protected name', function*(I) {
   I.login();
   const newMetWithProtectedName = yield I.createFakeName();
   I.createMetWithProtectedName(newMetWithProtectedName);
@@ -128,7 +128,7 @@ Scenario('user deletes a met with protected name', function* (I) {
   });
 });
 
-Scenario('user makes the met with protected name a client with no call or meeting booked', function* (I) {
+Scenario('user makes the met with protected name a client with no call or meeting booked', function*(I) {
   I.login();
   const newMetWithProtectedName = yield I.createFakeName();
   I.createMetWithProtectedName(newMetWithProtectedName);
@@ -180,7 +180,7 @@ Scenario('user makes the met with protected name a client with no call or meetin
   });
 });
 
-Scenario('user makes the met with protected name a client with a call booked', function* (I) {
+Scenario('user makes the met with protected name a client with a call booked', function*(I) {
   I.login();
   const newMetWithProtectedName = yield I.createFakeName();
   I.createMetWithProtectedName(newMetWithProtectedName);
@@ -242,7 +242,7 @@ Scenario('user makes the met with protected name a client with a call booked', f
   });
 });
 
-Scenario('user makes the met with protected name a client with a meeting booked', function* (I) {
+Scenario('user makes the met with protected name a client with a meeting booked', function*(I) {
   I.login();
   const newMetWithProtectedName = yield I.createFakeName();
   I.createMetWithProtectedName(newMetWithProtectedName);
@@ -303,4 +303,3 @@ Scenario('user makes the met with protected name a client with a meeting booked'
     I.dontSee(newMetWithProtectedName.phone);
   });
 });
-

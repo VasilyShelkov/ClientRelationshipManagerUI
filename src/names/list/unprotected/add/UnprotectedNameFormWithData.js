@@ -10,7 +10,7 @@ import { hideCreateNameForm } from '../../nameListActions';
 const AddUnprotectedNameWithCompanyData = compose(
   graphql(CreateUnprotectedName, {
     props: ({ ownProps, mutate }) => ({
-      onSubmit: async (values) => {
+      onSubmit: async values => {
         const { companyName, companyAddress, companyPhone, ...nameDetails } = values;
         try {
           await mutate({
@@ -41,14 +41,11 @@ const AddUnprotectedNameWithCompanyData = compose(
 )(AddUnprotectedNameForm);
 
 const mapStateToProps = state => ({
-  id: state.account.id,
+  id: state.account.id
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  cancelCreateName: () => dispatch(hideCreateNameForm()),
+const mapDispatchToProps = dispatch => ({
+  cancelCreateName: () => dispatch(hideCreateNameForm())
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AddUnprotectedNameWithCompanyData);
+export default connect(mapStateToProps, mapDispatchToProps)(AddUnprotectedNameWithCompanyData);

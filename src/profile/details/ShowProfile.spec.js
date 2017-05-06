@@ -9,9 +9,9 @@ import EditPassword from './EditPassword';
 import { EDIT_IN_PROGRESS } from '../profileReducer';
 
 const setup = ({
-  onEditProfile = () => (''),
-  onEditProfilePassword = () => (''),
-  onCancelEditProfilePassword = () => (''),
+  onEditProfile = () => '',
+  onEditProfilePassword = () => '',
+  onCancelEditProfilePassword = () => '',
   editingPassword = false,
   editSuccessProfileNotification = ''
 }) => {
@@ -115,23 +115,29 @@ describe('src/profile/ShowProfile', () => {
     expect(successNotification.children().last().text()).to.equal(editSuccessProfileNotification);
   });
 
-  it('calls onEditProfile when the button is clicked on', sinon.test(function () {
-    const onEditProfile = this.spy();
-    const { wrapper } = setup({ onEditProfile });
+  it(
+    'calls onEditProfile when the button is clicked on',
+    sinon.test(function() {
+      const onEditProfile = this.spy();
+      const { wrapper } = setup({ onEditProfile });
 
-    const renderedEditButtonClick = wrapper.find(RaisedButton).prop('onClick');
-    renderedEditButtonClick();
+      const renderedEditButtonClick = wrapper.find(RaisedButton).prop('onClick');
+      renderedEditButtonClick();
 
-    expect(onEditProfile).to.have.been.called;
-  }));
+      expect(onEditProfile).to.have.been.called;
+    })
+  );
 
-  it('calls onEditProfilePassword when the button is clicked on', sinon.test(function () {
-    const onEditProfilePassword = this.spy();
-    const { wrapper } = setup({ onEditProfilePassword });
+  it(
+    'calls onEditProfilePassword when the button is clicked on',
+    sinon.test(function() {
+      const onEditProfilePassword = this.spy();
+      const { wrapper } = setup({ onEditProfilePassword });
 
-    const renderedEditButtonClick = wrapper.find(ListItem).at(3).prop('onClick');
-    renderedEditButtonClick();
+      const renderedEditButtonClick = wrapper.find(ListItem).at(3).prop('onClick');
+      renderedEditButtonClick();
 
-    expect(onEditProfilePassword).to.have.been.called;
-  }));
+      expect(onEditProfilePassword).to.have.been.called;
+    })
+  );
 });

@@ -22,10 +22,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onCancelEditProfile: () => dispatch(cancelEditProfile()),
+  onCancelEditProfile: () => dispatch(cancelEditProfile())
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ProfileWithData);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileWithData);

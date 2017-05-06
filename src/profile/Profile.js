@@ -6,9 +6,7 @@ import { EDIT_IN_PROGRESS } from './profileReducer';
 import EditProfile from './details/EditProfile';
 import CompanyProfile from './company/Company';
 
-export default ({
-  loading, user, editingProfile, displayCompany, onCancelEditProfile
-}) => {
+export default ({ loading, user, editingProfile, displayCompany, onCancelEditProfile }) => {
   if (loading) {
     return (
       <div className="container-fluid">
@@ -21,20 +19,16 @@ export default ({
     <div className="container-fluid Profile">
       <div className="row">
         <div className={`col-12 ${displayCompany && 'col-sm-6 push-sm-6 align-self-center'}`}>
-          {
-            editingProfile ?
-              <EditProfile
+          {editingProfile
+            ? <EditProfile
                 initialValues={user}
                 handleCancelEditProfile={onCancelEditProfile}
                 editInProgess={editingProfile === EDIT_IN_PROGRESS}
               />
-            :
-              <ShowProfileWithData {...user} />
-          }
+            : <ShowProfileWithData {...user} />}
         </div>
         <CompanyProfile user={user} display={displayCompany} />
       </div>
     </div>
   );
 };
-

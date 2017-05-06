@@ -10,28 +10,23 @@ import SelectedName from '../SelectedName';
 import NameDialogForm from '../../NameDialog';
 
 export default ({
-  selectedUnprotected, selectedNameDrawerOpen,
-  protectNameDialogOpen, openProtectNameDialog, closeProtectNameDialog,
-  onSubmitProtectName, removeUnprotectedName, hideName
+  selectedUnprotected,
+  selectedNameDrawerOpen,
+  protectNameDialogOpen,
+  openProtectNameDialog,
+  closeProtectNameDialog,
+  onSubmitProtectName,
+  removeUnprotectedName,
+  hideName
 }) => {
   if (selectedNameDrawerOpen && selectedUnprotected) {
     const displayName = `${selectedUnprotected.name.firstName} ${selectedUnprotected.name.lastName}`;
     return (
-      <SelectedName
-        details={selectedUnprotected}
-        closeNameDetails={hideName}
-        removeNameAction={removeUnprotectedName}
-      >
-        <IconButton
-          id="protectName"
-          tooltip="Protect Name"
-          onClick={openProtectNameDialog}
-          touch
-        >
+      <SelectedName details={selectedUnprotected} closeNameDetails={hideName} removeNameAction={removeUnprotectedName}>
+        <IconButton id="protectName" tooltip="Protect Name" onClick={openProtectNameDialog} touch>
           <LockClosedIcon color={cyan500} />
         </IconButton>
-        {
-          protectNameDialogOpen &&
+        {protectNameDialogOpen &&
           <NameDialogForm
             title={`Protect ${displayName}`}
             displayName={displayName}
@@ -45,12 +40,7 @@ export default ({
               meetingTime: null
             }}
             actions={[
-              <FlatButton
-                onClick={closeProtectNameDialog}
-                label="Cancel"
-                secondary
-                icon={<CancelIcon />}
-              />,
+              <FlatButton onClick={closeProtectNameDialog} label="Cancel" secondary icon={<CancelIcon />} />,
               <FlatButton
                 id="submitProtectName"
                 form="protectNameForm"
@@ -60,8 +50,7 @@ export default ({
                 icon={<LockClosedIcon />}
               />
             ]}
-          />
-        }
+          />}
       </SelectedName>
     );
   }

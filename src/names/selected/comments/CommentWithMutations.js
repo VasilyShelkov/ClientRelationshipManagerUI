@@ -15,10 +15,12 @@ export const CommentWithMutations = compose(
       ...ownProps,
       deleteComment: async () => {
         try {
-          await mutate({ variables: {
-            commentId: ownProps.id,
-            userId: ownProps.userId
-          } });
+          await mutate({
+            variables: {
+              commentId: ownProps.id,
+              userId: ownProps.userId
+            }
+          });
         } catch (error) {
           ownProps.showErrorNotification(
             error.graphQLErrors ? error.graphQLErrors[0].message : 'Oops, something went wrong...'
@@ -32,11 +34,13 @@ export const CommentWithMutations = compose(
       ...ownProps,
       editComment: async ({ text }) => {
         try {
-          await mutate({ variables: {
-            commentId: ownProps.id,
-            userId: ownProps.userId,
-            text
-          } });
+          await mutate({
+            variables: {
+              commentId: ownProps.id,
+              userId: ownProps.userId,
+              text
+            }
+          });
         } catch (error) {
           ownProps.showErrorNotification(
             error.graphQLErrors ? error.graphQLErrors[0].message : 'Oops, something went wrong...'
@@ -49,10 +53,7 @@ export const CommentWithMutations = compose(
 
 const mapDispatchToProps = dispatch => ({
   performingNameAction: message => dispatch(performingNameAction(message)),
-  showErrorNotification: message => dispatch(showNotification(message, red500)),
+  showErrorNotification: message => dispatch(showNotification(message, red500))
 });
 
-export default connect(
-  () => ({}),
-  mapDispatchToProps
-)(CommentWithMutations);
+export default connect(() => ({}), mapDispatchToProps)(CommentWithMutations);

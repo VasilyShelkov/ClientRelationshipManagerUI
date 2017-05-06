@@ -12,67 +12,44 @@ import GetNameComments from '../../../selected/comments/GetNameComments.gql';
 
 import { onSubmitBookCall, onSubmitBookMeeting } from '../lockedMutations';
 import { APOLLO_MUTATION_RESULT } from '../../../../app/thirdPartyActions';
-import { performingNameAction, } from '../../../nameActions';
+import { performingNameAction } from '../../../nameActions';
 import { changeShownProtectedList } from '../../nameListActions';
 import { showNotification } from '../../../../app/appActions';
 
 import ProtectedNamesLayout from './ProtectedNamesLayout';
 import { removeNameFromList } from '../../nameListShapeShifter';
 
-const reducer = (nameListType) => (previousResult, action) => {
+const reducer = nameListType => (previousResult, action) => {
   if (action.type === APOLLO_MUTATION_RESULT) {
     switch (action.operationName) {
       case 'RemoveProtectedName':
-        if (
-          _.has(action, 'result.data.removeProtectedFromUser') &&
-          !_.has(action, 'result.errors')
-        ) {
-          return removeNameFromList(
-            previousResult, action.variables.protectedId, nameListType
-          );
+        if (_.has(action, 'result.data.removeProtectedFromUser') && !_.has(action, 'result.errors')) {
+          return removeNameFromList(previousResult, action.variables.protectedId, nameListType);
         }
         break;
       case 'UnprotectName':
-        if (
-          _.has(action, 'result.data.unprotectNameFromUser') &&
-          !_.has(action, 'result.errors')
-        ) {
-          return removeNameFromList(
-            previousResult, action.variables.nameId, nameListType, true
-          );
+        if (_.has(action, 'result.data.unprotectNameFromUser') && !_.has(action, 'result.errors')) {
+          return removeNameFromList(previousResult, action.variables.nameId, nameListType, true);
         }
         break;
       case 'MakeClient':
-        if (
-          _.has(action, 'result.data.addClientToUser') &&
-          !_.has(action, 'result.errors')
-        ) {
-          return removeNameFromList(
-            previousResult, action.variables.nameId, nameListType, true
-          );
+        if (_.has(action, 'result.data.addClientToUser') && !_.has(action, 'result.errors')) {
+          return removeNameFromList(previousResult, action.variables.nameId, nameListType, true);
         }
         break;
       case 'MetWithProtected':
-        if (
-          _.has(action, 'result.data.editProtectedName') &&
-          !_.has(action, 'result.errors')
-        ) {
+        if (_.has(action, 'result.data.editProtectedName') && !_.has(action, 'result.errors')) {
           if (nameListType === 'metWithProtected') {
             return {
               ...previousResult,
               user: {
                 ...previousResult.user,
-                metWithProtected: [
-                  action.result.data.editProtectedName,
-                  ...previousResult.user.metWithProtected
-                ]
+                metWithProtected: [action.result.data.editProtectedName, ...previousResult.user.metWithProtected]
               }
             };
           }
 
-          return removeNameFromList(
-            previousResult, action.variables.protectedId, nameListType
-          );
+          return removeNameFromList(previousResult, action.variables.protectedId, nameListType);
         }
         break;
       default:
@@ -115,48 +92,54 @@ const ProtectedNames = compose(
   }),
   graphql(BookCall, {
     props: ({ ownProps, mutate }) => ({
-      onSubmitBookCall: names => onSubmitBookCall({
-        mutate,
-        userId: ownProps.id,
-        names,
-        editCallDialogOpen: ownProps.editProtectedNameCallDialogOpen,
-        nameListTypeIdKey: 'protectedId',
-        performingNameAction: ownProps.performingNameAction,
-        showErrorNotification: ownProps.showErrorNotification
-      }),
+      onSubmitBookCall: names =>
+        onSubmitBookCall({
+          mutate,
+          userId: ownProps.id,
+          names,
+          editCallDialogOpen: ownProps.editProtectedNameCallDialogOpen,
+          nameListTypeIdKey: 'protectedId',
+          performingNameAction: ownProps.performingNameAction,
+          showErrorNotification: ownProps.showErrorNotification
+        }),
       ...ownProps
     }),
     options: props => ({
-      refetchQueries: [{
-        query: GetNameComments,
-        variables: {
-          userId: props.id,
-          id: props.selectedNameId
-        },
-      }]
+      refetchQueries: [
+        {
+          query: GetNameComments,
+          variables: {
+            userId: props.id,
+            id: props.selectedNameId
+          }
+        }
+      ]
     })
   }),
   graphql(BookMeeting, {
     props: ({ ownProps, mutate }) => ({
-      onSubmitBookMeeting: names => onSubmitBookMeeting({
-        mutate,
-        userId: ownProps.id,
-        names,
-        editMeetingDialogOpen: ownProps.editProtectedNameMeetingDialogOpen,
-        nameListTypeIdKey: 'protectedId',
-        performingNameAction: ownProps.performingNameAction,
-        showErrorNotification: ownProps.showErrorNotification
-      }),
+      onSubmitBookMeeting: names =>
+        onSubmitBookMeeting({
+          mutate,
+          userId: ownProps.id,
+          names,
+          editMeetingDialogOpen: ownProps.editProtectedNameMeetingDialogOpen,
+          nameListTypeIdKey: 'protectedId',
+          performingNameAction: ownProps.performingNameAction,
+          showErrorNotification: ownProps.showErrorNotification
+        }),
       ...ownProps
     }),
     options: props => ({
-      refetchQueries: [{
-        query: GetNameComments,
-        variables: {
-          userId: props.id,
-          id: props.selectedNameId
-        },
-      }]
+      refetchQueries: [
+        {
+          query: GetNameComments,
+          variables: {
+            userId: props.id,
+            id: props.selectedNameId
+          }
+        }
+      ]
     })
   })
 )(ProtectedNamesLayout);
@@ -172,10 +155,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   changeShownProtectedList: listToShow => dispatch(changeShownProtectedList(listToShow)),
   performingNameAction: message => dispatch(performingNameAction(message)),
-  showErrorNotification: message => dispatch(showNotification(message, red500)),
+  showErrorNotification: message => dispatch(showNotification(message, red500))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ProtectedNames);
+export default connect(mapStateToProps, mapDispatchToProps)(ProtectedNames);
