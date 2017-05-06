@@ -1,11 +1,11 @@
 {
   "name": "ClientRelationshipManagerUI",
-  "description": "Web client for CRM graphql api",
   "version": "1.0.0",
-  "engines": {
-    "node": "7.3.0"
-  },
+  "description": "Web client for CRM graphql api",
   "main": "index.html",
+  "engines": {
+    "node": "7.4.0"
+  },
   "scripts": {
     "start": "npm run start:server-only",
     "start:server-only": "node server.js",
@@ -19,8 +19,8 @@
     "test:watch": "NODE_ENV=testing mocha --watch --opts ./mocha.opts './src/**/*.spec.js'",
     "test:feature": "./node_modules/codeceptjs/bin/codecept.js run --steps",
     "test:feature:staging": "NODE_ENV=staging ./node_modules/codeceptjs/bin/codecept.js run",
-    "test-features:selenium-install": "./node_modules/.bin/selenium-standalone install",
-    "test-features:selenium-start": "./node_modules/.bin/selenium-standalone start",
+    "test:feature:selenium-install": "./node_modules/.bin/selenium-standalone install",
+    "test:feature:selenium-start": "./node_modules/.bin/selenium-standalone start",
     "lint:prettier": "prettier --write --single-quote --print-width 120 '{src,test}/**/*.js'",
     "precommit": "lint-staged && npm test"
   },
@@ -34,15 +34,6 @@
     "type": "git",
     "url": "git+https://github.com/VasilyShelkov/ClientRelationshipManagerUI.git"
   },
-  "keywords": [
-    "node",
-    "react",
-    "express",
-    "hot-loading",
-    "webpack-hot-middleware",
-    "babel6",
-    "eslint"
-  ],
   "author": "Vasily Shelkov",
   "license": "MIT",
   "bugs": {
@@ -102,8 +93,7 @@
     "babel-register": "^6.22.0",
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
-    "codeceptjs": "^0.6.1",
-    "deep-freeze": "0.0.1",
+    "codeceptjs": "0.6.3",
     "enzyme": "^2.8.0",
     "eslint": "^3.18.0",
     "eslint-plugin-react": "^6.10.3",
