@@ -38,7 +38,7 @@ export default class NamesList extends Component {
       openEditProtectedNameMeetingDialog,
       openEditProtectedNameCallDialog
     } = this.props;
-    let namesFromSearch = names;
+    let namesFromSearch = names.slice(0);
 
     if (this.state.searchValue) {
       namesFromSearch = this.state.fuse.search(this.state.searchValue);

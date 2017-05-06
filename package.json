@@ -21,7 +21,7 @@
     "test:feature:staging": "NODE_ENV=staging ./node_modules/codeceptjs/bin/codecept.js run",
     "test:feature:selenium-install": "./node_modules/.bin/selenium-standalone install",
     "test:feature:selenium-start": "./node_modules/.bin/selenium-standalone start",
-    "lint:prettier": "prettier --write --single-quote --print-width 120 '{src,test}/**/*.js'",
+    "lint:prettier": "prettier --write --single-quote --print-width 120 'src/**/*.js'",
     "precommit": "lint-staged && npm test"
   },
   "lint-staged": {
