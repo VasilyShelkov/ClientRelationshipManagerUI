@@ -8,8 +8,10 @@ import BookClientCall from '../../edit/BookClientCall.gql';
 import BookClientMeeting from '../../edit/BookClientMeeting.gql';
 import { onSubmitBookCall, onSubmitBookMeeting } from '../protectedMutations';
 import {
-  selectName, performingNameAction,
-  openEditProtectedNameMeetingDialog, openEditProtectedNameCallDialog
+  selectName,
+  performingNameAction,
+  openEditProtectedNameMeetingDialog,
+  openEditProtectedNameCallDialog
 } from '../../nameActions';
 import { showNotification } from '../../../app/appActions';
 
@@ -55,7 +57,7 @@ const ClientsWithEditMutations = compose(
 const mapStateToProps = state => ({
   nameActionInProgress: state.name.actionInProgress,
   editProtectedNameCallDialogOpen: state.name.editProtectedNameCallDialogOpen,
-  editProtectedNameMeetingDialogOpen: state.name.editProtectedNameMeetingDialogOpen,
+  editProtectedNameMeetingDialogOpen: state.name.editProtectedNameMeetingDialogOpen
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -63,10 +65,7 @@ const mapDispatchToProps = dispatch => ({
   openEditProtectedNameMeetingDialog: nameId => dispatch(openEditProtectedNameMeetingDialog(nameId)),
   openEditProtectedNameCallDialog: nameId => dispatch(openEditProtectedNameCallDialog(nameId)),
   performingNameAction: message => dispatch(performingNameAction(message)),
-  showErrorNotification: message => dispatch(showNotification(message, red500)),
+  showErrorNotification: message => dispatch(showNotification(message, red500))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ClientsWithEditMutations);
+export default connect(mapStateToProps, mapDispatchToProps)(ClientsWithEditMutations);

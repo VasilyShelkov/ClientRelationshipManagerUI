@@ -15,17 +15,24 @@ import PhoneIcon from 'material-ui/svg-icons/communication/phone';
 import LocationIcon from 'material-ui/svg-icons/communication/location-on';
 import Divider from 'material-ui/Divider';
 
-import {
-  showEditName, hideEditName, showEditNameCompany, hideEditNameCompany
-} from './nameActions';
+import { showEditName, hideEditName, showEditNameCompany, hideEditNameCompany } from './nameActions';
 import EditNameForm from './edit/EditSelectedNameForm';
 import EditNameCompanyForm from './edit/EditNameCompanyForm';
 
 export const NameDetails = ({
-  userId, details: { name: { id, firstName, lastName, phone, company } },
-  open, showingEditNameForm, showingEditCompanyForm, isProtected, children,
-  closeNameDetails, removeNameAction, showEditNameForm, hideEditNameForm,
-  showEditCompanyForm, hideEditCompanyForm
+  userId,
+  details: { name: { id, firstName, lastName, phone, company } },
+  open,
+  showingEditNameForm,
+  showingEditCompanyForm,
+  isProtected,
+  children,
+  closeNameDetails,
+  removeNameAction,
+  showEditNameForm,
+  hideEditNameForm,
+  showEditCompanyForm,
+  hideEditCompanyForm
 }) => (
   <Drawer containerStyle={{ zIndex: '1100' }} width={250} openSecondary open={open}>
     <Toolbar>
@@ -46,9 +53,8 @@ export const NameDetails = ({
       </ToolbarGroup>
     </Toolbar>
     <List>
-      {
-        showingEditNameForm ?
-          <div>
+      {showingEditNameForm
+        ? <div>
             <Subheader>Editing Name</Subheader>
             <EditNameForm
               userId={userId}
@@ -57,8 +63,7 @@ export const NameDetails = ({
               isProtected={isProtected}
             />
           </div>
-        :
-          <div>
+        : <div>
             <Subheader style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               Name
               <IconButton>
@@ -67,23 +72,16 @@ export const NameDetails = ({
             </Subheader>
             <ListItem primaryText={`${firstName} ${lastName}`} disabled />
             <ListItem primaryText={phone} leftIcon={<PhoneIcon />} disabled />
-          </div>
-      }
+          </div>}
 
       <Divider />
 
-      {
-        showingEditCompanyForm ?
-          <div>
+      {showingEditCompanyForm
+        ? <div>
             <Subheader>Editing Company</Subheader>
-            <EditNameCompanyForm
-              userId={userId}
-              initialValues={company}
-              cancelEditNameCompany={hideEditCompanyForm}
-            />
+            <EditNameCompanyForm userId={userId} initialValues={company} cancelEditNameCompany={hideEditCompanyForm} />
           </div>
-        :
-          <div>
+        : <div>
             <Subheader style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               Company
               <IconButton>
@@ -93,29 +91,24 @@ export const NameDetails = ({
             <ListItem primaryText={company.name} disabled />
             <ListItem primaryText={company.phone} leftIcon={<PhoneIcon />} disabled />
             <ListItem primaryText={company.address} leftIcon={<LocationIcon />} disabled />
-          </div>
-      }
+          </div>}
 
       <Divider />
     </List>
   </Drawer>
 );
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   userId: state.account.id,
   showingEditNameForm: state.name.showingEditNameForm,
   showingEditCompanyForm: state.name.showingEditNameCompanyForm
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   showEditNameForm: () => dispatch(showEditName()),
   hideEditNameForm: () => dispatch(hideEditName()),
   showEditCompanyForm: () => dispatch(showEditNameCompany()),
   hideEditCompanyForm: () => dispatch(hideEditNameCompany())
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(NameDetails);
-
+export default connect(mapStateToProps, mapDispatchToProps)(NameDetails);

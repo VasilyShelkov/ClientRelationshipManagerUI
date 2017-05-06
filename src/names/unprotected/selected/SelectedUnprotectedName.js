@@ -10,9 +10,14 @@ import NameDetailsDrawerWithData from '../../NameDetails';
 import NameDialogForm from '../../NameDialog';
 
 export default ({
-  selectedUnprotected, selectedNameDrawerOpen,
-  protectNameDialogOpen, openProtectNameDialog, closeProtectNameDialog,
-  onSubmitProtectName, removeUnprotectedName, hideName
+  selectedUnprotected,
+  selectedNameDrawerOpen,
+  protectNameDialogOpen,
+  openProtectNameDialog,
+  closeProtectNameDialog,
+  onSubmitProtectName,
+  removeUnprotectedName,
+  hideName
 }) => {
   if (selectedNameDrawerOpen && selectedUnprotected) {
     const displayName = `${selectedUnprotected.name.firstName} ${selectedUnprotected.name.lastName}`;
@@ -22,15 +27,10 @@ export default ({
         closeNameDetails={hideName}
         removeNameAction={removeUnprotectedName}
       >
-        <IconButton
-          tooltip="Protect Name"
-          onClick={openProtectNameDialog}
-          touch
-        >
+        <IconButton tooltip="Protect Name" onClick={openProtectNameDialog} touch>
           <LockClosedIcon color={cyan500} />
         </IconButton>
-        {
-          protectNameDialogOpen &&
+        {protectNameDialogOpen &&
           <NameDialogForm
             title={`Protect ${displayName}`}
             displayName={displayName}
@@ -44,22 +44,10 @@ export default ({
               meetingTime: null
             }}
             actions={[
-              <FlatButton
-                onClick={closeProtectNameDialog}
-                label="Cancel"
-                secondary
-                icon={<CancelIcon />}
-              />,
-              <FlatButton
-                form="protectName"
-                type="submit"
-                label="Protect"
-                primary
-                icon={<LockClosedIcon />}
-              />
+              <FlatButton onClick={closeProtectNameDialog} label="Cancel" secondary icon={<CancelIcon />} />,
+              <FlatButton form="protectName" type="submit" label="Protect" primary icon={<LockClosedIcon />} />
             ]}
-          />
-        }
+          />}
       </NameDetailsDrawerWithData>
     );
   }

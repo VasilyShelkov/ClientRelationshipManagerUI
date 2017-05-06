@@ -15,16 +15,17 @@ const moreInfoStyle = {
 
 export default ({
   name: { firstName, lastName, phone, company },
-  callBooked, meetingBooked, created_at,
-  selected = false, isProtected = false,
-  showMoreDetails, selectedNameDrawerOpen,
-  editProtectedMeeting, editProtectedCall
+  callBooked,
+  meetingBooked,
+  created_at,
+  selected = false,
+  isProtected = false,
+  showMoreDetails,
+  selectedNameDrawerOpen,
+  editProtectedMeeting,
+  editProtectedCall
 }) => (
-  <Paper
-    className="name"
-    style={{ backgroundColor: selected ? cyan500 : fullWhite }}
-    onClick={showMoreDetails}
-  >
+  <Paper className="name" style={{ backgroundColor: selected ? cyan500 : fullWhite }} onClick={showMoreDetails}>
     <div className="name__info">
       <div className={`name__info__main${selected ? '-selected' : ''}`}>
         <span>{firstName} {lastName} - {phone}</span>
@@ -32,27 +33,22 @@ export default ({
           {company.name}
         </span>
       </div>
-      {
-        isProtected &&
-          <NameProtectedInfo
-            callBooked={callBooked}
-            meetingBooked={meetingBooked}
-            selected={selected}
-            selectedNameDrawerOpen={selectedNameDrawerOpen}
-            editCall={editProtectedCall}
-            editMeeting={editProtectedMeeting}
-          />
-      }
+      {isProtected &&
+        <NameProtectedInfo
+          callBooked={callBooked}
+          meetingBooked={meetingBooked}
+          selected={selected}
+          selectedNameDrawerOpen={selectedNameDrawerOpen}
+          editCall={editProtectedCall}
+          editMeeting={editProtectedMeeting}
+        />}
       <span className={`name__info__date${selected ? '-selected' : ''}`}>
         created: {moment(created_at).fromNow()}
       </span>
     </div>
 
     <div className="name__more">
-      <IconButton
-        style={moreInfoStyle.container}
-        iconStyle={moreInfoStyle.icon}
-      >
+      <IconButton style={moreInfoStyle.container} iconStyle={moreInfoStyle.icon}>
         <MoreInfoIcon color={selected ? fullWhite : cyan500} />
       </IconButton>
     </div>

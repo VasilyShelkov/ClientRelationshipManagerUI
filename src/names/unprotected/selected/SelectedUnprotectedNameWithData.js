@@ -8,10 +8,7 @@ import RemoveUnprotectedName from './RemoveUnprotectedName.gql';
 import ProtectName from './ProtectName.gql';
 
 import { showNotification } from '../../../app/appActions';
-import {
-  hideName, openProtectNameDialog, closeProtectNameDialog,
-  performingNameAction
-} from '../../nameActions';
+import { hideName, openProtectNameDialog, closeProtectNameDialog, performingNameAction } from '../../nameActions';
 
 import SelectedUnprotectedName from './SelectedUnprotectedName';
 
@@ -23,11 +20,15 @@ const SelectedUnprotectedNameWithMutations = compose(
         const { selectedUnprotected } = ownProps;
 
         try {
-          ownProps.performingNameAction(`Removing ${selectedUnprotected.name.firstName} ${selectedUnprotected.name.lastName}`);
-          await mutate({ variables: {
-            userId: ownProps.id,
-            unprotectedId: selectedUnprotected.id
-          } });
+          ownProps.performingNameAction(
+            `Removing ${selectedUnprotected.name.firstName} ${selectedUnprotected.name.lastName}`
+          );
+          await mutate({
+            variables: {
+              userId: ownProps.id,
+              unprotectedId: selectedUnprotected.id
+            }
+          });
         } catch (error) {
           ownProps.showErrorNotification(
             error.graphQLErrors ? error.graphQLErrors[0].message : 'Oops, something went wrong...'
@@ -53,7 +54,9 @@ const SelectedUnprotectedNameWithMutations = compose(
         }
 
         try {
-          ownProps.performingNameAction(`Protecting ${selectedUnprotected.name.firstName} ${selectedUnprotected.name.lastName}`);
+          ownProps.performingNameAction(
+            `Protecting ${selectedUnprotected.name.firstName} ${selectedUnprotected.name.lastName}`
+          );
           await mutate({
             variables: {
               userId: ownProps.id,
@@ -66,10 +69,7 @@ const SelectedUnprotectedNameWithMutations = compose(
               GetProtectedNames: (previousResult, { mutationResult }) => ({
                 user: {
                   ...previousResult.user,
-                  protected: [
-                    mutationResult.data.protectNameToUser,
-                    ...previousResult.user.protected
-                  ]
+                  protected: [mutationResult.data.protectNameToUser, ...previousResult.user.protected]
                 }
               })
             }
@@ -91,15 +91,13 @@ const mapStateToProps = state => ({
   showingCreateForm: state.name.showingCreateForm
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   hideName: () => dispatch(hideName()),
   openProtectNameDialog: () => dispatch(openProtectNameDialog()),
   closeProtectNameDialog: () => dispatch(closeProtectNameDialog()),
-  performingNameAction: (message) => dispatch(performingNameAction(message)),
-  showErrorNotification: (message) => dispatch(showNotification(message, red500)),
+  performingNameAction: message => dispatch(performingNameAction(message)),
+  showErrorNotification: message => dispatch(showNotification(message, red500)),
   protectNameSuccess: () => dispatch(push('/account/names/protected'))
 });
 
-export default connect(
-  mapStateToProps, mapDispatchToProps
-)(SelectedUnprotectedNameWithMutations);
+export default connect(mapStateToProps, mapDispatchToProps)(SelectedUnprotectedNameWithMutations);

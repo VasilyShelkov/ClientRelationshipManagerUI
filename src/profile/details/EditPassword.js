@@ -7,9 +7,7 @@ import EditUserPassword from './EditUserPassword.gql';
 import { renderTextField, required, minLength } from '../../shared/FormElements';
 import StandardForm from '../../shared/StandardForm';
 
-const EditPassword = ({
-  handleSubmit, handleCancelEditProfilePassword, error, editInProgress
-}) => (
+const EditPassword = ({ handleSubmit, handleCancelEditProfilePassword, error, editInProgress }) => (
   <StandardForm
     handleSubmit={handleSubmit}
     handleCancel={handleCancelEditProfilePassword}
@@ -42,7 +40,7 @@ export const EditPasswordForm = reduxForm({ form: 'profilePassword' })(EditPassw
 
 export default graphql(EditUserPassword, {
   props: ({ ownProps, mutate }) => ({
-    onSubmit: async (values) => {
+    onSubmit: async values => {
       if (values.password === values.confirmPassword) {
         try {
           await mutate({ variables: { id: ownProps.userId, password: values.password } });

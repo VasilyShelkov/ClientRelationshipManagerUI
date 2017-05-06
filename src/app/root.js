@@ -27,5 +27,4 @@ const Root = () => (
 
 export default Root;
 
-
 if (!module.hot) render(<Root />, document.querySelector('react'));

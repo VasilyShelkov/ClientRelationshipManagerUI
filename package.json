@@ -13,7 +13,15 @@
     "test:watch": "NODE_ENV=testing mocha --watch --opts ./mocha.opts './src/**/*.spec.js'",
     "test-features": "babel-node ./node_modules/codeceptjs/bin/codecept.js run --steps",
     "test-features:selenium-install": "./node_modules/.bin/selenium-standalone install",
-    "test-features:selenium-start": "./node_modules/.bin/selenium-standalone start"
+    "test-features:selenium-start": "./node_modules/.bin/selenium-standalone start",
+    "lint:prettier": "prettier --write --single-quote --print-width 120 '{src,test}/**/*.js'",
+    "precommit": "lint-staged && npm test"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write --single-quote --print-width 120",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
@@ -83,17 +91,17 @@
     "deep-freeze": "0.0.1",
     "enzyme": "^2.6.0",
     "eslint": "^3.12.0",
-    "eslint-config-airbnb": "^13.0.0",
-    "eslint-plugin-babel": "^3.3.0",
-    "eslint-plugin-graphql": "^0.4.3",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-config-prettier": "^1.7.0",
+    "eslint-plugin-prettier": "^2.0.1",
     "eslint-plugin-react": "^6.8.0",
     "extend": "^3.0.0",
+    "husky": "^0.13.3",
     "ignore-styles": "^5.0.1",
     "jsdom": "^9.9.1",
+    "lint-staged": "^3.4.1",
     "mocha": "^3.2.0",
     "mocha-graphql-register": "^1.0.0",
+    "prettier": "^1.3.1",
     "react-addons-test-utils": "^15.4.1",
     "react-hot-loader": "^3.0.0-beta.6",
     "selenium-standalone": "^5.9.1",

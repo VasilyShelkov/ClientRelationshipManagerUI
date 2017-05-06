@@ -5,9 +5,7 @@ import LoadingSpinner from '../shared/LoadingSpinner';
 import { FormErrorNotification } from '../shared/FormElements';
 import { Login } from './Login';
 
-const setup = ({
-  loggingIn = false, handleSubmit = () => (''), error = 'test error'
-}) => {
+const setup = ({ loggingIn = false, handleSubmit = () => '', error = 'test error' }) => {
   const props = {
     loggingIn,
     handleSubmit,
@@ -52,14 +50,17 @@ describe('src/authentication/Login.js', () => {
     expect(submitButton.prop('type')).to.equal('submit');
   });
 
-  it('calls handle submit', sinon.test(function () {
-    const handleSubmit = this.spy();
-    const { wrapper } = setup({ handleSubmit });
+  it(
+    'calls handle submit',
+    sinon.test(function() {
+      const handleSubmit = this.spy();
+      const { wrapper } = setup({ handleSubmit });
 
-    const form = wrapper.find('form');
-    expect(form.exists()).to.be.true;
+      const form = wrapper.find('form');
+      expect(form.exists()).to.be.true;
 
-    form.prop('onSubmit')();
-    expect(handleSubmit).to.have.been.called;
-  }));
+      form.prop('onSubmit')();
+      expect(handleSubmit).to.have.been.called;
+    })
+  );
 });

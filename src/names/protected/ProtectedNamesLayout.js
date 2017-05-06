@@ -8,18 +8,21 @@ import StandardProtectedNamesWithData from './StandardProtectedNamesWithData';
 import { getNameByNameId } from '../nameListShapeShifter';
 
 export default ({
-  id, loadingProtected, protectedNames,
-  loadingMetWithProtected, metWithProtectedNames,
-  selectedNameId, listToShow, changeShownProtectedList
+  id,
+  loadingProtected,
+  protectedNames,
+  loadingMetWithProtected,
+  metWithProtectedNames,
+  selectedNameId,
+  listToShow,
+  changeShownProtectedList
 }) => {
   const selectedProtected = getNameByNameId(protectedNames, selectedNameId);
   const selectedProtectedNameDrawerOpen = Boolean(selectedProtected) && listToShow === 'protected';
 
   const selectedMetWithProtected = getNameByNameId(metWithProtectedNames, selectedNameId);
   const selectedMetWithProtectedNameDrawerOpen = Boolean(selectedMetWithProtected) && listToShow === 'metWithProtected';
-  const selectedNameDrawerOpen = (
-    selectedProtectedNameDrawerOpen || selectedMetWithProtectedNameDrawerOpen
-  );
+  const selectedNameDrawerOpen = selectedProtectedNameDrawerOpen || selectedMetWithProtectedNameDrawerOpen;
 
   return (
     <Tabs
@@ -28,11 +31,7 @@ export default ({
       value={listToShow}
       onChange={changeShownProtectedList}
     >
-      <Tab
-        label="PROTECTED"
-        value="protected"
-        icon={loadingProtected ? <CircularProgress /> : <ProtectedIcon />}
-      >
+      <Tab label="PROTECTED" value="protected" icon={loadingProtected ? <CircularProgress /> : <ProtectedIcon />}>
         <StandardProtectedNamesWithData
           userId={id}
           loading={loadingProtected}
@@ -61,4 +60,4 @@ export default ({
       </Tab>
     </Tabs>
   );
-}
+};

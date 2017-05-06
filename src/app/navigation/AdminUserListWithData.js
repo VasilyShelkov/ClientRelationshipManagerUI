@@ -8,9 +8,7 @@ import AdminUserList from './AdminUserList';
 export const props = ({ ownProps, data: { loading, users } }) => {
   let usersWithoutSelf = [];
   if (!loading) {
-    usersWithoutSelf = users.filter(
-      user => user.id !== ownProps.currentUserId
-    );
+    usersWithoutSelf = users.filter(user => user.id !== ownProps.currentUserId);
   }
 
   return { loading, users: usersWithoutSelf, ...ownProps };
@@ -24,10 +22,7 @@ export const reducer = (previousResult, action) => {
     !_.has(action, 'result.errors')
   ) {
     return {
-      users: [
-        ...previousResult.users,
-        action.result.data.createUser
-      ]
+      users: [...previousResult.users, action.result.data.createUser]
     };
   }
 
@@ -35,5 +30,6 @@ export const reducer = (previousResult, action) => {
 };
 
 export default graphql(GetAllUsers, {
-  props, options: ({ params }) => ({ reducer })
+  props,
+  options: ({ params }) => ({ reducer })
 })(AdminUserList);

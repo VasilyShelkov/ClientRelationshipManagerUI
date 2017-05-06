@@ -20,18 +20,20 @@ import authenticationMiddleware from '../authentication/authenticationMiddleware
 import config from '../../config';
 
 const networkInterface = createNetworkInterface({ uri: `${config.graphQL}/graphql` });
-networkInterface.use([{
-  applyMiddleware(req, next) {
-    if (!req.options.headers) {
-      req.options.headers = {};  // Create the header object if needed.
-    }
+networkInterface.use([
+  {
+    applyMiddleware(req, next) {
+      if (!req.options.headers) {
+        req.options.headers = {}; // Create the header object if needed.
+      }
 
-    const accountDetails = sessionStorage.getItem('account');
-    const token = JSON.parse(accountDetails).account.token;
-    req.options.headers.authorization = token ? `Bearer ${token}` : null;
-    next();
+      const accountDetails = sessionStorage.getItem('account');
+      const token = JSON.parse(accountDetails).account.token;
+      req.options.headers.authorization = token ? `Bearer ${token}` : null;
+      next();
+    }
   }
-}]);
+]);
 
 export const client = new ApolloClient({
   networkInterface,
@@ -65,21 +67,13 @@ const rootReducer = compose(
   })
 );
 
-const storage = compose(filter([
-  'account.token',
-  'account.id',
-  'account.accountType'
-]))(adapter(window.sessionStorage));
+const storage = compose(filter(['account.token', 'account.id', 'account.accountType']))(adapter(window.sessionStorage));
 
-export default browserHistory => createStore(
-  rootReducer,
-  composeWithDevTools(
-    persistState(storage, 'account'),
-    applyMiddleware(
-      client.middleware(),
-      routerMiddleware(browserHistory),
-      authenticationMiddleware,
+export default browserHistory =>
+  createStore(
+    rootReducer,
+    composeWithDevTools(
+      persistState(storage, 'account'),
+      applyMiddleware(client.middleware(), routerMiddleware(browserHistory), authenticationMiddleware)
     )
-  )
-);
-
+  );

@@ -11,12 +11,19 @@ import NameDetailsDrawerWithData from '../../NameDetails';
 import NameDialogForm from '../../NameDialog';
 
 export default ({
-  selectedProtected, selectedNameDrawerOpen,
-  makeNameClientDialogOpen, metWithProtectedDialogOpen,
-  openMetWithProtectedDialog, closeMetWithProtectedDialog,
-  openClientNameDialog, closeClientNameDialog,
-  removeProtectedName, hideName, onSubmitUnprotectName,
-  onSubmitMakeClient, onSubmitMeetProtected
+  selectedProtected,
+  selectedNameDrawerOpen,
+  makeNameClientDialogOpen,
+  metWithProtectedDialogOpen,
+  openMetWithProtectedDialog,
+  closeMetWithProtectedDialog,
+  openClientNameDialog,
+  closeClientNameDialog,
+  removeProtectedName,
+  hideName,
+  onSubmitUnprotectName,
+  onSubmitMakeClient,
+  onSubmitMeetProtected
 }) => {
   if (selectedNameDrawerOpen && selectedProtected) {
     const displayName = `${selectedProtected.name.firstName} ${selectedProtected.name.lastName}`;
@@ -32,32 +39,17 @@ export default ({
         removeNameAction={removeProtectedName}
         isProtected
       >
-        <IconButton
-          tooltip="Unprotect Name"
-          onClick={onSubmitUnprotectName}
-          touch
-        >
+        <IconButton tooltip="Unprotect Name" onClick={onSubmitUnprotectName} touch>
           <UnprotectedIcon color={cyan500} />
         </IconButton>
-        {
-          !selectedProtected.metWith &&
-          <IconButton
-            tooltip="Met With Protected"
-            onClick={openMetWithProtectedDialog}
-            touch
-          >
+        {!selectedProtected.metWith &&
+          <IconButton tooltip="Met With Protected" onClick={openMetWithProtectedDialog} touch>
             <MetWithProtectedIcon color={cyan500} />
-          </IconButton>
-        }
-        <IconButton
-          tooltip="Make Name Client"
-          onClick={openClientNameDialog}
-          touch
-        >
+          </IconButton>}
+        <IconButton tooltip="Make Name Client" onClick={openClientNameDialog} touch>
           <ClientsIcon color={cyan500} />
         </IconButton>
-        {
-          makeNameClientDialogOpen &&
+        {makeNameClientDialogOpen &&
           <NameDialogForm
             title={`Make ${displayName} a Client`}
             displayName={displayName}
@@ -71,24 +63,12 @@ export default ({
               meetingTime: meetingBooked ? meetingBookedDate : {}
             }}
             actions={[
-              <FlatButton
-                secondary
-                onClick={closeClientNameDialog}
-                label="Cancel"
-                icon={<CancelIcon />}
-              />,
-              <FlatButton
-                primary
-                form="protectName"
-                type="submit"
-                label="Make Client"
-                icon={<ClientsIcon />}
-              />
+              <FlatButton secondary onClick={closeClientNameDialog} label="Cancel" icon={<CancelIcon />} />,
+              <FlatButton primary form="protectName" type="submit" label="Make Client" icon={<ClientsIcon />} />
             ]}
-          />
-        }
-        {
-          !selectedProtected.metWith && metWithProtectedDialogOpen &&
+          />}
+        {!selectedProtected.metWith &&
+          metWithProtectedDialogOpen &&
           <NameDialogForm
             title={`I've met with ${displayName}...`}
             displayName={displayName}
@@ -100,12 +80,7 @@ export default ({
               pastMeetingTime: meetingBooked ? meetingBookedDate : moment().toDate()
             }}
             actions={[
-              <FlatButton
-                secondary
-                onClick={closeMetWithProtectedDialog}
-                label="Cancel"
-                icon={<CancelIcon />}
-              />,
+              <FlatButton secondary onClick={closeMetWithProtectedDialog} label="Cancel" icon={<CancelIcon />} />,
               <FlatButton
                 primary
                 form="protectName"
@@ -114,8 +89,7 @@ export default ({
                 icon={<MetWithProtectedIcon />}
               />
             ]}
-          />
-        }
+          />}
       </NameDetailsDrawerWithData>
     );
   }

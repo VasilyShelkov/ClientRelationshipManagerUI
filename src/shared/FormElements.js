@@ -13,12 +13,7 @@ const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-
 export const emailFormat = value => (emailRegex.test(value) ? undefined : 'Not a valid email address');
 
 export const renderTextField = ({ input, label, meta: { touched, error }, ...customProps }) => (
-  <TextField
-    floatingLabelText={label}
-    errorText={touched && error}
-    {...input}
-    {...customProps}
-  />
+  <TextField floatingLabelText={label} errorText={touched && error} {...input} {...customProps} />
 );
 
 export class AddressField extends Component {
@@ -44,11 +39,7 @@ export class AddressField extends Component {
 }
 
 export const renderCheckbox = ({ input, label }) => (
-  <TextField
-    label={label}
-    checked={input.value}
-    onCheck={input.onChange}
-  />
+  <TextField label={label} checked={input.value} onCheck={input.onChange} />
 );
 
 export const FormErrorNotification = ({ message, zDepth, backgroundColor = red600 }) => (
@@ -56,11 +47,6 @@ export const FormErrorNotification = ({ message, zDepth, backgroundColor = red60
     message={message}
     zDepth={zDepth}
     backgroundColor={red600}
-    icon={
-      <ErrorIcon
-        className="Form__notification__icon"
-        style={{ color: 'white' }}
-      />
-    }
+    icon={<ErrorIcon className="Form__notification__icon" style={{ color: 'white' }} />}
   />
 );

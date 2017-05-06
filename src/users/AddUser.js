@@ -7,18 +7,14 @@ import PersonAddIcon from 'material-ui/svg-icons/social/person-add';
 import { cyan500 } from 'material-ui/styles/colors';
 
 import StandardForm from '../shared/StandardForm';
-import {
-  renderTextField, required, emailFormat, minLength, renderCheckbox
-} from '../shared/FormElements';
+import { renderTextField, required, emailFormat, minLength, renderCheckbox } from '../shared/FormElements';
 import LoadingSpinner from '../shared/LoadingSpinner';
 
 export default ({ creatingUser, queryLoading, handleSubmit, error }) => (
   <div>
-    {
-      queryLoading ?
-        <LoadingSpinner />
-      :
-        <Paper style={{ marginTop: '20px' }}>
+    {queryLoading
+      ? <LoadingSpinner />
+      : <Paper style={{ marginTop: '20px' }}>
           <div style={{ textAlign: 'center' }}>
             <PersonAddIcon style={{ height: '100px', width: '100px' }} color={cyan500} />
             <h2>Add a new member to the team...</h2>
@@ -89,19 +85,12 @@ export default ({ creatingUser, queryLoading, handleSubmit, error }) => (
                 />
               </div>,
               <div className="col-12" style={{ margin: '20px 0px' }}>
-                <Field
-                  key="newProfile__accountType"
-                  name="accountType"
-                  component={Checkbox}
-                  label="Administrator"
-                />
+                <Field key="newProfile__accountType" name="accountType" component={Checkbox} label="Administrator" />
               </div>
             ]}
             error={error}
             handleSubmit={handleSubmit}
           />
-        </Paper>
-    }
+        </Paper>}
   </div>
 );
-

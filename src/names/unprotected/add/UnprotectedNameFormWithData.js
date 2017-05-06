@@ -11,7 +11,7 @@ import GetAllCompanies from './GetAllCompanies.gql';
 const AddUnprotectedNameWithCompanyData = compose(
   graphql(CreateUnprotectedName, {
     props: ({ ownProps, mutate }) => ({
-      onSubmit: async (values) => {
+      onSubmit: async values => {
         const { companyName, companyAddress, companyPhone, ...nameDetails } = values;
         try {
           await mutate({
@@ -46,11 +46,8 @@ const mapStateToProps = state => ({
   creatingUnprotectedName: state.name.creating
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  cancelCreateName: () => dispatch(hideCreateNameForm()),
+const mapDispatchToProps = dispatch => ({
+  cancelCreateName: () => dispatch(hideCreateNameForm())
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AddUnprotectedNameWithCompanyData);
+export default connect(mapStateToProps, mapDispatchToProps)(AddUnprotectedNameWithCompanyData);

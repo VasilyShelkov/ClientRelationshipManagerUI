@@ -1,6 +1,6 @@
 Feature('Authentication');
 
-Scenario('User is redirected to login when not logged in', (I) => {
+Scenario('User is redirected to login when not logged in', I => {
   I.amOnPage('/login');
 
   I.seeInCurrentUrl('/login');

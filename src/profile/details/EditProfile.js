@@ -9,10 +9,8 @@ import { checkIfAnyKeysDifferent } from '../../shared/utils';
 import { renderTextField, required, emailFormat } from '../../shared/FormElements';
 import StandardForm from '../../shared/StandardForm';
 
-const EditProfile = ({
-  handleSubmit, handleCancelEditProfile, error, editInProgess
-}) => (
-  <Paper zDepth={2} >
+const EditProfile = ({ handleSubmit, handleCancelEditProfile, error, editInProgess }) => (
+  <Paper zDepth={2}>
     <StandardForm
       handleSubmit={handleSubmit}
       handleCancel={handleCancelEditProfile}
@@ -60,7 +58,7 @@ const EditProfileForm = reduxForm({ form: 'profile' })(EditProfile);
 
 export default graphql(EditUserDetails, {
   props: ({ ownProps, mutate }) => ({
-    onSubmit: async (values) => {
+    onSubmit: async values => {
       if (checkIfAnyKeysDifferent(ownProps.initialValues, values) > 0) {
         const { company, created_at, updated_at, ...formValues } = values;
         try {

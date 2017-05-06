@@ -7,15 +7,20 @@ import Name from './Name';
 import EditNameProtectedInfoWithData from './edit/EditNameProtectedInfo';
 
 export default ({
-  names, selectedNameId, isProtected, selectedNameDrawerOpen,
-  showCreateNameForm = null, openNameDetails,
-  openEditProtectedNameMeetingDialog, openEditProtectedNameCallDialog,
-  onSubmitBookCall, onSubmitBookMeeting
+  names,
+  selectedNameId,
+  isProtected,
+  selectedNameDrawerOpen,
+  showCreateNameForm = null,
+  openNameDetails,
+  openEditProtectedNameMeetingDialog,
+  openEditProtectedNameCallDialog,
+  onSubmitBookCall,
+  onSubmitBookMeeting
 }) => (
   <div>
-    {
-      names.length ?
-        names.map((name, index) => (
+    {names.length
+      ? names.map((name, index) => (
           <Name
             key={`name-${index}`}
             selected={name.name.id === selectedNameId}
@@ -27,11 +32,9 @@ export default ({
             {...name}
           />
         ))
-      :
-        <div>
-          {
-            showCreateNameForm ?
-              <RaisedButton
+      : <div>
+          {showCreateNameForm
+            ? <RaisedButton
                 onClick={showCreateNameForm}
                 labelStyle={{ color: fullWhite }}
                 backgroundColor={green500}
@@ -39,20 +42,14 @@ export default ({
                 icon={<AddIcon color={fullWhite} />}
                 fullWidth
               />
-            :
-              'You currently have none'
-          }
-        </div>
-    }
-    {
-      names.length && isProtected ?
-        <EditNameProtectedInfoWithData
+            : 'You currently have none'}
+        </div>}
+    {names.length && isProtected
+      ? <EditNameProtectedInfoWithData
           names={names}
           onSubmitBookCall={onSubmitBookCall}
           onSubmitBookMeeting={onSubmitBookMeeting}
         />
-      :
-        null
-    }
+      : null}
   </div>
 );

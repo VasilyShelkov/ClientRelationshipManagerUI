@@ -3,15 +3,25 @@ import _ from 'lodash';
 import { APOLLO_MUTATION_INIT, APOLLO_MUTATION_RESULT } from '../app/thirdPartyActions';
 import { SHOW_NOTIFICATION } from '../app/appActions';
 import {
-  SELECT_NAME, HIDE_NAME, CHANGE_SHOWN_PROTECTED_LIST,
-  OPEN_PROTECT_NAME_DIALOG, CLOSE_PROTECT_NAME_DIALOG,
-  OPEN_CLIENT_NAME_DIALOG, CLOSE_CLIENT_NAME_DIALOG,
-  OPEN_MET_WITH_PROTECTED_DIALOG, CLOSE_MET_WITH_PROTECTED_DIALOG,
-  OPEN_EDIT_PROTECTED_NAME_MEETING_DIALOG, CLOSE_EDIT_PROTECTED_NAME_MEETING_DIALOG,
-  OPEN_EDIT_PROTECTED_NAME_CALL_DIALOG, CLOSE_EDIT_PROTECTED_NAME_CALL_DIALOG,
-  SHOW_CREATE_NAME_FORM, HIDE_CREATE_NAME_FORM,
-  SHOW_EDIT_NAME, HIDE_EDIT_NAME,
-  SHOW_EDIT_NAME_COMPANY, HIDE_EDIT_NAME_COMPANY,
+  SELECT_NAME,
+  HIDE_NAME,
+  CHANGE_SHOWN_PROTECTED_LIST,
+  OPEN_PROTECT_NAME_DIALOG,
+  CLOSE_PROTECT_NAME_DIALOG,
+  OPEN_CLIENT_NAME_DIALOG,
+  CLOSE_CLIENT_NAME_DIALOG,
+  OPEN_MET_WITH_PROTECTED_DIALOG,
+  CLOSE_MET_WITH_PROTECTED_DIALOG,
+  OPEN_EDIT_PROTECTED_NAME_MEETING_DIALOG,
+  CLOSE_EDIT_PROTECTED_NAME_MEETING_DIALOG,
+  OPEN_EDIT_PROTECTED_NAME_CALL_DIALOG,
+  CLOSE_EDIT_PROTECTED_NAME_CALL_DIALOG,
+  SHOW_CREATE_NAME_FORM,
+  HIDE_CREATE_NAME_FORM,
+  SHOW_EDIT_NAME,
+  HIDE_EDIT_NAME,
+  SHOW_EDIT_NAME_COMPANY,
+  HIDE_EDIT_NAME_COMPANY,
   PERFORMING_NAME_ACTION
 } from './nameActions';
 
@@ -165,7 +175,7 @@ export default (state = initialState, action) => {
       if (action.operationName === 'ProtectName') {
         return {
           ...state,
-          protectNameDialogOpen: initialState.protectNameDialogOpen,
+          protectNameDialogOpen: initialState.protectNameDialogOpen
         };
       }
 
@@ -173,13 +183,13 @@ export default (state = initialState, action) => {
         return {
           ...state,
           metWithProtectedDialogOpen: false
-        }
+        };
       }
 
       if (action.operationName === 'MakeClient') {
         return {
           ...state,
-          makeNameClientDialogOpen: initialState.makeNameClientDialogOpen,
+          makeNameClientDialogOpen: initialState.makeNameClientDialogOpen
         };
       }
 
@@ -201,9 +211,12 @@ export default (state = initialState, action) => {
     }
     case APOLLO_MUTATION_RESULT: {
       if (
-        action.operationName === 'EditName' || action.operationName === 'EditCompany' ||
-        action.operationName === 'BookCall' || action.operationName === 'BookMeeting' ||
-        action.operationName === 'BookClientCall' || action.operationName === 'BookClientMeeting'
+        action.operationName === 'EditName' ||
+        action.operationName === 'EditCompany' ||
+        action.operationName === 'BookCall' ||
+        action.operationName === 'BookMeeting' ||
+        action.operationName === 'BookClientCall' ||
+        action.operationName === 'BookClientMeeting'
       ) {
         return {
           ...state,
@@ -215,7 +228,7 @@ export default (state = initialState, action) => {
         const standardState = {
           ...state,
           showingCreateForm: false,
-          actionInProgress: initialState.actionInProgress,
+          actionInProgress: initialState.actionInProgress
         };
 
         if (!_.has(action, 'result.errors')) {
@@ -246,7 +259,7 @@ export default (state = initialState, action) => {
           return {
             ...standardState,
             selectedName: action.result.data.protectNameToUser.name.id,
-            protectedListToShow: 'protected',
+            protectedListToShow: 'protected'
           };
         }
 
@@ -263,7 +276,7 @@ export default (state = initialState, action) => {
           return {
             ...standardState,
             selectedName: action.result.data.editProtectedName.name.id,
-            protectedListToShow: 'metWithProtected',
+            protectedListToShow: 'metWithProtected'
           };
         }
 
@@ -279,7 +292,7 @@ export default (state = initialState, action) => {
         if (!_.has(action, 'result.errors')) {
           return {
             ...standardState,
-            selectedName: action.result.data.unprotectNameFromUser.name.id,
+            selectedName: action.result.data.unprotectNameFromUser.name.id
           };
         }
 

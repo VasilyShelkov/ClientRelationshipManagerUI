@@ -9,8 +9,13 @@ import StandardForm from '../../../shared/StandardForm';
 import { required, AddressField } from '../../../shared/FormElements';
 
 export const AddUnprotectedName = ({
-  existingCompanies, loading, error, nameDetailsDrawerOpen,
-  handleSubmit, cancelCreateName, change
+  existingCompanies,
+  loading,
+  error,
+  nameDetailsDrawerOpen,
+  handleSubmit,
+  cancelCreateName,
+  change
 }) => {
   if (loading) {
     return <LoadingSpinner />;
@@ -46,13 +51,7 @@ export const AddUnprotectedName = ({
                   />
                 </div>
                 <div className="col-12">
-                  <Field
-                    name="phone"
-                    component={TextField}
-                    floatingLabelText="Phone"
-                    validate={required}
-                    fullWidth
-                  />
+                  <Field name="phone" component={TextField} floatingLabelText="Phone" validate={required} fullWidth />
                 </div>
               </div>
             </div>,
@@ -66,10 +65,8 @@ export const AddUnprotectedName = ({
                     floatingLabelText="Company Name"
                     openOnFocus
                     filter={MUIAutoComplete.fuzzyFilter}
-                    onNewRequest={(companyName) => {
-                      const companyInfo = existingCompanies.find(
-                        company => company.name === companyName
-                      );
+                    onNewRequest={companyName => {
+                      const companyInfo = existingCompanies.find(company => company.name === companyName);
 
                       change('companyAddress', companyInfo.address);
                       change('companyPhone', companyInfo.phone);
@@ -81,12 +78,7 @@ export const AddUnprotectedName = ({
                   />
                 </div>
                 <div className="col-12">
-                  <Field
-                    name="companyAddress"
-                    component={AddressField}
-                    floatingLabelText="Company Address"
-                    fullWidth
-                  />
+                  <Field name="companyAddress" component={AddressField} floatingLabelText="Company Address" fullWidth />
                 </div>
                 <div className="col-12">
                   <Field

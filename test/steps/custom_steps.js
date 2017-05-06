@@ -1,8 +1,8 @@
 const defaultUser = require('./userAccount').defaultUser;
 
-module.exports = function () {
+module.exports = function() {
   return actor({
-    login: function () {
+    login: function() {
       this.amOnPage('/login');
       this.fillField('email', defaultUser);
       this.fillField('password', 'test1234');

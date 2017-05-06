@@ -10,19 +10,25 @@ import SelectedProtectedNameWithData from './selected/SelectedProtectedNameWithD
 import SelectedClientsWithData from './client/SelectedClientsWithData';
 
 export default ({
-  loading, names, nameListType, selectedNameId,
-  selectedName, selectedNameDrawerOpen,
-  nameActionInProgress, selectName,
-  openEditProtectedNameMeetingDialog, openEditProtectedNameCallDialog,
-  onSubmitBookMeeting, onSubmitBookCall
+  loading,
+  names,
+  nameListType,
+  selectedNameId,
+  selectedName,
+  selectedNameDrawerOpen,
+  nameActionInProgress,
+  selectName,
+  openEditProtectedNameMeetingDialog,
+  openEditProtectedNameCallDialog,
+  onSubmitBookMeeting,
+  onSubmitBookCall
 }) => (
   <div style={{ marginTop: '10px' }}>
     <div className={nameActionInProgress && 'names__content'}>
       {getNameListHeader(nameListType, names && names.length)}
       <div>
-        {
-          !loading && names ?
-            <div>
+        {!loading && names
+          ? <div>
               <NamesList
                 names={names}
                 selectedNameId={selectedNameId}
@@ -36,21 +42,17 @@ export default ({
 
               {getSelectedName(nameListType, selectedName, selectedNameDrawerOpen)}
             </div>
-          :
-            <Paper>
+          : <Paper>
               <LoadingSpinner />
-            </Paper>
-        }
+            </Paper>}
       </div>
     </div>
 
-    {
-      nameActionInProgress &&
+    {nameActionInProgress &&
       <div className="names__overlay">
         <LoadingSpinner />
         {nameActionInProgress}
-      </div>
-    }
+      </div>}
   </div>
 );
 
@@ -84,17 +86,9 @@ const getNameListHeader = (nameListType, isMultipleNames) => {
 const getSelectedName = (nameListType, selectedName, selectedNameDrawerOpen) => {
   if (nameListType === 'protected' || nameListType === 'metWithProtected') {
     return (
-      <SelectedProtectedNameWithData
-        selectedProtected={selectedName}
-        selectedNameDrawerOpen={selectedNameDrawerOpen}
-      />
+      <SelectedProtectedNameWithData selectedProtected={selectedName} selectedNameDrawerOpen={selectedNameDrawerOpen} />
     );
   }
 
-  return (
-    <SelectedClientsWithData
-      selectedClient={selectedName}
-      selectedNameDrawerOpen={selectedNameDrawerOpen}
-    />
-  );
+  return <SelectedClientsWithData selectedClient={selectedName} selectedNameDrawerOpen={selectedNameDrawerOpen} />;
 };

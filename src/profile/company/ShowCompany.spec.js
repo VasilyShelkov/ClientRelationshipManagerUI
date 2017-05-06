@@ -6,11 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { lightGreen300 } from 'material-ui/styles/colors';
 import { ShowCompany } from './ShowCompany';
 
-const setup = ({
-  onEditCompany = () => (''),
-  editSuccessCompanyNotification = '',
-  isAdmin = false
-}) => {
+const setup = ({ onEditCompany = () => '', editSuccessCompanyNotification = '', isAdmin = false }) => {
   const props = {
     name: 'testName',
     address: '123 test address',
@@ -76,15 +72,18 @@ describe('src/profile/ShowCompany', () => {
   it('renders the edit company button when there is an admin', () => {
     const { wrapper } = setup({ isAdmin: true });
     expect(wrapper.find('.Profile__cta').exists()).to.be.true;
-  })
+  });
 
-  it('calls onEditCompany when the button is clicked on by admin', sinon.test(function () {
-    const onEditCompanySpy = this.spy();
-    const { wrapper } = setup({ onEditCompany: onEditCompanySpy, isAdmin: true });
+  it(
+    'calls onEditCompany when the button is clicked on by admin',
+    sinon.test(function() {
+      const onEditCompanySpy = this.spy();
+      const { wrapper } = setup({ onEditCompany: onEditCompanySpy, isAdmin: true });
 
-    const renderedEditButtonClick = wrapper.find(RaisedButton).prop('onClick');
-    renderedEditButtonClick();
+      const renderedEditButtonClick = wrapper.find(RaisedButton).prop('onClick');
+      renderedEditButtonClick();
 
-    expect(onEditCompanySpy).to.have.been.called;
-  }));
+      expect(onEditCompanySpy).to.have.been.called;
+    })
+  );
 });

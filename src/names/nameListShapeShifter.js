@@ -1,15 +1,9 @@
-export const removeNameFromList = (
-  previousResult, nameToRemoveId, nameListType, isName = false
-) => {
+export const removeNameFromList = (previousResult, nameToRemoveId, nameListType, isName = false) => {
   let removedNamePosition;
   if (isName) {
-    removedNamePosition = previousResult.user[nameListType].findIndex(
-      ({ name }) => name.id === nameToRemoveId
-    );
+    removedNamePosition = previousResult.user[nameListType].findIndex(({ name }) => name.id === nameToRemoveId);
   } else {
-    removedNamePosition = previousResult.user[nameListType].findIndex(
-      ({ id }) => id === nameToRemoveId
-    );
+    removedNamePosition = previousResult.user[nameListType].findIndex(({ id }) => id === nameToRemoveId);
   }
 
   if (removedNamePosition >= 0) {

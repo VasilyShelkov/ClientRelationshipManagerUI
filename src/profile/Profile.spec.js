@@ -12,8 +12,8 @@ const setup = ({
   editingCompany = false,
   displayCompany = true,
   displayNewProfileNotification = false,
-  onCancelEditProfile = () => (''),
-  onCancelEditCompany = () => ('')
+  onCancelEditProfile = () => '',
+  onCancelEditCompany = () => ''
 }) => {
   const props = {
     user: {
@@ -63,7 +63,7 @@ describe('src/profile/Profile.js', () => {
   });
 
   it('renders edit profile when editing the profile', () => {
-    const onCancelEditProfile = () => ('test function');
+    const onCancelEditProfile = () => 'test function';
     const { wrapper, props } = setup({ editingProfile: true, onCancelEditProfile });
     const EditProfileComponent = wrapper.find(EditProfile);
 
@@ -95,7 +95,7 @@ describe('src/profile/Profile.js', () => {
   });
 
   it('renders edit company when editing their company', () => {
-    const onCancelEditCompany = () => ('test function');
+    const onCancelEditCompany = () => 'test function';
     const { wrapper, props } = setup({ editingCompany: true, onCancelEditCompany });
     const EditCompanyComponent = wrapper.find(EditCompany);
 

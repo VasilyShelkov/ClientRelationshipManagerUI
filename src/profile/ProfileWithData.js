@@ -24,10 +24,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onCancelEditProfile: () => dispatch(cancelEditProfile()),
-  onCancelEditCompany: () => dispatch(cancelEditCompany()),
+  onCancelEditCompany: () => dispatch(cancelEditCompany())
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ProfileWithData);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileWithData);
