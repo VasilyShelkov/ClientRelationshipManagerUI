@@ -1,0 +1,58 @@
+version: 2
+jobs:
+  build:
+    docker: 
+      - image: node:7.4.0
+      - image: selenium/standalone-chrome:3.3.0
+    working_directory: ~/ClientRelationshipManagerUI
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - projectname-{{ .Branch }}-{{ checksum "package.json" }}
+            - projectname-{{ .Branch }}
+            - projectname-master
+      - run:
+          name: Install Dependencies
+          command: npm install
+      - run:
+          name: setup Heroku
+          command: bash .circleci/setup-heroku.sh
+      - save_cache:
+          key: projectname-{{ .Branch }}-{{ checksum "package.json" }}
+          paths:
+            - "~/node_modules"
+
+      - run:
+          name: Run unit tests
+          command: npm test
+
+      - run:
+          name: Build against Staging
+          command: npm run build:staging
+      - run:
+          name: Start server
+          command: npm run start:server-only
+          background: true
+      - run:
+          name: Run Feature tests
+          command: npm run test:feature:staging
+
+      - add_ssh_keys:
+          fingerprints:
+            - "8f:b8:f9:f1:fb:87:a2:84:58:b8:6b:a8:de:b1:54:60"
+      - deploy:
+          name: Deploy to heroku staging
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "staging" ]; then
+              git push heroku-staging master
+              heroku restart
+            fi
+      - deploy:
+          name: Deploy to heroku master
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              git push heroku-master master
+              heroku restart
+            fi

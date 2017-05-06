@@ -52,6 +52,7 @@ export const SideBar = ({
 
           <Subheader>Names</Subheader>
           <ListItem
+            id="goToUnprotectedList"
             primaryText="Unprotected"
             leftIcon={<LockOpenIcon />}
             value={JSON.stringify({
@@ -61,6 +62,7 @@ export const SideBar = ({
             })}
           />
           <ListItem
+            id="goToProtectedList"
             primaryText="Protected"
             leftIcon={<LockClosedIcon />}
             value={JSON.stringify({
@@ -70,6 +72,7 @@ export const SideBar = ({
             })}
           />
           <ListItem
+            id="goToClientsList"
             primaryText="Clients"
             leftIcon={<ClientsIcon />}
             value={JSON.stringify({

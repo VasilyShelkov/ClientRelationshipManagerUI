@@ -24,6 +24,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         {children}
       </div>
       <Snackbar
+        id="appNotification"
         open={showNotification}
         message={showNotification}
         autoHideDuration={5000}

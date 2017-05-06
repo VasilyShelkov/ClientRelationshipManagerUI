@@ -4,6 +4,7 @@
     $lastName: String
     $email: String
     $phone: String
+    $protectedNamesLimit: Int
   ) {
     editUser(
       id: $id
@@ -11,12 +12,14 @@
       lastName: $lastName
       email: $email
       phone: $phone
+      protectedNamesLimit: $protectedNamesLimit
     ) {
       id
       firstName
       lastName
       email
       phone
+      protectedNamesLimit
       updated_at
     }
   }

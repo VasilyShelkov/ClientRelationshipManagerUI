@@ -21,6 +21,7 @@ export default ({ currentUserId, loading, users, value, onChange }) => {
       <Divider />
 
       <ListItem
+        id="createNewUser"
         primaryText="Create New User"
         rightAvatar={<Avatar icon={<PersonAddIcon />} backgroundColor={green500} />}
         value={JSON.stringify({
@@ -32,9 +33,10 @@ export default ({ currentUserId, loading, users, value, onChange }) => {
 
       <Divider />
 
-      <Subheader>{users.length} Users</Subheader>
-      {users.length
-        ? users.map(user => (
+      <Subheader><span id="totalUserCount">{users.length}</span> Users</Subheader>
+      {
+        users.length ?
+          users.map(user =>
             <ListItem
               key={`profile-${user.id}`}
               primaryText={`${user.firstName} ${user.lastName}`}

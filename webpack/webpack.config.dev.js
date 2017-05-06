@@ -6,21 +6,23 @@ const DashboardPlugin = require('webpack-dashboard/plugin');
 
 module.exports = {
   entry: [
+    'babel-polyfill',
     'react-hot-loader/patch',
     'webpack-dev-server/client',
     'webpack/hot/only-dev-server',
-    resolve(__dirname, 'hotReload'),
+    '../src/app/app'
   ],
   output: {
     filename: 'bundle.js',
-    path: resolve(__dirname, 'public'),
+    path: resolve(__dirname, 'dist'),
     publicPath: '/',
   },
   context: resolve(__dirname, '../src'),
   devtool: 'inline-source-map',
   devServer: {
     hot: true,
-    contentBase: resolve(__dirname),
+    port: 8080,
+    contentBase: resolve(__dirname, 'dist'),
     publicPath: '/',
     historyApiFallback: true
   },
@@ -32,7 +34,7 @@ module.exports = {
     }, {
       test: /\.(css|scss)$/,
       include: [resolve(__dirname, '../src')],
-      loader: ExtractTextPlugin.extract({
+      use: ExtractTextPlugin.extract({
         fallbackLoader: 'style-loader',
         loader: 'css-loader?sourceMap!sass-loader?sourceMap'
       })
@@ -46,7 +48,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new HtmlWebpackPlugin({
-      template: '../public/index.html',
+      template: '../src/index.ejs',
     }),
     new ExtractTextPlugin('index.css'),
     new DashboardPlugin(),

@@ -5,6 +5,7 @@
       lastName
       email
       phone
+      protectedNamesLimit
       updated_at
       company {
         id

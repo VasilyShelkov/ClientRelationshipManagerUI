@@ -16,11 +16,12 @@ const setup = ({
   editSuccessProfileNotification = ''
 }) => {
   const props = {
-    userId: '0',
+    id: '0',
     firstName: 'Vasily',
     lastName: 'Shelkov',
     phone: '07123456789',
     email: 'vasilyShelkov@gmail.com',
+    protectedNamesLimit: '150',
     updatedAt: moment(),
     editingPassword,
     editSuccessProfileNotification,
@@ -38,14 +39,19 @@ describe('src/profile/ShowProfile', () => {
     expect(wrapper.find('h2').text()).to.equal(`${props.firstName} ${props.lastName}`);
   });
 
+  it('renders the protectedNameLimit', () => {
+    const { wrapper, props } = setup({});
+    expect(wrapper.find(ListItem).at(0).prop('primaryText')).to.equal(`Limit: ${props.protectedNamesLimit}`);
+  });
+
   it('renders the email', () => {
     const { wrapper, props } = setup({});
-    expect(wrapper.find(ListItem).at(0).prop('primaryText')).to.equal(props.email);
+    expect(wrapper.find(ListItem).at(1).prop('primaryText')).to.equal(props.email);
   });
 
   it('renders the phone number', () => {
     const { wrapper, props } = setup({});
-    expect(wrapper.find(ListItem).at(1).prop('primaryText')).to.equal(props.phone);
+    expect(wrapper.find(ListItem).at(2).prop('primaryText')).to.equal(props.phone);
   });
 
   it('renders the password field when not editing the password', () => {
@@ -53,9 +59,9 @@ describe('src/profile/ShowProfile', () => {
     const listItems = wrapper.find(ListItem);
     const editPasswordField = wrapper.find(EditPassword);
 
-    expect(listItems).length.to.be(3);
+    expect(listItems).length.to.be(4);
     expect(editPasswordField.exists()).to.be.false;
-    expect(listItems.at(2).prop('primaryText')).to.equal('Password');
+    expect(listItems.at(3).prop('primaryText')).to.equal('Password');
   });
 
   it('renders the edit password form when editing password', () => {
@@ -65,9 +71,9 @@ describe('src/profile/ShowProfile', () => {
     const listItems = wrapper.find(ListItem);
     const editPasswordField = wrapper.find(EditPassword);
 
-    expect(listItems).length.to.be(2);
+    expect(listItems).length.to.be(3);
     expect(editPasswordField.exists()).to.be.true;
-    expect(editPasswordField.prop('userId')).to.equal(props.userId);
+    expect(editPasswordField.prop('userId')).to.equal(props.id);
     expect(editPasswordField.prop('editInProgress')).to.equal(false);
     expect(editPasswordField.prop('handleCancelEditProfilePassword')).to.equal(onCancelEditProfilePassword);
   });
@@ -128,8 +134,8 @@ describe('src/profile/ShowProfile', () => {
       const onEditProfilePassword = this.spy();
       const { wrapper } = setup({ onEditProfilePassword });
 
-      const renderedEditButtonClick = wrapper.find(ListItem).at(2).prop('onClick');
-      renderedEditButtonClick();
+    const renderedEditButtonClick = wrapper.find(ListItem).at(3).prop('onClick');
+    renderedEditButtonClick();
 
       expect(onEditProfilePassword).to.have.been.called;
     })

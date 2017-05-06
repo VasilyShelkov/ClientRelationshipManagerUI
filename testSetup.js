@@ -3,12 +3,15 @@ require('babel-polyfill');
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 const sinon = require('sinon');
+const sinonTest = require('sinon-test');
 const sinonChai = require('sinon-chai');
 const shallow = require('enzyme').shallow;
 const getMuiTheme = require('material-ui/styles/getMuiTheme').default;
 
 chai.use(chaiAsPromised);
 chai.use(sinonChai);
+
+sinon.test = sinonTest.configureTest(sinon);
 
 const jsdom = require('jsdom').jsdom;
 const document = jsdom('');

@@ -1,41 +1,18 @@
 import { actionTypes } from 'redux-form';
-import _ from 'lodash';
 import { APOLLO_MUTATION_INIT, APOLLO_MUTATION_RESULT } from '../app/thirdPartyActions';
 import { SHOW_NOTIFICATION } from '../app/appActions';
 import {
-  SELECT_NAME,
-  HIDE_NAME,
   CHANGE_SHOWN_PROTECTED_LIST,
-  OPEN_PROTECT_NAME_DIALOG,
-  CLOSE_PROTECT_NAME_DIALOG,
-  OPEN_CLIENT_NAME_DIALOG,
-  CLOSE_CLIENT_NAME_DIALOG,
-  OPEN_MET_WITH_PROTECTED_DIALOG,
-  CLOSE_MET_WITH_PROTECTED_DIALOG,
-  OPEN_EDIT_PROTECTED_NAME_MEETING_DIALOG,
-  CLOSE_EDIT_PROTECTED_NAME_MEETING_DIALOG,
-  OPEN_EDIT_PROTECTED_NAME_CALL_DIALOG,
-  CLOSE_EDIT_PROTECTED_NAME_CALL_DIALOG,
-  SHOW_CREATE_NAME_FORM,
-  HIDE_CREATE_NAME_FORM,
-  SHOW_EDIT_NAME,
-  HIDE_EDIT_NAME,
-  SHOW_EDIT_NAME_COMPANY,
-  HIDE_EDIT_NAME_COMPANY,
+  OPEN_EDIT_PROTECTED_NAME_MEETING_DIALOG, CLOSE_EDIT_PROTECTED_NAME_MEETING_DIALOG,
+  OPEN_EDIT_PROTECTED_NAME_CALL_DIALOG, CLOSE_EDIT_PROTECTED_NAME_CALL_DIALOG,
+  SHOW_CREATE_NAME_FORM, HIDE_CREATE_NAME_FORM,
   PERFORMING_NAME_ACTION
 } from './nameActions';
 
 const initialState = {
-  selectedName: false,
   protectedListToShow: 'protected',
-  protectNameDialogOpen: false,
-  makeNameClientDialogOpen: false,
-  metWithProtectedDialogOpen: false,
   editProtectedNameMeetingDialogOpen: false,
   editProtectedNameCallDialogOpen: false,
-  showingCreateForm: false,
-  showingEditNameForm: false,
-  showingEditNameCompanyForm: false,
   actionInProgress: false
 };
 export default (state = initialState, action) => {
@@ -45,35 +22,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         actionInProgress: initialState.actionInProgress
-      };
-    case SELECT_NAME:
-      return {
-        ...state,
-        selectedName: action.nameId,
-        showingEditNameForm: initialState.showingEditNameForm,
-        showingEditNameCompanyForm: initialState.showingEditNameCompanyForm
-      };
-    case HIDE_NAME:
-      return {
-        ...state,
-        selectedName: initialState.selectedName,
-        showingEditNameForm: initialState.showingEditNameForm,
-        showingEditNameCompanyForm: initialState.showingEditNameCompanyForm
-      };
-    case CHANGE_SHOWN_PROTECTED_LIST:
-      return {
-        ...state,
-        protectedListToShow: action.listToShow
-      };
-    case OPEN_PROTECT_NAME_DIALOG:
-      return {
-        ...state,
-        protectNameDialogOpen: true
-      };
-    case CLOSE_PROTECT_NAME_DIALOG:
-      return {
-        ...state,
-        protectNameDialogOpen: false
       };
     case OPEN_EDIT_PROTECTED_NAME_MEETING_DIALOG:
       return {
@@ -95,243 +43,67 @@ export default (state = initialState, action) => {
         ...state,
         editProtectedNameCallDialogOpen: false
       };
-    case OPEN_CLIENT_NAME_DIALOG:
-      return {
-        ...state,
-        makeNameClientDialogOpen: true
-      };
-    case CLOSE_CLIENT_NAME_DIALOG:
-      return {
-        ...state,
-        makeNameClientDialogOpen: false
-      };
-    case OPEN_MET_WITH_PROTECTED_DIALOG:
-      return {
-        ...state,
-        metWithProtectedDialogOpen: true
-      };
-    case CLOSE_MET_WITH_PROTECTED_DIALOG:
-      return {
-        ...state,
-        metWithProtectedDialogOpen: false
-      };
-    case SHOW_CREATE_NAME_FORM:
-      return {
-        ...state,
-        showingCreateForm: true
-      };
-    case HIDE_CREATE_NAME_FORM:
-      return {
-        ...state,
-        showingCreateForm: false
-      };
-    case SHOW_EDIT_NAME:
-      return {
-        ...state,
-        showingEditNameForm: true
-      };
-    case HIDE_EDIT_NAME:
-      return {
-        ...state,
-        showingEditNameForm: false
-      };
-    case SHOW_EDIT_NAME_COMPANY:
-      return {
-        ...state,
-        showingEditNameCompanyForm: true
-      };
-    case HIDE_EDIT_NAME_COMPANY:
-      return {
-        ...state,
-        showingEditNameCompanyForm: false
-      };
     case PERFORMING_NAME_ACTION:
       return {
         ...state,
         actionInProgress: action.payload.message
       };
     case APOLLO_MUTATION_INIT: {
-      if (action.operationName === 'CreateUnprotectedName') {
-        return {
-          ...state,
-          actionInProgress: `Creating ${action.variables.firstName} ${action.variables.lastName} for you...`
-        };
+      switch (action.operationName) {
+        case 'CreateUnprotectedName':
+          return {
+            ...state,
+            actionInProgress: `Creating ${action.variables.firstName} ${action.variables.lastName} for you...`
+          };
+        case 'EditName':
+          return {
+            ...state,
+            actionInProgress: `Editing ${action.variables.firstName} ${action.variables.lastName} for you...`
+          };
+        case 'EditCompany':
+          return {
+            ...state,
+            actionInProgress: `Editing ${action.variables.name} for you...`
+          };
+        case 'BookCall':
+        case 'BookClientCall':
+          return {
+            ...state,
+            editProtectedNameCallDialogOpen: initialState.editProtectedNameCallDialogOpen
+          };
+        case 'BookMeeting':
+        case 'BookClientMeeting':
+          return {
+            ...state,
+            editProtectedNameMeetingDialogOpen: initialState.editProtectedNameMeetingDialogOpen
+          };
+        default:
+          return state;
       }
-
-      if (action.operationName === 'EditName') {
-        return {
-          ...state,
-          actionInProgress: `Editing ${action.variables.firstName} ${action.variables.lastName} for you...`
-        };
-      }
-
-      if (action.operationName === 'EditCompany') {
-        return {
-          ...state,
-          actionInProgress: `Editing ${action.variables.name} for you...`
-        };
-      }
-
-      if (action.operationName === 'ProtectName') {
-        return {
-          ...state,
-          protectNameDialogOpen: initialState.protectNameDialogOpen
-        };
-      }
-
-      if (action.operationName === 'MetWithProtected') {
-        return {
-          ...state,
-          metWithProtectedDialogOpen: false
-        };
-      }
-
-      if (action.operationName === 'MakeClient') {
-        return {
-          ...state,
-          makeNameClientDialogOpen: initialState.makeNameClientDialogOpen
-        };
-      }
-
-      if (action.operationName === 'BookCall' || action.operationName === 'BookClientCall') {
-        return {
-          ...state,
-          editProtectedNameCallDialogOpen: initialState.editProtectedNameCallDialogOpen
-        };
-      }
-
-      if (action.operationName === 'BookMeeting' || action.operationName === 'BookClientMeeting') {
-        return {
-          ...state,
-          editProtectedNameMeetingDialogOpen: initialState.editProtectedNameMeetingDialogOpen
-        };
-      }
-
-      return state;
     }
     case APOLLO_MUTATION_RESULT: {
-      if (
-        action.operationName === 'EditName' ||
-        action.operationName === 'EditCompany' ||
-        action.operationName === 'BookCall' ||
-        action.operationName === 'BookMeeting' ||
-        action.operationName === 'BookClientCall' ||
-        action.operationName === 'BookClientMeeting'
-      ) {
-        return {
-          ...state,
-          actionInProgress: initialState.actionInProgress
-        };
-      }
-
-      if (action.operationName === 'CreateUnprotectedName') {
-        const standardState = {
-          ...state,
-          showingCreateForm: false,
-          actionInProgress: initialState.actionInProgress
-        };
-
-        if (!_.has(action, 'result.errors')) {
+      switch (action.operationName) {
+        case 'UnprotectName':
+        case 'RemoveUnprotectedName':
+        case 'RemoveProtectedName':
+        case 'MakeClient':
+        case 'RemoveClient':
+        case 'EditName':
+        case 'EditCompany':
+        case 'BookCall':
+        case 'BookMeeting':
+        case 'BookClientCall':
+        case 'BookClientMeeting':
+        case 'CreateUnprotectedname':
+        case 'ProtectName':
+        case 'MetWithProtected':
           return {
-            ...standardState,
-            selectedName: action.result.data.addUnprotectedNameToUser.name.id
+            ...state,
+            actionInProgress: initialState.actionInProgress
           };
-        }
-
-        return standardState;
+        default:
+          return state;
       }
-
-      if (action.operationName === 'RemoveUnprotectedName') {
-        return {
-          ...state,
-          actionInProgress: initialState.actionInProgress,
-          selectedName: initialState.selectedName
-        };
-      }
-
-      if (action.operationName === 'ProtectName') {
-        const standardState = {
-          ...state,
-          actionInProgress: initialState.actionInProgress
-        };
-
-        if (!_.has(action, 'result.errors')) {
-          return {
-            ...standardState,
-            selectedName: action.result.data.protectNameToUser.name.id,
-            protectedListToShow: 'protected'
-          };
-        }
-
-        return standardState;
-      }
-
-      if (action.operationName === 'MetWithProtected') {
-        const standardState = {
-          ...state,
-          actionInProgress: initialState.actionInProgress
-        };
-
-        if (!_.has(action, 'result.errors')) {
-          return {
-            ...standardState,
-            selectedName: action.result.data.editProtectedName.name.id,
-            protectedListToShow: 'metWithProtected'
-          };
-        }
-
-        return standardState;
-      }
-
-      if (action.operationName === 'UnprotectName') {
-        const standardState = {
-          ...state,
-          actionInProgress: initialState.actionInProgress
-        };
-
-        if (!_.has(action, 'result.errors')) {
-          return {
-            ...standardState,
-            selectedName: action.result.data.unprotectNameFromUser.name.id
-          };
-        }
-
-        return standardState;
-      }
-
-      if (action.operationName === 'MakeClient') {
-        const standardState = {
-          ...state,
-          actionInProgress: initialState.actionInProgress
-        };
-
-        if (!_.has(action, 'result.errors')) {
-          return {
-            ...standardState,
-            selectedName: action.result.data.addClientToUser.name.id
-          };
-        }
-
-        return standardState;
-      }
-
-      if (action.operationName === 'RemoveProtectedName') {
-        return {
-          ...state,
-          actionInProgress: initialState.actionInProgress,
-          selectedName: initialState.selectedName
-        };
-      }
-
-      if (action.operationName === 'RemoveClient') {
-        return {
-          ...state,
-          actionInProgress: initialState.actionInProgress,
-          selectedName: initialState.selectedName
-        };
-      }
-
-      return state;
     }
     default:
       return state;

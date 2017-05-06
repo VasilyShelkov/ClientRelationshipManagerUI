@@ -1,0 +1,34 @@
+mutation ProtectName (
+  $unprotectedId: String!
+  $nameId: String!
+  $userId: String!
+  $callBooked: String
+  $meetingBooked: String
+  $comment: String
+) { 
+  protectNameToUser (
+    unprotectedId: $unprotectedId
+    nameId: $nameId
+    userId: $userId
+    callBooked: $callBooked
+    meetingBooked: $meetingBooked
+    comment: $comment
+  ) {
+    id
+    name {
+      id
+      firstName
+      lastName
+      phone
+      company {
+        id
+        name
+        address
+        phone
+      }
+    }
+    callBooked
+    meetingBooked
+    created_at
+  }
+} 

@@ -1,0 +1,6 @@
+query GetProtectedNamesLimit($id: String!) {
+  user(id: $id) {
+    id
+    protectedNamesLimit
+  }
+}

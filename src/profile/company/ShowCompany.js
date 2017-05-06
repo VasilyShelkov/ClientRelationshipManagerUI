@@ -57,16 +57,24 @@ export const ShowCompany = ({
 
     <div className="Profile__meta-info">
       <div className="row justify-content-center">
-        {editSuccessCompanyNotification &&
-          <Chip
-            style={{ marginBottom: '10px' }}
-            backgroundColor={lightGreen300}
-            onRequestDelete={onRemoveNotification}
-            onTouchTap={onRemoveNotification}
-          >
-            <Avatar size={32} icon={<SuccessfulUpdateIcon />} color={lightGreen300} backgroundColor={green900} />
-            {editSuccessCompanyNotification}
-          </Chip>}
+        {
+          (editSuccessCompanyNotification) &&
+            <Chip
+              id="editCompanySuccess"
+              style={{ marginBottom: '10px' }}
+              backgroundColor={lightGreen300}
+              onRequestDelete={onRemoveNotification}
+              onTouchTap={onRemoveNotification}
+            >
+              <Avatar
+                size={32}
+                icon={<SuccessfulUpdateIcon />}
+                color={lightGreen300}
+                backgroundColor={green900}
+              />
+              {editSuccessCompanyNotification}
+            </Chip>
+        }
       </div>
       <div className="row justify-content-center">
         <Chip>

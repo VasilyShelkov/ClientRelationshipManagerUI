@@ -19,6 +19,9 @@
     "expect": true,
     "sinon": true,
     "shallow": true,
-    "shallowWithContext": true
+    "shallowWithContext": true,
+    "Feature": true,
+    "Scenario": true,
+    within: true
   }
 }

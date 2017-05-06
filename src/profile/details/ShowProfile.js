@@ -18,6 +18,7 @@ import UpdatedIcon from 'material-ui/svg-icons/action/update';
 import SuccessfulUpdateIcon from 'material-ui/svg-icons/action/done';
 import SuccessfullyCreatedIcon from 'material-ui/svg-icons/action/check-circle';
 import { cyan500, green900, green700, lightGreen300 } from 'material-ui/styles/colors';
+import { ProtectedIcon } from '../../app/icons';
 
 import Notification from '../../shared/Notification';
 import EditPassword from './EditPassword';
@@ -30,19 +31,10 @@ import {
 import { EDIT_IN_PROGRESS } from '../profileReducer';
 
 export const ShowProfile = ({
-  userId,
-  firstName,
-  lastName,
-  email,
-  phone,
-  updatedAt,
-  editingPassword,
-  newUserNotification,
-  editSuccessProfileNotification,
-  onEditProfile,
-  onEditProfilePassword,
-  onCancelEditProfilePassword,
-  onRemoveNotification
+  id, firstName, lastName, email, phone, updated_at, protectedNamesLimit,
+  newUserNotification, editingPassword,
+  editSuccessProfileNotification, onEditProfile, onEditProfilePassword,
+  onCancelEditProfilePassword, onRemoveNotification
 }) => (
   <Paper zDepth={2} style={{ paddingBottom: '10px', margin: '20px 0px' }}>
     <div style={{ textAlign: 'center', padding: '0px 10px' }}>
@@ -59,18 +51,34 @@ export const ShowProfile = ({
     <List>
       <Divider />
 
-      <ListItem leftAvatar={<Avatar icon={<EmailIcon />} backgroundColor={cyan500} />} primaryText={email} disabled />
-      <ListItem leftAvatar={<Avatar icon={<PhoneIcon />} backgroundColor={cyan500} />} primaryText={phone} disabled />
+      <ListItem
+        leftAvatar={<Avatar icon={<ProtectedIcon />} backgroundColor={cyan500} />}
+        primaryText={`Limit: ${protectedNamesLimit}`}
+        disabled
+      />
+      <ListItem
+        leftAvatar={<Avatar icon={<EmailIcon />} backgroundColor={cyan500} />}
+        primaryText={email}
+        disabled
+      />
+      <ListItem
+        leftAvatar={<Avatar icon={<PhoneIcon />} backgroundColor={cyan500} />}
+        primaryText={phone}
+        disabled
+      />
 
       <Divider />
 
-      {editingPassword
-        ? <EditPassword
-            userId={userId}
+      {
+        editingPassword ?
+          <EditPassword
+            userId={id}
             editInProgress={editingPassword === EDIT_IN_PROGRESS}
             handleCancelEditProfilePassword={onCancelEditProfilePassword}
           />
-        : <ListItem
+        :
+          <ListItem
+            id="resetPassword"
             leftAvatar={<Avatar icon={<SecurityIcon />} backgroundColor={cyan500} />}
             rightIcon={<EditIcon />}
             primaryText="Password"
@@ -83,22 +91,30 @@ export const ShowProfile = ({
 
     <div className="Profile__meta-info">
       <div className="row justify-content-center">
-        {editSuccessProfileNotification &&
-          <Chip
-            style={{ marginBottom: '10px' }}
-            backgroundColor={lightGreen300}
-            onRequestDelete={onRemoveNotification}
-            onTouchTap={onRemoveNotification}
-          >
-            <Avatar size={32} icon={<SuccessfulUpdateIcon />} color={lightGreen300} backgroundColor={green900} />
-            {editSuccessProfileNotification}
-          </Chip>}
+        {
+          editSuccessProfileNotification &&
+            <Chip
+              id="editProfileSuccess"
+              style={{ marginBottom: '10px' }}
+              backgroundColor={lightGreen300}
+              onRequestDelete={onRemoveNotification}
+              onTouchTap={onRemoveNotification}
+            >
+              <Avatar
+                size={32}
+                icon={<SuccessfulUpdateIcon />}
+                color={lightGreen300}
+                backgroundColor={green900}
+              />
+              {editSuccessProfileNotification}
+            </Chip>
+        }
 
       </div>
       <div className="row justify-content-center">
         <Chip>
           <Avatar size={32} icon={<UpdatedIcon />} backgroundColor={cyan500} />
-          <strong>Last Updated</strong>: {moment(updatedAt).fromNow()}
+          <strong>Last Updated</strong>: {moment(updated_at).fromNow()}
         </Chip>
       </div>
     </div>
