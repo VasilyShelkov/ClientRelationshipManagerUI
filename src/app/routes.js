@@ -11,13 +11,13 @@ import AppWithSideBar from './AppWithSideBar';
 import ProfileWithData from '../profile/ProfileWithData';
 import AddUserFormWithData from '../users/AddUserForm';
 import UsersPerformance from '../users/UsersPerformance';
-import UnprotectedNamesWithData from '../names/unprotected/UnprotectedNamesWithData';
-import ProtectedNamesWithData from '../names/protected/ProtectedNamesWithData';
-import ClientsWithData from '../names/protected/client/ClientsWithData';
+import UnprotectedNamesWithData from '../names/list/unprotected/UnprotectedNamesWithData';
+import ProtectedNamesWithData from '../names/list/locked/protected/ProtectedNamesWithData';
+import ClientsWithData from '../names/list/locked/client/ClientsWithData';
 
 export default [
-  <Route path="/login" component={LoginPage} />,
-  <Route path="/" component={AppWithNavbar}>
+  <Route key="login" path="/login" component={LoginPage} />,
+  <Route key="navBarContainer" path="/" component={AppWithNavbar}>
     <IndexRoute component={Home} />
     <Route path="account" component={AppWithSideBar}>
       <Route path="profile" component={ProfileWithData} />
@@ -33,5 +33,5 @@ export default [
       </Route>
     </Route>
   </Route>,
-  <Route path="*" component={NotFound} />
+  <Route key="notFound" path="*" component={NotFound} />
 ];

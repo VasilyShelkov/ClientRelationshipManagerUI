@@ -1,37 +1,36 @@
-import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
+import { combineReducers, compose } from 'redux';
 
-import persistState, { mergePersistedState } from 'redux-localstorage';
-import adapter from 'redux-localstorage/lib/adapters/localStorage';
-import filter from 'redux-localstorage-filter';
+import { mergePersistedState } from 'redux-localstorage';
 
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
 
 import { reducer as formReducer } from 'redux-form';
-import { routerReducer, routerMiddleware } from 'react-router-redux';
+import { routerReducer } from 'react-router-redux';
 import account from '../authentication/accountReducer';
 import profile from '../profile/profileReducer';
 import name from '../names/nameReducer';
 import creatingUser from '../users/creatingUserReducer';
+import selectedName from '../names/selected/selectedReducer';
+import nameList from '../names/list/nameListReducer';
 import app from './appReducer';
-
-import authenticationMiddleware from '../authentication/authenticationMiddleware';
 
 import config from '../../config';
 
 const networkInterface = createNetworkInterface({ uri: `${config.graphQL}/graphql` });
-networkInterface.use([{
-  applyMiddleware(req, next) {
-    if (!req.options.headers) {
-      req.options.headers = {};  // Create the header object if needed.
-    }
+networkInterface.use([
+  {
+    applyMiddleware(req, next) {
+      if (!req.options.headers) {
+        req.options.headers = {}; // Create the header object if needed.
+      }
 
-    const accountDetails = sessionStorage.getItem('account');
-    const token = JSON.parse(accountDetails).account.token;
-    req.options.headers.authorization = token ? `Bearer ${token}` : null;
-    next();
+      const accountDetails = sessionStorage.getItem('account');
+      const token = JSON.parse(accountDetails).account.token;
+      req.options.headers.authorization = token ? `Bearer ${token}` : null;
+      next();
+    }
   }
-}]);
+]);
 
 export const client = new ApolloClient({
   networkInterface,
@@ -39,7 +38,7 @@ export const client = new ApolloClient({
   dataIdFromObject: o => o.id
 });
 
-const rootReducer = compose(
+export default compose(
   mergePersistedState((initialState, persistedState) => ({
     ...initialState,
     ...persistedState,
@@ -61,25 +60,8 @@ const rootReducer = compose(
     app,
     creatingUser,
     name,
-    profile
+    profile,
+    selectedName,
+    nameList
   })
 );
-
-const storage = compose(filter([
-  'account.token',
-  'account.id',
-  'account.accountType'
-]))(adapter(window.sessionStorage));
-
-export default browserHistory => createStore(
-  rootReducer,
-  composeWithDevTools(
-    persistState(storage, 'account'),
-    applyMiddleware(
-      client.middleware(),
-      routerMiddleware(browserHistory),
-      authenticationMiddleware,
-    )
-  )
-);
-

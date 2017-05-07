@@ -1,6 +1,10 @@
 import {
-  LOGGING_IN, LOGGED_IN_SUCCESSFULLY, LOGGED_IN_ERROR, LOG_OUT,
-  TOGGLE_SIDE_BAR, CHANGE_SIDE_BAR_STATE
+  LOGGING_IN,
+  LOGGED_IN_SUCCESSFULLY,
+  LOGGED_IN_ERROR,
+  LOG_OUT,
+  TOGGLE_SIDE_BAR,
+  CHANGE_SIDE_BAR_STATE
 } from './accountActions';
 
 export const initialState = { loggingIn: false, sideBarOpen: false };

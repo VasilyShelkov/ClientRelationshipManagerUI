@@ -16,9 +16,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  withWidth()(({
-    children, width, showNotification, notificationColor, closeNotificationMessage
-  }) => (
+  withWidth()(({ children, width, showNotification, notificationColor, closeNotificationMessage }) => (
     <div>
       <SideBarWithData width={width} />
 
@@ -26,6 +24,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         {children}
       </div>
       <Snackbar
+        id="appNotification"
         open={showNotification}
         message={showNotification}
         autoHideDuration={5000}
@@ -37,5 +36,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         }}
       />
     </div>
-)));
-
+  ))
+);

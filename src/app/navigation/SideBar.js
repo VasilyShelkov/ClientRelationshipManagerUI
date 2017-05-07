@@ -20,28 +20,31 @@ import { changeShownUserProfile } from '../../profile/profileActions';
 const SelectableList = makeSelectable(List);
 
 export const SideBar = ({
-  isAdmin, open, width, currentPage, currentUserId, profiileUserId,
-  handleChangeRequestSideBar, handleRouteChange
+  isAdmin,
+  open,
+  width,
+  currentPage,
+  currentUserId,
+  profiileUserId,
+  handleChangeRequestSideBar,
+  handleRouteChange
 }) => {
   const selectedValue = JSON.stringify({
-    newRoute: currentPage, currentUserId, userIdToShow: profiileUserId
+    newRoute: currentPage,
+    currentUserId,
+    userIdToShow: profiileUserId
   });
   return (
-    <Drawer
-      docked={width === LARGE}
-      open={open || width === LARGE}
-      onRequestChange={handleChangeRequestSideBar}
-    >
+    <Drawer docked={width === LARGE} open={open || width === LARGE} onRequestChange={handleChangeRequestSideBar}>
       <div>
-        <SelectableList
-          value={selectedValue}
-          onChange={handleRouteChange}
-        >
+        <SelectableList value={selectedValue} onChange={handleRouteChange}>
           <ListItem
             primaryText="Profile"
             leftIcon={<AccountIcon />}
             value={JSON.stringify({
-              newRoute: '/account/profile', currentUserId, userIdToShow: currentUserId
+              newRoute: '/account/profile',
+              currentUserId,
+              userIdToShow: currentUserId
             })}
           />
 
@@ -49,35 +52,38 @@ export const SideBar = ({
 
           <Subheader>Names</Subheader>
           <ListItem
+            id="goToUnprotectedList"
             primaryText="Unprotected"
             leftIcon={<LockOpenIcon />}
             value={JSON.stringify({
-              newRoute: '/account/names/unprotected', currentUserId, userIdToShow: currentUserId
+              newRoute: '/account/names/unprotected',
+              currentUserId,
+              userIdToShow: currentUserId
             })}
           />
           <ListItem
+            id="goToProtectedList"
             primaryText="Protected"
             leftIcon={<LockClosedIcon />}
             value={JSON.stringify({
-              newRoute: '/account/names/protected', currentUserId, userIdToShow: currentUserId
+              newRoute: '/account/names/protected',
+              currentUserId,
+              userIdToShow: currentUserId
             })}
           />
           <ListItem
+            id="goToClientsList"
             primaryText="Clients"
             leftIcon={<ClientsIcon />}
             value={JSON.stringify({
-              newRoute: '/account/names/clients', currentUserId, userIdToShow: currentUserId
+              newRoute: '/account/names/clients',
+              currentUserId,
+              userIdToShow: currentUserId
             })}
           />
 
-          {
-            isAdmin &&
-              <AdminUserListWithData
-                currentUserId={currentUserId}
-                value={selectedValue}
-                onChange={handleRouteChange}
-              />
-          }
+          {isAdmin &&
+            <AdminUserListWithData currentUserId={currentUserId} value={selectedValue} onChange={handleRouteChange} />}
         </SelectableList>
       </div>
     </Drawer>
@@ -98,12 +104,14 @@ const mapDispatchToProps = dispatch => ({
     const { newRoute, currentUserId, userIdToShow } = JSON.parse(linkValue);
     dispatch(changeSideBarState(false));
     dispatch(push(newRoute));
-    dispatch(changeShownUserProfile({
-      currentUserId, userIdToShow, isNewUser: false
-    }));
-  },
+    dispatch(
+      changeShownUserProfile({
+        currentUserId,
+        userIdToShow,
+        isNewUser: false
+      })
+    );
+  }
 });
 
-export default connect(
-  mapStateToProps, mapDispatchToProps
-)(SideBar);
+export default connect(mapStateToProps, mapDispatchToProps)(SideBar);

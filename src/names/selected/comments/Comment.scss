@@ -1,0 +1,48 @@
+.Comment {
+  padding: 10px;
+  border-bottom: 1px solid #eadfdf;
+}
+
+.Comment__header {
+  display: flex;
+  align-items: center;
+}
+
+.Comment__header__container {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.Comment__header__container__text {
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+}
+
+.Comment__header__container__text__username {
+  color: rgb(255, 64, 129);
+  max-width: 125px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.Comment__header__container__text__title {
+  font-weight: bold;
+}
+
+.Comment__content {
+  margin: 5px 0px;
+  font-size: 14px;
+}
+
+.Comment__time {
+  display: flex;
+  justify-content: space-around;
+  color: #bcbcbc;
+  font-size: 12px;
+}

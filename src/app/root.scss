@@ -5,7 +5,9 @@
 @import '../profile/Profile.scss';
 @import '../shared/FormElements.scss';
 @import '../shared/StandardForm.scss';
-@import '../names/Name.scss';
+@import '../names/list/Name.scss';
+@import '../names/list/NameListOrganiser.scss';
+@import '../names/selected/comments/Comment.scss';
 
 html {
   font-family: 'Roboto', sans-serif;

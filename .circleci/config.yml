@@ -1,0 +1,60 @@
+version: 2
+jobs:
+  build:
+    docker: 
+      - image: kkarczmarczyk/node-yarn:7.4
+      - image: selenium/standalone-chrome:3.3.0
+    working_directory: ~/ClientRelationshipManagerUI
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - yarn-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install
+      - run:
+          name: setup Heroku
+          command: bash .circleci/setup-heroku.sh
+      - save_cache:
+          key: yarn-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - "~/.yarn-cache"
+
+      - run:
+          name: Run unit tests
+          command: yarn test
+
+      - run:
+          name: Report Coverage
+          command: yarn run report-coverage
+
+      - run:
+          name: Build against Staging
+          command: yarn run build:staging
+      - run:
+          name: Start server
+          command: yarn run start:server-only
+          background: true
+      - run:
+          name: Run Feature tests
+          command: yarn run test:feature:staging
+
+      - add_ssh_keys:
+          fingerprints:
+            - "8f:b8:f9:f1:fb:87:a2:84:58:b8:6b:a8:de:b1:54:60"
+      - deploy:
+          name: Deploy to heroku staging
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "staging" ]; then
+              git push heroku-staging master
+              heroku restart
+            fi
+      - deploy:
+          name: Deploy to heroku master
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              git push heroku-master master
+              heroku restart
+            fi

@@ -4,6 +4,11 @@ import places from 'places.js';
 
 import { red600 } from 'material-ui/styles/colors';
 import ErrorIcon from 'material-ui/svg-icons/alert/error';
+
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
+import PrivateIcon from 'material-ui/svg-icons/action/visibility';
+import PublicIcon from 'material-ui/svg-icons/social/people';
 import Notification from './Notification';
 
 export const required = value => (value ? undefined : 'Required');
@@ -13,12 +18,7 @@ const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-
 export const emailFormat = value => (emailRegex.test(value) ? undefined : 'Not a valid email address');
 
 export const renderTextField = ({ input, label, meta: { touched, error }, ...customProps }) => (
-  <TextField
-    floatingLabelText={label}
-    errorText={touched && error}
-    {...input}
-    {...customProps}
-  />
+  <TextField floatingLabelText={label} errorText={touched && error} {...input} {...customProps} />
 );
 
 export class AddressField extends Component {
@@ -44,11 +44,45 @@ export class AddressField extends Component {
 }
 
 export const renderCheckbox = ({ input, label }) => (
-  <TextField
-    label={label}
-    checked={input.value}
-    onCheck={input.onChange}
-  />
+  <TextField label={label} checked={input.value} onCheck={input.onChange} />
+);
+
+export const renderIconDropdown = ({ input: { value, onChange } }) => (
+  <DropDownMenu
+    id="name-visibility-field"
+    anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+    value={value}
+    onChange={(event, index, dropdownValue) => onChange(dropdownValue)}
+    style={{ height: '35px' }}
+    iconStyle={{ top: '-1px', right: '-35px', padding: '0px' }}
+    labelStyle={{ padding: '0px' }}
+    underlineStyle={{ borderTop: '0px' }}
+  >
+    <MenuItem
+      id="private-comment-visibility-choice"
+      value="private"
+      leftIcon={<PrivateIcon />}
+      label={<PrivateIcon />}
+      primaryText={
+        <div style={{ lineHeight: '20px' }}>
+          <strong>Private</strong>
+          <div>Only you can see it</div>
+        </div>
+      }
+    />
+    <MenuItem
+      id="public-comment-visibility-choice"
+      value="public"
+      leftIcon={<PublicIcon />}
+      label={<PublicIcon />}
+      primaryText={
+        <div style={{ lineHeight: '20px' }}>
+          <strong>Public</strong>
+          <div>Whole company can see it</div>
+        </div>
+      }
+    />
+  </DropDownMenu>
 );
 
 export const FormErrorNotification = ({ message, zDepth, backgroundColor = red600 }) => (
@@ -56,11 +90,6 @@ export const FormErrorNotification = ({ message, zDepth, backgroundColor = red60
     message={message}
     zDepth={zDepth}
     backgroundColor={red600}
-    icon={
-      <ErrorIcon
-        className="Form__notification__icon"
-        style={{ color: 'white' }}
-      />
-    }
+    icon={<ErrorIcon className="Form__notification__icon" style={{ color: 'white' }} />}
   />
 );

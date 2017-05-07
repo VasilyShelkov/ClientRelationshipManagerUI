@@ -1,0 +1,27 @@
+mutation AddComment(
+  $userId: String!
+  $nameId: String!
+  $subject: String
+  $text: String
+  $visibility: VisibilityEnumType!
+) {
+  addCommentToName(
+    userId: $userId
+    nameId: $nameId
+    subject: $subject
+    text: $text
+    visibility: $visibility
+  ) {
+    id
+    subject
+    text
+    visibility
+    created_at
+    updated_at
+    commentUser {
+      id
+      firstName
+      lastName
+    }
+  }
+}

@@ -1,31 +1,27 @@
 {
   "parser": "babel-eslint",
-  "extends": "airbnb",
+  "extends": ["prettier", "prettier/react"],
   "env": {
     "browser": true,
     "node": true,
     "mocha": true,
     "jquery": true
+    "es6": true
   },
+  "plugins": [
+    "prettier",
+    "react"
+  ],
   "rules": {
-    "indent": [2, 2, { "SwitchCase": 1 }],
-    "no-use-before-define": 0,
-    "comma-dangle": 0,
-    "import/no-extraneous-dependencies": 0,
-    "import/prefer-default-export": 0,
-    "react/prop-types": 0,
-    "jsx-a11y/anchor-has-content": 0,
-    "func-names": 0,
-    "no-param-reassign": 0,
-    "react/jsx-filename-extension": [1, { "extensions": [".js"] }],
-    "no-unused-expressions": 1,
-    "no-unused-vars": 1,
-    "arrow-parens": 1
+    "prettier/prettier": ["error", {"singleQuote": true, "printWidth": 120}]
   },
   "globals": {
     "expect": true,
     "sinon": true,
     "shallow": true,
-    "shallowWithContext": true
+    "shallowWithContext": true,
+    "Feature": true,
+    "Scenario": true,
+    within: true
   }
 }

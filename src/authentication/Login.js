@@ -43,17 +43,9 @@ export const Login = ({ loggingIn, handleSubmit, error }) => (
               validate={required}
             />
             <br />
-            {
-              loggingIn ?
-                <LoadingSpinner />
-              :
-                <RaisedButton
-                  type="submit"
-                  label="Sign in"
-                  className="Login__form__signIn"
-                  primary
-                />
-            }
+            {loggingIn
+              ? <LoadingSpinner />
+              : <RaisedButton type="submit" label="Sign in" className="Login__form__signIn" primary />}
           </form>
         </Paper>
       </div>
@@ -67,7 +59,7 @@ const mapStateToProps = state => ({
   loggingIn: state.account.loggingIn
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   onSubmit: handleSignIn
 });
 

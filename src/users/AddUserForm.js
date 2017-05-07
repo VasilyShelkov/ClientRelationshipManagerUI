@@ -1,7 +1,7 @@
-import { connect, } from 'react-redux';
+import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { graphql } from 'react-apollo';
-import { reduxForm, SubmissionError } from 'redux-form';
+import { reduxForm, SubmissionError, formValueSelector } from 'redux-form';
 import _ from 'lodash';
 
 import { changeShownUserProfile } from '../profile/profileActions';
@@ -9,11 +9,20 @@ import CreateUser from './CreateUser.gql';
 import GetUserCompany from './GetUserCompany.gql';
 import AddUser from './AddUser';
 
-const AddUserForm = reduxForm({ form: 'newUser' })(AddUser);
+const selector = formValueSelector('newUser');
+
+const AddUserWithFormSelector = connect(state => ({
+  currentProtectedNamesLimit: selector(state, 'protectedNamesLimit')
+}))(AddUser);
+
+const AddUserForm = reduxForm({
+  form: 'newUser',
+  initialValues: { protectedNamesLimit: 150 }
+})(AddUserWithFormSelector);
 
 const AddUserFormWithCompanyData = graphql(CreateUser, {
   props: ({ ownProps, mutate }) => ({
-    onSubmit: async (values) => {
+    onSubmit: async values => {
       if (values.password === values.confirmPassword) {
         const { id, __typename, ...companyFields } = ownProps.user.company;
 
@@ -65,7 +74,4 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AddUserFormWithProfileData);
+export default connect(mapStateToProps, mapDispatchToProps)(AddUserFormWithProfileData);

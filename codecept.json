@@ -1,11 +1,16 @@
 {
-  "tests": "./test/*.feature.js",
+  "tests": "./test/**/*.feature.js",
   "timeout": 10000,
   "output": "./output",
   "helpers": {
-    "WebdriverIO": {
-      "url": "http://localhost:8081",
-      "browser": "chrome"
+    "WebDriverIO": {
+      "url": "http://localhost:8080",
+      "browser": "chrome",
+      "waitForTimeout": 5000,
+      "windowSize": "maximize"
+    },
+    "CreateHelper": {
+      "require": "./test/steps/createHelper.js"
     }
   },
   "include": {

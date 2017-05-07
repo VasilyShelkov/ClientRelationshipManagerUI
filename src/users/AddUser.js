@@ -1,24 +1,20 @@
 import React from 'react';
 import { Field } from 'redux-form';
-import { TextField, Checkbox } from 'redux-form-material-ui';
+import { TextField, Checkbox, Slider } from 'redux-form-material-ui';
 
 import Paper from 'material-ui/Paper';
 import PersonAddIcon from 'material-ui/svg-icons/social/person-add';
 import { cyan500 } from 'material-ui/styles/colors';
 
 import StandardForm from '../shared/StandardForm';
-import {
-  renderTextField, required, emailFormat, minLength, renderCheckbox
-} from '../shared/FormElements';
+import { required, emailFormat, minLength } from '../shared/FormElements';
 import LoadingSpinner from '../shared/LoadingSpinner';
 
-export default ({ creatingUser, queryLoading, handleSubmit, error }) => (
+export default ({ creatingUser, currentProtectedNamesLimit, queryLoading, handleSubmit, error }) => (
   <div>
-    {
-      queryLoading ?
-        <LoadingSpinner />
-      :
-        <Paper style={{ marginTop: '20px' }}>
+    {queryLoading
+      ? <LoadingSpinner />
+      : <Paper style={{ marginTop: '20px' }}>
           <div style={{ textAlign: 'center' }}>
             <PersonAddIcon style={{ height: '100px', width: '100px' }} color={cyan500} />
             <h2>Add a new member to the team...</h2>
@@ -66,6 +62,23 @@ export default ({ creatingUser, queryLoading, handleSubmit, error }) => (
                   fullWidth
                 />
               </div>,
+              <div className="col-12" style={{ marginTop: '10px', textAlign: 'center' }}>
+                <div>Protected Names Limit</div>
+                <div>{currentProtectedNamesLimit}</div>
+                <div>
+                  <Field
+                    key="profile__protectedNamesLimit"
+                    name="protectedNamesLimit"
+                    sliderStyle={{ marginBottom: '0px' }}
+                    component={Slider}
+                    defaultValue={150}
+                    format={null}
+                    min={0}
+                    max={1000}
+                    step={1}
+                  />
+                </div>
+              </div>,
               <div className="col-12">
                 <Field
                   key="newProfile__password"
@@ -89,19 +102,12 @@ export default ({ creatingUser, queryLoading, handleSubmit, error }) => (
                 />
               </div>,
               <div className="col-12" style={{ margin: '20px 0px' }}>
-                <Field
-                  key="newProfile__accountType"
-                  name="accountType"
-                  component={Checkbox}
-                  label="Administrator"
-                />
+                <Field key="newProfile__accountType" name="accountType" component={Checkbox} label="Administrator" />
               </div>
             ]}
             error={error}
             handleSubmit={handleSubmit}
           />
-        </Paper>
-    }
+        </Paper>}
   </div>
 );
-
