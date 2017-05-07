@@ -1,28 +1,24 @@
-import React from 'react';
 import { graphql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
 
-import { red500 } from 'material-ui/styles/colors';
-
-import BookClientCall from './BookCall.gql';
-import BookClientMeeting from './BookMeeting.gql';
+import BookCall from './BookCall.gql';
+import BookMeeting from './BookMeeting.gql';
 import GetNameComments from '../../../selected/comments/GetNameComments.gql';
+
 import { onSubmitBookCall, onSubmitBookMeeting } from '../lockedMutations';
-import { performingNameAction } from '../../../nameActions';
 import { showNotification } from '../../../../app/appActions';
+import LockedNamesListWithData from '../LockedNamesListWithData';
 
-import LockedNamesWithData from '../LockedNamesListWithData';
-
-const ClientsWithEditMutations = compose(
-  graphql(BookClientCall, {
+const LockedNamesWithMutations = compose(
+  graphql(BookCall, {
     props: ({ ownProps, mutate }) => ({
       onSubmitBookCall: names =>
         onSubmitBookCall({
           mutate,
-          userId: ownProps.id,
+          userId: ownProps.userId,
           names,
           editCallDialogOpen: ownProps.editProtectedNameCallDialogOpen,
-          nameListTypeIdKey: 'clientId',
+          nameListTypeIdKey: 'protectedId',
           performingNameAction: ownProps.performingNameAction,
           showErrorNotification: ownProps.showErrorNotification
         }),
@@ -33,22 +29,22 @@ const ClientsWithEditMutations = compose(
         {
           query: GetNameComments,
           variables: {
-            userId: props.id,
+            userId: props.userId,
             id: props.selectedNameId
           }
         }
       ]
     })
   }),
-  graphql(BookClientMeeting, {
+  graphql(BookMeeting, {
     props: ({ ownProps, mutate }) => ({
       onSubmitBookMeeting: names =>
         onSubmitBookMeeting({
           mutate,
-          userId: ownProps.id,
+          userId: ownProps.userId,
           names,
           editMeetingDialogOpen: ownProps.editProtectedNameMeetingDialogOpen,
-          nameListTypeIdKey: 'clientId',
+          nameListTypeIdKey: 'protectedId',
           performingNameAction: ownProps.performingNameAction,
           showErrorNotification: ownProps.showErrorNotification
         }),
@@ -59,16 +55,18 @@ const ClientsWithEditMutations = compose(
         {
           query: GetNameComments,
           variables: {
-            userId: props.id,
+            userId: props.userId,
             id: props.selectedNameId
           }
         }
       ]
     })
   })
-)(LockedNamesWithData);
+)(LockedNamesListWithData);
 
 const mapStateToProps = state => ({
+  userId: state.account.id,
+  selectedNameId: state.selectedName.id,
   editProtectedNameCallDialogOpen: state.name.editProtectedNameCallDialogOpen,
   editProtectedNameMeetingDialogOpen: state.name.editProtectedNameMeetingDialogOpen
 });
@@ -78,4 +76,4 @@ const mapDispatchToProps = dispatch => ({
   showErrorNotification: message => dispatch(showNotification(message, red500))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ClientsWithEditMutations);
+export default connect(mapStateToProps, mapDispatchToProps)(LockedNamesWithMutations);

@@ -1,18 +1,14 @@
+import { graphql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
 
-import { openEditProtectedNameMeetingDialog, openEditProtectedNameCallDialog } from '../../nameActions';
 import { selectName } from '../../selected/selectedActions';
-
+import { openEditProtectedNameMeetingDialog, openEditProtectedNameCallDialog } from '../../nameActions';
 import LockedNamesList from './LockedNamesList';
 
-const mapStateToProps = state => ({
-  nameActionInProgress: state.name.actionInProgress
-});
-
 const mapDispatchToProps = dispatch => ({
-  selectName: nameId => dispatch(selectName(nameId)),
+  selectName: selectedNameList => nameId => dispatch(selectName(nameId, selectedNameList)),
   openEditProtectedNameMeetingDialog: nameId => dispatch(openEditProtectedNameMeetingDialog(nameId)),
   openEditProtectedNameCallDialog: nameId => dispatch(openEditProtectedNameCallDialog(nameId))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LockedNamesList);
+export default connect(() => ({}), mapDispatchToProps)(LockedNamesList);

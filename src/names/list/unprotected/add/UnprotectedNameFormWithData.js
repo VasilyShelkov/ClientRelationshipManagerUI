@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import { graphql, compose } from 'react-apollo';
 import { SubmissionError } from 'redux-form';
 
@@ -45,7 +46,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  cancelCreateName: () => dispatch(hideCreateNameForm())
+  cancelCreateName: () => dispatch(push('/account/names/unprotected'))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddUnprotectedNameWithCompanyData);

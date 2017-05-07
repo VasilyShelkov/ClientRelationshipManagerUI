@@ -2,22 +2,22 @@ import { graphql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
 import { red500 } from 'material-ui/styles/colors';
 
-import GetProtectedNames from './GetProtectedNames.gql';
+import GetMetWithProtectedNames from './GetMetWithProtectedNames.gql';
 import { getNameByNameId } from '../../nameListShapeShifter';
 import reducer from './createApolloReducer';
 import ProtectedMutations from './ProtectedMutations';
 
-const ProtectedNames = graphql(GetProtectedNames, {
+const ProtectedNames = graphql(GetMetWithProtectedNames, {
   options: ({ userId }) => ({
     variables: { id: userId },
-    reducer: reducer('protected')
+    reducer: reducer('metWithProtected')
   }),
   props: ({ ownProps, data: { loading, user } }) => {
-    const selectedName = user && getNameByNameId(user.protected, ownProps.selectedNameId);
+    const selectedName = user && getNameByNameId(user.metWithProtected, ownProps.selectedNameId);
     return {
-      nameListType: 'protected',
+      nameListType: 'metWithProtected',
       loading,
-      names: user && user.protected,
+      names: user && user.metWithProtected,
       selectedName,
       selectedNameDrawerOpen: selectedName,
       ...ownProps

@@ -4,18 +4,6 @@
   }
 }
 
-.unprotected__container__names {
-  @extend .names__list__container;
-}
-
-.protected__container__names {
-  @extend .names__list__container;
-}
-
-.client__container__names {
-  @extend .names__list__container;
-}
-
 .names__overlay {
   background-color: rgba(0,0,0,.85);
   position: fixed;

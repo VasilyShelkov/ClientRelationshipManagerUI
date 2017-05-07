@@ -134,6 +134,7 @@ const SelectedProtectedNameWithMutations = compose(
               comment
             }
           });
+          ownProps.metWithProtectedSuccess();
         } catch (error) {
           ownProps.showErrorNotification(
             error.graphQLErrors ? error.graphQLErrors[0].message : 'Oops, something went wrong...'
@@ -202,8 +203,9 @@ const mapDispatchToProps = dispatch => ({
   closeClientNameDialog: () => dispatch(closeClientNameDialog()),
   performingNameAction: message => dispatch(performingNameAction(message)),
   showErrorNotification: message => dispatch(showNotification(message, red500)),
-  makeNameClientSuccess: () => dispatch(push('/account/names/clients')),
-  unprotectNameSuccess: () => dispatch(push('/account/names/unprotected'))
+  unprotectNameSuccess: () => dispatch(push('/account/names/unprotected')),
+  metWithProtectedSuccess: () => dispatch(push('/account/names/metWithProtected')),
+  makeNameClientSuccess: () => dispatch(push('/account/names/clients'))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectedProtectedNameWithMutations);

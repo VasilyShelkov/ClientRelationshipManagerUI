@@ -9,9 +9,7 @@ import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 
 import AccountIcon from 'material-ui/svg-icons/action/account-circle';
-import LockOpenIcon from 'material-ui/svg-icons/action/lock-open';
-import LockClosedIcon from 'material-ui/svg-icons/action/lock-outline';
-import ClientsIcon from 'material-ui/svg-icons/social/group';
+import { UnprotectedIcon, ProtectedIcon, ClientsIcon } from '../icons';
 
 import { changeSideBarState } from '../../authentication/accountActions';
 import AdminUserListWithData from './AdminUserListWithData';
@@ -24,15 +22,16 @@ export const SideBar = ({
   open,
   width,
   currentPage,
+  protectedListToShow,
   currentUserId,
-  profiileUserId,
+  profileUserId,
   handleChangeRequestSideBar,
   handleRouteChange
 }) => {
   const selectedValue = JSON.stringify({
     newRoute: currentPage,
     currentUserId,
-    userIdToShow: profiileUserId
+    userIdToShow: profileUserId
   });
   return (
     <Drawer docked={width === LARGE} open={open || width === LARGE} onRequestChange={handleChangeRequestSideBar}>
@@ -54,7 +53,7 @@ export const SideBar = ({
           <ListItem
             id="goToUnprotectedList"
             primaryText="Unprotected"
-            leftIcon={<LockOpenIcon />}
+            leftIcon={<UnprotectedIcon />}
             value={JSON.stringify({
               newRoute: '/account/names/unprotected',
               currentUserId,
@@ -64,9 +63,9 @@ export const SideBar = ({
           <ListItem
             id="goToProtectedList"
             primaryText="Protected"
-            leftIcon={<LockClosedIcon />}
+            leftIcon={<ProtectedIcon />}
             value={JSON.stringify({
-              newRoute: '/account/names/protected',
+              newRoute: `/account/names/${protectedListToShow}`,
               currentUserId,
               userIdToShow: currentUserId
             })}
@@ -95,7 +94,8 @@ const mapStateToProps = state => ({
   open: state.account.sideBarOpen,
   currentPage: state.routing.location.pathname,
   currentUserId: state.account.id,
-  profiileUserId: state.profile.id
+  profileUserId: state.profile.id,
+  protectedListToShow: state.nameList.protectedListToShow
 });
 
 const mapDispatchToProps = dispatch => ({

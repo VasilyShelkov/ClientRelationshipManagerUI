@@ -105,8 +105,7 @@ const SelectedUnprotectedNameWithMutations = compose(
 
 const mapStateToProps = state => ({
   id: state.account.id,
-  protectNameDialogOpen: state.selectedName.protectNameDialogOpen,
-  showingCreateForm: state.nameList.showingCreateForm
+  protectNameDialogOpen: state.selectedName.protectNameDialogOpen
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -26,6 +26,7 @@ export default ({
         <IconButton id="protectName" tooltip="Protect Name" onClick={openProtectNameDialog} touch>
           <LockClosedIcon color={cyan500} />
         </IconButton>
+
         {protectNameDialogOpen &&
           <NameDialogForm
             title={`Protect ${displayName}`}

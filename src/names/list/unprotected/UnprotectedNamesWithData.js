@@ -53,13 +53,11 @@ const UnprotectedNamesWithData = graphql(GetUnprotectedNames, {
 const mapStateToProps = state => ({
   id: state.profile.id,
   selectedNameId: state.selectedName.id,
-  showingCreateForm: state.nameList.showingCreateForm,
   nameActionInProgress: state.name.actionInProgress
 });
 
 const mapDispatchToProps = dispatch => ({
-  showCreateNameForm: () => dispatch(showCreateNameForm()),
-  selectName: nameId => dispatch(selectName(nameId))
+  selectName: nameId => dispatch(selectName(nameId, 'unprotected'))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UnprotectedNamesWithData);

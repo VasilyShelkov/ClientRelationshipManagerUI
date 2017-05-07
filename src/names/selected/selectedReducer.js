@@ -18,6 +18,7 @@ import {
 
 const initialState = {
   id: false,
+  listWithSelectedName: false,
   showingEditNameForm: false,
   showingEditNameCompanyForm: false,
   protectNameDialogOpen: false,
@@ -61,6 +62,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         id: action.nameId,
+        listWithSelectedName: action.listWithSelectedName,
         showingEditNameForm: initialState.showingEditNameForm,
         showingEditNameCompanyForm: initialState.showingEditNameCompanyForm
       };
@@ -68,6 +70,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         id: initialState.id,
+        listWithSelectedName: initialState.listWithSelectedName,
         showingEditNameForm: initialState.showingEditNameForm,
         showingEditNameCompanyForm: initialState.showingEditNameCompanyForm
       };

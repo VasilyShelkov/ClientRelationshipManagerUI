@@ -13,7 +13,8 @@ const setup = ({
   width = LARGE,
   currentPage = '/test',
   handleChangeRequestSideBar = () => '',
-  handleRouteChange = () => ''
+  handleRouteChange = () => '',
+  protectedListToShow = 'protected'
 }) => {
   const props = {
     isAdmin,
@@ -22,7 +23,8 @@ const setup = ({
     currentPage,
     handleChangeRequestSideBar,
     handleRouteChange,
-    currentUserId: '0'
+    currentUserId: '0',
+    protectedListToShow
   };
   const wrapper = shallowWithContext(<SideBar {...props} />);
 
@@ -59,7 +61,7 @@ describe('src/app/navigation/SideBar', () => {
     expect(pageNavigations.at(2).prop('primaryText')).to.equal('Protected');
     expect(pageNavigations.at(2).prop('value')).to.equal(
       JSON.stringify({
-        newRoute: '/account/names/protected',
+        newRoute: `/account/names/${props.protectedListToShow}`,
         currentUserId: props.currentUserId,
         userIdToShow: props.currentUserId
       })

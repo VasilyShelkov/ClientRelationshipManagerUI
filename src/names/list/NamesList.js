@@ -57,7 +57,7 @@ export default class NamesList extends Component {
       case 'metWithProtectedNamesList':
         createdText = 'met with';
         break;
-      case 'clientNamesList':
+      case 'clientsNamesList':
         createdText = 'client since';
         break;
       default:

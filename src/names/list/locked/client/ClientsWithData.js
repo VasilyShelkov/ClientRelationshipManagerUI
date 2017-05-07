@@ -33,6 +33,7 @@ const Clients = graphql(GetClients, {
   props: ({ ownProps, data: { loading, user } }) => {
     const selectedName = user && getNameByNameId(user.client, ownProps.selectedNameId);
     return {
+      nameListType: 'clients',
       loading,
       names: user && user.client,
       selectedName,
