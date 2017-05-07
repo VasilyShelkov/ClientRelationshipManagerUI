@@ -14,7 +14,7 @@
     "prebuild": "rimraf dist",
     "build": "webpack --config webpack/webpack.config.prod.js --progress --profile --colors",
     "build:staging": "NODE_ENV=staging webpack --config webpack/webpack.config.prod.js --progress --profile --colors",
-    "heroku-postbuild": "npm run build:staging",
+    "heroku-postbuild": "npm run build",
     "test": "NODE_ENV=testing nyc --reporter=lcov --reporter=text mocha --opts ./mocha.opts './src/**/*.spec.js'",
     "test:watch": "NODE_ENV=testing mocha --watch --opts ./mocha.opts './src/**/*.spec.js'",
     "test:feature": "./node_modules/codeceptjs/bin/codecept.js run --steps",
