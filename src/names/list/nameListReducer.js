@@ -21,11 +21,6 @@ export default (state = initialState, action) => {
       };
     case APOLLO_MUTATION_RESULT: {
       switch (action.operationName) {
-        case 'CreateUnprotectedName':
-          return {
-            ...state,
-            showingCreateForm: false
-          };
         case 'ProtectName':
           return {
             ...state,

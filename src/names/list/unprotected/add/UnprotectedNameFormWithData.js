@@ -2,19 +2,23 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { graphql, compose } from 'react-apollo';
 import { SubmissionError } from 'redux-form';
+import _ from 'lodash';
 
 import GetAllCompanies from '../../../GetAllCompanies.gql';
 import CreateUnprotectedName from './CreateUnprotectedName.gql';
+import GetUserNamesCount from '../../../GetUserNamesCount.gql';
 import AddUnprotectedNameForm from './UnprotectedNameForm';
 import { hideCreateNameForm } from '../../nameListActions';
+import { selectName } from '../../../selected/selectedActions';
 
 const AddUnprotectedNameWithCompanyData = compose(
   graphql(CreateUnprotectedName, {
     props: ({ ownProps, mutate }) => ({
       onSubmit: async values => {
         const { companyName, companyAddress, companyPhone, ...nameDetails } = values;
+        const { createUnprotectedNameSuccess } = ownProps;
         try {
-          await mutate({
+          const unprotectedName = await mutate({
             variables: {
               userId: ownProps.id,
               ...nameDetails,
@@ -25,11 +29,22 @@ const AddUnprotectedNameWithCompanyData = compose(
               }
             }
           });
+          createUnprotectedNameSuccess(_.get(unprotectedName, 'data.addUnprotectedNameToUser'));
         } catch (error) {
           throw new SubmissionError({ _error: error.graphQLErrors[0].message });
         }
       },
       ...ownProps
+    }),
+    options: props => ({
+      refetchQueries: [
+        {
+          query: GetUserNamesCount,
+          variables: {
+            id: props.id
+          }
+        }
+      ]
     })
   }),
   graphql(GetAllCompanies, {
@@ -46,7 +61,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  cancelCreateName: () => dispatch(push('/account/names/unprotected'))
+  createUnprotectedNameSuccess: name => dispatch(selectName(name, 'unprotected')),
+  cancelAddUnprotectedName: () => dispatch(push('/account/names/unprotected'))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddUnprotectedNameWithCompanyData);

@@ -17,7 +17,9 @@ import {
 } from './selectedActions';
 
 const initialState = {
-  id: false,
+  nameTypeId: false,
+  name: false,
+  nameTypeDetails: false,
   listWithSelectedName: false,
   showingEditNameForm: false,
   showingEditNameCompanyForm: false,
@@ -59,9 +61,12 @@ export default (state = initialState, action) => {
         metWithProtectedDialogOpen: false
       };
     case SELECT_NAME:
+      const { name, id, ...nameTypeDetails } = action.name;
       return {
         ...state,
-        id: action.nameId,
+        nameTypeId: id,
+        name,
+        nameTypeDetails,
         listWithSelectedName: action.listWithSelectedName,
         showingEditNameForm: initialState.showingEditNameForm,
         showingEditNameCompanyForm: initialState.showingEditNameCompanyForm
@@ -69,7 +74,8 @@ export default (state = initialState, action) => {
     case HIDE_NAME:
       return {
         ...state,
-        id: initialState.id,
+        nameTypeId: initialState.nameTypeId,
+        name: initialState.name,
         listWithSelectedName: initialState.listWithSelectedName,
         showingEditNameForm: initialState.showingEditNameForm,
         showingEditNameCompanyForm: initialState.showingEditNameCompanyForm
@@ -124,51 +130,24 @@ export default (state = initialState, action) => {
             ...state,
             id: initialState.id
           };
-        case 'CreateUnprotectedName':
-          if (!_.has(action, 'result.errors')) {
-            return {
-              ...state,
-              id: action.result.data.addUnprotectedNameToUser.name.id
-            };
-          }
+        // case 'CreateUnprotectedName':
+        // if (!_.has(action, 'result.errors')) {
+        // return {
+        // ...state,
+        // id: action.result.data.addUnprotectedNameToUser.name.id
+        // };
+        // }
 
-          return state;
-        case 'ProtectName':
-          if (!_.has(action, 'result.errors')) {
-            return {
-              ...state,
-              id: action.result.data.protectNameToUser.name.id
-            };
-          }
+        // return state;
+        // case 'UnprotectName':
+        // if (!_.has(action, 'result.errors')) {
+        // return {
+        // ...state,
+        // id: action.result.data.unprotectNameFromUser.name.id
+        // };
+        // }
 
-          return state;
-        case 'MetWithProtected':
-          if (!_.has(action, 'result.errors')) {
-            return {
-              ...state,
-              id: action.result.data.editProtectedName.name.id
-            };
-          }
-
-          return state;
-        case 'UnprotectName':
-          if (!_.has(action, 'result.errors')) {
-            return {
-              ...state,
-              id: action.result.data.unprotectNameFromUser.name.id
-            };
-          }
-
-          return state;
-        case 'MakeClient':
-          if (!_.has(action, 'result.errors')) {
-            return {
-              ...state,
-              id: action.result.data.addClientToUser.name.id
-            };
-          }
-
-          return state;
+        // return state;
         default:
           return state;
       }

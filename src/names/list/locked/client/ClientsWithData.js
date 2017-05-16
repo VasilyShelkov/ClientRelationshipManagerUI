@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { APOLLO_MUTATION_RESULT } from '../../../../app/thirdPartyActions';
 import GetClients from './GetClients.gql';
 import ClientsWithEditMutations from './ClientsWithEditMutations';
-import { removeNameFromList, getNameByNameId } from '../../nameListShapeShifter';
+import { removeNameFromList } from '../../nameListShapeShifter';
 
 export const reducer = (previousResult, action) => {
   if (action.type === APOLLO_MUTATION_RESULT) {
@@ -30,22 +30,16 @@ export const reducer = (previousResult, action) => {
 
 const Clients = graphql(GetClients, {
   options: ({ id }) => ({ variables: { id }, reducer }),
-  props: ({ ownProps, data: { loading, user } }) => {
-    const selectedName = user && getNameByNameId(user.client, ownProps.selectedNameId);
-    return {
-      nameListType: 'clients',
-      loading,
-      names: user && user.client,
-      selectedName,
-      selectedNameDrawerOpen: Boolean(selectedName),
-      ...ownProps
-    };
-  }
+  props: ({ ownProps, data: { loading, user } }) => ({
+    nameListType: 'clients',
+    loading,
+    names: user && user.client,
+    ...ownProps
+  })
 })(ClientsWithEditMutations);
 
 const mapStateToProps = state => ({
-  id: state.account.id,
-  selectedNameId: state.selectedName.id
+  id: state.profile.id
 });
 
 export default connect(mapStateToProps)(Clients);

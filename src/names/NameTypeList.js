@@ -1,15 +1,16 @@
 import React from 'react';
+import _ from 'lodash';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { Switch, Route } from 'react-router';
+import { Switch, Route, matchPath } from 'react-router';
 import { Tabs, Tab } from 'material-ui/Tabs';
 
 import NameTypeListHeader from './NameTypeListHeader';
-import UnprotectedNamesWithData from '../names/list/unprotected/UnprotectedNamesWithData';
-import AddUnprotectedNameFormWithData from './list/unprotected/add/UnprotectedNameFormWithData';
+import UnprotectedPage from './UnprotectedPage';
 import ProtectedNamesWithData from '../names/list/locked/protected/ProtectedNamesWithData';
 import MetWithProtectedNamesWithData from '../names/list/locked/protected/MetWithProtectedNamesWithData';
 import ClientsWithData from '../names/list/locked/client/ClientsWithData';
+import SelectedName from './selected/SelectedName';
 import { ProtectedIcon, MetWithProtectedIcon } from '../app/icons';
 import { changeShownProtectedList } from './list/nameListActions';
 import LoadingSpinner from '../shared/LoadingSpinner';
@@ -18,13 +19,17 @@ export const NameTypeList = ({
   match,
   id,
   listToShow,
-  selectedNameId,
   nameActionInProgress,
   changeShownList,
   listWithSelectedName,
   currentPath
 }) => (
-  <div className={currentPath.split('/')[3] === listWithSelectedName && 'names__list__container'}>
+  <div
+    className={
+      _.get(matchPath(currentPath, { path: '/account/names/:nameType/selected' }), 'params.nameType') ===
+        listWithSelectedName && 'names__list__container'
+    }
+  >
     <div className={nameActionInProgress && 'names__content'}>
       <Route
         path={`${match.path}/(protected|metWithProtected)`}
@@ -50,12 +55,13 @@ export const NameTypeList = ({
       <NameTypeListHeader match={match} id={id} />
 
       <Switch>
-        <Route exact path={`${match.path}/unprotected`} component={UnprotectedNamesWithData} />
-        <Route exact path={`${match.path}/unprotected/add`} component={AddUnprotectedNameFormWithData} />
-        <Route exact path={`${match.path}/protected`} component={ProtectedNamesWithData} />
-        <Route exact path={`${match.path}/metWithProtected`} component={MetWithProtectedNamesWithData} />
-        <Route exact path={`${match.path}/clients`} component={ClientsWithData} />
+        <Route path={`${match.path}/unprotected`} component={UnprotectedPage} />
+        <Route path={`${match.path}/protected`} component={ProtectedNamesWithData} />
+        <Route path={`${match.path}/metWithProtected`} component={MetWithProtectedNamesWithData} />
+        <Route path={`${match.path}/clients`} component={ClientsWithData} />
       </Switch>
+
+      <Route path={`${match.path}/:nameListType/selected`} component={SelectedName} />
     </div>
 
     {nameActionInProgress &&
@@ -69,7 +75,6 @@ export const NameTypeList = ({
 const mapStateToProps = state => ({
   id: state.profile.id,
   listToShow: state.nameList.protectedListToShow,
-  selectedNameId: state.selectedName.id,
   listWithSelectedName: state.selectedName.listWithSelectedName,
   nameActionInProgress: state.name.actionInProgress,
   currentPath: state.routing.location.pathname

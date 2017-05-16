@@ -29,3 +29,9 @@ export const changeSideBarState = open => ({
   type: CHANGE_SIDE_BAR_STATE,
   open
 });
+
+export const SET_RETURN_URL = 'SET_RETURN_URL';
+export const setReturnUrl = returnUrl => ({
+  type: SET_RETURN_URL,
+  returnUrl
+});

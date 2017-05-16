@@ -8,7 +8,14 @@ import LoadingSpinner from '../../../../shared/LoadingSpinner';
 import StandardForm from '../../../../shared/StandardForm';
 import { required, AddressField } from '../../../../shared/FormElements';
 
-export const AddUnprotectedName = ({ existingCompanies, loading, error, handleSubmit, cancelCreateName, change }) => {
+export const AddUnprotectedName = ({
+  existingCompanies,
+  loading,
+  error,
+  handleSubmit,
+  cancelAddUnprotectedName,
+  change
+}) => {
   if (loading) {
     return <LoadingSpinner />;
   }
@@ -19,7 +26,7 @@ export const AddUnprotectedName = ({ existingCompanies, loading, error, handleSu
         <StandardForm
           error={error}
           handleSubmit={handleSubmit}
-          handleCancel={cancelCreateName}
+          handleCancel={cancelAddUnprotectedName}
           fields={[
             <div key="unprotectedName__details" className="col-12 col-sm-6">
               <h3>Name</h3>

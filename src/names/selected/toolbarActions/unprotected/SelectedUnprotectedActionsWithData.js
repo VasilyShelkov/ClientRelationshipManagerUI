@@ -1,49 +1,33 @@
 import { graphql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { push } from 'react-router-redux';
+import _ from 'lodash';
 import { red500 } from 'material-ui/styles/colors';
 
 import RemoveUnprotectedName from './RemoveUnprotectedName.gql';
 import ProtectName from './ProtectName.gql';
-import GetNameComments from '../comments/GetNameComments.gql';
+import GetNameComments from '../../comments/GetNameComments.gql';
+import GetUserNamesCount from '../../../GetUserNamesCount.gql';
 
-import { showNotification } from '../../../app/appActions';
-import { hideName, openProtectNameDialog, closeProtectNameDialog } from '../selectedActions';
-import { performingNameAction } from '../../nameActions';
+import { showNotification } from '../../../../app/appActions';
+import { openProtectNameDialog, closeProtectNameDialog, selectName } from '../../selectedActions';
+import { performingNameAction } from '../../../nameActions';
 
-import SelectedUnprotectedName from './SelectedUnprotectedName';
+import SelectedUnprotectedActions from './SelectedUnprotectedActions';
 
-const SelectedUnprotectedNameWithMutations = compose(
-  graphql(RemoveUnprotectedName, {
-    props: ({ ownProps, mutate }) => ({
-      ...ownProps,
-      removeUnprotectedName: async () => {
-        const { selectedUnprotected } = ownProps;
-
-        try {
-          ownProps.performingNameAction(
-            `Removing ${selectedUnprotected.name.firstName} ${selectedUnprotected.name.lastName}`
-          );
-          await mutate({
-            variables: {
-              userId: ownProps.id,
-              unprotectedId: selectedUnprotected.id
-            }
-          });
-        } catch (error) {
-          ownProps.showErrorNotification(
-            error.graphQLErrors ? error.graphQLErrors[0].message : 'Oops, something went wrong...'
-          );
-        }
-      }
-    })
-  }),
+const SelectedUnprotectedActionsWithMutations = compose(
   graphql(ProtectName, {
     props: ({ ownProps, mutate }) => ({
       ...ownProps,
       onSubmitProtectName: async ({ callDay, callTime, meetingDay, meetingTime, comment }) => {
-        const { selectedUnprotected } = ownProps;
+        const {
+          userId,
+          unprotectedId,
+          name,
+          performingNameAction,
+          protectNameSuccess,
+          showErrorNotification
+        } = ownProps;
 
         let callBooked = null;
         if (callDay) {
@@ -60,14 +44,12 @@ const SelectedUnprotectedNameWithMutations = compose(
         }
 
         try {
-          ownProps.performingNameAction(
-            `Protecting ${selectedUnprotected.name.firstName} ${selectedUnprotected.name.lastName}`
-          );
-          await mutate({
+          performingNameAction(`Protecting ${name.firstName} ${name.lastName}`);
+          const protectedName = await mutate({
             variables: {
-              userId: ownProps.id,
-              unprotectedId: selectedUnprotected.id,
-              nameId: selectedUnprotected.name.id,
+              unprotectedId,
+              nameId: name.id,
+              userId,
               callBooked,
               meetingBooked,
               comment
@@ -81,11 +63,9 @@ const SelectedUnprotectedNameWithMutations = compose(
               })
             }
           });
-          ownProps.protectNameSuccess();
+          protectNameSuccess(_.get(protectedName, 'data.protectNameToUser'));
         } catch (error) {
-          ownProps.showErrorNotification(
-            error.graphQLErrors ? error.graphQLErrors[0].message : 'Oops, something went wrong...'
-          );
+          showErrorNotification(error.graphQLErrors ? error.graphQLErrors[0].message : 'Oops, something went wrong...');
         }
       }
     }),
@@ -94,27 +74,33 @@ const SelectedUnprotectedNameWithMutations = compose(
         {
           query: GetNameComments,
           variables: {
-            userId: props.id,
-            id: props.selectedUnprotected && props.selectedUnprotected.name.id
+            userId: props.userId,
+            id: props.name.id
+          }
+        },
+        {
+          query: GetUserNamesCount,
+          variables: {
+            id: props.userId
           }
         }
       ]
     })
   })
-)(SelectedUnprotectedName);
+)(SelectedUnprotectedActions);
 
 const mapStateToProps = state => ({
-  id: state.account.id,
+  userId: state.profile.id,
+  unprotectedId: state.selectedName.nameTypeId,
   protectNameDialogOpen: state.selectedName.protectNameDialogOpen
 });
 
 const mapDispatchToProps = dispatch => ({
-  hideName: () => dispatch(hideName()),
   openProtectNameDialog: () => dispatch(openProtectNameDialog()),
   closeProtectNameDialog: () => dispatch(closeProtectNameDialog()),
   performingNameAction: message => dispatch(performingNameAction(message)),
   showErrorNotification: message => dispatch(showNotification(message, red500)),
-  protectNameSuccess: () => dispatch(push('/account/names/protected'))
+  protectNameSuccess: name => dispatch(selectName(name, 'protected'))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SelectedUnprotectedNameWithMutations);
+export default connect(mapStateToProps, mapDispatchToProps)(SelectedUnprotectedActionsWithMutations);

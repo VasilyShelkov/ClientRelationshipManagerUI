@@ -1,5 +1,7 @@
 import { graphql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
+import { red500 } from 'material-ui/styles/colors';
+import _ from 'lodash';
 
 import BookCall from './BookCall.gql';
 import BookMeeting from './BookMeeting.gql';
@@ -7,21 +9,21 @@ import GetNameComments from '../../../selected/comments/GetNameComments.gql';
 
 import { onSubmitBookCall, onSubmitBookMeeting } from '../lockedMutations';
 import { showNotification } from '../../../../app/appActions';
-import LockedNamesListWithData from '../LockedNamesListWithData';
+import { performingNameAction } from '../../../nameActions';
+import NamesList from '../../NamesList';
 
 const LockedNamesWithMutations = compose(
   graphql(BookCall, {
     props: ({ ownProps, mutate }) => ({
-      onSubmitBookCall: names =>
-        onSubmitBookCall({
-          mutate,
-          userId: ownProps.userId,
-          names,
-          editCallDialogOpen: ownProps.editProtectedNameCallDialogOpen,
-          nameListTypeIdKey: 'protectedId',
-          performingNameAction: ownProps.performingNameAction,
-          showErrorNotification: ownProps.showErrorNotification
-        }),
+      onSubmitBookCall: onSubmitBookCall({
+        mutate,
+        userId: ownProps.userId,
+        names: ownProps.names,
+        editCallDialogOpen: ownProps.editProtectedNameCallDialogOpen,
+        nameListTypeIdKey: 'protectedId',
+        performingNameAction: ownProps.performingNameAction,
+        showErrorNotification: ownProps.showErrorNotification
+      }),
       ...ownProps
     }),
     options: props => ({
@@ -30,7 +32,7 @@ const LockedNamesWithMutations = compose(
           query: GetNameComments,
           variables: {
             userId: props.userId,
-            id: props.selectedNameId
+            id: _.get(props.selectedName, 'id')
           }
         }
       ]
@@ -38,16 +40,15 @@ const LockedNamesWithMutations = compose(
   }),
   graphql(BookMeeting, {
     props: ({ ownProps, mutate }) => ({
-      onSubmitBookMeeting: names =>
-        onSubmitBookMeeting({
-          mutate,
-          userId: ownProps.userId,
-          names,
-          editMeetingDialogOpen: ownProps.editProtectedNameMeetingDialogOpen,
-          nameListTypeIdKey: 'protectedId',
-          performingNameAction: ownProps.performingNameAction,
-          showErrorNotification: ownProps.showErrorNotification
-        }),
+      onSubmitBookMeeting: onSubmitBookMeeting({
+        mutate,
+        userId: ownProps.userId,
+        names: ownProps.names,
+        editMeetingDialogOpen: ownProps.editProtectedNameMeetingDialogOpen,
+        nameListTypeIdKey: 'protectedId',
+        performingNameAction: ownProps.performingNameAction,
+        showErrorNotification: ownProps.showErrorNotification
+      }),
       ...ownProps
     }),
     options: props => ({
@@ -56,17 +57,16 @@ const LockedNamesWithMutations = compose(
           query: GetNameComments,
           variables: {
             userId: props.userId,
-            id: props.selectedNameId
+            id: _.get(props.selectedName, 'id')
           }
         }
       ]
     })
   })
-)(LockedNamesListWithData);
+)(NamesList);
 
 const mapStateToProps = state => ({
-  userId: state.account.id,
-  selectedNameId: state.selectedName.id,
+  selectedName: state.selectedName.name,
   editProtectedNameCallDialogOpen: state.name.editProtectedNameCallDialogOpen,
   editProtectedNameMeetingDialogOpen: state.name.editProtectedNameMeetingDialogOpen
 });

@@ -4,7 +4,7 @@ import { push } from 'react-router-redux';
 import config from '../../config';
 import { logIn, logInSuccess, logInError } from './accountActions';
 
-export default async (values, dispatch) => {
+export default async (values, dispatch, { returnUrl }) => {
   const instance = axios.create();
   instance.defaults.timeout = 5000;
   instance.defaults.baseURL = config.graphQL;
@@ -19,5 +19,5 @@ export default async (values, dispatch) => {
   }
 
   dispatch(logInSuccess(accountDetails.data));
-  dispatch(push('/account/profile'));
+  dispatch(push(returnUrl));
 };

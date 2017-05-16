@@ -7,7 +7,7 @@ import { selectName } from '../../selected/selectedActions';
 import { showCreateNameForm } from '../nameListActions';
 import GetUnprotectedNames from './GetUnprotectedNames.gql';
 
-import UnprotectedNames from './UnprotectedNames';
+import NamesList from '../NamesList';
 import { removeNameFromList } from '../nameListShapeShifter';
 
 export const reducer = (previousResult, action) => {
@@ -45,15 +45,15 @@ const UnprotectedNamesWithData = graphql(GetUnprotectedNames, {
   options: ({ id }) => ({ variables: { id }, reducer }),
   props: ({ ownProps, data: { loading, user } }) => ({
     loading,
+    nameListType: 'unprotected',
     names: user && user.unprotected,
     ...ownProps
   })
-})(UnprotectedNames);
+})(NamesList);
 
 const mapStateToProps = state => ({
   id: state.profile.id,
-  selectedNameId: state.selectedName.id,
-  nameActionInProgress: state.name.actionInProgress
+  selectedName: state.selectedName.name
 });
 
 const mapDispatchToProps = dispatch => ({

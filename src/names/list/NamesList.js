@@ -1,15 +1,25 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import _ from 'lodash';
+
+import { Switch, Route, matchPath, Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
 import Fuse from 'fuse.js';
 import RaisedButton from 'material-ui/RaisedButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
 import { fullWhite, green500 } from 'material-ui/styles/colors';
 import ReactList from 'react-list';
-import { sortNamesByType, sortTypes } from './nameSorter';
 
+import { sortNamesByType, sortTypes } from './nameSorter';
+import { getNameByFirstAndLastName, getNameByNameId, getNameIndexByNameId } from './nameListShapeShifter';
 import Name from './Name';
 import NameOrganiser from './NameListOrganiser';
+import LoadingSpinner from '../../shared/LoadingSpinner';
+import EditLockedName from './locked/EditLockedNameInfo';
+import { selectName } from '../selected/selectedActions';
+import { openEditProtectedNameMeetingDialog, openEditProtectedNameCallDialog } from '../nameActions';
 
-export default class NamesList extends Component {
+export class NamesList extends Component {
   constructor(props) {
     super(props);
 
@@ -26,54 +36,107 @@ export default class NamesList extends Component {
 
   updateSort = (event, index, value) => this.setState({ sortBy: value });
 
+  componentDidUpdate() {
+    const { loading, names = [], nameListType, selectedName, openNameDetails, currentPath } = this.props;
+
+    const encodedNameFromURL = _.get(
+      matchPath(currentPath, { path: '/account/names/(.*)/selected/:encodedName' }),
+      'params.encodedName'
+    );
+    const selectedNameFromURL = getNameByFirstAndLastName(names, encodedNameFromURL);
+    if (selectedNameFromURL && !selectedName) {
+      openNameDetails(selectedNameFromURL, nameListType);
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const { loading, names = [], nameListType, selectedName } = this.props;
+    const { searchValue, sortBy } = this.state;
+
+    return (
+      (!nextProps.loading && _.isEqual(names, nextProps.names)) ||
+      (!nextProps.loading && nameListType !== nextProps.nameListType) ||
+      (!nextProps.loading && _.isEqual(selectedName, nextProps.selectedName)) ||
+      (!nextProps.loading && searchValue !== nextState.searchValue) ||
+      (!nextProps.loading && sortBy !== nextState.sortBy)
+    );
+  }
+
   render() {
     const {
-      id,
-      names,
-      selectedNameId,
-      isProtected,
-      selectedNameDrawerOpen,
-      showCreateNameForm = null,
+      loading = true,
+      names = [],
+      nameListType,
+      selectedName,
       openNameDetails,
       openEditProtectedNameMeetingDialog,
-      openEditProtectedNameCallDialog
+      openEditProtectedNameCallDialog,
+      onSubmitBookCall,
+      onSubmitBookMeeting,
+      currentPath
     } = this.props;
-    let namesFromSearch = names.slice(0);
+    if (loading) return <LoadingSpinner />;
 
+    const encodedNameFromURL = _.get(
+      matchPath(currentPath, { path: '/account/names/(.*)/selected/:encodedName' }),
+      'params.encodedName'
+    );
+    const selectedNameFromURL = getNameByFirstAndLastName(names, encodedNameFromURL);
+    if (
+      encodedNameFromURL &&
+      matchPath(currentPath, { path: '/account/names/:nameListType' }).params.nameListType === nameListType &&
+      names.length &&
+      !selectedNameFromURL
+    ) {
+      return <Redirect to={`/account/names/${nameListType}`} />;
+    }
+
+    const selectedNameId = _.get(selectedName, 'id');
+    if (selectedName && !encodedNameFromURL) {
+      const selectedNameInCurrentList = getNameByNameId(names, selectedNameId);
+      if (selectedNameInCurrentList) {
+        return (
+          <Redirect
+            to={`${currentPath}/selected/${selectedName.firstName.toLowerCase()}-${selectedName.lastName.toLowerCase()}`}
+          />
+        );
+      }
+    }
+
+    let namesFromSearch = names.slice(0);
     if (this.state.searchValue) {
       namesFromSearch = this.state.fuse.search(this.state.searchValue);
     }
 
-    const sortedNames = sortNamesByType(this.state.sortBy, namesFromSearch, id === 'metWithProtectedNamesList');
+    const sortedNames = sortNamesByType(this.state.sortBy, namesFromSearch, nameListType === 'metWithProtected');
 
     let createdText = 'created';
-    switch (id) {
-      case 'unprotectedNamesList':
+    switch (nameListType) {
+      case 'unprotected':
         createdText = 'created';
         break;
-      case 'protectedNamesList':
+      case 'protected':
         createdText = 'protected';
         break;
-      case 'metWithProtectedNamesList':
+      case 'metWithProtected':
         createdText = 'met with';
         break;
-      case 'clientsNamesList':
+      case 'clients':
         createdText = 'client since';
         break;
       default:
         createdText = 'created';
     }
 
+    console.log('==========>', sortedNames.length);
     return (
-      <div id={id}>
+      <div id={`${nameListType}NamesList`}>
         {names.length
           ? <div>
               <NameOrganiser
                 searchValue={this.state.searchValue}
                 sortBy={this.state.sortBy}
                 searchResultsLength={namesFromSearch.length !== names.length && namesFromSearch.length}
-                showProtectedNameOptions={isProtected}
-                selectedNameDrawerOpen={selectedNameDrawerOpen}
                 updateSearch={this.updateSearch}
                 updateSort={this.updateSort}
               />
@@ -87,12 +150,11 @@ export default class NamesList extends Component {
                         id={`name-${key}`}
                         createdText={createdText}
                         key={`name-${index}`}
-                        selected={typedName.name.id === selectedNameId}
-                        showMoreDetails={() => openNameDetails(typedName.name.id)}
+                        selected={typedName.name.id === _.get(selectedName, 'id')}
+                        showMoreDetails={() => openNameDetails(typedName, nameListType)}
                         editProtectedCall={() => openEditProtectedNameCallDialog(typedName.name.id)}
                         editProtectedMeeting={() => openEditProtectedNameMeetingDialog(typedName.name.id)}
-                        isProtected={isProtected}
-                        selectedNameDrawerOpen={selectedNameDrawerOpen}
+                        currentPath={currentPath}
                         {...typedName}
                       />
                     );
@@ -100,20 +162,46 @@ export default class NamesList extends Component {
                 />
               </div>
             </div>
-          : <div>
-              {showCreateNameForm
-                ? <RaisedButton
+          : <Switch>
+              <Route
+                path="/account/names/unprotected"
+                render={() => (
+                  <RaisedButton
+                    containerElement={<Link to="/account/names/unprotected/add" />}
                     id="createUnprotectedName"
-                    onClick={showCreateNameForm}
                     labelStyle={{ color: fullWhite }}
                     backgroundColor={green500}
                     label="Create first name"
                     icon={<AddIcon color={fullWhite} />}
                     fullWidth
                   />
-                : 'You currently have none'}
-            </div>}
+                )}
+              />
+              <Route render={() => <div>You currently have none</div>} />
+            </Switch>}
+        <Route
+          path="/account/names/(protected|metWithProtected|clients)"
+          render={() => (
+            <EditLockedName
+              names={names}
+              onSubmitBookCall={onSubmitBookCall}
+              onSubmitBookMeeting={onSubmitBookMeeting}
+            />
+          )}
+        />
       </div>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  currentPath: state.routing.location.pathname
+});
+
+const mapDispatchToProps = dispatch => ({
+  openNameDetails: (name, selectedNameList) => dispatch(selectName(name, selectedNameList)),
+  openEditProtectedNameMeetingDialog: nameId => dispatch(openEditProtectedNameMeetingDialog(nameId)),
+  openEditProtectedNameCallDialog: nameId => dispatch(openEditProtectedNameCallDialog(nameId))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NamesList);
