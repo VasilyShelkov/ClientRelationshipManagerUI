@@ -1,7 +1,6 @@
 import { graphql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
 import { red500 } from 'material-ui/styles/colors';
-import _ from 'lodash';
 
 import BookClientCall from './BookCall.gql';
 import BookClientMeeting from './BookMeeting.gql';
@@ -31,7 +30,7 @@ const ClientsWithEditMutations = compose(
           query: GetNameComments,
           variables: {
             userId: props.id,
-            id: _.get(props.selectedName, 'id')
+            id: props.selectedNameId
           }
         }
       ]
@@ -56,7 +55,7 @@ const ClientsWithEditMutations = compose(
           query: GetNameComments,
           variables: {
             userId: props.id,
-            id: _.get(props.selectedName, 'id')
+            id: props.selectedNameId
           }
         }
       ]
@@ -65,7 +64,7 @@ const ClientsWithEditMutations = compose(
 )(NamesList);
 
 const mapStateToProps = state => ({
-  selectedName: state.selectedName.name,
+  selectedNameId: state.selectedName.nameId,
   editProtectedNameCallDialogOpen: state.name.editProtectedNameCallDialogOpen,
   editProtectedNameMeetingDialogOpen: state.name.editProtectedNameMeetingDialogOpen
 });

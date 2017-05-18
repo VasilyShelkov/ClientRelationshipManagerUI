@@ -10,7 +10,7 @@ import UnprotectedPage from './UnprotectedPage';
 import ProtectedNamesWithData from '../names/list/locked/protected/ProtectedNamesWithData';
 import MetWithProtectedNamesWithData from '../names/list/locked/protected/MetWithProtectedNamesWithData';
 import ClientsWithData from '../names/list/locked/client/ClientsWithData';
-import SelectedName from './selected/SelectedName';
+import SelectedName from './selected/SelectedNameWithData';
 import { ProtectedIcon, MetWithProtectedIcon } from '../app/icons';
 import { changeShownProtectedList } from './list/nameListActions';
 import LoadingSpinner from '../shared/LoadingSpinner';

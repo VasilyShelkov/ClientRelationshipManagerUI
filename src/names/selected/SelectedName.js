@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Switch, Route, matchPath } from 'react-router';
 
 import Drawer from 'material-ui/Drawer';
@@ -23,7 +22,7 @@ import CompanyDetails from './CompanyDetails';
 import Comments from './comments/CommentsWithData';
 import LoadingSpinner from '../../shared/LoadingSpinner';
 
-export const SelectedNameDrawer = ({ name, match: { params: { nameListType } }, closeNameDetails }) => (
+export default ({ name, match: { params: { nameListType } }, closeNameDetails }) => (
   <Drawer containerStyle={{ zIndex: '1100' }} width={250} openSecondary open={Boolean(name)}>
     {name
       ? <div id="selectedName">
@@ -73,13 +72,3 @@ export const SelectedNameDrawer = ({ name, match: { params: { nameListType } }, 
       : <LoadingSpinner />}
   </Drawer>
 );
-
-const mapStateToProps = state => ({
-  name: state.selectedName.name
-});
-
-const mapDispatchToProps = dispatch => ({
-  closeNameDetails: nameListType => dispatch(hideName(nameListType))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SelectedNameDrawer);

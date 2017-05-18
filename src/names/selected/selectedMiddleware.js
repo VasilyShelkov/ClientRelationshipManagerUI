@@ -5,10 +5,10 @@ export default store => next => action => {
   next(action);
   switch (action.type) {
     case SELECT_NAME:
-      const { listWithSelectedName, name } = action;
+      const { listWithSelectedName, typedName } = action;
       store.dispatch(
         push(
-          `/account/names/${listWithSelectedName}/selected/${encodeURI(name.name.firstName.toLowerCase())}-${encodeURI(name.name.lastName.toLowerCase())}`
+          `/account/names/${listWithSelectedName}/selected/${encodeURI(typedName.name.firstName.toLowerCase())}-${encodeURI(typedName.name.lastName.toLowerCase())}`
         )
       );
       break;

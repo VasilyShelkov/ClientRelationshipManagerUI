@@ -37,28 +37,39 @@ export class NamesList extends Component {
   updateSort = (event, index, value) => this.setState({ sortBy: value });
 
   componentDidUpdate() {
-    const { loading, names = [], nameListType, selectedName, openNameDetails, currentPath } = this.props;
+    const { loading, names = [], nameListType, selectedNameId, openNameDetails, currentPath } = this.props;
 
     const encodedNameFromURL = _.get(
       matchPath(currentPath, { path: '/account/names/(.*)/selected/:encodedName' }),
       'params.encodedName'
     );
     const selectedNameFromURL = getNameByFirstAndLastName(names, encodedNameFromURL);
-    if (selectedNameFromURL && !selectedName) {
+    if (selectedNameFromURL && !selectedNameId) {
       openNameDetails(selectedNameFromURL, nameListType);
     }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const { loading, names = [], nameListType, selectedName } = this.props;
+    const { loading, names = [], nameListType, selectedNameId, currentPath } = this.props;
     const { searchValue, sortBy } = this.state;
 
+    const currentlySelectedName = _.get(
+      matchPath(currentPath, { path: '/account/names/(.*)/selected/:encodedName' }),
+      'params.encodedName'
+    );
+    const newSelectedName = _.get(
+      matchPath(nextProps.currentPath, { path: '/account/names/(.*)/selected/:encodedName' }),
+      'params.encodedName'
+    );
     return (
-      (!nextProps.loading && _.isEqual(names, nextProps.names)) ||
+      (!nextProps.loading && !_.isEqual(names, nextProps.names)) ||
       (!nextProps.loading && nameListType !== nextProps.nameListType) ||
-      (!nextProps.loading && _.isEqual(selectedName, nextProps.selectedName)) ||
+      (!nextProps.loading && selectedNameId !== nextProps.selectedNameId) ||
       (!nextProps.loading && searchValue !== nextState.searchValue) ||
-      (!nextProps.loading && sortBy !== nextState.sortBy)
+      (!nextProps.loading && sortBy !== nextState.sortBy) ||
+      (!nextProps.loading &&
+        (matchPath(currentPath, { path: '/account/names/:nameListType', exact: true }) ||
+          currentlySelectedName !== newSelectedName))
     );
   }
 
@@ -67,7 +78,7 @@ export class NamesList extends Component {
       loading = true,
       names = [],
       nameListType,
-      selectedName,
+      selectedNameId,
       openNameDetails,
       openEditProtectedNameMeetingDialog,
       openEditProtectedNameCallDialog,
@@ -82,6 +93,17 @@ export class NamesList extends Component {
       'params.encodedName'
     );
     const selectedNameFromURL = getNameByFirstAndLastName(names, encodedNameFromURL);
+    if (selectedNameId && (!encodedNameFromURL || !selectedNameFromURL)) {
+      const selectedNameInCurrentList = getNameByNameId(names, selectedNameId);
+      if (selectedNameInCurrentList) {
+        return (
+          <Redirect
+            to={`/account/names/${nameListType}/selected/${selectedNameInCurrentList.name.firstName.toLowerCase()}-${selectedNameInCurrentList.name.lastName.toLowerCase()}`}
+          />
+        );
+      }
+    }
+
     if (
       encodedNameFromURL &&
       matchPath(currentPath, { path: '/account/names/:nameListType' }).params.nameListType === nameListType &&
@@ -89,18 +111,6 @@ export class NamesList extends Component {
       !selectedNameFromURL
     ) {
       return <Redirect to={`/account/names/${nameListType}`} />;
-    }
-
-    const selectedNameId = _.get(selectedName, 'id');
-    if (selectedName && !encodedNameFromURL) {
-      const selectedNameInCurrentList = getNameByNameId(names, selectedNameId);
-      if (selectedNameInCurrentList) {
-        return (
-          <Redirect
-            to={`${currentPath}/selected/${selectedName.firstName.toLowerCase()}-${selectedName.lastName.toLowerCase()}`}
-          />
-        );
-      }
     }
 
     let namesFromSearch = names.slice(0);
@@ -128,7 +138,6 @@ export class NamesList extends Component {
         createdText = 'created';
     }
 
-    console.log('==========>', sortedNames.length);
     return (
       <div id={`${nameListType}NamesList`}>
         {names.length
@@ -150,7 +159,7 @@ export class NamesList extends Component {
                         id={`name-${key}`}
                         createdText={createdText}
                         key={`name-${index}`}
-                        selected={typedName.name.id === _.get(selectedName, 'id')}
+                        selected={typedName.name.id === selectedNameId}
                         showMoreDetails={() => openNameDetails(typedName, nameListType)}
                         editProtectedCall={() => openEditProtectedNameCallDialog(typedName.name.id)}
                         editProtectedMeeting={() => openEditProtectedNameMeetingDialog(typedName.name.id)}

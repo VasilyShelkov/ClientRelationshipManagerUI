@@ -1,6 +1,5 @@
 import { graphql } from 'react-apollo';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 
 import { APOLLO_MUTATION_RESULT } from '../../../app/thirdPartyActions';
 import { selectName } from '../../selected/selectedActions';
@@ -53,7 +52,7 @@ const UnprotectedNamesWithData = graphql(GetUnprotectedNames, {
 
 const mapStateToProps = state => ({
   id: state.profile.id,
-  selectedName: state.selectedName.name
+  selectedNameId: state.selectedName.nameId
 });
 
 const mapDispatchToProps = dispatch => ({

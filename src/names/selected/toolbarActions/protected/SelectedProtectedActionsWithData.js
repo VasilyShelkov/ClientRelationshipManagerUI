@@ -186,7 +186,7 @@ const SelectedProtectedActionsWithMutations = compose(
 const mapStateToProps = state => ({
   userId: state.profile.id,
   protectedId: state.selectedName.nameTypeId,
-  nameTypeDetails: state.selectedName.nameTypeDetails,
+  nameTypeDetails: state.apollo.data[state.selectedName.nameTypeId],
   makeNameClientDialogOpen: state.selectedName.makeNameClientDialogOpen,
   metWithProtectedDialogOpen: state.selectedName.metWithProtectedDialogOpen
 });

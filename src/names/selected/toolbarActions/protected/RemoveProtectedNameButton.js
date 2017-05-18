@@ -44,7 +44,7 @@ const RemoveProtectedNameButtonWithData = graphql(RemoveProtectedName, {
 
 const mapStateToProps = state => ({
   userId: state.profile.id,
-  protectedId: state.selectedName.nameListId
+  protectedId: state.selectedName.nameTypeId
 });
 
 const mapDispatchToProps = dispatch => ({

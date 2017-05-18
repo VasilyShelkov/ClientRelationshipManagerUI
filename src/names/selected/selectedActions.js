@@ -29,9 +29,9 @@ export const closeMetWithProtectedDialog = () => ({
 });
 
 export const SELECT_NAME = 'SELECT_NAME';
-export const selectName = (name, listWithSelectedName) => ({
+export const selectName = (typedName, listWithSelectedName) => ({
   type: SELECT_NAME,
-  name,
+  typedName,
   listWithSelectedName
 });
 

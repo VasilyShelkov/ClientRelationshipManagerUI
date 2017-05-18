@@ -18,8 +18,7 @@ import {
 
 const initialState = {
   nameTypeId: false,
-  name: false,
-  nameTypeDetails: false,
+  nameId: false,
   listWithSelectedName: false,
   showingEditNameForm: false,
   showingEditNameCompanyForm: false,
@@ -61,12 +60,11 @@ export default (state = initialState, action) => {
         metWithProtectedDialogOpen: false
       };
     case SELECT_NAME:
-      const { name, id, ...nameTypeDetails } = action.name;
+      const { name, id } = action.typedName;
       return {
         ...state,
         nameTypeId: id,
-        name,
-        nameTypeDetails,
+        nameId: name.id,
         listWithSelectedName: action.listWithSelectedName,
         showingEditNameForm: initialState.showingEditNameForm,
         showingEditNameCompanyForm: initialState.showingEditNameCompanyForm
@@ -75,7 +73,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         nameTypeId: initialState.nameTypeId,
-        name: initialState.name,
+        nameId: initialState.nameId,
         listWithSelectedName: initialState.listWithSelectedName,
         showingEditNameForm: initialState.showingEditNameForm,
         showingEditNameCompanyForm: initialState.showingEditNameCompanyForm

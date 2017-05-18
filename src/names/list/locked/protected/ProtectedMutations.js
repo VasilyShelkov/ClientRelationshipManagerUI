@@ -32,7 +32,7 @@ const LockedNamesWithMutations = compose(
           query: GetNameComments,
           variables: {
             userId: props.userId,
-            id: _.get(props.selectedName, 'id')
+            id: props.selectedNameId
           }
         }
       ]
@@ -57,7 +57,7 @@ const LockedNamesWithMutations = compose(
           query: GetNameComments,
           variables: {
             userId: props.userId,
-            id: _.get(props.selectedName, 'id')
+            id: props.selectedNameId
           }
         }
       ]
@@ -66,7 +66,7 @@ const LockedNamesWithMutations = compose(
 )(NamesList);
 
 const mapStateToProps = state => ({
-  selectedName: state.selectedName.name,
+  selectedNameId: state.selectedName.nameId,
   editProtectedNameCallDialogOpen: state.name.editProtectedNameCallDialogOpen,
   editProtectedNameMeetingDialogOpen: state.name.editProtectedNameMeetingDialogOpen
 });
