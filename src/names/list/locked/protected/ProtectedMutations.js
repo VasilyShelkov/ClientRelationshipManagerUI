@@ -19,7 +19,6 @@ const LockedNamesWithMutations = compose(
         mutate,
         userId: ownProps.userId,
         names: ownProps.names,
-        editCallDialogOpen: ownProps.editProtectedNameCallDialogOpen,
         nameListTypeIdKey: 'protectedId',
         performingNameAction: ownProps.performingNameAction,
         showErrorNotification: ownProps.showErrorNotification
@@ -44,7 +43,6 @@ const LockedNamesWithMutations = compose(
         mutate,
         userId: ownProps.userId,
         names: ownProps.names,
-        editMeetingDialogOpen: ownProps.editProtectedNameMeetingDialogOpen,
         nameListTypeIdKey: 'protectedId',
         performingNameAction: ownProps.performingNameAction,
         showErrorNotification: ownProps.showErrorNotification
@@ -66,9 +64,7 @@ const LockedNamesWithMutations = compose(
 )(NamesList);
 
 const mapStateToProps = state => ({
-  selectedNameId: state.selectedName.nameId,
-  editProtectedNameCallDialogOpen: state.name.editProtectedNameCallDialogOpen,
-  editProtectedNameMeetingDialogOpen: state.name.editProtectedNameMeetingDialogOpen
+  selectedNameId: state.selectedName.nameId
 });
 
 const mapDispatchToProps = dispatch => ({

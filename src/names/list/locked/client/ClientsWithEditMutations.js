@@ -17,7 +17,6 @@ const ClientsWithEditMutations = compose(
         mutate,
         userId: ownProps.id,
         names: ownProps.names,
-        editCallDialogOpen: ownProps.editProtectedNameCallDialogOpen,
         nameListTypeIdKey: 'clientId',
         performingNameAction: ownProps.performingNameAction,
         showErrorNotification: ownProps.showErrorNotification
@@ -42,7 +41,6 @@ const ClientsWithEditMutations = compose(
         mutate,
         userId: ownProps.id,
         names: ownProps.names,
-        editMeetingDialogOpen: ownProps.editProtectedNameMeetingDialogOpen,
         nameListTypeIdKey: 'clientId',
         performingNameAction: ownProps.performingNameAction,
         showErrorNotification: ownProps.showErrorNotification
@@ -64,9 +62,7 @@ const ClientsWithEditMutations = compose(
 )(NamesList);
 
 const mapStateToProps = state => ({
-  selectedNameId: state.selectedName.nameId,
-  editProtectedNameCallDialogOpen: state.name.editProtectedNameCallDialogOpen,
-  editProtectedNameMeetingDialogOpen: state.name.editProtectedNameMeetingDialogOpen
+  selectedNameId: state.selectedName.nameId
 });
 
 const mapDispatchToProps = dispatch => ({

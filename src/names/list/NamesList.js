@@ -62,6 +62,7 @@ export class NamesList extends Component {
       'params.encodedName'
     );
     return (
+      loading !== nextProps.loading ||
       (!nextProps.loading && !_.isEqual(names, nextProps.names)) ||
       (!nextProps.loading && nameListType !== nextProps.nameListType) ||
       (!nextProps.loading && selectedNameId !== nextProps.selectedNameId) ||
