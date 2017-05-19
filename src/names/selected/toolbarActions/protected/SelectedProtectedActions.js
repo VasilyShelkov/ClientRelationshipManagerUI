@@ -23,7 +23,7 @@ export default ({
   onSubmitMakeClient,
   onSubmitMeetProtected
 }) => {
-  const displayName = `${name.firstName} ${name.lastName}`;
+  const displayName = `${firstName} ${lastName}`;
   const callBookedDate = moment(callBooked).toDate();
   const meetingBookedDate = moment(meetingBooked).toDate();
 
