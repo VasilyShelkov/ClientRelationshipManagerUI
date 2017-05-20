@@ -4,12 +4,11 @@ export const onSubmitBookMeeting = ({
   mutate,
   userId,
   names,
-  editMeetingDialogOpen,
   nameListTypeIdKey,
   performingNameAction,
   showErrorNotification
-}) => async ({ meetingDay, meetingTime, comment }) => {
-  const selectedProtected = names.find(name => name.name.id === editMeetingDialogOpen);
+}) => editMeetingDialogOpen => async ({ meetingDay, meetingTime, comment }) => {
+  const selectedProtected = names.find(typedName => typedName.name.id === editMeetingDialogOpen);
 
   let meetingBooked = null;
   if (meetingDay) {
@@ -37,12 +36,11 @@ export const onSubmitBookCall = ({
   mutate,
   userId,
   names,
-  editCallDialogOpen,
   nameListTypeIdKey,
   performingNameAction,
   showErrorNotification
-}) => async ({ callDay, callTime, comment }) => {
-  const selectedProtected = names.find(name => name.name.id === editCallDialogOpen);
+}) => editCallDialogOpen => async ({ callDay, callTime, comment }) => {
+  const selectedProtected = names.find(typedName => typedName.name.id === editCallDialogOpen);
 
   let callBooked = null;
   if (callDay) {

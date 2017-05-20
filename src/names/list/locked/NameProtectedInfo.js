@@ -1,4 +1,5 @@
 import React from 'react';
+import { matchPath } from 'react-router';
 import moment from 'moment';
 
 import RaisedButton from 'material-ui/RaisedButton';
@@ -9,7 +10,8 @@ import { cyan500 } from 'material-ui/styles/colors';
 
 import { MetWithProtectedIcon } from '../../../app/icons';
 
-export default ({ callBooked, meetingBooked, selected, selectedNameDrawerOpen, editMeeting, editCall }) => {
+export default ({ currentPath, callBooked, meetingBooked, selected, editMeeting, editCall }) => {
+  const selectedNameDrawerOpen = Boolean(matchPath(currentPath, { path: '/account/names/(.*)/selected' }));
   const protectedNameClassName = `col-12 col-${selectedNameDrawerOpen ? 'md' : 'sm'}-6`;
   return (
     <div className={`row name__info__protectedInfo${selected ? '-selected' : ''}`}>

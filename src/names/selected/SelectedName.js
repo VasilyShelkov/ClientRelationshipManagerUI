@@ -1,53 +1,74 @@
 import React from 'react';
+import { Switch, Route, matchPath } from 'react-router';
 
 import Drawer from 'material-ui/Drawer';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import DeleteName from 'material-ui/svg-icons/action/delete';
-import { red500 } from 'material-ui/styles/colors';
 
 import { List } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 
+import { hideName } from './selectedActions';
+import SelectedUnprotectedActionsWithData from './toolbarActions/unprotected/SelectedUnprotectedActionsWithData';
+import SelectedProtectedActionsWithData from './toolbarActions/protected/SelectedProtectedActionsWithData';
+import SelectedClientActionsWithData from './toolbarActions/client/SelectedClientActionsWithData';
+import RemoveUnprotectedNameButton from './toolbarActions/unprotected/RemoveUnprotectedNameButton';
+import RemoveProtectedNameButton from './toolbarActions/protected/RemoveProtectedNameButton';
+import RemoveClientButton from './toolbarActions/client/RemoveClientButton';
 import NameDetails from './NameDetails';
 import CompanyDetails from './CompanyDetails';
 import Comments from './comments/CommentsWithData';
+import LoadingSpinner from '../../shared/LoadingSpinner';
 
-export default ({
-  details: { name: { id, firstName, lastName, phone, company } },
-  open,
-  isProtected,
-  children,
-  closeNameDetails,
-  removeNameAction
-}) => (
-  <Drawer containerStyle={{ zIndex: '1100' }} width={250} openSecondary open={open}>
-    <div id="selectedName">
-      <Toolbar>
-        <ToolbarGroup firstChild>
-          <IconButton onClick={closeNameDetails}>
-            <NavigationClose />
-          </IconButton>
-        </ToolbarGroup>
+export default ({ name, match: { params: { nameListType } }, closeNameDetails }) => (
+  <Drawer containerStyle={{ zIndex: '1100' }} width={250} openSecondary open={Boolean(name)}>
+    {name
+      ? <div id="selectedName">
+          <Toolbar>
+            <ToolbarGroup firstChild>
+              <IconButton onClick={() => closeNameDetails(nameListType)}>
+                <NavigationClose />
+              </IconButton>
+            </ToolbarGroup>
 
-        <ToolbarGroup>
-          {children}
-        </ToolbarGroup>
+            <Switch>
+              <Route
+                path="/account/names/unprotected"
+                render={() => <SelectedUnprotectedActionsWithData name={name} />}
+              />
+              <Route
+                path="/account/names/(protected|metWithProtected)"
+                render={() => <SelectedProtectedActionsWithData name={name} />}
+              />
+              <Route path="/account/names/clients" render={() => <SelectedClientActionsWithData name={name} />} />
+            </Switch>
 
-        <ToolbarGroup lastChild>
-          <IconButton id="deleteName" touch onClick={removeNameAction}>
-            <DeleteName color={red500} />
-          </IconButton>
-        </ToolbarGroup>
-      </Toolbar>
-      <List>
-        <NameDetails isProtected={isProtected} name={{ id, firstName, lastName, phone }} />
-        <Divider />
-        <CompanyDetails company={company} />
-        <Divider />
-        <Comments id={id} firstName={firstName} lastName={lastName} />
-      </List>
-    </div>
+            <ToolbarGroup lastChild>
+              <Switch>
+                <Route path={`/account/names/unprotected`} render={() => <RemoveUnprotectedNameButton name={name} />} />
+                <Route
+                  path={`/account/names/(protected|metWithProtected)`}
+                  render={() => <RemoveProtectedNameButton name={name} />}
+                />
+                <Route path={`/account/names/clients`} render={() => <RemoveClientButton name={name} />} />
+              </Switch>
+            </ToolbarGroup>
+          </Toolbar>
+          <List>
+            <NameDetails
+              isProtected={
+                nameListType === 'protected' || nameListType === 'metWithProtected' || nameListType === 'client'
+              }
+              name={{ id: name.id, firstName: name.firstName, lastName: name.lastName, phone: name.phone }}
+            />
+            <Divider />
+            <CompanyDetails company={name.company} />
+            <Divider />
+            <Comments id={name.id} firstName={name.firstName} lastName={name.lastName} />
+          </List>
+        </div>
+      : <LoadingSpinner />}
   </Drawer>
 );

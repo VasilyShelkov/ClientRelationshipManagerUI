@@ -1,7 +1,5 @@
-import React from 'react';
 import { graphql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
-
 import { red500 } from 'material-ui/styles/colors';
 
 import BookClientCall from './BookCall.gql';
@@ -10,36 +8,19 @@ import GetNameComments from '../../../selected/comments/GetNameComments.gql';
 import { onSubmitBookCall, onSubmitBookMeeting } from '../lockedMutations';
 import { performingNameAction } from '../../../nameActions';
 import { showNotification } from '../../../../app/appActions';
-
-import LockedNamesWithData from '../LockedNamesListWithData';
-import EditLockedNameInfo from '../EditLockedNameInfo';
-
-const ClientLayout = props => (
-  <div className={props.selectedNameDrawerOpen && 'client__container__names'}>
-    <LockedNamesWithData nameListType="client" {...props} />
-    {props.names
-      ? <EditLockedNameInfo
-          names={props.names}
-          onSubmitBookCall={props.onSubmitBookCall}
-          onSubmitBookMeeting={props.onSubmitBookMeeting}
-        />
-      : null}
-  </div>
-);
+import NamesList from '../../NamesList';
 
 const ClientsWithEditMutations = compose(
   graphql(BookClientCall, {
     props: ({ ownProps, mutate }) => ({
-      onSubmitBookCall: names =>
-        onSubmitBookCall({
-          mutate,
-          userId: ownProps.id,
-          names,
-          editCallDialogOpen: ownProps.editProtectedNameCallDialogOpen,
-          nameListTypeIdKey: 'clientId',
-          performingNameAction: ownProps.performingNameAction,
-          showErrorNotification: ownProps.showErrorNotification
-        }),
+      onSubmitBookCall: onSubmitBookCall({
+        mutate,
+        userId: ownProps.id,
+        names: ownProps.names,
+        nameListTypeIdKey: 'clientId',
+        performingNameAction: ownProps.performingNameAction,
+        showErrorNotification: ownProps.showErrorNotification
+      }),
       ...ownProps
     }),
     options: props => ({
@@ -56,16 +37,14 @@ const ClientsWithEditMutations = compose(
   }),
   graphql(BookClientMeeting, {
     props: ({ ownProps, mutate }) => ({
-      onSubmitBookMeeting: names =>
-        onSubmitBookMeeting({
-          mutate,
-          userId: ownProps.id,
-          names,
-          editMeetingDialogOpen: ownProps.editProtectedNameMeetingDialogOpen,
-          nameListTypeIdKey: 'clientId',
-          performingNameAction: ownProps.performingNameAction,
-          showErrorNotification: ownProps.showErrorNotification
-        }),
+      onSubmitBookMeeting: onSubmitBookMeeting({
+        mutate,
+        userId: ownProps.id,
+        names: ownProps.names,
+        nameListTypeIdKey: 'clientId',
+        performingNameAction: ownProps.performingNameAction,
+        showErrorNotification: ownProps.showErrorNotification
+      }),
       ...ownProps
     }),
     options: props => ({
@@ -80,11 +59,10 @@ const ClientsWithEditMutations = compose(
       ]
     })
   })
-)(ClientLayout);
+)(NamesList);
 
 const mapStateToProps = state => ({
-  editProtectedNameCallDialogOpen: state.name.editProtectedNameCallDialogOpen,
-  editProtectedNameMeetingDialogOpen: state.name.editProtectedNameMeetingDialogOpen
+  selectedNameId: state.selectedName.nameId
 });
 
 const mapDispatchToProps = dispatch => ({

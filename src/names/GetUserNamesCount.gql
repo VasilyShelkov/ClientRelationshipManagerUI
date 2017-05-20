@@ -1,0 +1,13 @@
+  query GetUserNamesCount($id: String!) {
+    user(id: $id) {
+      id
+      protectedNamesLimit
+      latestProgress {
+        id
+        unprotectedCount
+        protectedCount
+        metWithProtectedCount
+        clientCount
+      }
+    }
+  }

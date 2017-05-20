@@ -11,6 +11,8 @@ import persistState from 'redux-localstorage';
 
 import { routerMiddleware } from 'react-router-redux';
 import authenticationMiddleware from '../authentication/authenticationMiddleware';
+import protectedMiddleware from '../names/list/locked/protected/protectedMiddleware';
+import selectedMiddleware from '../names/selected/selectedMiddleware';
 
 import rootReducer, { client } from './store';
 
@@ -25,7 +27,13 @@ const store = browserHistory =>
     rootReducer,
     composeWithDevTools(
       persistState(storage, 'account'),
-      applyMiddleware(client.middleware(), routerMiddleware(browserHistory), authenticationMiddleware)
+      applyMiddleware(
+        client.middleware(),
+        routerMiddleware(browserHistory),
+        authenticationMiddleware,
+        protectedMiddleware,
+        selectedMiddleware
+      )
     )
   );
 
@@ -41,6 +49,11 @@ const render = Component => {
 render(Root);
 
 if (module.hot) {
+  module.hot.dispose(() => {
+    // Force Apollo to fetch the latest data from the server
+    delete window.__APOLLO_STATE__;
+  });
+
   module.hot.accept('./Root', () => {
     render(Root);
   });

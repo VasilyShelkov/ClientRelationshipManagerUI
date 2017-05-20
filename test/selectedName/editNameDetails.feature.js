@@ -81,9 +81,9 @@ Scenario('user edits name details for client', function*(I) {
   });
 
   I.waitToHide('.names__overlay');
-  I.waitForElement('#clientNamesList');
+  I.waitForElement('#clientsNamesList');
   I.waitForVisible('#appNotification');
-  within('#clientNamesList .name:nth-of-type(1)', () => {
+  within('#clientsNamesList .name:nth-of-type(1)', () => {
     I.see(editName.phone);
   });
 });

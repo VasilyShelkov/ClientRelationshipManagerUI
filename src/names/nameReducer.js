@@ -2,18 +2,14 @@ import { actionTypes } from 'redux-form';
 import { APOLLO_MUTATION_INIT, APOLLO_MUTATION_RESULT } from '../app/thirdPartyActions';
 import { SHOW_NOTIFICATION } from '../app/appActions';
 import {
-  CHANGE_SHOWN_PROTECTED_LIST,
   OPEN_EDIT_PROTECTED_NAME_MEETING_DIALOG,
   CLOSE_EDIT_PROTECTED_NAME_MEETING_DIALOG,
   OPEN_EDIT_PROTECTED_NAME_CALL_DIALOG,
   CLOSE_EDIT_PROTECTED_NAME_CALL_DIALOG,
-  SHOW_CREATE_NAME_FORM,
-  HIDE_CREATE_NAME_FORM,
   PERFORMING_NAME_ACTION
 } from './nameActions';
 
 const initialState = {
-  protectedListToShow: 'protected',
   editProtectedNameMeetingDialogOpen: false,
   editProtectedNameCallDialogOpen: false,
   actionInProgress: false

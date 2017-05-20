@@ -1,0 +1,15 @@
+query GetNameDetails($id: String!, $userId: String!) {
+  name(id: $id, userId: $userId) {
+    id
+    firstName
+    lastName
+    phone
+    company {
+      id
+      name
+      address
+      phone
+    }
+  }
+}
+

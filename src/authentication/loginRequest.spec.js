@@ -6,18 +6,13 @@ import { logIn, logInSuccess, logInError } from './accountActions';
 
 describe('src/authentication/loginRequest.js', () => {
   it(
-    'logs in successfully',
+    'logs in successfully and goes to returnUrl',
     sinon.test(async function() {
       const values = {
         email: 'testEmail@test.com',
         password: '1234'
       };
       const dispatch = this.spy();
-      const transitionAfterLogin = this.spy();
-      const props = {
-        transitionAfterLogin
-      };
-
       const loginAccountDetails = { data: { token: 'accountDetails' } };
       const post = this.stub()
         .withArgs('/login', { email: values.email, password: values.password })
@@ -27,11 +22,12 @@ describe('src/authentication/loginRequest.js', () => {
         defaults: {}
       });
 
-      await loginRequest(values, dispatch, props);
+      const returnUrl = '/account/profile';
+      await loginRequest(values, dispatch, { returnUrl });
 
       expect(dispatch).to.have.been.calledWith(logIn());
-      expect(dispatch).to.have.been.calledWith(push('/account/profile'));
       expect(dispatch).to.have.been.calledWith(logInSuccess(loginAccountDetails.data));
+      expect(dispatch).to.have.been.calledWith(push('/account/profile'));
     })
   );
 
@@ -44,9 +40,6 @@ describe('src/authentication/loginRequest.js', () => {
       };
       const dispatch = this.spy();
       const transitionAfterLogin = this.spy();
-      const props = {
-        transitionAfterLogin
-      };
 
       const loginError = { response: { data: { error: 'testError' } } };
       const post = this.stub()
@@ -57,7 +50,7 @@ describe('src/authentication/loginRequest.js', () => {
         defaults: {}
       });
 
-      await expect(loginRequest(values, dispatch, props)).to.be.rejectedWith(SubmissionError);
+      await expect(loginRequest(values, dispatch, { returnUrl: '/irrelevant ' })).to.be.rejectedWith(SubmissionError);
 
       expect(dispatch).to.have.been.calledWith(logIn());
       expect(dispatch).to.have.been.calledWith(logInError());

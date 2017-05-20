@@ -56,13 +56,12 @@ export const Login = ({ loggingIn, handleSubmit, error }) => (
 const LoginForm = reduxForm({ form: 'login' })(Login);
 
 const mapStateToProps = state => ({
-  loggingIn: state.account.loggingIn
+  loggingIn: state.account.loggingIn,
+  returnUrl: state.account.returnUrl
 });
 
 const mapDispatchToProps = dispatch => ({
   onSubmit: handleSignIn
 });
 
-const LoginContainer = connect(mapStateToProps, mapDispatchToProps)(LoginForm);
-
-export default LoginContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

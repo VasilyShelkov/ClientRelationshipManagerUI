@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import { matchPath } from 'react-router';
 
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
@@ -21,11 +22,10 @@ export default ({
   createdText,
   created_at,
   selected = false,
-  isProtected = false,
   showMoreDetails,
-  selectedNameDrawerOpen,
   editProtectedMeeting,
-  editProtectedCall
+  editProtectedCall,
+  currentPath
 }) => (
   <Paper className="name" style={{ backgroundColor: selected ? cyan500 : fullWhite }} onClick={showMoreDetails}>
     <div className="name__info">
@@ -35,12 +35,12 @@ export default ({
           {company.name}
         </span>
       </div>
-      {isProtected &&
+      {matchPath(currentPath, { path: '/account/names/(protected|metWithProtected|clients)' }) &&
         <NameProtectedInfo
+          currentPath={currentPath}
           callBooked={callBooked}
           meetingBooked={meetingBooked}
           selected={selected}
-          selectedNameDrawerOpen={selectedNameDrawerOpen}
           editCall={editProtectedCall}
           editMeeting={editProtectedMeeting}
         />}

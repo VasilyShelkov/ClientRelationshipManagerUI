@@ -73,7 +73,7 @@ module.exports = function() {
       this.waitForElement('#protectNameForm');
       this.click('#submitClientName');
       this.waitToHide('.names__overlay');
-      this.waitForElement('#clientNamesList');
+      this.waitForElement('#clientsNamesList');
     }
   });
 };

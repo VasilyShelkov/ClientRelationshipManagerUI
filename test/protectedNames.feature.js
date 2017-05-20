@@ -170,7 +170,7 @@ Scenario('user makes the protected name a client with no call or meeting booked'
 
   I.waitForElement('#goToClientsList');
   I.click('#goToClientsList');
-  I.waitForElement('#clientNamesList');
+  I.waitForElement('#clientsNamesList');
   const currentClientsCount = yield I.grabTextFrom('#clientsCount');
 
   I.waitForElement('#goToProtectedList');
@@ -189,10 +189,10 @@ Scenario('user makes the protected name a client with no call or meeting booked'
 
   I.click('#submitClientName');
   I.waitToHide('.names__overlay');
-  I.waitForElement('#clientNamesList');
+  I.waitForElement('#clientsNamesList');
   I.see(`${parseInt(currentClientsCount, 10) + 1} Clients`);
   I.waitForVisible('#appNotification');
-  within('#clientNamesList .name:nth-of-type(1)', () => {
+  within('#clientsNamesList .name:nth-of-type(1)', () => {
     I.see(newProtectedName.firstName);
     I.see(newProtectedName.lastName);
     I.see(newProtectedName.phone);
@@ -222,7 +222,7 @@ Scenario('user makes the protected name a client with a call booked', function*(
 
   I.waitForElement('#goToClientsList');
   I.click('#goToClientsList');
-  I.waitForElement('#clientNamesList');
+  I.waitForElement('#clientsNamesList');
   const currentClientsCount = yield I.grabTextFrom('#clientsCount');
 
   I.waitForElement('#goToProtectedList');
@@ -251,10 +251,10 @@ Scenario('user makes the protected name a client with a call booked', function*(
   I.wait(1);
   I.click('#submitClientName');
   I.waitToHide('.names__overlay');
-  I.waitForElement('#clientNamesList');
+  I.waitForElement('#clientsNamesList');
   I.see(`${parseInt(currentClientsCount, 10) + 1} Clients`);
   I.waitForVisible('#appNotification');
-  within('#clientNamesList .name:nth-of-type(1)', () => {
+  within('#clientsNamesList .name:nth-of-type(1)', () => {
     I.see(newProtectedName.firstName);
     I.see(newProtectedName.lastName);
     I.see(newProtectedName.phone);
@@ -284,7 +284,7 @@ Scenario('user makes the protected name a client with a meeting booked', functio
 
   I.waitForElement('#goToClientsList');
   I.click('#goToClientsList');
-  I.waitForElement('#clientNamesList');
+  I.waitForElement('#clientsNamesList');
   const currentClientsCount = yield I.grabTextFrom('#clientsCount');
 
   I.waitForElement('#goToProtectedList');
@@ -313,10 +313,10 @@ Scenario('user makes the protected name a client with a meeting booked', functio
   I.wait(1);
   I.click('#submitClientName');
   I.waitToHide('.names__overlay');
-  I.waitForElement('#clientNamesList');
+  I.waitForElement('#clientsNamesList');
   I.see(`${parseInt(currentClientsCount, 10) + 1} Clients`);
   I.waitForVisible('#appNotification');
-  within('#clientNamesList .name:nth-of-type(1)', () => {
+  within('#clientsNamesList .name:nth-of-type(1)', () => {
     I.see(newProtectedName.firstName);
     I.see(newProtectedName.lastName);
     I.see(newProtectedName.phone);

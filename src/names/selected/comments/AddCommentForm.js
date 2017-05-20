@@ -37,8 +37,8 @@ const AddCommentFormWithMutation = graphql(AddCommentToName, {
 })(AddCommentForm);
 
 const mapStateToProps = state => ({
-  userId: state.account.id,
-  nameId: state.selectedName.id
+  userId: state.profile.id,
+  nameId: state.selectedName.nameId
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -12,9 +12,8 @@ export const AddUnprotectedName = ({
   existingCompanies,
   loading,
   error,
-  nameDetailsDrawerOpen,
   handleSubmit,
-  cancelCreateName,
+  cancelAddUnprotectedName,
   change
 }) => {
   if (loading) {
@@ -27,9 +26,9 @@ export const AddUnprotectedName = ({
         <StandardForm
           error={error}
           handleSubmit={handleSubmit}
-          handleCancel={cancelCreateName}
+          handleCancel={cancelAddUnprotectedName}
           fields={[
-            <div key="unprotectedName__details" className={`col-12 col-${nameDetailsDrawerOpen ? 'md' : 'sm'}-6`}>
+            <div key="unprotectedName__details" className="col-12 col-sm-6">
               <h3>Name</h3>
               <div className="row">
                 <div className="col-12">
@@ -55,7 +54,7 @@ export const AddUnprotectedName = ({
                 </div>
               </div>
             </div>,
-            <div key="unprotectedName__company" className={`col-12 col-${nameDetailsDrawerOpen ? 'md' : 'sm'}-6`}>
+            <div key="unprotectedName__company" className="col-12 col-sm-6">
               <h3>Company</h3>
               <div className="row">
                 <div className="col-12">
