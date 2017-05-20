@@ -14,7 +14,6 @@ Scenario('User is taken to their profile after logging in by default', function(
 });
 
 [
-  '/account/profile',
   '/account/names/unprotected',
   '/account/names/unprotected/add',
   '/account/names/protected',
@@ -23,11 +22,7 @@ Scenario('User is taken to their profile after logging in by default', function(
   '/account/users/add'
 ].forEach(url =>
   Scenario(`User is taken to ${url} after being redirected to login`, function(I) {
-    I.amOnPage(url);
-    I.waitForElement('.Login__form');
-    I.fillField('email', 'vasilydshelkov@gmail.com');
-    I.fillField('password', 'test1234');
-    I.click('Sign in');
+    I.login(false, false, url);
     I.waitForElement('.index__content-below-navbar');
     I.seeInCurrentUrl(url);
     I.see('LOGOUT');

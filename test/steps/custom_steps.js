@@ -2,7 +2,7 @@ const getTestUserDetails = require('./userAccount');
 
 module.exports = function() {
   return actor({
-    login: function(email, password) {
+    login: function(email, password, returnUrl) {
       const testUser = getTestUserDetails(process.env.NODE_ENV);
       let loginEmail = testUser.email;
       let loginPassword = testUser.password;
@@ -12,7 +12,12 @@ module.exports = function() {
       if (password) {
         loginPassword = password;
       }
-      this.amOnPage('/login');
+      if (returnUrl) {
+        this.amOnPage(returnUrl);
+      } else {
+        this.amOnPage('/login');
+      }
+      this.waitForElement('.Login__form');
       this.fillField('email', loginEmail);
       this.fillField('password', loginPassword);
       this.click('Sign in');
