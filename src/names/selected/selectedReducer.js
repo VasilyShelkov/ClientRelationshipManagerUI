@@ -128,24 +128,6 @@ export default (state = initialState, action) => {
             ...state,
             id: initialState.id
           };
-        // case 'CreateUnprotectedName':
-        // if (!_.has(action, 'result.errors')) {
-        // return {
-        // ...state,
-        // id: action.result.data.addUnprotectedNameToUser.name.id
-        // };
-        // }
-
-        // return state;
-        // case 'UnprotectName':
-        // if (!_.has(action, 'result.errors')) {
-        // return {
-        // ...state,
-        // id: action.result.data.unprotectNameFromUser.name.id
-        // };
-        // }
-
-        // return state;
         default:
           return state;
       }
