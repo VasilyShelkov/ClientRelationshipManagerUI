@@ -8,6 +8,7 @@ import MenuItem from 'material-ui/MenuItem';
 import DeleteName from 'material-ui/svg-icons/action/delete';
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 import { grey400, red500, cyan500 } from 'material-ui/styles/colors';
+import toMaterialStyle from 'material-color-hash';
 
 import CommentManipulator from './CommentManipulator';
 
@@ -30,8 +31,14 @@ export default class Comment extends Component {
       <div className="Comment">
         <div className="Comment__header">
           <div className="Comment__header__container">
-            <Avatar style={{ minWidth: '40px' }}>
+            <Avatar
+              style={{
+                ...toMaterialStyle(`${commentUser.firstName[0].toUpperCase()}${commentUser.lastName[0].toUpperCase()}`),
+                minWidth: '40px'
+              }}
+            >
               {commentUser.firstName[0].toUpperCase()}
+              {commentUser.lastName[0].toUpperCase()}
             </Avatar>
 
             <div className="Comment__header__container__text">
