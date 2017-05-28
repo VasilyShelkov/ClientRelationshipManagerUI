@@ -7,14 +7,13 @@
     "node": "7.4.0"
   },
   "scripts": {
-    "start": "npm run start:server-only",
+    "start": "concurrently \"npm run start:server-only\" \"npm run build:${NODE_ENV}\"",
     "start:server-only": "node server.js",
     "start:dev": "webpack-dashboard -- webpack-dev-server --open --config webpack/webpack.dev.js --progress",
     "start:staging": "npm run build:staging && node server.js",
     "prebuild": "rimraf dist",
     "build:staging": "npm run prebuild && webpack --env=staging --config webpack/webpack.prod.js --progress --profile --colors",
     "build:production": "npm run prebuild && webpack --env=production --config webpack/webpack.prod.js --progress --profile --colors",
-    "heroku-postbuild": "npm run build:${NODE_ENV}",
     "test": "NODE_ENV=testing nyc --reporter=lcov --reporter=text mocha --opts ./mocha.opts './src/**/*.spec.js'",
     "test:watch": "NODE_ENV=testing mocha --watch --opts ./mocha.opts './src/**/*.spec.js'",
     "test:feature": "./node_modules/codeceptjs/bin/codecept.js run --steps",
@@ -51,6 +50,7 @@
   "homepage": "https://github.com/VasilyShelkov/ClientRelationshipManagerUI#readme",
   "dependencies": {
     "apollo-client": "^1.1.1",
+    "autoprefixer": "^7.1.1",
     "axios": "^0.16.1",
     "babel-core": "^6.20.0",
     "babel-loader": "^6.2.9",
@@ -61,6 +61,7 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
     "compression": "^1.6.2",
+    "concurrently": "^3.4.0",
     "coveralls": "^2.13.1",
     "css-loader": "^0.28.0",
     "cssnano": "^3.10.0",
@@ -104,7 +105,6 @@
     "webpack-validator": "^3.0.0"
   },
   "devDependencies": {
-    "autoprefixer": "^7.1.1",
     "babel-cli": "^6.18.0",
     "babel-eslint": "^7.2.1",
     "babel-register": "^6.22.0",
