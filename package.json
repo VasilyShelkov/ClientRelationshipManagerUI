@@ -7,13 +7,14 @@
     "node": "7.4.0"
   },
   "scripts": {
-    "start": "concurrently \"npm run start:server-only\" \"npm run build:${NODE_ENV}\"",
+    "start": "npm run start:server-only",
     "start:server-only": "node server.js",
     "start:dev": "webpack-dashboard -- webpack-dev-server --open --config webpack/webpack.dev.js --progress",
     "start:staging": "npm run build:staging && node server.js",
     "prebuild": "rimraf dist",
     "build:staging": "npm run prebuild && webpack --env=staging --config webpack/webpack.prod.js --progress --profile --colors",
     "build:production": "npm run prebuild && webpack --env=production --config webpack/webpack.prod.js --progress --profile --colors",
+    "heroku-postbuild": "npm run build:${NODE_ENV}",
     "test": "NODE_ENV=testing nyc --reporter=lcov --reporter=text mocha --opts ./mocha.opts './src/**/*.spec.js'",
     "test:watch": "NODE_ENV=testing mocha --watch --opts ./mocha.opts './src/**/*.spec.js'",
     "test:feature": "./node_modules/codeceptjs/bin/codecept.js run --steps",
@@ -61,7 +62,6 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
     "compression": "^1.6.2",
-    "concurrently": "^3.4.0",
     "coveralls": "^2.13.1",
     "css-loader": "^0.28.0",
     "cssnano": "^3.10.0",
