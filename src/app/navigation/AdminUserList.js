@@ -7,6 +7,7 @@ import Avatar from 'material-ui/Avatar';
 import Divider from 'material-ui/Divider';
 import PersonAddIcon from 'material-ui/svg-icons/social/person-add';
 import { green500 } from 'material-ui/styles/colors';
+import toMaterialStyle from 'material-color-hash';
 import LoadingSpinner from '../../shared/LoadingSpinner';
 
 const SelectableList = makeSelectable(List);
@@ -38,6 +39,12 @@ export default ({ currentUserId, loading, users, value, onChange }) => {
         ? users.map(user => (
             <ListItem
               key={`profile-${user.id}`}
+              leftAvatar={
+                <Avatar style={toMaterialStyle(user.firstName[0].toUpperCase() + user.lastName[0].toUpperCase())}>
+                  {user.firstName[0].toUpperCase()}
+                  {user.lastName[0].toUpperCase()}
+                </Avatar>
+              }
               primaryText={`${user.firstName} ${user.lastName}`}
               value={JSON.stringify({
                 newRoute: `/account/users/${_.camelCase(`${user.firstName} ${user.lastName}`)}/profile`,

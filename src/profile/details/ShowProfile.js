@@ -19,6 +19,7 @@ import SuccessfulUpdateIcon from 'material-ui/svg-icons/action/done';
 import SuccessfullyCreatedIcon from 'material-ui/svg-icons/action/check-circle';
 import { cyan500, green900, green700, lightGreen300 } from 'material-ui/styles/colors';
 import { ProtectedIcon } from '../../app/icons';
+import toMaterialStyle from 'material-color-hash';
 
 import Notification from '../../shared/Notification';
 import EditPassword from './EditPassword';
@@ -48,7 +49,20 @@ export const ShowProfile = ({
 }) => (
   <Paper zDepth={2} style={{ paddingBottom: '10px', margin: '20px 0px' }}>
     <div style={{ textAlign: 'center', padding: '0px 10px' }}>
-      <ProfileIcon style={{ height: '100px', width: '100px' }} color={cyan500} />
+      <div style={{ height: '85px' }}>
+        <ProfileIcon style={{ height: '100px', width: '100px', position: 'relative', left: '20px' }} color={cyan500} />
+        <Avatar
+          style={{
+            ...toMaterialStyle(`${firstName[0].toUpperCase()}${lastName[0].toUpperCase()}`),
+            position: 'relative',
+            top: '-60px',
+            right: '50px'
+          }}
+        >
+          {firstName[0].toUpperCase()}
+          {lastName[0].toUpperCase()}
+        </Avatar>
+      </div>
       <h2>{firstName} {lastName}</h2>
       <Notification
         message={newUserNotification}

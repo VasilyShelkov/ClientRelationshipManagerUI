@@ -1,10 +1,13 @@
 const { resolve } = require('path');
 const webpack = require('webpack');
+const Merge = require('merge');
+const CommonConfig = require('./webpack.common.js');
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 
-module.exports = {
+module.exports = Merge(CommonConfig(true), {
   entry: [
     'babel-polyfill',
     'react-hot-loader/patch',
@@ -18,35 +21,13 @@ module.exports = {
     publicPath: '/'
   },
   context: resolve(__dirname, '../src'),
-  devtool: 'inline-source-map',
+  devtool: 'eval-source-map',
   devServer: {
     hot: true,
     port: 8080,
     contentBase: resolve(__dirname, 'dist'),
     publicPath: '/',
     historyApiFallback: true
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(js|jsx)$/,
-        include: [resolve(__dirname, '../src'), resolve(__dirname)],
-        use: 'babel-loader'
-      },
-      {
-        test: /\.(css|scss)$/,
-        include: [resolve(__dirname, '../src')],
-        use: ExtractTextPlugin.extract({
-          fallbackLoader: 'style-loader',
-          loader: 'css-loader?sourceMap!sass-loader?sourceMap'
-        })
-      },
-      {
-        test: /\.(graphql|gql)$/,
-        include: [resolve(__dirname, '../src')],
-        use: 'graphql-tag/loader'
-      }
-    ]
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -58,8 +39,8 @@ module.exports = {
     new DashboardPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+        NODE_ENV: JSON.stringify('development')
       }
     })
   ]
-};
+});
