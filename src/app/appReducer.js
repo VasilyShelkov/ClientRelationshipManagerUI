@@ -59,34 +59,10 @@ export default (state = initialState, action) => {
               notificationColor: greenA700
             };
           }
-          case 'CreateUnprotectedName': {
-            const { firstName, lastName } = action.result.data.addUnprotectedNameToUser.name;
-            return {
-              ...state,
-              notificationMessage: `Created ${firstName} ${lastName}`,
-              notificationColor: greenA700
-            };
-          }
           case 'RemoveUnprotectedName': {
             return {
               ...state,
               notificationMessage: 'Removed Unprotected Name',
-              notificationColor: greenA700
-            };
-          }
-          case 'ProtectName': {
-            const { firstName, lastName } = action.result.data.protectNameToUser.name;
-            return {
-              ...state,
-              notificationMessage: `Protected ${firstName} ${lastName}`,
-              notificationColor: greenA700
-            };
-          }
-          case 'MakeClient': {
-            const { firstName, lastName } = action.result.data.addClientToUser.name;
-            return {
-              ...state,
-              notificationMessage: `${firstName} ${lastName} is now a Client!`,
               notificationColor: greenA700
             };
           }
@@ -126,22 +102,6 @@ export default (state = initialState, action) => {
             return {
               ...state,
               notificationMessage: `Booked meeting for ${firstName} ${lastName}`,
-              notificationColor: greenA700
-            };
-          }
-          case 'MetWithProtected': {
-            const { firstName, lastName } = action.result.data.editProtectedName.name;
-            return {
-              ...state,
-              notificationMessage: `Met With ${firstName} ${lastName} successfully`,
-              notificationColor: greenA700
-            };
-          }
-          case 'UnprotectName': {
-            const { firstName, lastName } = action.result.data.unprotectNameFromUser.name;
-            return {
-              ...state,
-              notificationMessage: `Unprotected ${firstName} ${lastName} successfully`,
               notificationColor: greenA700
             };
           }

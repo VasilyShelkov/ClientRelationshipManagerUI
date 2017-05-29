@@ -86,11 +86,17 @@ Scenario('user unprotects a met with protected name', function*(I) {
   I.waitForVisible('#metWithProtectedNamesList');
   const currentMetWithProtectedNamesCount = yield I.grabTextFrom('#metWithProtectedNamesCount');
   I.click('#unprotectName');
-
   I.waitToHide('.names__overlay');
+
+  I.waitForVisible('.sweet-alert.showSweetAlert.visible');
+  within('.sweet-alert.showSweetAlert.visible', () => {
+    I.see(newMetWithProtectedName.firstName);
+    I.see(newMetWithProtectedName.lastName);
+    I.click('OK');
+  });
+
   I.waitForElement('#unprotectedNamesList');
   I.see(`${parseInt(currentUnprotectedNamesCount, 10) + 1} Unprotected`);
-  I.waitForVisible('#appNotification');
   within('#unprotectedNamesList .name:nth-of-type(1)', () => {
     I.see(newMetWithProtectedName.firstName);
     I.see(newMetWithProtectedName.lastName);
@@ -148,15 +154,20 @@ Scenario('user makes the met with protected name a client with no call or meetin
 
   I.click('#makeClient');
   I.waitForElement('#protectNameForm');
-
   I.click('#clearCallBooking');
   I.click('#clearMeetingBooking');
-
   I.click('#submitClientName');
   I.waitToHide('.names__overlay');
+
+  I.waitForVisible('.sweet-alert.showSweetAlert.visible');
+  within('.sweet-alert.showSweetAlert.visible', () => {
+    I.see(newMetWithProtectedName.firstName);
+    I.see(newMetWithProtectedName.lastName);
+    I.click('OK');
+  });
+
   I.waitForElement('#clientsNamesList');
   I.see(`${parseInt(currentClientsCount, 10) + 1} Clients`);
-  I.waitForVisible('#appNotification');
   within('#clientsNamesList .name:nth-of-type(1)', () => {
     I.see(newMetWithProtectedName.firstName);
     I.see(newMetWithProtectedName.lastName);
@@ -216,9 +227,16 @@ Scenario('user makes the met with protected name a client with a call booked', f
   I.wait(1);
   I.click('#submitClientName');
   I.waitToHide('.names__overlay');
+
+  I.waitForVisible('.sweet-alert.showSweetAlert.visible');
+  within('.sweet-alert.showSweetAlert.visible', () => {
+    I.see(newMetWithProtectedName.firstName);
+    I.see(newMetWithProtectedName.lastName);
+    I.click('OK');
+  });
+
   I.waitForElement('#clientsNamesList');
   I.see(`${parseInt(currentClientsCount, 10) + 1} Clients`);
-  I.waitForVisible('#appNotification');
   within('#clientsNamesList .name:nth-of-type(1)', () => {
     I.see(newMetWithProtectedName.firstName);
     I.see(newMetWithProtectedName.lastName);
@@ -278,9 +296,16 @@ Scenario('user makes the met with protected name a client with a meeting booked'
   I.wait(1);
   I.click('#submitClientName');
   I.waitToHide('.names__overlay');
+
+  I.waitForVisible('.sweet-alert.showSweetAlert.visible');
+  within('.sweet-alert.showSweetAlert.visible', () => {
+    I.see(newMetWithProtectedName.firstName);
+    I.see(newMetWithProtectedName.lastName);
+    I.click('OK');
+  });
+
   I.waitForElement('#clientsNamesList');
   I.see(`${parseInt(currentClientsCount, 10) + 1} Clients`);
-  I.waitForVisible('#appNotification');
   within('#clientsNamesList .name:nth-of-type(1)', () => {
     I.see(newMetWithProtectedName.firstName);
     I.see(newMetWithProtectedName.lastName);

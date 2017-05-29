@@ -19,9 +19,16 @@ Scenario('user creates a new name', function*(I) {
   I.fillField('companyPhone', newName.company.phone);
   I.click('Save');
 
+  I.waitForVisible('.sweet-alert.showSweetAlert.visible');
+  within('.sweet-alert.showSweetAlert.visible', () => {
+    I.see(newName.firstName);
+    I.see(newName.lastName);
+    I.click('OK');
+  });
+
   I.waitForElement('#unprotectedNamesList');
   I.see(`${parseInt(currentUnprotectedNamesCount, 10) + 1} Unprotected`);
-  I.waitForVisible('#appNotification');
+
   within('#unprotectedNamesList .name:nth-of-type(1)', () => {
     I.see(newName.firstName);
     I.see(newName.lastName);
@@ -64,9 +71,16 @@ Scenario('user protects an unprotected name', function*(I) {
   I.waitForElement('#protectNameForm');
   I.click('#submitProtectName');
   I.waitToHide('.names__overlay');
+
+  I.waitForVisible('.sweet-alert.showSweetAlert.visible');
+  within('.sweet-alert.showSweetAlert.visible', () => {
+    I.see(newName.firstName);
+    I.see(newName.lastName);
+    I.click('OK');
+  });
+
   I.waitForElement('#protectedNamesList');
   I.see(`${parseInt(currentProtectedNamesCount, 10) + 1}/150 Protected`);
-  I.waitForVisible('#appNotification');
   within('#protectedNamesList .name:nth-of-type(1)', () => {
     I.see(newName.firstName);
     I.see(newName.lastName);
@@ -115,9 +129,16 @@ Scenario('user protects an unprotected name with call booked', function*(I) {
   I.wait(1);
   I.click('#submitProtectName');
   I.waitToHide('.names__overlay');
+
+  I.waitForVisible('.sweet-alert.showSweetAlert.visible');
+  within('.sweet-alert.showSweetAlert.visible', () => {
+    I.see(newName.firstName);
+    I.see(newName.lastName);
+    I.click('OK');
+  });
+
   I.waitForElement('#protectedNamesList');
   I.see(`${parseInt(currentProtectedNamesCount, 10) + 1}/150 Protected`);
-  I.waitForVisible('#appNotification');
   within('#protectedNamesList .name:nth-of-type(1)', () => {
     I.see(newName.firstName);
     I.see(newName.lastName);
@@ -155,9 +176,16 @@ Scenario('user protects an unprotected name with meeting booked', function*(I) {
   I.wait(1);
   I.click('#submitProtectName');
   I.waitToHide('.names__overlay');
+
+  I.waitForVisible('.sweet-alert.showSweetAlert.visible');
+  within('.sweet-alert.showSweetAlert.visible', () => {
+    I.see(newName.firstName);
+    I.see(newName.lastName);
+    I.click('OK');
+  });
+
   I.waitForElement('#protectedNamesList');
   I.see(`${parseInt(currentProtectedNamesCount, 10) + 1}/150 Protected`);
-  I.waitForVisible('#appNotification');
   within('#protectedNamesList .name:nth-of-type(1)', () => {
     I.see(newName.firstName);
     I.see(newName.lastName);
@@ -206,9 +234,16 @@ Scenario('user protects an unprotected name with call booked and meeting booked'
   I.wait(1);
   I.click('#submitProtectName');
   I.waitToHide('.names__overlay');
+
+  I.waitForVisible('.sweet-alert.showSweetAlert.visible');
+  within('.sweet-alert.showSweetAlert.visible', () => {
+    I.see(newName.firstName);
+    I.see(newName.lastName);
+    I.click('OK');
+  });
+
   I.waitForElement('#protectedNamesList');
   I.see(`${parseInt(currentProtectedNamesCount, 10) + 1}/150 Protected`);
-  I.waitForVisible('#appNotification');
   within('#protectedNamesList .name:nth-of-type(1)', () => {
     I.see(newName.firstName);
     I.see(newName.lastName);
@@ -260,9 +295,16 @@ Scenario('user protects an unprotected name after clearing call booked and meeti
 
   I.click('#submitProtectName');
   I.waitToHide('.names__overlay');
+
+  I.waitForVisible('.sweet-alert.showSweetAlert.visible');
+  within('.sweet-alert.showSweetAlert.visible', () => {
+    I.see(newName.firstName);
+    I.see(newName.lastName);
+    I.click('OK');
+  });
+
   I.waitForElement('#protectedNamesList');
   I.see(`${parseInt(currentProtectedNamesCount, 10) + 1}/150 Protected`);
-  I.waitForVisible('#appNotification');
   within('#protectedNamesList .name:nth-of-type(1)', () => {
     I.see(newName.firstName);
     I.see(newName.lastName);

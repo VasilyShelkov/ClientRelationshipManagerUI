@@ -81,11 +81,17 @@ Scenario('user unprotects a client', function*(I) {
   I.waitForElement('#clientsNamesList');
   const currentClientsCount = yield I.grabTextFrom('#clientsCount');
   I.click('#unprotectName');
-
   I.waitToHide('.names__overlay');
+
+  I.waitForVisible('.sweet-alert.showSweetAlert.visible');
+  within('.sweet-alert.showSweetAlert.visible', () => {
+    I.see(newClient.firstName);
+    I.see(newClient.lastName);
+    I.click('OK');
+  });
+
   I.waitForElement('#unprotectedNamesList');
   I.see(`${parseInt(currentUnprotectedNamesCount, 10) + 1} Unprotected`);
-  I.waitForVisible('#appNotification');
   within('#unprotectedNamesList .name:nth-of-type(1)', () => {
     I.see(newClient.firstName);
     I.see(newClient.lastName);

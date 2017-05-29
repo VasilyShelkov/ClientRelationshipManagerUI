@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
 import { connect } from 'react-redux';
+import ReduxSweetAlert from 'react-redux-sweetalert';
 import withWidth, { LARGE } from 'material-ui/utils/withWidth';
 import Snackbar from 'material-ui/Snackbar';
 
@@ -32,6 +33,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         </Switch>
       </div>
 
+      <ReduxSweetAlert />
       <Snackbar
         id="appNotification"
         open={showNotification}

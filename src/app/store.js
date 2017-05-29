@@ -6,6 +6,7 @@ import ApolloClient, { createNetworkInterface } from 'apollo-client';
 
 import { reducer as formReducer } from 'redux-form';
 import { routerReducer } from 'react-router-redux';
+import { reducer as sweetalert } from 'react-redux-sweetalert';
 import account from '../authentication/accountReducer';
 import profile from '../profile/profileReducer';
 import name from '../names/nameReducer';
@@ -56,6 +57,7 @@ export default compose(
     apollo: client.reducer(),
     form: formReducer,
     routing: routerReducer,
+    sweetalert,
     account,
     app,
     creatingUser,
