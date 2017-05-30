@@ -53,6 +53,10 @@ module.exports = function() {
       this.fillField('companyAddress', newName.company.address);
       this.fillField('companyPhone', newName.company.phone);
       this.click('Save');
+      this.waitForVisible('.sweet-alert.showSweetAlert.visible');
+      within('.sweet-alert.showSweetAlert.visible', () => {
+        this.click('OK');
+      });
 
       this.waitForElement('#unprotectedNamesList');
     },
@@ -62,6 +66,10 @@ module.exports = function() {
       this.waitForElement('#protectNameForm');
       this.click('#submitProtectName');
       this.waitToHide('.names__overlay');
+      this.waitForVisible('.sweet-alert.showSweetAlert.visible');
+      within('.sweet-alert.showSweetAlert.visible', () => {
+        this.click('OK');
+      });
       this.waitForElement('#protectedNamesList');
     },
     createMetWithProtectedName: function(newName) {
@@ -69,6 +77,10 @@ module.exports = function() {
       this.click('#metWithProtected');
       this.click('#submitMetWithName');
       this.waitToHide('.names__overlay');
+      this.waitForVisible('.sweet-alert.showSweetAlert.visible');
+      within('.sweet-alert.showSweetAlert.visible', () => {
+        this.click('OK');
+      });
       this.waitForVisible('div[value="metWithProtected"]');
       this.waitForVisible('#metWithProtectedNamesList');
     },
@@ -78,6 +90,10 @@ module.exports = function() {
       this.waitForElement('#protectNameForm');
       this.click('#submitClientName');
       this.waitToHide('.names__overlay');
+      this.waitForVisible('.sweet-alert.showSweetAlert.visible');
+      within('.sweet-alert.showSweetAlert.visible', () => {
+        this.click('OK');
+      });
       this.waitForElement('#clientsNamesList');
     }
   });
