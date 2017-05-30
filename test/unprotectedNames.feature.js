@@ -123,8 +123,7 @@ Scenario('user protects an unprotected name with call booked', function*(I) {
   I.wait(1);
   I.waitForEnabled('input[name="callTime"]');
   I.click('input[name="callTime"]');
-  I.waitForText('OK');
-  I.click('OK');
+  I.pressKey('Enter');
 
   I.wait(1);
   I.click('#submitProtectName');
@@ -170,8 +169,7 @@ Scenario('user protects an unprotected name with meeting booked', function*(I) {
   I.wait(1);
   I.waitForEnabled('input[name="meetingTime"]');
   I.click('input[name="meetingTime"]');
-  I.waitForText('OK');
-  I.click('OK');
+  I.pressKey('Enter');
 
   I.wait(1);
   I.click('#submitProtectName');
@@ -217,8 +215,7 @@ Scenario('user protects an unprotected name with call booked and meeting booked'
   I.waitForEnabled('input[name="callTime"]');
   I.wait(1);
   I.click('input[name="callTime"]');
-  I.waitForText('OK');
-  I.click('OK');
+  I.pressKey('Enter');
 
   I.wait(1);
   I.click('input[name="meetingDay"]');
@@ -228,8 +225,7 @@ Scenario('user protects an unprotected name with call booked and meeting booked'
   I.waitForEnabled('input[name="meetingTime"]');
   I.wait(1);
   I.click('input[name="meetingTime"]');
-  I.waitForText('OK');
-  I.click('OK');
+  I.pressKey('Enter');
 
   I.wait(1);
   I.click('#submitProtectName');
@@ -275,8 +271,7 @@ Scenario('user protects an unprotected name after clearing call booked and meeti
   I.waitForEnabled('input[name="callTime"]');
   I.wait(1);
   I.click('input[name="callTime"]');
-  I.waitForText('OK');
-  I.click('OK');
+  I.pressKey('Enter');
 
   I.wait(1);
   I.click('input[name="meetingDay"]');
@@ -286,8 +281,7 @@ Scenario('user protects an unprotected name after clearing call booked and meeti
   I.waitForEnabled('input[name="meetingTime"]');
   I.wait(1);
   I.click('input[name="meetingTime"]');
-  I.waitForText('OK');
-  I.click('OK');
+  I.pressKey('Enter');
 
   I.wait(1);
   I.click('#clearCallBooking');

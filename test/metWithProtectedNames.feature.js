@@ -21,8 +21,7 @@ Scenario('user books a meeting on the met with protected name', function*(I) {
   I.wait(1);
   I.waitForEnabled('input[name="meetingTime"]');
   I.click('input[name="meetingTime"]');
-  I.waitForText('OK');
-  I.click('OK');
+  I.pressKey('Enter');
 
   I.wait(1);
   I.click('#submitEditProtectedMeeting');
@@ -55,8 +54,7 @@ Scenario('user books a call on the met with protected name', function*(I) {
   I.wait(1);
   I.waitForEnabled('input[name="callTime"]');
   I.click('input[name="callTime"]');
-  I.waitForText('OK');
-  I.click('OK');
+  I.pressKey('Enter');
 
   I.wait(1);
   I.click('#submitEditProtectedCall');
@@ -221,8 +219,7 @@ Scenario('user makes the met with protected name a client with a call booked', f
   I.wait(1);
   I.waitForEnabled('input[name="callTime"]');
   I.click('input[name="callTime"]');
-  I.waitForText('OK');
-  I.click('OK');
+  I.pressKey('Enter');
 
   I.wait(1);
   I.click('#submitClientName');
@@ -290,8 +287,7 @@ Scenario('user makes the met with protected name a client with a meeting booked'
   I.wait(1);
   I.waitForEnabled('input[name="meetingTime"]');
   I.click('input[name="meetingTime"]');
-  I.waitForText('OK');
-  I.click('OK');
+  I.pressKey('Enter');
 
   I.wait(1);
   I.click('#submitClientName');

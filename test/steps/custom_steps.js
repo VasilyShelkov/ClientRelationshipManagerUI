@@ -51,6 +51,7 @@ module.exports = function() {
       this.fillField('phone', newName.phone);
       this.fillField('companyName', newName.company.name);
       this.fillField('companyAddress', newName.company.address);
+      this.pressKey('Escape');
       this.fillField('companyPhone', newName.company.phone);
       this.click('Save');
       this.waitForVisible('.sweet-alert.showSweetAlert.visible');

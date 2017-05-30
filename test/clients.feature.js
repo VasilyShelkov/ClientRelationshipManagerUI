@@ -21,8 +21,7 @@ Scenario('user books a meeting on the client', function*(I) {
   I.wait(1);
   I.waitForEnabled('input[name="meetingTime"]');
   I.click('input[name="meetingTime"]');
-  I.waitForText('OK');
-  I.click('OK');
+  I.pressKey('Enter');
 
   I.wait(1);
   I.click('#submitEditProtectedMeeting');
@@ -54,8 +53,7 @@ Scenario('user books a call on the client', function*(I) {
   I.wait(1);
   I.waitForEnabled('input[name="callTime"]');
   I.click('input[name="callTime"]');
-  I.waitForText('OK');
-  I.click('OK');
+  I.pressKey('Enter');
 
   I.wait(1);
   I.click('#submitEditProtectedCall');
