@@ -35,3 +35,4 @@ public/bundle.js
 src/.DS_Store
 output/
 .nyc_output/
+.awcache/

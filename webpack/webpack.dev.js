@@ -13,7 +13,7 @@ module.exports = Merge(CommonConfig(true), {
     'react-hot-loader/patch',
     'webpack-dev-server/client',
     'webpack/hot/only-dev-server',
-    '../src/app/app'
+    '../src/app/app.tsx'
   ],
   output: {
     filename: 'bundle.js',
@@ -24,6 +24,7 @@ module.exports = Merge(CommonConfig(true), {
   devtool: 'eval-source-map',
   devServer: {
     hot: true,
+    compress: true,
     port: 8080,
     contentBase: resolve(__dirname, 'dist'),
     publicPath: '/',

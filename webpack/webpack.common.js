@@ -2,12 +2,16 @@ const { resolve } = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = isDevelopment => ({
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js']
+  },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        enforce: 'pre',
+        test: /\.(t|j)sx?$/,
         include: [resolve(__dirname, '../src')],
-        use: 'babel-loader'
+        use: ['babel-loader', 'awesome-typescript-loader', 'source-map-loader']
       },
       {
         test: /\.(css|scss)$/,
