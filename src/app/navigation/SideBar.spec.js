@@ -1,5 +1,4 @@
 import React from 'react';
-import Drawer from 'material-ui/Drawer';
 import Divider from 'material-ui/Divider';
 import { LARGE } from 'material-ui/utils/withWidth';
 import { ListItem } from 'material-ui/List';
@@ -75,36 +74,6 @@ describe('src/app/navigation/SideBar', () => {
         userIdToShow: props.currentUserId
       })
     );
-  });
-
-  it('is docked if the width is large', () => {
-    const { wrapper } = setup({});
-    expect(wrapper.find(Drawer).prop('docked')).to.be.true;
-  });
-
-  it('is not docked if the width is not large', () => {
-    const { wrapper } = setup({ width: 'small' });
-    expect(wrapper.find(Drawer).prop('docked')).to.be.false;
-  });
-
-  it('is open if open and the width is large', () => {
-    const { wrapper } = setup({ open: true, width: LARGE });
-    expect(wrapper.find(Drawer).prop('open')).to.be.true;
-  });
-
-  it('is open if not open and the width is large', () => {
-    const { wrapper } = setup({ open: false, width: LARGE });
-    expect(wrapper.find(Drawer).prop('open')).to.be.true;
-  });
-
-  it('is open if open and the width is not large', () => {
-    const { wrapper } = setup({ open: true, width: 'small' });
-    expect(wrapper.find(Drawer).prop('open')).to.be.true;
-  });
-
-  it('is not open if not open and the width is not large', () => {
-    const { wrapper } = setup({ open: false, width: 'small' });
-    expect(wrapper.find(Drawer).prop('open')).to.be.false;
   });
 
   it('does not render admin panel when is not admin', () => {

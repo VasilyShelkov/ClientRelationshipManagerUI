@@ -15,13 +15,15 @@ export const NavBar = ({ loggedIn, width, handleTouchTapLeftIconButton, handleLo
     title={width === LARGE ? '' : 'Client Relationship Manager'}
     className="NavBar"
     zDepth={2}
-    showMenuIconButton={!(width === LARGE)}
+    showMenuIconButton={Boolean(!(width === LARGE) && loggedIn)}
     onLeftIconButtonTouchTap={handleTouchTapLeftIconButton}
     style={{ position: 'fixed', top: 0 }}
     iconElementRight={
-      loggedIn
-        ? <FlatButton label="Logout" onClick={handleLogOut} icon={<LogoutIcon />} secondary />
-        : <FlatButton label="Login" containerElement={<Link to="/login" />} primary />
+      loggedIn ? (
+        <FlatButton label="Logout" onClick={handleLogOut} icon={<LogoutIcon />} secondary />
+      ) : (
+        <FlatButton label="Login" containerElement={<Link to="/login" />} primary />
+      )
     }
   />
 );

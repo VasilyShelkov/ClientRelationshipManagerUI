@@ -43,13 +43,19 @@ describe('src/Navbar.js', () => {
   );
 
   it('show icon button is not visible when the screen is large', () => {
-    const { wrapper } = setup({});
+    const { wrapper } = setup({ width: 'large' });
 
     expect(wrapper.find(AppBar).prop('showMenuIconButton')).to.be.false;
   });
 
-  it('show icon button is visible when the screen is not large', () => {
-    const { wrapper } = setup({ width: 'small' });
+  it('show icon button is not visible when not logged in', () => {
+    const { wrapper } = setup({ loggedIn: false });
+
+    expect(wrapper.find(AppBar).prop('showMenuIconButton')).to.be.false;
+  });
+
+  it('show icon button is visible when the screen is not large and logged in', () => {
+    const { wrapper } = setup({ width: 'small', loggedIn: true });
 
     expect(wrapper.find(AppBar).prop('showMenuIconButton')).to.be.true;
   });

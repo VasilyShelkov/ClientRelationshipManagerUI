@@ -21,33 +21,41 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(
   withWidth()(({ open, width, controlSidebar }) => (
-    <Sidebar
-      sidebar={<SideBarWithData />}
-      docked={width === LARGE}
-      open={open}
-      onSetOpen={controlSidebar}
-      styles={{
-        overlay: {
-          zIndex: '1101'
-        },
-        sidebar: {
-          zIndex: '1102',
-          backgroundColor: 'white'
-        },
-        content: {
-          overflowY: 'auto'
-        }
-      }}
-    >
+    <div>
       <NavBarWithData key="navBarContainer" />
 
-      <div className="index__content-below-navbar">
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/account" component={AppWithSideBar} />
-          <Route component={NotFound} />
-        </Switch>
-      </div>
-    </Sidebar>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route
+          render={() => (
+            <Sidebar
+              sidebar={<SideBarWithData />}
+              docked={width === LARGE}
+              open={open}
+              onSetOpen={controlSidebar}
+              styles={{
+                overlay: {
+                  zIndex: '1101'
+                },
+                sidebar: {
+                  zIndex: '1102',
+                  backgroundColor: 'white'
+                },
+                content: {
+                  overflowY: 'auto'
+                }
+              }}
+            >
+              <div className="index__content-below-navbar">
+                <Switch>
+                  <Route path="/account" component={AppWithSideBar} />
+                  <Route component={NotFound} />
+                </Switch>
+              </div>
+            </Sidebar>
+          )}
+        />
+      </Switch>
+    </div>
   ))
 );
