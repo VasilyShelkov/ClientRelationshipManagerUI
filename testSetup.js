@@ -2,7 +2,7 @@ require('babel-polyfill');
 
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
-const sinon = require('sinon');
+let sinon = require('sinon');
 const sinonTest = require('sinon-test');
 const sinonChai = require('sinon-chai');
 const shallow = require('enzyme').shallow;

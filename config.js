@@ -13,4 +13,4 @@ const envUrls = {
   }
 };
 
-export default envUrls[process.env.NODE_ENV || 'development'];
+module.exports = envUrls[process.env.NODE_ENV || 'development'];
