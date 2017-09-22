@@ -1,7 +1,6 @@
 module.exports = function(wallaby) {
   process.env.BABEL_ENV = 'testing';
   return {
-    debug: true,
     files: [
       { pattern: 'node_modules/sinon/pkg/sinon.js', load: true },
       { pattern: 'config.js', load: true, instrument: false },
