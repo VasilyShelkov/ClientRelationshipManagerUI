@@ -72,7 +72,9 @@ Scenario('user unprotects a client', function*(I) {
   I.waitForElement('#goToUnprotectedList');
   I.click('#goToUnprotectedList');
   I.waitForElement('#unprotectedNamesList');
-  const currentUnprotectedNamesCount = yield I.grabTextFrom('#unprotectedNamesCount');
+  const currentUnprotectedNamesCount = yield I.grabTextFrom(
+    '#unprotectedNamesCount',
+  );
 
   I.waitForElement('#goToClientsList');
   I.click('#goToClientsList');

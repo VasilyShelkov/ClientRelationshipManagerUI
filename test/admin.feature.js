@@ -21,7 +21,9 @@ Scenario('can create new users', function*(I) {
 
   // profile check
   I.waitForElement('.Form__notification');
-  I.seeInCurrentUrl(`account/users/${newUser.firstName.toLowerCase()}${newUser.lastName}/profile`);
+  I.seeInCurrentUrl(
+    `account/users/${newUser.firstName.toLowerCase()}${newUser.lastName}/profile`,
+  );
   I.see('Successfully created new user', '.Form__notification');
   I.see(`${parseInt(totalUsersBeforeAddingUser, 10) + 1} Users`);
   I.see(newUser.firstName);
@@ -51,9 +53,9 @@ Scenario('can edit company details', function*(I) {
   const newCompany = yield I.createFakeCompany();
   I.click('Edit Company');
   I.waitForElement('#StandardForm');
-  I.fillField('name', newCompany.name);
-  I.fillField('address', newCompany.address);
-  I.fillField('phone', newCompany.phone);
+  I.fillField('Name', newCompany.name);
+  I.fillField('Address', newCompany.address);
+  I.fillField('Phone', newCompany.phone);
   I.click('Save');
 
   I.waitForElement('#editCompanySuccess');

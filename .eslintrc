@@ -1,19 +1,22 @@
 {
   "parser": "babel-eslint",
   "extends": ["prettier", "prettier/react"],
+  "plugins": ["prettier", "react"],
+  "rules": {
+    "prettier/prettier": "error"
+  },
   "env": {
     "browser": true,
     "node": true,
     "mocha": true,
-    "jquery": true
     "es6": true
   },
-  "plugins": [
-    "prettier",
-    "react"
-  ],
-  "rules": {
-    "prettier/prettier": ["error", {"singleQuote": true, "printWidth": 120}]
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 8,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
   },
   "globals": {
     "expect": true,
@@ -22,6 +25,6 @@
     "shallowWithContext": true,
     "Feature": true,
     "Scenario": true,
-    within: true
+    "within": true
   }
 }

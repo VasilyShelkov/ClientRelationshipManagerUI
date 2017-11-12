@@ -21,6 +21,7 @@ module.exports = function() {
       this.fillField('email', loginEmail);
       this.fillField('password', loginPassword);
       this.click('Sign in');
+      this.setCookie({ name: 'disable-places', value: 'true' });
     },
     createNewUser: function(newUser) {
       this.waitForElement('#createNewUser');
@@ -37,7 +38,9 @@ module.exports = function() {
       this.click('Save');
 
       this.waitForElement('.Profile');
-      this.seeInCurrentUrl(`account/users/${newUser.firstName.toLowerCase()}${newUser.lastName}/profile`);
+      this.seeInCurrentUrl(
+        `account/users/${newUser.firstName.toLowerCase()}${newUser.lastName}/profile`,
+      );
     },
     createNewUnprotectedName: function(newName) {
       this.waitForElement('#goToUnprotectedList');
@@ -49,7 +52,7 @@ module.exports = function() {
       this.fillField('firstName', newName.firstName);
       this.fillField('lastName', newName.lastName);
       this.fillField('phone', newName.phone);
-      this.fillField('companyName', newName.company.name);
+      this.fillField('input[autocomplete="off"]', newName.company.name);
       this.fillField('companyAddress', newName.company.address);
       this.pressKey('Escape');
       this.fillField('companyPhone', newName.company.phone);
@@ -96,6 +99,6 @@ module.exports = function() {
         this.click('OK');
       });
       this.waitForElement('#clientsNamesList');
-    }
+    },
   });
 };
