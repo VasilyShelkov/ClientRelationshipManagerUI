@@ -14,7 +14,7 @@ export const AddUnprotectedName = ({
   error,
   handleSubmit,
   cancelAddUnprotectedName,
-  change
+  change,
 }) => {
   if (loading) {
     return <LoadingSpinner />;
@@ -50,7 +50,13 @@ export const AddUnprotectedName = ({
                   />
                 </div>
                 <div className="col-12">
-                  <Field name="phone" component={TextField} floatingLabelText="Phone" validate={required} fullWidth />
+                  <Field
+                    name="phone"
+                    component={TextField}
+                    floatingLabelText="Phone"
+                    validate={required}
+                    fullWidth
+                  />
                 </div>
               </div>
             </div>,
@@ -65,7 +71,9 @@ export const AddUnprotectedName = ({
                     openOnFocus
                     filter={MUIAutoComplete.fuzzyFilter}
                     onNewRequest={companyName => {
-                      const companyInfo = existingCompanies.find(company => company.name === companyName);
+                      const companyInfo = existingCompanies.find(
+                        company => company.name === companyName,
+                      );
 
                       change('companyAddress', companyInfo.address);
                       change('companyPhone', companyInfo.phone);
@@ -77,7 +85,12 @@ export const AddUnprotectedName = ({
                   />
                 </div>
                 <div className="col-12">
-                  <Field name="companyAddress" component={AddressField} floatingLabelText="Company Address" fullWidth />
+                  <Field
+                    name="companyAddress"
+                    component={AddressField}
+                    floatingLabelText="Company Address"
+                    fullWidth
+                  />
                 </div>
                 <div className="col-12">
                   <Field
@@ -89,7 +102,7 @@ export const AddUnprotectedName = ({
                   />
                 </div>
               </div>
-            </div>
+            </div>,
           ]}
         />
       </Paper>

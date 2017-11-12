@@ -1,7 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { graphql } from 'react-apollo';
-import { Field, reduxForm, SubmissionError, formValueSelector } from 'redux-form';
+import {
+  Field,
+  reduxForm,
+  SubmissionError,
+  formValueSelector,
+} from 'redux-form';
 import { TextField, Slider } from 'redux-form-material-ui';
 import Paper from 'material-ui/Paper';
 
@@ -17,7 +22,7 @@ const EditProfile = ({
   error,
   editInProgess,
   handleSubmit,
-  handleCancelEditProfile
+  handleCancelEditProfile,
 }) => (
   <Paper zDepth={2}>
     <StandardForm
@@ -58,8 +63,10 @@ const EditProfile = ({
           validate={required}
           fullWidth
         />,
-        isAdmin &&
-          <div style={{ marginTop: '10px', textAlign: 'center', width: '100%' }}>
+        isAdmin && (
+          <div
+            style={{ marginTop: '10px', textAlign: 'center', width: '100%' }}
+          >
             <div>Protected Names Limit</div>
             <div>{currentProtectedNamesLimit}</div>
             <div>
@@ -76,6 +83,7 @@ const EditProfile = ({
               />
             </div>
           </div>
+        ),
       ]}
     />
   </Paper>
@@ -85,11 +93,11 @@ const selector = formValueSelector('profile');
 
 const FormWithSelectors = connect(state => ({
   currentProtectedNamesLimit: selector(state, 'protectedNamesLimit'),
-  isAdmin: state.account.accountType === 'admin'
+  isAdmin: state.account.accountType === 'admin',
 }))(EditProfile);
 
 const EditProfileForm = reduxForm({
-  form: 'profile'
+  form: 'profile',
 })(FormWithSelectors);
 
 export default graphql(EditUserDetails, {
@@ -104,10 +112,11 @@ export default graphql(EditUserDetails, {
         }
       } else {
         throw new SubmissionError({
-          _error: 'Please change one of the profile fields to to update your profile...'
+          _error:
+            'Please change one of the profile fields to to update your profile...',
         });
       }
     },
-    ...ownProps
-  })
+    ...ownProps,
+  }),
 })(EditProfileForm);

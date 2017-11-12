@@ -11,7 +11,7 @@ describe('src/app/notificationMiddleware', () => {
       notificationMiddleware({})(next)(action);
 
       expect(next).to.have.been.calledWith(action);
-    })
+    }),
   );
 
   it(
@@ -24,20 +24,23 @@ describe('src/app/notificationMiddleware', () => {
       notificationMiddleware(store)(() => {})(action);
 
       expect(dispatchSpy).to.not.have.been.called;
-    })
+    }),
   );
 
   it(
     'does not dispatch anything if APOLLO_MUTATION_RESULT has errors',
     sinon.test(function() {
-      const action = { type: thirdPartyActions.APOLLO_MUTATION_RESULT, result: { errors: [] } };
+      const action = {
+        type: thirdPartyActions.APOLLO_MUTATION_RESULT,
+        result: { errors: [] },
+      };
       const dispatchSpy = this.spy();
       const store = { dispatch: dispatchSpy };
 
       notificationMiddleware(store)(() => {})(action);
 
       expect(dispatchSpy).to.not.have.been.called;
-    })
+    }),
   );
 
   describe('dispatches success notification', () => {
@@ -47,7 +50,7 @@ describe('src/app/notificationMiddleware', () => {
       const action = {
         type: thirdPartyActions.APOLLO_MUTATION_RESULT,
         operationName,
-        result: { data }
+        result: { data },
       };
 
       notificationMiddleware(store)(() => {})(action);
@@ -62,8 +65,8 @@ describe('src/app/notificationMiddleware', () => {
         const lastName = 'last';
         const data = {
           addUnprotectedNameToUser: {
-            name: { firstName, lastName }
-          }
+            name: { firstName, lastName },
+          },
         };
 
         const showSuccessNotificationAction = 'showSuccessAction';
@@ -72,13 +75,19 @@ describe('src/app/notificationMiddleware', () => {
           .withArgs({
             title: 'Created unprotected',
             firstName,
-            lastName
+            lastName,
           })
           .returns(showSuccessNotificationAction);
-        const { dispatchSpy } = setup({ sandbox: this, operationName: 'CreateUnprotectedName', data });
+        const { dispatchSpy } = setup({
+          sandbox: this,
+          operationName: 'CreateUnprotectedName',
+          data,
+        });
 
-        expect(dispatchSpy).to.have.been.calledWith(showSuccessNotificationAction);
-      })
+        expect(dispatchSpy).to.have.been.calledWith(
+          showSuccessNotificationAction,
+        );
+      }),
     );
 
     it(
@@ -88,8 +97,8 @@ describe('src/app/notificationMiddleware', () => {
         const lastName = 'last';
         const data = {
           protectNameToUser: {
-            name: { firstName, lastName }
-          }
+            name: { firstName, lastName },
+          },
         };
 
         const showSuccessNotificationAction = 'showSuccessAction';
@@ -98,13 +107,19 @@ describe('src/app/notificationMiddleware', () => {
           .withArgs({
             title: 'Protected name',
             firstName,
-            lastName
+            lastName,
           })
           .returns(showSuccessNotificationAction);
-        const { dispatchSpy } = setup({ sandbox: this, operationName: 'ProtectName', data });
+        const { dispatchSpy } = setup({
+          sandbox: this,
+          operationName: 'ProtectName',
+          data,
+        });
 
-        expect(dispatchSpy).to.have.been.calledWith(showSuccessNotificationAction);
-      })
+        expect(dispatchSpy).to.have.been.calledWith(
+          showSuccessNotificationAction,
+        );
+      }),
     );
 
     it(
@@ -114,8 +129,8 @@ describe('src/app/notificationMiddleware', () => {
         const lastName = 'last';
         const data = {
           editProtectedName: {
-            name: { firstName, lastName }
-          }
+            name: { firstName, lastName },
+          },
         };
 
         const showSuccessNotificationAction = 'showSuccessAction';
@@ -124,13 +139,19 @@ describe('src/app/notificationMiddleware', () => {
           .withArgs({
             title: 'Met with protected',
             firstName,
-            lastName
+            lastName,
           })
           .returns(showSuccessNotificationAction);
-        const { dispatchSpy } = setup({ sandbox: this, operationName: 'MetWithProtected', data });
+        const { dispatchSpy } = setup({
+          sandbox: this,
+          operationName: 'MetWithProtected',
+          data,
+        });
 
-        expect(dispatchSpy).to.have.been.calledWith(showSuccessNotificationAction);
-      })
+        expect(dispatchSpy).to.have.been.calledWith(
+          showSuccessNotificationAction,
+        );
+      }),
     );
 
     it(
@@ -140,8 +161,8 @@ describe('src/app/notificationMiddleware', () => {
         const lastName = 'last';
         const data = {
           addClientToUser: {
-            name: { firstName, lastName }
-          }
+            name: { firstName, lastName },
+          },
         };
 
         const showSuccessNotificationAction = 'showSuccessAction';
@@ -150,13 +171,19 @@ describe('src/app/notificationMiddleware', () => {
           .withArgs({
             title: 'Congrats on the new client',
             firstName,
-            lastName
+            lastName,
           })
           .returns(showSuccessNotificationAction);
-        const { dispatchSpy } = setup({ sandbox: this, operationName: 'MakeClient', data });
+        const { dispatchSpy } = setup({
+          sandbox: this,
+          operationName: 'MakeClient',
+          data,
+        });
 
-        expect(dispatchSpy).to.have.been.calledWith(showSuccessNotificationAction);
-      })
+        expect(dispatchSpy).to.have.been.calledWith(
+          showSuccessNotificationAction,
+        );
+      }),
     );
 
     it(
@@ -166,8 +193,8 @@ describe('src/app/notificationMiddleware', () => {
         const lastName = 'last';
         const data = {
           unprotectNameFromUser: {
-            name: { firstName, lastName }
-          }
+            name: { firstName, lastName },
+          },
         };
 
         const showSuccessNotificationAction = 'showSuccessAction';
@@ -176,13 +203,19 @@ describe('src/app/notificationMiddleware', () => {
           .withArgs({
             title: 'Unprotected name',
             firstName,
-            lastName
+            lastName,
           })
           .returns(showSuccessNotificationAction);
-        const { dispatchSpy } = setup({ sandbox: this, operationName: 'UnprotectName', data });
+        const { dispatchSpy } = setup({
+          sandbox: this,
+          operationName: 'UnprotectName',
+          data,
+        });
 
-        expect(dispatchSpy).to.have.been.calledWith(showSuccessNotificationAction);
-      })
+        expect(dispatchSpy).to.have.been.calledWith(
+          showSuccessNotificationAction,
+        );
+      }),
     );
   });
 });

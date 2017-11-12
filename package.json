@@ -9,37 +9,44 @@
   "scripts": {
     "start": "npm run start:server-only",
     "start:server-only": "node server.js",
-    "start:dev": "webpack-dashboard -- webpack-dev-server --open --config webpack/webpack.dev.js --progress",
+    "start:dev":
+      "webpack-dashboard -- webpack-dev-server --open --config webpack/webpack.dev.js --progress",
     "start:staging": "npm run build:staging && node server.js",
     "prebuild": "rimraf dist",
-    "build:staging": "npm run prebuild && webpack --env=staging --config webpack/webpack.prod.js --progress --profile --colors",
-    "build:production": "npm run prebuild && webpack --env=production --config webpack/webpack.prod.js --progress --profile --colors",
+    "build:staging":
+      "npm run prebuild && webpack --env=staging --config webpack/webpack.prod.js --progress --profile --colors",
+    "build:production":
+      "npm run prebuild && webpack --env=production --config webpack/webpack.prod.js --progress --profile --colors",
     "heroku-postbuild": "npm run build:${GRAPHQL_CONFIG}",
-    "test": "NODE_ENV=testing mocha --exit --opts ./mocha.opts './src/**/*.spec.js'",
-    "test:watch": "NODE_ENV=testing mocha --watch --opts ./mocha.opts './src/**/*.spec.js'",
+    "test":
+      "NODE_ENV=testing mocha --exit --opts ./mocha.opts './src/**/*.spec.js'",
+    "test:watch":
+      "NODE_ENV=testing mocha --watch --opts ./mocha.opts './src/**/*.spec.js'",
     "test:feature": "./node_modules/codeceptjs/bin/codecept.js run --steps",
-    "test:feature:staging": "NODE_ENV=staging ./node_modules/codeceptjs/bin/codecept.js run",
-    "test:feature:selenium-install": "./node_modules/.bin/selenium-standalone install",
-    "test:feature:selenium-start": "./node_modules/.bin/selenium-standalone start",
-    "lint:prettier": "prettier --write --single-quote --print-width 120 'src/**/*.js'",
+    "test:feature:staging":
+      "NODE_ENV=staging ./node_modules/codeceptjs/bin/codecept.js run",
+    "test:feature:selenium-install":
+      "./node_modules/.bin/selenium-standalone install",
+    "test:feature:selenium-start":
+      "./node_modules/.bin/selenium-standalone start",
+    "lint:prettier": "prettier --write '{src, test}/**/*.js'",
     "precommit": "bash checkForOnly.sh && lint-staged && npm test"
   },
   "lint-staged": {
-    "*.{js}": [
-      "eslint '{src,test/**/*.js}' --fix",
-      "git add ."
-    ]
+    "*.{js}": ["eslint '{src,test/**/*.js}' --fix", "git add ."]
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/VasilyShelkov/ClientRelationshipManagerUI.git"
+    "url":
+      "git+https://github.com/VasilyShelkov/ClientRelationshipManagerUI.git"
   },
   "author": "Vasily Shelkov",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/VasilyShelkov/ClientRelationshipManagerUI/issues"
   },
-  "homepage": "https://github.com/VasilyShelkov/ClientRelationshipManagerUI#readme",
+  "homepage":
+    "https://github.com/VasilyShelkov/ClientRelationshipManagerUI#readme",
   "dependencies": {
     "apollo-client": "^1.1.1",
     "autoprefixer": "^7.1.1",
@@ -66,7 +73,8 @@
     "lodash": "^4.17.4",
     "material-color-hash": "^0.1.3",
     "material-ui": "0.19.1",
-    "mocha-graphql-register": "git+https://git@github.com/VasilyShelkov/mocha-graphql-register.git",
+    "mocha-graphql-register":
+      "git+https://git@github.com/VasilyShelkov/mocha-graphql-register.git",
     "moment": "^2.18.1",
     "node-sass": "^4.5.2",
     "places.js": "^1.4.15",

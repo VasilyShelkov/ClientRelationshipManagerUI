@@ -24,37 +24,50 @@ export default ({ currentUserId, loading, users, value, onChange }) => {
       <ListItem
         id="createNewUser"
         primaryText="Create New User"
-        rightAvatar={<Avatar icon={<PersonAddIcon />} backgroundColor={green500} />}
+        rightAvatar={
+          <Avatar icon={<PersonAddIcon />} backgroundColor={green500} />
+        }
         value={JSON.stringify({
           newRoute: '/account/users/add',
           currentUserId,
-          userIdToShow: currentUserId
+          userIdToShow: currentUserId,
         })}
       />
 
       <Divider />
 
-      <Subheader><span id="totalUserCount">{users.length}</span> Users</Subheader>
-      {users.length
-        ? users.map(user => (
-            <ListItem
-              key={`profile-${user.id}`}
-              leftAvatar={
-                <Avatar style={toMaterialStyle(user.firstName[0].toUpperCase() + user.lastName[0].toUpperCase())}>
-                  {user.firstName[0].toUpperCase()}
-                  {user.lastName[0].toUpperCase()}
-                </Avatar>
-              }
-              primaryText={`${user.firstName} ${user.lastName}`}
-              value={JSON.stringify({
-                newRoute: `/account/users/${_.camelCase(`${user.firstName} ${user.lastName}`)}/profile`,
-                currentUserId,
-                userIdToShow: user.id
-              })}
-              insetChildren
-            />
-          ))
-        : <ListItem secondaryText="There are no other users..." disabled />}
+      <Subheader>
+        <span id="totalUserCount">{users.length}</span> Users
+      </Subheader>
+      {users.length ? (
+        users.map(user => (
+          <ListItem
+            key={`profile-${user.id}`}
+            leftAvatar={
+              <Avatar
+                style={toMaterialStyle(
+                  user.firstName[0].toUpperCase() +
+                    user.lastName[0].toUpperCase(),
+                )}
+              >
+                {user.firstName[0].toUpperCase()}
+                {user.lastName[0].toUpperCase()}
+              </Avatar>
+            }
+            primaryText={`${user.firstName} ${user.lastName}`}
+            value={JSON.stringify({
+              newRoute: `/account/users/${_.camelCase(
+                `${user.firstName} ${user.lastName}`,
+              )}/profile`,
+              currentUserId,
+              userIdToShow: user.id,
+            })}
+            insetChildren
+          />
+        ))
+      ) : (
+        <ListItem secondaryText="There are no other users..." disabled />
+      )}
     </SelectableList>
   );
 };

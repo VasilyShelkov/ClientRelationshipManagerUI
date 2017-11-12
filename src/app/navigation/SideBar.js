@@ -21,12 +21,12 @@ export const SideBar = ({
   protectedListToShow,
   currentUserId,
   profileUserId,
-  handleRouteChange
+  handleRouteChange,
 }) => {
   const selectedValue = JSON.stringify({
     newRoute: currentPage,
     currentUserId,
-    userIdToShow: profileUserId
+    userIdToShow: profileUserId,
   });
 
   return (
@@ -37,7 +37,7 @@ export const SideBar = ({
         value={JSON.stringify({
           newRoute: '/account/profile',
           currentUserId,
-          userIdToShow: currentUserId
+          userIdToShow: currentUserId,
         })}
       />
 
@@ -51,7 +51,7 @@ export const SideBar = ({
         value={JSON.stringify({
           newRoute: '/account/names/unprotected',
           currentUserId,
-          userIdToShow: currentUserId
+          userIdToShow: currentUserId,
         })}
       />
       <ListItem
@@ -61,7 +61,7 @@ export const SideBar = ({
         value={JSON.stringify({
           newRoute: `/account/names/${protectedListToShow}`,
           currentUserId,
-          userIdToShow: currentUserId
+          userIdToShow: currentUserId,
         })}
       />
       <ListItem
@@ -71,12 +71,17 @@ export const SideBar = ({
         value={JSON.stringify({
           newRoute: '/account/names/clients',
           currentUserId,
-          userIdToShow: currentUserId
+          userIdToShow: currentUserId,
         })}
       />
 
-      {isAdmin &&
-        <AdminUserListWithData currentUserId={currentUserId} value={selectedValue} onChange={handleRouteChange} />}
+      {isAdmin && (
+        <AdminUserListWithData
+          currentUserId={currentUserId}
+          value={selectedValue}
+          onChange={handleRouteChange}
+        />
+      )}
     </SelectableList>
   );
 };
@@ -86,7 +91,7 @@ const mapStateToProps = state => ({
   currentPage: state.routing.location.pathname,
   currentUserId: state.account.id,
   profileUserId: state.profile.id,
-  protectedListToShow: state.nameList.protectedListToShow
+  protectedListToShow: state.nameList.protectedListToShow,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -98,10 +103,10 @@ const mapDispatchToProps = dispatch => ({
       changeShownUserProfile({
         currentUserId,
         userIdToShow,
-        isNewUser: false
-      })
+        isNewUser: false,
+      }),
     );
-  }
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SideBar);

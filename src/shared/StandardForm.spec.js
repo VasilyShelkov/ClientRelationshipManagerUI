@@ -5,13 +5,18 @@ import StandardForm from './StandardForm';
 import LoadingSpinner from './LoadingSpinner';
 import { FormErrorNotification } from './FormElements';
 
-const setup = ({ error = '', editingInProgress = false, handleSubmit = () => '', handleCancel = null }) => {
+const setup = ({
+  error = '',
+  editingInProgress = false,
+  handleSubmit = () => '',
+  handleCancel = null,
+}) => {
   const props = {
     fields: 'input fields',
     error,
     editingInProgress,
     handleSubmit,
-    handleCancel
+    handleCancel,
   };
   const wrapper = shallowWithContext(<StandardForm {...props} />);
 
@@ -33,13 +38,15 @@ describe('src/shared/StandardForm.js', () => {
       const { wrapper, props } = setup({ handleSubmit });
 
       expect(wrapper.find(LoadingSpinner).exists()).to.be.false;
-      expect(wrapper.find(FormErrorNotification).prop('message')).to.equal(props.error);
+      expect(wrapper.find(FormErrorNotification).prop('message')).to.equal(
+        props.error,
+      );
 
       const form = wrapper.find('form');
       expect(form.exists()).to.be.true;
       form.prop('onSubmit')();
       expect(handleSubmit).to.have.been.called;
-    })
+    }),
   );
 
   it(
@@ -50,7 +57,7 @@ describe('src/shared/StandardForm.js', () => {
       const ctas = wrapper.find(RaisedButton);
       expect(ctas.prop('label')).to.equal('Save');
       expect(ctas.prop('type')).to.equal('submit');
-    })
+    }),
   );
 
   it('only renders the submit button when no it can not handle cancel', () => {
@@ -79,6 +86,6 @@ describe('src/shared/StandardForm.js', () => {
       expect(submitButton.prop('label')).to.equal('Save');
       expect(submitButton.prop('type')).to.equal('submit');
       expect(submitButton.parent().hasClass('col-6')).to.be.true;
-    })
+    }),
   );
 });

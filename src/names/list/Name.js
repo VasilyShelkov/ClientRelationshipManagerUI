@@ -11,7 +11,7 @@ import NameProtectedInfo from './locked/NameProtectedInfo';
 
 const moreInfoStyle = {
   icon: { width: '60px', height: '60px' },
-  container: { width: '80px', height: '80px' }
+  container: { width: '80px', height: '80px' },
 };
 
 export default ({
@@ -25,17 +25,27 @@ export default ({
   showMoreDetails,
   editProtectedMeeting,
   editProtectedCall,
-  currentPath
+  currentPath,
 }) => (
-  <Paper className="name" style={{ backgroundColor: selected ? cyan500 : fullWhite }} onClick={showMoreDetails}>
+  <Paper
+    className="name"
+    style={{ backgroundColor: selected ? cyan500 : fullWhite }}
+    onClick={showMoreDetails}
+  >
     <div className="name__info">
       <div className={`name__info__main${selected ? '-selected' : ''}`}>
-        <span>{firstName} {lastName} - {phone}</span>
-        <span className={`name__info__main__meta${selected ? '-selected' : ''}`}>
+        <span>
+          {firstName} {lastName} - {phone}
+        </span>
+        <span
+          className={`name__info__main__meta${selected ? '-selected' : ''}`}
+        >
           {company.name}
         </span>
       </div>
-      {matchPath(currentPath, { path: '/account/names/(protected|metWithProtected|clients)' }) &&
+      {matchPath(currentPath, {
+        path: '/account/names/(protected|metWithProtected|clients)',
+      }) && (
         <NameProtectedInfo
           currentPath={currentPath}
           callBooked={callBooked}
@@ -43,14 +53,18 @@ export default ({
           selected={selected}
           editCall={editProtectedCall}
           editMeeting={editProtectedMeeting}
-        />}
+        />
+      )}
       <span className={`name__info__date${selected ? '-selected' : ''}`}>
         {createdText}: {moment(metWith || created_at).fromNow()}
       </span>
     </div>
 
     <div className="name__more">
-      <IconButton style={moreInfoStyle.container} iconStyle={moreInfoStyle.icon}>
+      <IconButton
+        style={moreInfoStyle.container}
+        iconStyle={moreInfoStyle.icon}
+      >
         <MoreInfoIcon color={selected ? fullWhite : cyan500} />
       </IconButton>
     </div>

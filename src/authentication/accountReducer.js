@@ -5,13 +5,13 @@ import {
   LOG_OUT,
   TOGGLE_SIDE_BAR,
   CHANGE_SIDE_BAR_STATE,
-  SET_RETURN_URL
+  SET_RETURN_URL,
 } from './accountActions';
 
 export const initialState = {
   loggingIn: false,
   sideBarOpen: false,
-  returnUrl: '/account/profile'
+  returnUrl: '/account/profile',
 };
 export default (state = initialState, action) => {
   switch (action.type) {

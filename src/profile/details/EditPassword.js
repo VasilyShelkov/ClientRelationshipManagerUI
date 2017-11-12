@@ -4,10 +4,19 @@ import { Field, reduxForm, SubmissionError } from 'redux-form';
 import { graphql } from 'react-apollo';
 import EditUserPassword from './EditUserPassword.gql';
 
-import { renderTextField, required, minLength } from '../../shared/FormElements';
+import {
+  renderTextField,
+  required,
+  minLength,
+} from '../../shared/FormElements';
 import StandardForm from '../../shared/StandardForm';
 
-const EditPassword = ({ handleSubmit, handleCancelEditProfilePassword, error, editInProgress }) => (
+const EditPassword = ({
+  handleSubmit,
+  handleCancelEditProfilePassword,
+  error,
+  editInProgress,
+}) => (
   <StandardForm
     handleSubmit={handleSubmit}
     handleCancel={handleCancelEditProfilePassword}
@@ -31,28 +40,32 @@ const EditPassword = ({ handleSubmit, handleCancelEditProfilePassword, error, ed
         label="Confirm New Password"
         validate={[required, minLength]}
         fullWidth
-      />
+      />,
     ]}
   />
 );
 
-export const EditPasswordForm = reduxForm({ form: 'profilePassword' })(EditPassword);
+export const EditPasswordForm = reduxForm({ form: 'profilePassword' })(
+  EditPassword,
+);
 
 export default graphql(EditUserPassword, {
   props: ({ ownProps, mutate }) => ({
     onSubmit: async values => {
       if (values.password === values.confirmPassword) {
         try {
-          await mutate({ variables: { id: ownProps.userId, password: values.password } });
+          await mutate({
+            variables: { id: ownProps.userId, password: values.password },
+          });
         } catch (error) {
           throw new SubmissionError({ _error: error.graphQLErrors[0].message });
         }
       } else {
         throw new SubmissionError({
-          _error: 'Passwords do not match'
+          _error: 'Passwords do not match',
         });
       }
     },
-    ...ownProps
-  })
+    ...ownProps,
+  }),
 })(EditPasswordForm);

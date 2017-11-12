@@ -8,5 +8,5 @@ export const showSuccessNotification = ({ title, firstName, lastName }) =>
     text: `${firstName} ${lastName} is now part of the list`,
     type: 'success',
     showConfirmButton: true,
-    closeOnConfirm: true
+    closeOnConfirm: true,
   });

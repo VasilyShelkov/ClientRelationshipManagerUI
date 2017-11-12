@@ -11,13 +11,20 @@ import { fullWhite, green500 } from 'material-ui/styles/colors';
 import ReactList from 'react-list';
 
 import { sortNamesByType, sortTypes } from './nameSorter';
-import { getNameByFirstAndLastName, getNameByNameId, getNameIndexByNameId } from './nameListShapeShifter';
+import {
+  getNameByFirstAndLastName,
+  getNameByNameId,
+  getNameIndexByNameId,
+} from './nameListShapeShifter';
 import Name from './Name';
 import NameOrganiser from './NameListOrganiser';
 import LoadingSpinner from '../../shared/LoadingSpinner';
 import EditLockedName from './locked/EditLockedNameInfo';
 import { selectName } from '../selected/selectedActions';
-import { openEditProtectedNameMeetingDialog, openEditProtectedNameCallDialog } from '../nameActions';
+import {
+  openEditProtectedNameMeetingDialog,
+  openEditProtectedNameCallDialog,
+} from '../nameActions';
 
 export class NamesList extends Component {
   constructor(props) {
@@ -26,7 +33,9 @@ export class NamesList extends Component {
     this.state = {
       searchValue: '',
       sortBy: sortTypes.createdAsc,
-      fuse: new Fuse(this.props.names, { keys: ['name.firstName', 'name.lastName', 'name.phone', 'name.company'] })
+      fuse: new Fuse(this.props.names, {
+        keys: ['name.firstName', 'name.lastName', 'name.phone', 'name.company'],
+      }),
     };
   }
 
@@ -37,29 +46,51 @@ export class NamesList extends Component {
   updateSort = (event, index, value) => this.setState({ sortBy: value });
 
   componentDidUpdate() {
-    const { loading, names = [], nameListType, selectedNameId, openNameDetails, currentPath } = this.props;
+    const {
+      loading,
+      names = [],
+      nameListType,
+      selectedNameId,
+      openNameDetails,
+      currentPath,
+    } = this.props;
 
     const encodedNameFromURL = _.get(
-      matchPath(currentPath, { path: '/account/names/(.*)/selected/:encodedName' }),
-      'params.encodedName'
+      matchPath(currentPath, {
+        path: '/account/names/(.*)/selected/:encodedName',
+      }),
+      'params.encodedName',
     );
-    const selectedNameFromURL = getNameByFirstAndLastName(names, encodedNameFromURL);
+    const selectedNameFromURL = getNameByFirstAndLastName(
+      names,
+      encodedNameFromURL,
+    );
     if (selectedNameFromURL && !selectedNameId) {
       openNameDetails(selectedNameFromURL, nameListType);
     }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const { loading, names = [], nameListType, selectedNameId, currentPath } = this.props;
+    const {
+      loading,
+      names = [],
+      nameListType,
+      selectedNameId,
+      currentPath,
+    } = this.props;
     const { searchValue, sortBy } = this.state;
 
     const currentlySelectedName = _.get(
-      matchPath(currentPath, { path: '/account/names/(.*)/selected/:encodedName' }),
-      'params.encodedName'
+      matchPath(currentPath, {
+        path: '/account/names/(.*)/selected/:encodedName',
+      }),
+      'params.encodedName',
     );
     const newSelectedName = _.get(
-      matchPath(nextProps.currentPath, { path: '/account/names/(.*)/selected/:encodedName' }),
-      'params.encodedName'
+      matchPath(nextProps.currentPath, {
+        path: '/account/names/(.*)/selected/:encodedName',
+      }),
+      'params.encodedName',
     );
     return (
       loading !== nextProps.loading ||
@@ -69,7 +100,10 @@ export class NamesList extends Component {
       (!nextProps.loading && searchValue !== nextState.searchValue) ||
       (!nextProps.loading && sortBy !== nextState.sortBy) ||
       (!nextProps.loading &&
-        (matchPath(currentPath, { path: '/account/names/:nameListType', exact: true }) ||
+        (matchPath(currentPath, {
+          path: '/account/names/:nameListType',
+          exact: true,
+        }) ||
           currentlySelectedName !== newSelectedName))
     );
   }
@@ -85,21 +119,28 @@ export class NamesList extends Component {
       openEditProtectedNameCallDialog,
       onSubmitBookCall,
       onSubmitBookMeeting,
-      currentPath
+      currentPath,
     } = this.props;
     if (loading) return <LoadingSpinner />;
 
     const encodedNameFromURL = _.get(
-      matchPath(currentPath, { path: '/account/names/(.*)/selected/:encodedName' }),
-      'params.encodedName'
+      matchPath(currentPath, {
+        path: '/account/names/(.*)/selected/:encodedName',
+      }),
+      'params.encodedName',
     );
-    const selectedNameFromURL = getNameByFirstAndLastName(names, encodedNameFromURL);
+    const selectedNameFromURL = getNameByFirstAndLastName(
+      names,
+      encodedNameFromURL,
+    );
     if (selectedNameId && (!encodedNameFromURL || !selectedNameFromURL)) {
       const selectedNameInCurrentList = getNameByNameId(names, selectedNameId);
       if (selectedNameInCurrentList) {
         return (
           <Redirect
-            to={`/account/names/${nameListType}/selected/${selectedNameInCurrentList.name.firstName.toLowerCase()}-${selectedNameInCurrentList.name.lastName.toLowerCase()}`}
+            to={`/account/names/${
+              nameListType
+            }/selected/${selectedNameInCurrentList.name.firstName.toLowerCase()}-${selectedNameInCurrentList.name.lastName.toLowerCase()}`}
           />
         );
       }
@@ -107,7 +148,8 @@ export class NamesList extends Component {
 
     if (
       encodedNameFromURL &&
-      matchPath(currentPath, { path: '/account/names/:nameListType' }).params.nameListType === nameListType &&
+      matchPath(currentPath, { path: '/account/names/:nameListType' }).params
+        .nameListType === nameListType &&
       names.length &&
       !selectedNameFromURL
     ) {
@@ -119,7 +161,11 @@ export class NamesList extends Component {
       namesFromSearch = this.state.fuse.search(this.state.searchValue);
     }
 
-    const sortedNames = sortNamesByType(this.state.sortBy, namesFromSearch, nameListType === 'metWithProtected');
+    const sortedNames = sortNamesByType(
+      this.state.sortBy,
+      namesFromSearch,
+      nameListType === 'metWithProtected',
+    );
 
     let createdText = 'created';
     switch (nameListType) {
@@ -141,54 +187,67 @@ export class NamesList extends Component {
 
     return (
       <div id={`${nameListType}NamesList`}>
-        {names.length
-          ? <div>
-              <NameOrganiser
-                searchValue={this.state.searchValue}
-                sortBy={this.state.sortBy}
-                searchResultsLength={namesFromSearch.length !== names.length && namesFromSearch.length}
-                updateSearch={this.updateSearch}
-                updateSort={this.updateSort}
+        {names.length ? (
+          <div>
+            <NameOrganiser
+              searchValue={this.state.searchValue}
+              sortBy={this.state.sortBy}
+              searchResultsLength={
+                namesFromSearch.length !== names.length &&
+                namesFromSearch.length
+              }
+              updateSearch={this.updateSearch}
+              updateSort={this.updateSort}
+            />
+            <div style={{ overflow: 'auto', maxHeight: 400 }}>
+              <ReactList
+                length={sortedNames.length}
+                itemRenderer={(index, key) => {
+                  const typedName = sortedNames[index];
+                  return (
+                    <Name
+                      id={`name-${key}`}
+                      createdText={createdText}
+                      key={`name-${index}`}
+                      selected={typedName.name.id === selectedNameId}
+                      showMoreDetails={() =>
+                        openNameDetails(typedName, nameListType)
+                      }
+                      editProtectedCall={() =>
+                        openEditProtectedNameCallDialog(typedName.name.id)
+                      }
+                      editProtectedMeeting={() =>
+                        openEditProtectedNameMeetingDialog(typedName.name.id)
+                      }
+                      currentPath={currentPath}
+                      {...typedName}
+                    />
+                  );
+                }}
               />
-              <div style={{ overflow: 'auto', maxHeight: 400 }}>
-                <ReactList
-                  length={sortedNames.length}
-                  itemRenderer={(index, key) => {
-                    const typedName = sortedNames[index];
-                    return (
-                      <Name
-                        id={`name-${key}`}
-                        createdText={createdText}
-                        key={`name-${index}`}
-                        selected={typedName.name.id === selectedNameId}
-                        showMoreDetails={() => openNameDetails(typedName, nameListType)}
-                        editProtectedCall={() => openEditProtectedNameCallDialog(typedName.name.id)}
-                        editProtectedMeeting={() => openEditProtectedNameMeetingDialog(typedName.name.id)}
-                        currentPath={currentPath}
-                        {...typedName}
-                      />
-                    );
-                  }}
-                />
-              </div>
             </div>
-          : <Switch>
-              <Route
-                path="/account/names/unprotected"
-                render={() => (
-                  <RaisedButton
-                    containerElement={<Link to="/account/names/unprotected/add" />}
-                    id="createUnprotectedName"
-                    labelStyle={{ color: fullWhite }}
-                    backgroundColor={green500}
-                    label="Create first name"
-                    icon={<AddIcon color={fullWhite} />}
-                    fullWidth
-                  />
-                )}
-              />
-              <Route render={() => <div>You currently have none</div>} />
-            </Switch>}
+          </div>
+        ) : (
+          <Switch>
+            <Route
+              path="/account/names/unprotected"
+              render={() => (
+                <RaisedButton
+                  containerElement={
+                    <Link to="/account/names/unprotected/add" />
+                  }
+                  id="createUnprotectedName"
+                  labelStyle={{ color: fullWhite }}
+                  backgroundColor={green500}
+                  label="Create first name"
+                  icon={<AddIcon color={fullWhite} />}
+                  fullWidth
+                />
+              )}
+            />
+            <Route render={() => <div>You currently have none</div>} />
+          </Switch>
+        )}
         <Route
           path="/account/names/(protected|metWithProtected|clients)"
           render={() => (
@@ -205,13 +264,16 @@ export class NamesList extends Component {
 }
 
 const mapStateToProps = state => ({
-  currentPath: state.routing.location.pathname
+  currentPath: state.routing.location.pathname,
 });
 
 const mapDispatchToProps = dispatch => ({
-  openNameDetails: (name, selectedNameList) => dispatch(selectName(name, selectedNameList)),
-  openEditProtectedNameMeetingDialog: nameId => dispatch(openEditProtectedNameMeetingDialog(nameId)),
-  openEditProtectedNameCallDialog: nameId => dispatch(openEditProtectedNameCallDialog(nameId))
+  openNameDetails: (name, selectedNameList) =>
+    dispatch(selectName(name, selectedNameList)),
+  openEditProtectedNameMeetingDialog: nameId =>
+    dispatch(openEditProtectedNameMeetingDialog(nameId)),
+  openEditProtectedNameCallDialog: nameId =>
+    dispatch(openEditProtectedNameCallDialog(nameId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NamesList);

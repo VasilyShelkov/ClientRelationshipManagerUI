@@ -7,7 +7,7 @@ describe('src/navigation/AdminUserListWithData', () => {
       const actualProps = props({ data: { loading: true } });
       expect(actualProps).to.deep.equal({
         loading: true,
-        users: []
+        users: [],
       });
     });
 
@@ -16,23 +16,23 @@ describe('src/navigation/AdminUserListWithData', () => {
       const currentUser = { id: currentUserId };
       const expectedUsers = [
         {
-          id: '1'
+          id: '1',
         },
         {
-          id: '3'
-        }
+          id: '3',
+        },
       ];
       const usersWithSelf = [...expectedUsers, currentUser];
       const actualProps = props({
         ownProps: { currentUserId },
-        data: { loading: false, users: usersWithSelf }
+        data: { loading: false, users: usersWithSelf },
       });
 
       expect(actualProps.users).length.to.be(2);
       expect(actualProps).to.deep.equal({
         loading: false,
         users: expectedUsers,
-        currentUserId
+        currentUserId,
       });
     });
   });
@@ -55,7 +55,7 @@ describe('src/navigation/AdminUserListWithData', () => {
       const action = {
         type: APOLLO_MUTATION_RESULT,
         operationName: 'CreateUser',
-        result: { data: null }
+        result: { data: null },
       };
 
       expect(reducer(previousState, action)).to.deep.equal(previousState);
@@ -66,7 +66,7 @@ describe('src/navigation/AdminUserListWithData', () => {
       const action = {
         type: APOLLO_MUTATION_RESULT,
         operationName: 'CreateUser',
-        result: { data: null, errors: [] }
+        result: { data: null, errors: [] },
       };
 
       expect(reducer(previousState, action)).to.deep.equal(previousState);
@@ -77,18 +77,18 @@ describe('src/navigation/AdminUserListWithData', () => {
       const action = {
         type: APOLLO_MUTATION_RESULT,
         operationName: 'CreateUser',
-        result: { data: { createUser: { id: '2' } } }
+        result: { data: { createUser: { id: '2' } } },
       };
 
       expect(reducer(previousState, action)).to.deep.equal({
         users: [
           {
-            id: '1'
+            id: '1',
           },
           {
-            id: '2'
-          }
-        ]
+            id: '2',
+          },
+        ],
       });
     });
   });

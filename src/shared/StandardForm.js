@@ -7,29 +7,48 @@ import CancelIcon from 'material-ui/svg-icons/content/clear';
 import { FormErrorNotification } from './FormElements';
 import LoadingSpinner from './LoadingSpinner';
 
-export default ({ error, fields, editingInProgress, handleSubmit, handleCancel }) => (
+export default ({
+  error,
+  fields,
+  editingInProgress,
+  handleSubmit,
+  handleCancel,
+}) => (
   <div id="StandardForm" className="StandardForm container">
     <FormErrorNotification message={error} zDepth={2} />
     <form onSubmit={handleSubmit}>
-      <div className="row">
-        {fields}
-      </div>
+      <div className="row">{fields}</div>
 
       <br />
 
-      {editingInProgress
-        ? <LoadingSpinner />
-        : <div className="row">
-            {handleCancel
-              ? <div className="col-6">
-                  <RaisedButton secondary fullWidth label="Cancel" onClick={handleCancel} icon={<CancelIcon />} />
-                </div>
-              : null}
-
-            <div className={handleCancel ? 'col-6' : 'col-12'}>
-              <RaisedButton id="standardSubmit" primary fullWidth label="Save" type="submit" icon={<SaveIcon />} />
+      {editingInProgress ? (
+        <LoadingSpinner />
+      ) : (
+        <div className="row">
+          {handleCancel ? (
+            <div className="col-6">
+              <RaisedButton
+                secondary
+                fullWidth
+                label="Cancel"
+                onClick={handleCancel}
+                icon={<CancelIcon />}
+              />
             </div>
-          </div>}
+          ) : null}
+
+          <div className={handleCancel ? 'col-6' : 'col-12'}>
+            <RaisedButton
+              id="standardSubmit"
+              primary
+              fullWidth
+              label="Save"
+              type="submit"
+              icon={<SaveIcon />}
+            />
+          </div>
+        </div>
+      )}
     </form>
   </div>
 );

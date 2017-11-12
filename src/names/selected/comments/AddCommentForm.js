@@ -23,26 +23,30 @@ const AddCommentFormWithMutation = graphql(AddCommentToName, {
             userId,
             nameId,
             text,
-            visibility
-          }
+            visibility,
+          },
         });
         ownProps.hideCommentForm();
       } catch (error) {
         ownProps.showErrorNotification(
-          error.graphQLErrors ? error.graphQLErrors[0].message : 'Oops, something went wrong...'
+          error.graphQLErrors
+            ? error.graphQLErrors[0].message
+            : 'Oops, something went wrong...',
         );
       }
-    }
-  })
+    },
+  }),
 })(AddCommentForm);
 
 const mapStateToProps = state => ({
   userId: state.profile.id,
-  nameId: state.selectedName.nameId
+  nameId: state.selectedName.nameId,
 });
 
 const mapDispatchToProps = dispatch => ({
-  showErrorNotification: message => dispatch(showNotification(message, red500))
+  showErrorNotification: message => dispatch(showNotification(message, red500)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddCommentFormWithMutation);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  AddCommentFormWithMutation,
+);

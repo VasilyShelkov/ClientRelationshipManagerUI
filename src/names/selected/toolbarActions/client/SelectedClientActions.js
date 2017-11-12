@@ -7,7 +7,12 @@ import { UnprotectedIcon } from '../../../../app/icons';
 
 export default ({ onSubmitUnprotectName }) => (
   <ToolbarGroup>
-    <IconButton id="unprotectName" tooltip="Unprotect Name" onClick={onSubmitUnprotectName} touch>
+    <IconButton
+      id="unprotectName"
+      tooltip="Unprotect Name"
+      onClick={onSubmitUnprotectName}
+      touch
+    >
       <UnprotectedIcon color={cyan500} />
     </IconButton>
   </ToolbarGroup>

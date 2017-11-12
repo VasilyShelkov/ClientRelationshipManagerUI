@@ -11,7 +11,7 @@ import {
   LOGGED_IN_ERROR,
   LOG_OUT,
   TOGGLE_SIDE_BAR,
-  CHANGE_SIDE_BAR_STATE
+  CHANGE_SIDE_BAR_STATE,
 } from './accountActions';
 
 describe('src/authentication/accountReducer.js', () => {
@@ -21,7 +21,7 @@ describe('src/authentication/accountReducer.js', () => {
 
     expect(accountReducer(stateBefore, action)).to.deep.equal({
       ...stateBefore,
-      loggingIn: true
+      loggingIn: true,
     });
   });
 
@@ -30,14 +30,14 @@ describe('src/authentication/accountReducer.js', () => {
     const recievedPayload = {
       token: 'testToken',
       userId: '123',
-      accountType: 'admin'
+      accountType: 'admin',
     };
     const action = logInSuccess(recievedPayload);
 
     expect(accountReducer(stateBefore, action)).to.deep.equal({
       ...stateBefore,
       loggingIn: false,
-      ...recievedPayload
+      ...recievedPayload,
     });
   });
 
@@ -47,7 +47,7 @@ describe('src/authentication/accountReducer.js', () => {
 
     expect(accountReducer(stateBefore, action)).to.deep.equal({
       ...stateBefore,
-      loggingIn: false
+      loggingIn: false,
     });
   });
 
@@ -57,7 +57,7 @@ describe('src/authentication/accountReducer.js', () => {
       loggingIn: false,
       token: 'testToken',
       userId: '123',
-      accountType: 'admin'
+      accountType: 'admin',
     };
     const action = logOut();
 
@@ -70,47 +70,47 @@ describe('src/authentication/accountReducer.js', () => {
 
     expect(accountReducer(stateBefore, action)).to.deep.equal({
       ...stateBefore,
-      sideBarOpen: true
+      sideBarOpen: true,
     });
   });
 
   it(`${TOGGLE_SIDE_BAR} closes the side nav`, () => {
     const stateBefore = {
       ...initialState,
-      sideBarOpen: true
+      sideBarOpen: true,
     };
     const action = toggleSideBar();
 
     expect(accountReducer(stateBefore, action)).to.deep.equal({
       ...stateBefore,
-      sideBarOpen: false
+      sideBarOpen: false,
     });
   });
 
   it(`${TOGGLE_SIDE_BAR} closes the side nav`, () => {
     const stateBefore = {
       ...initialState,
-      sideBarOpen: true
+      sideBarOpen: true,
     };
     const action = toggleSideBar();
 
     expect(accountReducer(stateBefore, action)).to.deep.equal({
       ...stateBefore,
-      sideBarOpen: false
+      sideBarOpen: false,
     });
   });
 
   it(CHANGE_SIDE_BAR_STATE, () => {
     const stateBefore = {
       ...initialState,
-      sideBarOpen: true
+      sideBarOpen: true,
     };
     const newSideBarState = false;
     const action = changeSideBarState(newSideBarState);
 
     expect(accountReducer(stateBefore, action)).to.deep.equal({
       ...stateBefore,
-      sideBarOpen: newSideBarState
+      sideBarOpen: newSideBarState,
     });
   });
 });

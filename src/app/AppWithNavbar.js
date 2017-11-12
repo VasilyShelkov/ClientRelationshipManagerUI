@@ -12,11 +12,11 @@ import NotFound from './NotFound';
 import Home from './Home';
 
 const mapStateToProps = state => ({
-  open: state.account.sideBarOpen
+  open: state.account.sideBarOpen,
 });
 
 const mapDispatchToProps = dispatch => ({
-  controlSidebar: open => dispatch(changeSideBarState(open))
+  controlSidebar: open => dispatch(changeSideBarState(open)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(
@@ -35,15 +35,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(
               onSetOpen={controlSidebar}
               styles={{
                 overlay: {
-                  zIndex: '1101'
+                  zIndex: '1101',
                 },
                 sidebar: {
                   zIndex: '1102',
-                  backgroundColor: 'white'
+                  backgroundColor: 'white',
                 },
                 content: {
-                  overflowY: 'auto'
-                }
+                  overflowY: 'auto',
+                },
               }}
             >
               <div className="index__content-below-navbar">
@@ -57,5 +57,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         />
       </Switch>
     </div>
-  ))
+  )),
 );

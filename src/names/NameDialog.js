@@ -18,15 +18,18 @@ export const NameDialog = ({
   close,
   handleSubmit,
   initialValues,
-  change
+  change,
 }) => {
   const fieldsToShow = Object.keys(initialValues);
   return (
     <Dialog title={title} actions={actions} open={open} onRequestClose={close}>
       <form id="protectNameForm" onSubmit={handleSubmit}>
-        {fieldsToShow.includes('callDay') &&
+        {fieldsToShow.includes('callDay') && (
           <div className="row">
-            <div className="col-12" style={{ display: 'flex', alignItems: 'center' }}>
+            <div
+              className="col-12"
+              style={{ display: 'flex', alignItems: 'center' }}
+            >
               Calling {displayName}?
               <IconButton
                 id="clearCallBooking"
@@ -62,11 +65,15 @@ export const NameDialog = ({
                 pedantic
               />
             </div>
-          </div>}
+          </div>
+        )}
 
-        {fieldsToShow.includes('meetingDay') &&
+        {fieldsToShow.includes('meetingDay') && (
           <div className="row" style={{ marginTop: '10px' }}>
-            <div className="col-12" style={{ display: 'flex', alignItems: 'center' }}>
+            <div
+              className="col-12"
+              style={{ display: 'flex', alignItems: 'center' }}
+            >
               Meeting {displayName}?
               <IconButton
                 id="clearMeetingBooking"
@@ -101,11 +108,15 @@ export const NameDialog = ({
                 pedantic
               />
             </div>
-          </div>}
+          </div>
+        )}
 
-        {fieldsToShow.includes('pastMeetingDay') &&
+        {fieldsToShow.includes('pastMeetingDay') && (
           <div className="row" style={{ marginTop: '10px' }}>
-            <div className="col-12" style={{ display: 'flex', alignItems: 'center' }}>
+            <div
+              className="col-12"
+              style={{ display: 'flex', alignItems: 'center' }}
+            >
               Had a meeting with {displayName}?
               <IconButton
                 id="clearMeeting"
@@ -140,7 +151,8 @@ export const NameDialog = ({
                 pedantic
               />
             </div>
-          </div>}
+          </div>
+        )}
 
         <div>
           <Field
@@ -160,11 +172,11 @@ export const NameDialog = ({
 };
 
 const NameDialogForm = reduxForm({
-  form: 'protectName'
+  form: 'protectName',
 })(NameDialog);
 
 const mapStateToProps = state => ({
-  formValues: getFormValues('protectName')(state)
+  formValues: getFormValues('protectName')(state),
 });
 
 export default connect(mapStateToProps)(NameDialogForm);

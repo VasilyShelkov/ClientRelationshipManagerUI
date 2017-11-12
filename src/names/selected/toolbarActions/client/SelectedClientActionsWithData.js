@@ -17,40 +17,55 @@ const SelectedClientActionsWithMutations = graphql(UnprotectName, {
   props: ({ ownProps, mutate }) => ({
     ...ownProps,
     onSubmitUnprotectName: async () => {
-      const { userId, name, performingNameAction, unprotectNameSuccess, showErrorNotification } = ownProps;
+      const {
+        userId,
+        name,
+        performingNameAction,
+        unprotectNameSuccess,
+        showErrorNotification,
+      } = ownProps;
 
       try {
         performingNameAction(`Unprotecting ${name.firstName} ${name.lastName}`);
         const unprotectedName = await mutate({
           variables: {
             userId,
-            nameId: name.id
+            nameId: name.id,
           },
           updateQueries: {
             GetUnprotectedNames: (previousResult, { mutationResult }) => ({
               user: {
                 ...previousResult.user,
-                unprotected: [mutationResult.data.unprotectNameFromUser, ...previousResult.user.unprotected]
-              }
-            })
-          }
+                unprotected: [
+                  mutationResult.data.unprotectNameFromUser,
+                  ...previousResult.user.unprotected,
+                ],
+              },
+            }),
+          },
         });
-        unprotectNameSuccess(_.get(unprotectedName, 'data.unprotectNameFromUser'));
+        unprotectNameSuccess(
+          _.get(unprotectedName, 'data.unprotectNameFromUser'),
+        );
       } catch (error) {
-        showErrorNotification(error.graphQLErrors ? error.graphQLErrors[0].message : 'Oops, something went wrong...');
+        showErrorNotification(
+          error.graphQLErrors
+            ? error.graphQLErrors[0].message
+            : 'Oops, something went wrong...',
+        );
       }
-    }
+    },
   }),
   options: props => ({
     refetchQueries: [
       {
         query: GetUserNamesCount,
         variables: {
-          id: props.userId
-        }
-      }
-    ]
-  })
+          id: props.userId,
+        },
+      },
+    ],
+  }),
 })(SelectedClientActions);
 
 const mapStateToProps = state => ({ userId: state.profile.id });
@@ -58,7 +73,9 @@ const mapStateToProps = state => ({ userId: state.profile.id });
 const mapDispatchToProps = dispatch => ({
   performingNameAction: message => dispatch(performingNameAction(message)),
   showErrorNotification: message => dispatch(showNotification(message, red500)),
-  unprotectNameSuccess: name => dispatch(selectName(name, 'unprotected'))
+  unprotectNameSuccess: name => dispatch(selectName(name, 'unprotected')),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SelectedClientActionsWithMutations);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  SelectedClientActionsWithMutations,
+);

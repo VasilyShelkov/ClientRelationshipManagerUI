@@ -6,7 +6,11 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { lightGreen300 } from 'material-ui/styles/colors';
 import { ShowCompany } from './ShowCompany';
 
-const setup = ({ onEditCompany = () => '', editSuccessCompanyNotification = '', isAdmin = false }) => {
+const setup = ({
+  onEditCompany = () => '',
+  editSuccessCompanyNotification = '',
+  isAdmin = false,
+}) => {
   const props = {
     name: 'testName',
     address: '123 test address',
@@ -14,7 +18,7 @@ const setup = ({ onEditCompany = () => '', editSuccessCompanyNotification = '', 
     updatedAt: moment(),
     isAdmin,
     onEditCompany,
-    editSuccessCompanyNotification
+    editSuccessCompanyNotification,
   };
   const wrapper = shallowWithContext(<ShowCompany {...props} />);
 
@@ -29,12 +33,22 @@ describe('src/profile/ShowCompany', () => {
 
   it('renders the address', () => {
     const { wrapper, props } = setup({});
-    expect(wrapper.find(ListItem).at(0).prop('primaryText')).to.equal(props.address);
+    expect(
+      wrapper
+        .find(ListItem)
+        .at(0)
+        .prop('primaryText'),
+    ).to.equal(props.address);
   });
 
   it('renders the phone number', () => {
     const { wrapper, props } = setup({});
-    expect(wrapper.find(ListItem).at(1).prop('primaryText')).to.equal(props.phone);
+    expect(
+      wrapper
+        .find(ListItem)
+        .at(1)
+        .prop('primaryText'),
+    ).to.equal(props.phone);
   });
 
   it('renders the last updated at time', () => {
@@ -42,7 +56,12 @@ describe('src/profile/ShowCompany', () => {
 
     const lastUpdatedChip = wrapper.find(Chip);
 
-    expect(lastUpdatedChip.children().last().text()).to.equal('a few seconds ago');
+    expect(
+      lastUpdatedChip
+        .children()
+        .last()
+        .text(),
+    ).to.equal('a few seconds ago');
   });
 
   it('does not render the successfully edited notification when the company was not successfully edited', () => {
@@ -61,7 +80,12 @@ describe('src/profile/ShowCompany', () => {
     const successNotification = notificationChips.at(0);
 
     expect(notificationChips).length.to.be(2);
-    expect(successNotification.children().last().text()).to.equal(editSuccessCompanyNotification);
+    expect(
+      successNotification
+        .children()
+        .last()
+        .text(),
+    ).to.equal(editSuccessCompanyNotification);
   });
 
   it('does not render the edit company button when not an admin', () => {
@@ -78,12 +102,17 @@ describe('src/profile/ShowCompany', () => {
     'calls onEditCompany when the button is clicked on by admin',
     sinon.test(function() {
       const onEditCompanySpy = this.spy();
-      const { wrapper } = setup({ onEditCompany: onEditCompanySpy, isAdmin: true });
+      const { wrapper } = setup({
+        onEditCompany: onEditCompanySpy,
+        isAdmin: true,
+      });
 
-      const renderedEditButtonClick = wrapper.find(RaisedButton).prop('onClick');
+      const renderedEditButtonClick = wrapper
+        .find(RaisedButton)
+        .prop('onClick');
       renderedEditButtonClick();
 
       expect(onEditCompanySpy).to.have.been.called;
-    })
+    }),
   );
 });

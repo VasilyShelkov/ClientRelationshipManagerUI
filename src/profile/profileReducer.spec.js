@@ -1,6 +1,15 @@
-import accountReducer, { initialState, EDIT_IN_PROGRESS } from './profileReducer';
-import { logInSuccess, LOGGED_IN_SUCCESSFULLY } from '../authentication/accountActions';
-import { APOLLO_MUTATION_INIT, APOLLO_MUTATION_RESULT } from '../app/thirdPartyActions';
+import accountReducer, {
+  initialState,
+  EDIT_IN_PROGRESS,
+} from './profileReducer';
+import {
+  logInSuccess,
+  LOGGED_IN_SUCCESSFULLY,
+} from '../authentication/accountActions';
+import {
+  APOLLO_MUTATION_INIT,
+  APOLLO_MUTATION_RESULT,
+} from '../app/thirdPartyActions';
 import {
   editProfile,
   EDIT_PROFILE,
@@ -17,7 +26,7 @@ import {
   removeProfileNotification,
   REMOVE_PROFILE_NOTIFICATION,
   changeShownUserProfile,
-  CHANGE_SHOWN_USER_PROFILE
+  CHANGE_SHOWN_USER_PROFILE,
 } from './profileActions';
 
 describe('src/profile/profileReducer.js', () => {
@@ -28,15 +37,15 @@ describe('src/profile/profileReducer.js', () => {
       const action = changeShownUserProfile({
         currentUserId: newUserId,
         userIdToShow: newUserId,
-        isNewUser: false
+        isNewUser: false,
       });
 
       expect(accountReducer(stateBefore, action)).to.deep.equal({
         ...initialState,
         id: newUserId,
         display: {
-          company: true
-        }
+          company: true,
+        },
       });
     });
 
@@ -46,15 +55,15 @@ describe('src/profile/profileReducer.js', () => {
       const action = changeShownUserProfile({
         currentUserId: '3',
         userIdToShow: newUserId,
-        isNewUser: false
+        isNewUser: false,
       });
 
       expect(accountReducer(stateBefore, action)).to.deep.equal({
         ...initialState,
         id: newUserId,
         display: {
-          company: false
-        }
+          company: false,
+        },
       });
     });
 
@@ -64,19 +73,19 @@ describe('src/profile/profileReducer.js', () => {
       const action = changeShownUserProfile({
         currentUserId: newUserId,
         userIdToShow: newUserId,
-        isNewUser: true
+        isNewUser: true,
       });
 
       expect(accountReducer(stateBefore, action)).to.deep.equal({
         ...initialState,
         id: newUserId,
         display: {
-          company: true
+          company: true,
         },
         notification: {
           ...initialState.notification,
-          newUser: 'Successfully created new user'
-        }
+          newUser: 'Successfully created new user',
+        },
       });
     });
   });
@@ -88,7 +97,7 @@ describe('src/profile/profileReducer.js', () => {
 
     expect(accountReducer(stateBefore, action)).to.deep.equal({
       ...stateBefore,
-      id: user.id
+      id: user.id,
     });
   });
 
@@ -100,8 +109,8 @@ describe('src/profile/profileReducer.js', () => {
       ...stateBefore,
       editing: {
         ...stateBefore.editing,
-        profile: true
-      }
+        profile: true,
+      },
     });
   });
 
@@ -113,8 +122,8 @@ describe('src/profile/profileReducer.js', () => {
       ...stateBefore,
       editing: {
         ...stateBefore.editing,
-        profile: false
-      }
+        profile: false,
+      },
     });
   });
 
@@ -126,8 +135,8 @@ describe('src/profile/profileReducer.js', () => {
       ...stateBefore,
       editing: {
         ...stateBefore.editing,
-        password: true
-      }
+        password: true,
+      },
     });
   });
 
@@ -139,8 +148,8 @@ describe('src/profile/profileReducer.js', () => {
       ...stateBefore,
       editing: {
         ...stateBefore.editing,
-        password: false
-      }
+        password: false,
+      },
     });
   });
 
@@ -152,8 +161,8 @@ describe('src/profile/profileReducer.js', () => {
       ...stateBefore,
       editing: {
         ...stateBefore.editing,
-        company: true
-      }
+        company: true,
+      },
     });
   });
 
@@ -165,8 +174,8 @@ describe('src/profile/profileReducer.js', () => {
       ...stateBefore,
       editing: {
         ...stateBefore.editing,
-        company: false
-      }
+        company: false,
+      },
     });
   });
 
@@ -175,8 +184,8 @@ describe('src/profile/profileReducer.js', () => {
       ...initialState,
       notification: {
         company: 'test notification',
-        profile: ''
-      }
+        profile: '',
+      },
     };
     const action = removeProfileNotification();
 
@@ -186,31 +195,43 @@ describe('src/profile/profileReducer.js', () => {
   describe(APOLLO_MUTATION_INIT, () => {
     it('EditUserDetails', () => {
       const stateBefore = initialState;
-      const action = { type: APOLLO_MUTATION_INIT, operationName: 'EditUserDetails', result: { data: {} } };
+      const action = {
+        type: APOLLO_MUTATION_INIT,
+        operationName: 'EditUserDetails',
+        result: { data: {} },
+      };
 
       expect(accountReducer(stateBefore, action)).to.deep.equal({
         ...stateBefore,
-        editing: { ...stateBefore.editing, profile: EDIT_IN_PROGRESS }
+        editing: { ...stateBefore.editing, profile: EDIT_IN_PROGRESS },
       });
     });
 
     it('EditUserPassword', () => {
       const stateBefore = initialState;
-      const action = { type: APOLLO_MUTATION_INIT, operationName: 'EditUserPassword', result: { data: {} } };
+      const action = {
+        type: APOLLO_MUTATION_INIT,
+        operationName: 'EditUserPassword',
+        result: { data: {} },
+      };
 
       expect(accountReducer(stateBefore, action)).to.deep.equal({
         ...stateBefore,
-        editing: { ...stateBefore.editing, password: EDIT_IN_PROGRESS }
+        editing: { ...stateBefore.editing, password: EDIT_IN_PROGRESS },
       });
     });
 
     it('EditCompanyDetails', () => {
       const stateBefore = initialState;
-      const action = { type: APOLLO_MUTATION_INIT, operationName: 'EditCompanyDetails', result: { data: {} } };
+      const action = {
+        type: APOLLO_MUTATION_INIT,
+        operationName: 'EditCompanyDetails',
+        result: { data: {} },
+      };
 
       expect(accountReducer(stateBefore, action)).to.deep.equal({
         ...stateBefore,
-        editing: { ...stateBefore.editing, company: EDIT_IN_PROGRESS }
+        editing: { ...stateBefore.editing, company: EDIT_IN_PROGRESS },
       });
     });
   });
@@ -218,34 +239,46 @@ describe('src/profile/profileReducer.js', () => {
   describe(APOLLO_MUTATION_RESULT, () => {
     it('EditUserDetails', () => {
       const stateBefore = initialState;
-      const action = { type: APOLLO_MUTATION_RESULT, operationName: 'EditUserDetails', result: { data: {} } };
+      const action = {
+        type: APOLLO_MUTATION_RESULT,
+        operationName: 'EditUserDetails',
+        result: { data: {} },
+      };
 
       expect(accountReducer(stateBefore, action)).to.deep.equal({
         ...stateBefore,
         editing: { ...stateBefore.editing, profile: false },
-        notification: { profile: 'Successfully updated', company: '' }
+        notification: { profile: 'Successfully updated', company: '' },
       });
     });
 
     it('EditUserPassword', () => {
       const stateBefore = initialState;
-      const action = { type: APOLLO_MUTATION_RESULT, operationName: 'EditUserPassword', result: { data: {} } };
+      const action = {
+        type: APOLLO_MUTATION_RESULT,
+        operationName: 'EditUserPassword',
+        result: { data: {} },
+      };
 
       expect(accountReducer(stateBefore, action)).to.deep.equal({
         ...stateBefore,
         editing: { ...stateBefore.editing, password: false },
-        notification: { profile: 'Successfully updated password', company: '' }
+        notification: { profile: 'Successfully updated password', company: '' },
       });
     });
 
     it('EditCompanyDetails', () => {
       const stateBefore = initialState;
-      const action = { type: APOLLO_MUTATION_RESULT, operationName: 'EditCompanyDetails', result: { data: {} } };
+      const action = {
+        type: APOLLO_MUTATION_RESULT,
+        operationName: 'EditCompanyDetails',
+        result: { data: {} },
+      };
 
       expect(accountReducer(stateBefore, action)).to.deep.equal({
         ...stateBefore,
         editing: { ...stateBefore.editing, company: false },
-        notification: { profile: '', company: 'Successfully updated' }
+        notification: { profile: '', company: 'Successfully updated' },
       });
     });
   });

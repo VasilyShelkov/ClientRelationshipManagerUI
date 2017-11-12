@@ -27,9 +27,9 @@ xdescribe('src/names/NamesList.js', () => {
           company: {
             name: 'first company',
             address: '321 company address',
-            phone: '02081234567'
-          }
-        }
+            phone: '02081234567',
+          },
+        },
       },
       {
         created_at: 'today',
@@ -40,10 +40,10 @@ xdescribe('src/names/NamesList.js', () => {
           company: {
             name: 'second company',
             address: '123 company address',
-            phone: '02087654321'
-          }
-        }
-      }
+            phone: '02087654321',
+          },
+        },
+      },
     ];
     const wrapper = setup(names);
     expect(wrapper.find(Name)).length.to.be(names.length);

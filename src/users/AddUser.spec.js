@@ -8,7 +8,7 @@ const setup = ({ creatingUser = false, queryLoading = false }) => {
     creatingUser,
     queryLoading,
     handleSubmit: () => '',
-    error: ''
+    error: '',
   };
   const wrapper = shallowWithContext(<AddUser {...props} />);
 

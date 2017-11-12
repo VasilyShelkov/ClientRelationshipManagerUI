@@ -16,40 +16,46 @@ const RemoveUnprotectedNameButtonWithData = graphql(RemoveUnprotectedName, {
     removeNameAction: async () => {
       const { name, userId, unprotectedId } = ownProps;
       try {
-        ownProps.performingNameAction(`Removing ${name.firstName} ${name.lastName}`);
+        ownProps.performingNameAction(
+          `Removing ${name.firstName} ${name.lastName}`,
+        );
         await mutate({
           variables: {
             userId,
-            unprotectedId
-          }
+            unprotectedId,
+          },
         });
       } catch (error) {
         ownProps.showErrorNotification(
-          error.graphQLErrors ? error.graphQLErrors[0].message : 'Oops, something went wrong...'
+          error.graphQLErrors
+            ? error.graphQLErrors[0].message
+            : 'Oops, something went wrong...',
         );
       }
-    }
+    },
   }),
   options: props => ({
     refetchQueries: [
       {
         query: GetUserNamesCount,
         variables: {
-          id: props.userId
-        }
-      }
-    ]
-  })
+          id: props.userId,
+        },
+      },
+    ],
+  }),
 })(DeleteButton);
 
 const mapStateToProps = state => ({
   userId: state.profile.id,
-  unprotectedId: state.selectedName.nameTypeId
+  unprotectedId: state.selectedName.nameTypeId,
 });
 
 const mapDispatchToProps = dispatch => ({
   performingNameAction: message => dispatch(performingNameAction(message)),
-  showErrorNotification: message => dispatch(showNotification(message, red500))
+  showErrorNotification: message => dispatch(showNotification(message, red500)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RemoveUnprotectedNameButtonWithData);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  RemoveUnprotectedNameButtonWithData,
+);

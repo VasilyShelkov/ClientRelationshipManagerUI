@@ -10,17 +10,19 @@ const SelectedNameWithDetails = graphql(GetNameComments, {
   props: ({ ownProps, data: { loading, name } }) => ({
     loading,
     name,
-    ...ownProps
-  })
+    ...ownProps,
+  }),
 })(SelectedName);
 
 const mapStateToProps = state => ({
   userId: state.profile.id,
-  id: state.selectedName.nameId
+  id: state.selectedName.nameId,
 });
 
 const mapDispatchToProps = dispatch => ({
-  closeNameDetails: nameListType => dispatch(hideName(nameListType))
+  closeNameDetails: nameListType => dispatch(hideName(nameListType)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SelectedNameWithDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  SelectedNameWithDetails,
+);

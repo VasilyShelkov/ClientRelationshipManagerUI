@@ -13,40 +13,52 @@ const SelectedClientWithMutations = graphql(RemoveClient, {
   props: ({ ownProps, mutate }) => ({
     ...ownProps,
     removeNameAction: async () => {
-      const { name, userId, clientId, performingNameAction, showErrorNotification } = ownProps;
+      const {
+        name,
+        userId,
+        clientId,
+        performingNameAction,
+        showErrorNotification,
+      } = ownProps;
       try {
         performingNameAction(`Removing ${name.firstName} ${name.lastName}`);
         await mutate({
           variables: {
             userId,
-            clientId
-          }
+            clientId,
+          },
         });
       } catch (error) {
-        showErrorNotification(error.graphQLErrors ? error.graphQLErrors[0].message : 'Oops, something went wrong...');
+        showErrorNotification(
+          error.graphQLErrors
+            ? error.graphQLErrors[0].message
+            : 'Oops, something went wrong...',
+        );
       }
-    }
+    },
   }),
   options: props => ({
     refetchQueries: [
       {
         query: GetUserNamesCount,
         variables: {
-          id: props.userId
-        }
-      }
-    ]
-  })
+          id: props.userId,
+        },
+      },
+    ],
+  }),
 })(DeleteButton);
 
 const mapStateToProps = state => ({
   userId: state.profile.id,
-  clientId: state.selectedName.nameTypeId
+  clientId: state.selectedName.nameTypeId,
 });
 
 const mapDispatchToProps = dispatch => ({
   performingNameAction: message => dispatch(performingNameAction(message)),
-  showErrorNotification: message => dispatch(showNotification(message, red500))
+  showErrorNotification: message => dispatch(showNotification(message, red500)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SelectedClientWithMutations);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  SelectedClientWithMutations,
+);

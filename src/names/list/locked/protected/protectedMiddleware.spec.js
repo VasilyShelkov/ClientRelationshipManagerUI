@@ -8,13 +8,13 @@ describe('src/names/list/locked/protected', () => {
       const next = this.spy();
       const store = {};
       const action = {
-        type: 'GENERIC_ACTION'
+        type: 'GENERIC_ACTION',
       };
 
       protectedMiddleware(store)(next)(action);
 
       expect(next).to.have.been.calledWith(action);
-    })
+    }),
   );
 
   it(
@@ -24,13 +24,16 @@ describe('src/names/list/locked/protected', () => {
       const store = { dispatch };
       const action = {
         type: '@@router/LOCATION_CHANGE',
-        payload: { pathname: '/metWithProtected' }
+        payload: { pathname: '/metWithProtected' },
       };
 
       protectedMiddleware(store)(() => {})(action);
 
-      expect(dispatch).to.have.been.calledWith({ type: CHANGE_SHOWN_PROTECTED_LIST, listToShow: 'metWithProtected' });
-    })
+      expect(dispatch).to.have.been.calledWith({
+        type: CHANGE_SHOWN_PROTECTED_LIST,
+        listToShow: 'metWithProtected',
+      });
+    }),
   );
 
   it(
@@ -40,13 +43,13 @@ describe('src/names/list/locked/protected', () => {
       const store = { dispatch };
       const action = {
         type: '@@router/LOCATION_CHANGE',
-        payload: { pathname: '/unknownUrl' }
+        payload: { pathname: '/unknownUrl' },
       };
 
       protectedMiddleware(store)(() => {})(action);
 
       expect(dispatch).to.not.have.been.called;
-    })
+    }),
   );
 
   it(
@@ -56,13 +59,13 @@ describe('src/names/list/locked/protected', () => {
       const store = { dispatch };
       const action = {
         type: 'RANDOM_ACTION',
-        payload: { pathname: '/metWithProtected' }
+        payload: { pathname: '/metWithProtected' },
       };
 
       protectedMiddleware(store)(() => {})(action);
 
       expect(dispatch).to.not.have.been.called;
-    })
+    }),
   );
 
   it(
@@ -72,12 +75,12 @@ describe('src/names/list/locked/protected', () => {
       const store = { dispatch };
       const action = {
         type: 'RANDOM_ACTION',
-        payload: { pathname: '/unknownUrl' }
+        payload: { pathname: '/unknownUrl' },
       };
 
       protectedMiddleware(store)(() => {})(action);
 
       expect(dispatch).to.not.have.been.called;
-    })
+    }),
   );
 });

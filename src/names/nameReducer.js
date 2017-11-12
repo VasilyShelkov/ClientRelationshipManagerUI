@@ -1,18 +1,21 @@
 import { actionTypes } from 'redux-form';
-import { APOLLO_MUTATION_INIT, APOLLO_MUTATION_RESULT } from '../app/thirdPartyActions';
+import {
+  APOLLO_MUTATION_INIT,
+  APOLLO_MUTATION_RESULT,
+} from '../app/thirdPartyActions';
 import { SHOW_NOTIFICATION } from '../app/appActions';
 import {
   OPEN_EDIT_PROTECTED_NAME_MEETING_DIALOG,
   CLOSE_EDIT_PROTECTED_NAME_MEETING_DIALOG,
   OPEN_EDIT_PROTECTED_NAME_CALL_DIALOG,
   CLOSE_EDIT_PROTECTED_NAME_CALL_DIALOG,
-  PERFORMING_NAME_ACTION
+  PERFORMING_NAME_ACTION,
 } from './nameActions';
 
 const initialState = {
   editProtectedNameMeetingDialogOpen: false,
   editProtectedNameCallDialogOpen: false,
-  actionInProgress: false
+  actionInProgress: false,
 };
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -20,61 +23,67 @@ export default (state = initialState, action) => {
     case SHOW_NOTIFICATION:
       return {
         ...state,
-        actionInProgress: initialState.actionInProgress
+        actionInProgress: initialState.actionInProgress,
       };
     case OPEN_EDIT_PROTECTED_NAME_MEETING_DIALOG:
       return {
         ...state,
-        editProtectedNameMeetingDialogOpen: action.nameId
+        editProtectedNameMeetingDialogOpen: action.nameId,
       };
     case OPEN_EDIT_PROTECTED_NAME_CALL_DIALOG:
       return {
         ...state,
-        editProtectedNameCallDialogOpen: action.nameId
+        editProtectedNameCallDialogOpen: action.nameId,
       };
     case CLOSE_EDIT_PROTECTED_NAME_MEETING_DIALOG:
       return {
         ...state,
-        editProtectedNameMeetingDialogOpen: false
+        editProtectedNameMeetingDialogOpen: false,
       };
     case CLOSE_EDIT_PROTECTED_NAME_CALL_DIALOG:
       return {
         ...state,
-        editProtectedNameCallDialogOpen: false
+        editProtectedNameCallDialogOpen: false,
       };
     case PERFORMING_NAME_ACTION:
       return {
         ...state,
-        actionInProgress: action.payload.message
+        actionInProgress: action.payload.message,
       };
     case APOLLO_MUTATION_INIT: {
       switch (action.operationName) {
         case 'CreateUnprotectedName':
           return {
             ...state,
-            actionInProgress: `Creating ${action.variables.firstName} ${action.variables.lastName} for you...`
+            actionInProgress: `Creating ${action.variables.firstName} ${
+              action.variables.lastName
+            } for you...`,
           };
         case 'EditName':
           return {
             ...state,
-            actionInProgress: `Editing ${action.variables.firstName} ${action.variables.lastName} for you...`
+            actionInProgress: `Editing ${action.variables.firstName} ${
+              action.variables.lastName
+            } for you...`,
           };
         case 'EditCompany':
           return {
             ...state,
-            actionInProgress: `Editing ${action.variables.name} for you...`
+            actionInProgress: `Editing ${action.variables.name} for you...`,
           };
         case 'BookCall':
         case 'BookClientCall':
           return {
             ...state,
-            editProtectedNameCallDialogOpen: initialState.editProtectedNameCallDialogOpen
+            editProtectedNameCallDialogOpen:
+              initialState.editProtectedNameCallDialogOpen,
           };
         case 'BookMeeting':
         case 'BookClientMeeting':
           return {
             ...state,
-            editProtectedNameMeetingDialogOpen: initialState.editProtectedNameMeetingDialogOpen
+            editProtectedNameMeetingDialogOpen:
+              initialState.editProtectedNameMeetingDialogOpen,
           };
         default:
           return state;
@@ -98,7 +107,7 @@ export default (state = initialState, action) => {
         case 'MetWithProtected':
           return {
             ...state,
-            actionInProgress: initialState.actionInProgress
+            actionInProgress: initialState.actionInProgress,
           };
         default:
           return state;

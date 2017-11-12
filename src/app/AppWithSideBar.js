@@ -11,36 +11,48 @@ import { closeNotification } from './appActions';
 
 const mapStateToProps = state => ({
   showNotification: state.app.notificationMessage,
-  notificationColor: state.app.notificationColor
+  notificationColor: state.app.notificationColor,
 });
 
 const mapDispatchToProps = dispatch => ({
-  closeNotificationMessage: () => dispatch(closeNotification())
+  closeNotificationMessage: () => dispatch(closeNotification()),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(({ match, showNotification, notificationColor, closeNotificationMessage }) => (
-  <div>
-    <Switch>
-      <Route exact path={`${match.path}/(users)?/:userName?/profile`} component={ProfileWithData} />
-      <Route exact path={`${match.path}/users/add`} component={AddUserFormWithData} />
-      <Route path={`${match.path}/names`} component={NameTypeList} />
-    </Switch>
+export default connect(mapStateToProps, mapDispatchToProps)(
+  ({
+    match,
+    showNotification,
+    notificationColor,
+    closeNotificationMessage,
+  }) => (
+    <div>
+      <Switch>
+        <Route
+          exact
+          path={`${match.path}/(users)?/:userName?/profile`}
+          component={ProfileWithData}
+        />
+        <Route
+          exact
+          path={`${match.path}/users/add`}
+          component={AddUserFormWithData}
+        />
+        <Route path={`${match.path}/names`} component={NameTypeList} />
+      </Switch>
 
-    <ReduxSweetAlert />
-    <Snackbar
-      id="appNotification"
-      open={showNotification}
-      message={showNotification}
-      autoHideDuration={5000}
-      onRequestClose={closeNotificationMessage}
-      contentStyle={{
-        color: notificationColor,
-        display: 'flex',
-        justifyContent: 'center'
-      }}
-    />
-  </div>
-));
+      <ReduxSweetAlert />
+      <Snackbar
+        id="appNotification"
+        open={showNotification}
+        message={showNotification}
+        autoHideDuration={5000}
+        onRequestClose={closeNotificationMessage}
+        contentStyle={{
+          color: notificationColor,
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      />
+    </div>
+  ),
+);

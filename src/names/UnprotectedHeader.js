@@ -14,7 +14,12 @@ export default ({ match, unprotectedCount }) => (
   <Switch>
     <Route
       path={`${match.path}/add`}
-      render={() => <NameListHeader title="Create Unprotected Name" Icon={UnprotectedIcon} />}
+      render={() => (
+        <NameListHeader
+          title="Create Unprotected Name"
+          Icon={UnprotectedIcon}
+        />
+      )}
     />
     <Route
       render={() => (

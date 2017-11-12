@@ -10,7 +10,12 @@ import LogoutIcon from 'material-ui/svg-icons/maps/directions-run';
 
 import { toggleSideBar, logOut } from '../../authentication/accountActions';
 
-export const NavBar = ({ loggedIn, width, handleTouchTapLeftIconButton, handleLogOut }) => (
+export const NavBar = ({
+  loggedIn,
+  width,
+  handleTouchTapLeftIconButton,
+  handleLogOut,
+}) => (
   <AppBar
     title={width === LARGE ? '' : 'Client Relationship Manager'}
     className="NavBar"
@@ -20,9 +25,18 @@ export const NavBar = ({ loggedIn, width, handleTouchTapLeftIconButton, handleLo
     style={{ position: 'fixed', top: 0 }}
     iconElementRight={
       loggedIn ? (
-        <FlatButton label="Logout" onClick={handleLogOut} icon={<LogoutIcon />} secondary />
+        <FlatButton
+          label="Logout"
+          onClick={handleLogOut}
+          icon={<LogoutIcon />}
+          secondary
+        />
       ) : (
-        <FlatButton label="Login" containerElement={<Link to="/login" />} primary />
+        <FlatButton
+          label="Login"
+          containerElement={<Link to="/login" />}
+          primary
+        />
       )
     }
   />
@@ -31,7 +45,7 @@ export const NavBar = ({ loggedIn, width, handleTouchTapLeftIconButton, handleLo
 const NavBarWithDeviceWidth = withWidth()(NavBar);
 
 const mapStateToProps = state => ({
-  loggedIn: state.account.token
+  loggedIn: state.account.token,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -39,7 +53,9 @@ const mapDispatchToProps = dispatch => ({
   handleLogOut: () => {
     dispatch(push('/'));
     dispatch(logOut());
-  }
+  },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavBarWithDeviceWidth);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  NavBarWithDeviceWidth,
+);

@@ -22,7 +22,9 @@ import Root from './Root';
 
 injectTapEventPlugin();
 
-const storage = compose(filter(['account.token', 'account.id', 'account.accountType']))(adapter(window.sessionStorage));
+const storage = compose(
+  filter(['account.token', 'account.id', 'account.accountType']),
+)(adapter(window.sessionStorage));
 
 const store = browserHistory =>
   createStore(
@@ -36,9 +38,9 @@ const store = browserHistory =>
         authenticationMiddleware,
         protectedMiddleware,
         selectedMiddleware,
-        notificationMiddleware
-      )
-    )
+        notificationMiddleware,
+      ),
+    ),
   );
 
 const render = Component => {
@@ -46,7 +48,7 @@ const render = Component => {
     <Hot>
       <Component store={store} client={client} />
     </Hot>,
-    document.querySelector('react')
+    document.querySelector('react'),
   );
 };
 

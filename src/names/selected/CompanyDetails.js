@@ -18,33 +18,53 @@ export const CompanyDetails = ({
   showingEditCompanyForm,
   isProtected,
   showEditCompanyForm,
-  hideEditCompanyForm
+  hideEditCompanyForm,
 }) =>
-  showingEditCompanyForm
-    ? <div>
-        <Subheader>Editing Company</Subheader>
-        <EditNameCompanyForm userId={userId} initialValues={company} cancelEditNameCompany={hideEditCompanyForm} />
-      </div>
-    : <div>
-        <Subheader style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          Company
-          <IconButton>
-            <EditIcon id="editCompany" onClick={showEditCompanyForm} color={cyan500} />
-          </IconButton>
-        </Subheader>
-        <ListItem primaryText={company.name} disabled />
-        <ListItem primaryText={company.phone} leftIcon={<PhoneIcon />} disabled />
-        <ListItem primaryText={company.address} leftIcon={<LocationIcon />} disabled />
-      </div>;
+  showingEditCompanyForm ? (
+    <div>
+      <Subheader>Editing Company</Subheader>
+      <EditNameCompanyForm
+        userId={userId}
+        initialValues={company}
+        cancelEditNameCompany={hideEditCompanyForm}
+      />
+    </div>
+  ) : (
+    <div>
+      <Subheader
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        Company
+        <IconButton>
+          <EditIcon
+            id="editCompany"
+            onClick={showEditCompanyForm}
+            color={cyan500}
+          />
+        </IconButton>
+      </Subheader>
+      <ListItem primaryText={company.name} disabled />
+      <ListItem primaryText={company.phone} leftIcon={<PhoneIcon />} disabled />
+      <ListItem
+        primaryText={company.address}
+        leftIcon={<LocationIcon />}
+        disabled
+      />
+    </div>
+  );
 
 const mapStateToProps = state => ({
   userId: state.account.id,
-  showingEditCompanyForm: state.selectedName.showingEditNameCompanyForm
+  showingEditCompanyForm: state.selectedName.showingEditNameCompanyForm,
 });
 
 const mapDispatchToProps = dispatch => ({
   showEditCompanyForm: () => dispatch(showEditNameCompany()),
-  hideEditCompanyForm: () => dispatch(hideEditNameCompany())
+  hideEditCompanyForm: () => dispatch(hideEditNameCompany()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CompanyDetails);

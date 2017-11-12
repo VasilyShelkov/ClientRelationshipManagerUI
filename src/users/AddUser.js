@@ -10,104 +10,123 @@ import StandardForm from '../shared/StandardForm';
 import { required, emailFormat, minLength } from '../shared/FormElements';
 import LoadingSpinner from '../shared/LoadingSpinner';
 
-export default ({ creatingUser, currentProtectedNamesLimit, queryLoading, handleSubmit, error }) => (
+export default ({
+  creatingUser,
+  currentProtectedNamesLimit,
+  queryLoading,
+  handleSubmit,
+  error,
+}) => (
   <div>
-    {queryLoading
-      ? <LoadingSpinner />
-      : <Paper style={{ marginTop: '20px' }}>
-          <div style={{ textAlign: 'center' }}>
-            <PersonAddIcon style={{ height: '100px', width: '100px' }} color={cyan500} />
-            <h2>Add a new member to the team...</h2>
-          </div>
-          <StandardForm
-            editingInProgress={creatingUser}
-            fields={[
-              <div className="col-12">
-                <Field
-                  key="newProfile__firstName"
-                  name="firstName"
-                  component={TextField}
-                  floatingLabelText="First Name"
-                  validate={required}
-                  fullWidth
-                />
-              </div>,
-              <div className="col-12">
-                <Field
-                  key="newProfile__lastName"
-                  name="lastName"
-                  component={TextField}
-                  floatingLabelText="Last Name"
-                  validate={required}
-                  fullWidth
-                />
-              </div>,
-              <div className="col-12">
-                <Field
-                  key="newProfile__email"
-                  name="email"
-                  component={TextField}
-                  floatingLabelText="Email"
-                  validate={[required, emailFormat]}
-                  fullWidth
-                />
-              </div>,
-              <div className="col-12">
-                <Field
-                  key="newProfile__phone"
-                  name="phone"
-                  component={TextField}
-                  floatingLabelText="Phone"
-                  validate={required}
-                  fullWidth
-                />
-              </div>,
-              <div className="col-12" style={{ marginTop: '10px', textAlign: 'center' }}>
-                <div>Protected Names Limit</div>
-                <div>{currentProtectedNamesLimit}</div>
-                <div>
-                  <Field
-                    key="profile__protectedNamesLimit"
-                    name="protectedNamesLimit"
-                    sliderStyle={{ marginBottom: '0px' }}
-                    component={Slider}
-                    defaultValue={150}
-                    format={null}
-                    min={0}
-                    max={1000}
-                    step={1}
-                  />
-                </div>
-              </div>,
-              <div className="col-12">
-                <Field
-                  key="newProfile__password"
-                  name="password"
-                  type="password"
-                  component={TextField}
-                  floatingLabelText="New Password"
-                  validate={[required, minLength]}
-                  fullWidth
-                />
-              </div>,
-              <div className="col-12">
-                <Field
-                  key="newProfile__confirmPassword"
-                  name="confirmPassword"
-                  type="password"
-                  component={TextField}
-                  floatingLabelText="Confirm New Password"
-                  validate={[required, minLength]}
-                  fullWidth
-                />
-              </div>,
-              <div className="col-12" style={{ margin: '20px 0px' }}>
-                <Field key="newProfile__accountType" name="accountType" component={Checkbox} label="Administrator" />
-              </div>
-            ]}
-            error={error}
-            handleSubmit={handleSubmit}
+    {queryLoading ? (
+      <LoadingSpinner />
+    ) : (
+      <Paper style={{ marginTop: '20px' }}>
+        <div style={{ textAlign: 'center' }}>
+          <PersonAddIcon
+            style={{ height: '100px', width: '100px' }}
+            color={cyan500}
           />
-        </Paper>}
+          <h2>Add a new member to the team...</h2>
+        </div>
+        <StandardForm
+          editingInProgress={creatingUser}
+          fields={[
+            <div className="col-12">
+              <Field
+                key="newProfile__firstName"
+                name="firstName"
+                component={TextField}
+                floatingLabelText="First Name"
+                validate={required}
+                fullWidth
+              />
+            </div>,
+            <div className="col-12">
+              <Field
+                key="newProfile__lastName"
+                name="lastName"
+                component={TextField}
+                floatingLabelText="Last Name"
+                validate={required}
+                fullWidth
+              />
+            </div>,
+            <div className="col-12">
+              <Field
+                key="newProfile__email"
+                name="email"
+                component={TextField}
+                floatingLabelText="Email"
+                validate={[required, emailFormat]}
+                fullWidth
+              />
+            </div>,
+            <div className="col-12">
+              <Field
+                key="newProfile__phone"
+                name="phone"
+                component={TextField}
+                floatingLabelText="Phone"
+                validate={required}
+                fullWidth
+              />
+            </div>,
+            <div
+              className="col-12"
+              style={{ marginTop: '10px', textAlign: 'center' }}
+            >
+              <div>Protected Names Limit</div>
+              <div>{currentProtectedNamesLimit}</div>
+              <div>
+                <Field
+                  key="profile__protectedNamesLimit"
+                  name="protectedNamesLimit"
+                  sliderStyle={{ marginBottom: '0px' }}
+                  component={Slider}
+                  defaultValue={150}
+                  format={null}
+                  min={0}
+                  max={1000}
+                  step={1}
+                />
+              </div>
+            </div>,
+            <div className="col-12">
+              <Field
+                key="newProfile__password"
+                name="password"
+                type="password"
+                component={TextField}
+                floatingLabelText="New Password"
+                validate={[required, minLength]}
+                fullWidth
+              />
+            </div>,
+            <div className="col-12">
+              <Field
+                key="newProfile__confirmPassword"
+                name="confirmPassword"
+                type="password"
+                component={TextField}
+                floatingLabelText="Confirm New Password"
+                validate={[required, minLength]}
+                fullWidth
+              />
+            </div>,
+            <div className="col-12" style={{ margin: '20px 0px' }}>
+              <Field
+                key="newProfile__accountType"
+                name="accountType"
+                component={Checkbox}
+                label="Administrator"
+              />
+            </div>,
+          ]}
+          error={error}
+          handleSubmit={handleSubmit}
+        />
+      </Paper>
+    )}
   </div>
 );

@@ -8,13 +8,13 @@ const setup = ({
   loggedIn = false,
   width = LARGE,
   handleTouchTapLeftIconButton = () => '',
-  handleLogOut = () => ''
+  handleLogOut = () => '',
 }) => {
   const props = {
     loggedIn,
     width,
     handleTouchTapLeftIconButton,
-    handleLogOut
+    handleLogOut,
   };
   const wrapper = shallowWithContext(<NavBar {...props} />);
 
@@ -25,7 +25,8 @@ describe('src/Navbar.js', () => {
   it('has a login button when the user is not logged in', () => {
     const { wrapper } = setup({});
 
-    const appBarRightIcon = wrapper.find(AppBar).prop('iconElementRight').props.containerElement.props.to;
+    const appBarRightIcon = wrapper.find(AppBar).prop('iconElementRight').props
+      .containerElement.props.to;
     expect(appBarRightIcon).to.equal('/login');
   });
 
@@ -39,7 +40,7 @@ describe('src/Navbar.js', () => {
       appBarRightIcon.props.onClick();
       expect(handleLogOut).to.have.been.called;
       expect(appBarRightIcon.props.label).to.equal('Logout');
-    })
+    }),
   );
 
   it('show icon button is not visible when the screen is large', () => {
@@ -69,7 +70,9 @@ describe('src/Navbar.js', () => {
   it('title is filled when it is a small screen', () => {
     const { wrapper } = setup({ width: 'small' });
 
-    expect(wrapper.find(AppBar).prop('title')).to.equal('Client Relationship Manager');
+    expect(wrapper.find(AppBar).prop('title')).to.equal(
+      'Client Relationship Manager',
+    );
   });
 
   it(
@@ -81,6 +84,6 @@ describe('src/Navbar.js', () => {
       const appBar = wrapper.find(AppBar);
       appBar.prop('onLeftIconButtonTouchTap')();
       expect(handleTouchTapLeftIconButton).to.have.been.called;
-    })
+    }),
   );
 });

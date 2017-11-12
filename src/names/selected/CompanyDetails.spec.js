@@ -19,16 +19,33 @@ describe('src/names/selected/CompanyDetails', () => {
         showingEditCompanyForm={showingEditCompanyForm}
         company={company}
         showEditCompanyForm={showEditCompanyForm}
-      />
+      />,
     );
 
     // id used for feature testing
     expect(wrapper.find(EditIcon).prop('id')).to.equal('editCompany');
-    expect(wrapper.find(EditIcon).prop('onClick')).to.equal(showEditCompanyForm);
+    expect(wrapper.find(EditIcon).prop('onClick')).to.equal(
+      showEditCompanyForm,
+    );
 
-    expect(wrapper.find(ListItem).first().prop('primaryText')).to.include(name);
-    expect(wrapper.find(ListItem).at(1).prop('primaryText')).to.include(phone);
-    expect(wrapper.find(ListItem).last().prop('primaryText')).to.include(address);
+    expect(
+      wrapper
+        .find(ListItem)
+        .first()
+        .prop('primaryText'),
+    ).to.include(name);
+    expect(
+      wrapper
+        .find(ListItem)
+        .at(1)
+        .prop('primaryText'),
+    ).to.include(phone);
+    expect(
+      wrapper
+        .find(ListItem)
+        .last()
+        .prop('primaryText'),
+    ).to.include(address);
   });
 
   it('renders edit name form when editing', () => {
@@ -46,13 +63,15 @@ describe('src/names/selected/CompanyDetails', () => {
         userId={userId}
         company={company}
         hideEditCompanyForm={hideEditCompanyForm}
-      />
+      />,
     );
 
     const editNameForm = wrapper.find(EditNameCompanyForm);
 
     expect(editNameForm.prop('userId')).to.equal(userId);
     expect(editNameForm.prop('initialValues')).to.deep.equal(company);
-    expect(editNameForm.prop('cancelEditNameCompany')).to.equal(hideEditCompanyForm);
+    expect(editNameForm.prop('cancelEditNameCompany')).to.equal(
+      hideEditCompanyForm,
+    );
   });
 });
