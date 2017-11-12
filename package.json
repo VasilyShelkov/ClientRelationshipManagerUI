@@ -30,7 +30,8 @@
     "test:feature:selenium-start":
       "./node_modules/.bin/selenium-standalone start",
     "lint:prettier":
-      "prettier --write --single-quote --print-width 120 'src/**/*.js'"
+      "prettier --write --single-quote --print-width 120 'src/**/*.js'",
+    "precommit": "bash checkForOnly.sh && lint-staged && npm test"
   },
   "lint-staged": {
     "*.{js}": ["eslint '{src,test/**/*.js}' --fix", "git add ."]
