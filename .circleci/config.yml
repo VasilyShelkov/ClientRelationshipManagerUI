@@ -27,10 +27,6 @@ jobs:
           command: yarn test
 
       - run:
-          name: Report Coverage
-          command: yarn run report-coverage
-
-      - run:
           name: Build against Staging
           command: yarn run build:staging
       - run:
