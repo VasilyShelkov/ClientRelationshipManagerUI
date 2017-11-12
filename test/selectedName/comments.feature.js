@@ -17,9 +17,9 @@ Scenario('Add private comment for an Unprotected name', function*(I) {
   I.waitForVisible('#appNotification');
   I.waitForElement('.Comment');
   within('#name-comments .Comment', () => {
-    I.see('Me');
-    I.see(newComment);
-    I.see('a few seconds ago');
+    I.see('Me', '.Comment__header__container__text');
+    I.see(newComment, '.Comment__content');
+    I.see('a few seconds ago', '.Comment__time');
     I.seeElement('.Comment__visibility__private');
   });
 });
@@ -46,9 +46,9 @@ Scenario('Add public comment for an Unprotected name', function*(I) {
   I.waitForVisible('#appNotification');
   I.waitForElement('.Comment');
   within('#name-comments .Comment', () => {
-    I.see('Me');
-    I.see(newComment);
-    I.see('a few seconds ago');
+    I.see('Me', '.Comment__header__container__text');
+    I.see(newComment, '.Comment__content');
+    I.see('a few seconds ago', '.Comment__time');
     I.seeElement('.Comment__visibility__public');
   });
 
@@ -72,9 +72,9 @@ Scenario('Add public comment for an Unprotected name', function*(I) {
   I.waitForVisible('#selectedName');
   I.waitForElement('#name-comments');
   within('#name-comments .Comment', () => {
-    I.see('Vasily Shelkov');
-    I.see(newComment);
-    I.see('a few seconds ago');
+    I.see('Vasily Shelkov', '.Comment__header__container__text');
+    I.see(newComment, '.Comment__content');
+    I.see('a few seconds ago', '.Comment__time');
     I.seeElement('.Comment__visibility__public');
     I.dontSeeElement('#edit-or-delete-comment');
   });
@@ -98,9 +98,9 @@ Scenario('Edit comment for an Unprotected name', function*(I) {
   I.waitForElement('.Comment');
   const editedComment = yield I.createFakeComment();
   within('#name-comments .Comment', () => {
-    I.see('Me');
-    I.see(newComment);
-    I.see('a few seconds ago');
+    I.see('Me', '.Comment__header__container__text');
+    I.see(newComment, '.Comment__content');
+    I.see('a few seconds ago', '.Comment__time');
     I.seeElement('.Comment__visibility__private');
     I.click('#edit-or-delete-comment');
   });
@@ -119,9 +119,9 @@ Scenario('Edit comment for an Unprotected name', function*(I) {
   I.waitForVisible('#appNotification');
   I.waitForElement('.Comment');
   within('#name-comments .Comment', () => {
-    I.see('Me');
-    I.see(editedComment);
-    I.see('a few seconds ago');
+    I.see('Me', '.Comment__header__container__text');
+    I.see(editedComment, '.Comment__content');
+    I.see('a few seconds ago', '.Comment__time');
     I.seeElement('.Comment__visibility__public');
   });
 
@@ -145,9 +145,9 @@ Scenario('Edit comment for an Unprotected name', function*(I) {
   I.waitForVisible('#selectedName');
   I.waitForElement('#name-comments');
   within('#name-comments .Comment', () => {
-    I.see('Vasily Shelkov');
-    I.see(editedComment);
-    I.see('a few seconds ago');
+    I.see('Vasily Shelkov', '.Comment__header__container__text');
+    I.see(editedComment, '.Comment__content');
+    I.see('a few seconds ago', '.Comment__time');
     I.seeElement('.Comment__visibility__public');
     I.dontSeeElement('#edit-or-delete-comment');
   });
@@ -170,9 +170,9 @@ Scenario('Delete comment for an Unprotected name', function*(I) {
   I.waitForVisible('#appNotification');
   I.waitForElement('.Comment');
   within('#name-comments .Comment', () => {
-    I.see('Me');
-    I.see(newComment);
-    I.see('a few seconds ago');
+    I.see('Me', '.Comment__header__container__text');
+    I.see(newComment, '.Comment__content');
+    I.see('a few seconds ago', '.Comment__time');
     I.seeElement('.Comment__visibility__private');
     I.click('#edit-or-delete-comment');
   });
@@ -203,9 +203,9 @@ Scenario('Add private comment for an Protected name', function*(I) {
   I.waitForVisible('#appNotification');
   I.waitForElement('.Comment');
   within('#name-comments .Comment', () => {
-    I.see('Me');
-    I.see(newComment);
-    I.see('a few seconds ago');
+    I.see('Me', '.Comment__header__container__text');
+    I.see(newComment, '.Comment__content');
+    I.see('a few seconds ago', '.Comment__time');
     I.seeElement('.Comment__visibility__private');
   });
 });
@@ -232,9 +232,9 @@ Scenario('Add public comment for an Protected name', function*(I) {
   I.waitForVisible('#appNotification');
   I.waitForElement('.Comment');
   within('#name-comments .Comment', () => {
-    I.see('Me');
-    I.see(newComment);
-    I.see('a few seconds ago');
+    I.see('Me', '.Comment__header__container__text');
+    I.see(newComment, '.Comment__content');
+    I.see('a few seconds ago', '.Comment__time');
     I.seeElement('.Comment__visibility__public');
   });
 
@@ -258,9 +258,9 @@ Scenario('Add public comment for an Protected name', function*(I) {
   I.waitForVisible('#selectedName');
   I.waitForElement('#name-comments');
   within('#name-comments .Comment', () => {
-    I.see('Vasily Shelkov');
-    I.see(newComment);
-    I.see('a few seconds ago');
+    I.see('Vasily Shelkov', '.Comment__header__container__text');
+    I.see(editedComment, '.Comment__content');
+    I.see('a few seconds ago', '.Comment__time');
     I.seeElement('.Comment__visibility__public');
     I.dontSeeElement('#edit-or-delete-comment');
   });
@@ -284,9 +284,9 @@ Scenario('Edit comment for a Protected name', function*(I) {
   I.waitForElement('.Comment');
   const editedComment = yield I.createFakeComment();
   within('#name-comments .Comment', () => {
-    I.see('Me');
-    I.see(newComment);
-    I.see('a few seconds ago');
+    I.see('Me', '.Comment__header__container__text');
+    I.see(newComment, '.Comment__content');
+    I.see('a few seconds ago', '.Comment__time');
     I.seeElement('.Comment__visibility__private');
     I.click('#edit-or-delete-comment');
   });
@@ -305,9 +305,9 @@ Scenario('Edit comment for a Protected name', function*(I) {
   I.waitForVisible('#appNotification');
   I.waitForElement('.Comment');
   within('#name-comments .Comment', () => {
-    I.see('Me');
-    I.see(editedComment);
-    I.see('a few seconds ago');
+    I.see('Me', '.Comment__header__container__text');
+    I.see(editedComment, '.Comment__content');
+    I.see('a few seconds ago', '.Comment__time');
     I.seeElement('.Comment__visibility__public');
   });
 
@@ -331,9 +331,9 @@ Scenario('Edit comment for a Protected name', function*(I) {
   I.waitForVisible('#selectedName');
   I.waitForElement('#name-comments');
   within('#name-comments .Comment', () => {
-    I.see('Vasily Shelkov');
-    I.see(editedComment);
-    I.see('a few seconds ago');
+    I.see('Vasily Shelkov', '.Comment__header__container__text');
+    I.see(editedComment, '.Comment__content');
+    I.see('a few seconds ago', '.Comment__time');
     I.seeElement('.Comment__visibility__public');
     I.dontSeeElement('#edit-or-delete-comment');
   });
@@ -356,9 +356,9 @@ Scenario('Delete comment for a Protected name', function*(I) {
   I.waitForVisible('#appNotification');
   I.waitForElement('.Comment');
   within('#name-comments .Comment', () => {
-    I.see('Me');
-    I.see(newComment);
-    I.see('a few seconds ago');
+    I.see('Me', '.Comment__header__container__text');
+    I.see(newComment, '.Comment__content');
+    I.see('a few seconds ago', '.Comment__time');
     I.seeElement('.Comment__visibility__private');
     I.click('#edit-or-delete-comment');
   });
@@ -389,9 +389,9 @@ Scenario('Add private comment for a Met With Protected name', function*(I) {
   I.waitForVisible('#appNotification');
   I.waitForElement('.Comment');
   within('#name-comments .Comment', () => {
-    I.see('Me');
-    I.see(newComment);
-    I.see('a few seconds ago');
+    I.see('Me', '.Comment__header__container__text');
+    I.see(newComment, '.Comment__content');
+    I.see('a few seconds ago', '.Comment__time');
     I.seeElement('.Comment__visibility__private');
   });
 });
@@ -418,9 +418,9 @@ Scenario('Add public comment for a Met With Protected name', function*(I) {
   I.waitForVisible('#appNotification');
   I.waitForElement('.Comment');
   within('#name-comments .Comment', () => {
-    I.see('Me');
-    I.see(newComment);
-    I.see('a few seconds ago');
+    I.see('Me', '.Comment__header__container__text');
+    I.see(newComment, '.Comment__content');
+    I.see('a few seconds ago', '.Comment__time');
     I.seeElement('.Comment__visibility__public');
   });
 
@@ -444,9 +444,9 @@ Scenario('Add public comment for a Met With Protected name', function*(I) {
   I.waitForVisible('#selectedName');
   I.waitForElement('#name-comments');
   within('#name-comments .Comment', () => {
-    I.see('Vasily Shelkov');
-    I.see(newComment);
-    I.see('a few seconds ago');
+    I.see('Vasily Shelkov', '.Comment__header__container__text');
+    I.see(editedComment, '.Comment__content');
+    I.see('a few seconds ago', '.Comment__time');
     I.seeElement('.Comment__visibility__public');
     I.dontSeeElement('#edit-or-delete-comment');
   });
@@ -470,9 +470,9 @@ Scenario('Edit comment for a Met With Protected name', function*(I) {
   I.waitForElement('.Comment');
   const editedComment = yield I.createFakeComment();
   within('#name-comments .Comment', () => {
-    I.see('Me');
-    I.see(newComment);
-    I.see('a few seconds ago');
+    I.see('Me', '.Comment__header__container__text');
+    I.see(newComment, '.Comment__content');
+    I.see('a few seconds ago', '.Comment__time');
     I.seeElement('.Comment__visibility__private');
     I.click('#edit-or-delete-comment');
   });
@@ -491,9 +491,9 @@ Scenario('Edit comment for a Met With Protected name', function*(I) {
   I.waitForVisible('#appNotification');
   I.waitForElement('.Comment');
   within('#name-comments .Comment', () => {
-    I.see('Me');
-    I.see(editedComment);
-    I.see('a few seconds ago');
+    I.see('Me', '.Comment__header__container__text');
+    I.see(editedComment, '.Comment__content');
+    I.see('a few seconds ago', '.Comment__time');
     I.seeElement('.Comment__visibility__public');
   });
 
@@ -517,9 +517,9 @@ Scenario('Edit comment for a Met With Protected name', function*(I) {
   I.waitForVisible('#selectedName');
   I.waitForElement('#name-comments');
   within('#name-comments .Comment', () => {
-    I.see('Vasily Shelkov');
-    I.see(editedComment);
-    I.see('a few seconds ago');
+    I.see('Vasily Shelkov', '.Comment__header__container__text');
+    I.see(editedComment, '.Comment__content');
+    I.see('a few seconds ago', '.Comment__time');
     I.seeElement('.Comment__visibility__public');
     I.dontSeeElement('#edit-or-delete-comment');
   });
@@ -542,9 +542,9 @@ Scenario('Delete comment for a Met With Protected name', function*(I) {
   I.waitForVisible('#appNotification');
   I.waitForElement('.Comment');
   within('#name-comments .Comment', () => {
-    I.see('Me');
-    I.see(newComment);
-    I.see('a few seconds ago');
+    I.see('Me', '.Comment__header__container__text');
+    I.see(newComment, '.Comment__content');
+    I.see('a few seconds ago', '.Comment__time');
     I.seeElement('.Comment__visibility__private');
     I.click('#edit-or-delete-comment');
   });
@@ -575,9 +575,9 @@ Scenario('Add private comment for a Client', function*(I) {
   I.waitForVisible('#appNotification');
   I.waitForElement('.Comment');
   within('#name-comments .Comment', () => {
-    I.see('Me');
-    I.see(newComment);
-    I.see('a few seconds ago');
+    I.see('Me', '.Comment__header__container__text');
+    I.see(newComment, '.Comment__content');
+    I.see('a few seconds ago', '.Comment__time');
     I.seeElement('.Comment__visibility__private');
   });
 });
@@ -604,9 +604,9 @@ Scenario('Add public comment for a Client', function*(I) {
   I.waitForVisible('#appNotification');
   I.waitForElement('.Comment');
   within('#name-comments .Comment', () => {
-    I.see('Me');
-    I.see(newComment);
-    I.see('a few seconds ago');
+    I.see('Me', '.Comment__header__container__text');
+    I.see(newComment, '.Comment__content');
+    I.see('a few seconds ago', '.Comment__time');
     I.seeElement('.Comment__visibility__public');
   });
 
@@ -630,9 +630,9 @@ Scenario('Add public comment for a Client', function*(I) {
   I.waitForVisible('#selectedName');
   I.waitForElement('#name-comments');
   within('#name-comments .Comment', () => {
-    I.see('Vasily Shelkov');
-    I.see(newComment);
-    I.see('a few seconds ago');
+    I.see('Vasily Shelkov', '.Comment__header__container__text');
+    I.see(newComment, '.Comment__content');
+    I.see('a few seconds ago', '.Comment__time');
     I.seeElement('.Comment__visibility__public');
     I.dontSeeElement('#edit-or-delete-comment');
   });
@@ -656,9 +656,9 @@ Scenario('Edit comment for a Client', function*(I) {
   I.waitForElement('.Comment');
   const editedComment = yield I.createFakeComment();
   within('#name-comments .Comment', () => {
-    I.see('Me');
-    I.see(newComment);
-    I.see('a few seconds ago');
+    I.see('Me', '.Comment__header__container__text');
+    I.see(newComment, '.Comment__content');
+    I.see('a few seconds ago', '.Comment__time');
     I.seeElement('.Comment__visibility__private');
     I.click('#edit-or-delete-comment');
   });
@@ -677,9 +677,9 @@ Scenario('Edit comment for a Client', function*(I) {
   I.waitForVisible('#appNotification');
   I.waitForElement('.Comment');
   within('#name-comments .Comment', () => {
-    I.see('Me');
-    I.see(editedComment);
-    I.see('a few seconds ago');
+    I.see('Me', '.Comment__header__container__text');
+    I.see(newComment, '.Comment__content');
+    I.see('a few seconds ago', '.Comment__time');
     I.seeElement('.Comment__visibility__public');
   });
 
@@ -703,9 +703,9 @@ Scenario('Edit comment for a Client', function*(I) {
   I.waitForVisible('#selectedName');
   I.waitForElement('#name-comments');
   within('#name-comments .Comment', () => {
-    I.see('Vasily Shelkov');
-    I.see(editedComment);
-    I.see('a few seconds ago');
+    I.see('Vasily Shelkov', '.Comment__header__container__text');
+    I.see(editedComment, '.Comment__content');
+    I.see('a few seconds ago', '.Comment__time');
     I.seeElement('.Comment__visibility__public');
     I.dontSeeElement('#edit-or-delete-comment');
   });
@@ -728,9 +728,9 @@ Scenario('Delete comment for a Client', function*(I) {
   I.waitForVisible('#appNotification');
   I.waitForElement('.Comment');
   within('#name-comments .Comment', () => {
-    I.see('Me');
-    I.see(newComment);
-    I.see('a few seconds ago');
+    I.see('Me', '.Comment__header__container__text');
+    I.see(newComment, '.Comment__content');
+    I.see('a few seconds ago', '.Comment__time');
     I.seeElement('.Comment__visibility__private');
     I.click('#edit-or-delete-comment');
   });
