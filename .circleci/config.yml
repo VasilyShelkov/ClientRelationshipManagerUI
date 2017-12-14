@@ -37,6 +37,9 @@ jobs:
           name: Run Feature tests
           command: yarn run test:feature:staging
 
+      - store_artifacts:
+        path: /output
+
       - add_ssh_keys:
           fingerprints:
             - "8f:b8:f9:f1:fb:87:a2:84:58:b8:6b:a8:de:b1:54:60"
