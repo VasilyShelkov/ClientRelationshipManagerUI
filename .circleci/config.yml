@@ -38,7 +38,7 @@ jobs:
           command: yarn run test:feature:staging
 
       - store_artifacts:
-          path: /output
+          path: output
 
       - add_ssh_keys:
           fingerprints:
