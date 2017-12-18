@@ -6,6 +6,6 @@ module.exports = environment => {
 
   return {
     email: 'vasilydshelkov@gmail.com',
-    password
+    password,
   };
 };

@@ -11,6 +11,7 @@ Scenario('Add private comment for an Unprotected name', function*(I) {
   within('#name-comments', () => {
     I.click('#addComment');
     I.fillField('text', newComment);
+    I.waitForText(newComment, 5, 'textarea[name="text"]');
     I.click('#standardSubmit[type="submit"]');
   });
 
@@ -36,6 +37,7 @@ Scenario('Add public comment for an Unprotected name', function*(I) {
 
   within('.StandardForm', () => {
     I.fillField('text', newComment);
+    I.waitForText(newComment, 5, 'textarea[name="text"]');
     I.click('#name-visibility-field');
   });
 
@@ -91,6 +93,7 @@ Scenario('Edit comment for an Unprotected name', function*(I) {
   within('#name-comments', () => {
     I.click('#addComment');
     I.fillField('text', newComment);
+    I.waitForText(newComment, 5, 'textarea[name="text"]');
     I.click('#standardSubmit[type="submit"]');
   });
 
@@ -109,6 +112,7 @@ Scenario('Edit comment for an Unprotected name', function*(I) {
   within('#name-comments .Comment', () => {
     I.waitForElement('.StandardForm');
     I.fillField('text', editedComment);
+    I.waitForText(newComment, 5, 'textarea[name="text"]');
     I.click('#name-visibility-field');
   });
 
@@ -164,6 +168,7 @@ Scenario('Delete comment for an Unprotected name', function*(I) {
   within('#name-comments', () => {
     I.click('#addComment');
     I.fillField('text', newComment);
+    I.waitForText(newComment, 5, 'textarea[name="text"]');
     I.click('#standardSubmit[type="submit"]');
   });
 
@@ -197,6 +202,7 @@ Scenario('Add private comment for an Protected name', function*(I) {
   within('#name-comments', () => {
     I.click('#addComment');
     I.fillField('text', newComment);
+    I.waitForText(newComment, 5, 'textarea[name="text"]');
     I.click('#standardSubmit[type="submit"]');
   });
 
@@ -222,6 +228,7 @@ Scenario('Add public comment for an Protected name', function*(I) {
 
   within('.StandardForm', () => {
     I.fillField('text', newComment);
+    I.waitForText(newComment, 5, 'textarea[name="text"]');
     I.click('#name-visibility-field');
   });
 
@@ -277,6 +284,7 @@ Scenario('Edit comment for a Protected name', function*(I) {
   within('#name-comments', () => {
     I.click('#addComment');
     I.fillField('text', newComment);
+    I.waitForText(newComment, 5, 'textarea[name="text"]');
     I.click('#standardSubmit[type="submit"]');
   });
 
@@ -295,6 +303,7 @@ Scenario('Edit comment for a Protected name', function*(I) {
   within('#name-comments .Comment', () => {
     I.waitForElement('.StandardForm');
     I.fillField('text', editedComment);
+    I.waitForText(newComment, 5, 'textarea[name="text"]');
     I.click('#name-visibility-field');
   });
 
@@ -350,6 +359,7 @@ Scenario('Delete comment for a Protected name', function*(I) {
   within('#name-comments', () => {
     I.click('#addComment');
     I.fillField('text', newComment);
+    I.waitForText(newComment, 5, 'textarea[name="text"]');
     I.click('#standardSubmit[type="submit"]');
   });
 
@@ -383,6 +393,7 @@ Scenario('Add private comment for a Met With Protected name', function*(I) {
   within('#name-comments', () => {
     I.click('#addComment');
     I.fillField('text', newComment);
+    I.waitForText(newComment, 5, 'textarea[name="text"]');
     I.click('#standardSubmit[type="submit"]');
   });
 
@@ -408,6 +419,7 @@ Scenario('Add public comment for a Met With Protected name', function*(I) {
 
   within('.StandardForm', () => {
     I.fillField('text', newComment);
+    I.waitForText(newComment, 5, 'textarea[name="text"]');
     I.click('#name-visibility-field');
   });
 
@@ -463,6 +475,7 @@ Scenario('Edit comment for a Met With Protected name', function*(I) {
   within('#name-comments', () => {
     I.click('#addComment');
     I.fillField('text', newComment);
+    I.waitForText(newComment, 5, 'textarea[name="text"]');
     I.click('#standardSubmit[type="submit"]');
   });
 
@@ -481,6 +494,7 @@ Scenario('Edit comment for a Met With Protected name', function*(I) {
   within('#name-comments .Comment', () => {
     I.waitForElement('.StandardForm');
     I.fillField('text', editedComment);
+    I.waitForText(newComment, 5, 'textarea[name="text"]');
     I.click('#name-visibility-field');
   });
 
@@ -536,6 +550,7 @@ Scenario('Delete comment for a Met With Protected name', function*(I) {
   within('#name-comments', () => {
     I.click('#addComment');
     I.fillField('text', newComment);
+    I.waitForText(newComment, 5, 'textarea[name="text"]');
     I.click('#standardSubmit[type="submit"]');
   });
 
@@ -569,6 +584,7 @@ Scenario('Add private comment for a Client', function*(I) {
   within('#name-comments', () => {
     I.click('#addComment');
     I.fillField('text', newComment);
+    I.waitForText(newComment, 5, 'textarea[name="text"]');
     I.click('#standardSubmit[type="submit"]');
   });
 
@@ -594,6 +610,7 @@ Scenario('Add public comment for a Client', function*(I) {
 
   within('.StandardForm', () => {
     I.fillField('text', newComment);
+    I.waitForText(newComment, 5, 'textarea[name="text"]');
     I.click('#name-visibility-field');
   });
 
@@ -649,6 +666,7 @@ Scenario('Edit comment for a Client', function*(I) {
   within('#name-comments', () => {
     I.click('#addComment');
     I.fillField('text', newComment);
+    I.waitForText(newComment, 5, 'textarea[name="text"]');
     I.click('#standardSubmit[type="submit"]');
   });
 
@@ -667,6 +685,7 @@ Scenario('Edit comment for a Client', function*(I) {
   within('#name-comments .Comment', () => {
     I.waitForElement('.StandardForm');
     I.fillField('text', editedComment);
+    I.waitForText(newComment, 5, 'textarea[name="text"]');
     I.click('#name-visibility-field');
   });
 
@@ -722,6 +741,7 @@ Scenario('Delete comment for a Client', function*(I) {
   within('#name-comments', () => {
     I.click('#addComment');
     I.fillField('text', newComment);
+    I.waitForText(newComment, 5, 'textarea[name="text"]');
     I.click('#standardSubmit[type="submit"]');
   });
 
