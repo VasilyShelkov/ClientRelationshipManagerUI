@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker: 
-      - image: kkarczmarczyk/node-yarn:7.4
+      - image: node:8.9.1
       - image: selenium/standalone-chrome:3.3.0
     working_directory: ~/ClientRelationshipManagerUI
     steps:
@@ -27,10 +27,6 @@ jobs:
           command: yarn test
 
       - run:
-          name: Report Coverage
-          command: yarn run report-coverage
-
-      - run:
           name: Build against Staging
           command: yarn run build:staging
       - run:
@@ -40,6 +36,9 @@ jobs:
       - run:
           name: Run Feature tests
           command: yarn run test:feature:staging
+
+      - store_artifacts:
+          path: output
 
       - add_ssh_keys:
           fingerprints:

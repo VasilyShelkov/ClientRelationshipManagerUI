@@ -22,7 +22,7 @@ export const reducer = (previousResult, action) => {
     !_.has(action, 'result.errors')
   ) {
     return {
-      users: [...previousResult.users, action.result.data.createUser]
+      users: [...previousResult.users, action.result.data.createUser],
     };
   }
 
@@ -31,5 +31,5 @@ export const reducer = (previousResult, action) => {
 
 export default graphql(GetAllUsers, {
   props,
-  options: ({ params }) => ({ reducer })
+  options: ({ params }) => ({ reducer }),
 })(AdminUserList);

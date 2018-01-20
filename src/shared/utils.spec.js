@@ -4,25 +4,29 @@ describe('src/shared/utils.js', () => {
   it('returns falsey when none of the fields to edit are different to the original object', () => {
     const originalObject = {
       fieldOne: 'originalFieldOne',
-      fieldTwo: 'originalFieldTwo'
+      fieldTwo: 'originalFieldTwo',
     };
 
     const fieldsToEdit = originalObject;
 
-    expect(utils.checkIfAnyKeysDifferent(originalObject, fieldsToEdit)).to.equal(0);
+    expect(
+      utils.checkIfAnyKeysDifferent(originalObject, fieldsToEdit),
+    ).to.equal(0);
   });
 
   it('returns truthy when some fields to edit are different to the original object', () => {
     const originalObject = {
       fieldOne: 'originalFieldOne',
-      fieldTwo: 'originalFieldTwo'
+      fieldTwo: 'originalFieldTwo',
     };
 
     const fieldsToEdit = {
       ...originalObject,
-      fieldTwo: 'newFieldTwo'
+      fieldTwo: 'newFieldTwo',
     };
 
-    expect(utils.checkIfAnyKeysDifferent(originalObject, fieldsToEdit)).to.equal(1);
+    expect(
+      utils.checkIfAnyKeysDifferent(originalObject, fieldsToEdit),
+    ).to.equal(1);
   });
 });

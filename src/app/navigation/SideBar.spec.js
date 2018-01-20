@@ -1,5 +1,4 @@
 import React from 'react';
-import Drawer from 'material-ui/Drawer';
 import Divider from 'material-ui/Divider';
 import { LARGE } from 'material-ui/utils/withWidth';
 import { ListItem } from 'material-ui/List';
@@ -14,7 +13,7 @@ const setup = ({
   currentPage = '/test',
   handleChangeRequestSideBar = () => '',
   handleRouteChange = () => '',
-  protectedListToShow = 'protected'
+  protectedListToShow = 'protected',
 }) => {
   const props = {
     isAdmin,
@@ -24,7 +23,7 @@ const setup = ({
     handleChangeRequestSideBar,
     handleRouteChange,
     currentUserId: '0',
-    protectedListToShow
+    protectedListToShow,
   };
   const wrapper = shallowWithContext(<SideBar {...props} />);
 
@@ -45,8 +44,8 @@ describe('src/app/navigation/SideBar', () => {
       JSON.stringify({
         newRoute: '/account/profile',
         currentUserId: props.currentUserId,
-        userIdToShow: props.currentUserId
-      })
+        userIdToShow: props.currentUserId,
+      }),
     );
 
     expect(pageNavigations.at(1).prop('primaryText')).to.equal('Unprotected');
@@ -54,8 +53,8 @@ describe('src/app/navigation/SideBar', () => {
       JSON.stringify({
         newRoute: '/account/names/unprotected',
         currentUserId: props.currentUserId,
-        userIdToShow: props.currentUserId
-      })
+        userIdToShow: props.currentUserId,
+      }),
     );
 
     expect(pageNavigations.at(2).prop('primaryText')).to.equal('Protected');
@@ -63,8 +62,8 @@ describe('src/app/navigation/SideBar', () => {
       JSON.stringify({
         newRoute: `/account/names/${props.protectedListToShow}`,
         currentUserId: props.currentUserId,
-        userIdToShow: props.currentUserId
-      })
+        userIdToShow: props.currentUserId,
+      }),
     );
 
     expect(pageNavigations.at(3).prop('primaryText')).to.equal('Clients');
@@ -72,39 +71,9 @@ describe('src/app/navigation/SideBar', () => {
       JSON.stringify({
         newRoute: '/account/names/clients',
         currentUserId: props.currentUserId,
-        userIdToShow: props.currentUserId
-      })
+        userIdToShow: props.currentUserId,
+      }),
     );
-  });
-
-  it('is docked if the width is large', () => {
-    const { wrapper } = setup({});
-    expect(wrapper.find(Drawer).prop('docked')).to.be.true;
-  });
-
-  it('is not docked if the width is not large', () => {
-    const { wrapper } = setup({ width: 'small' });
-    expect(wrapper.find(Drawer).prop('docked')).to.be.false;
-  });
-
-  it('is open if open and the width is large', () => {
-    const { wrapper } = setup({ open: true, width: LARGE });
-    expect(wrapper.find(Drawer).prop('open')).to.be.true;
-  });
-
-  it('is open if not open and the width is large', () => {
-    const { wrapper } = setup({ open: false, width: LARGE });
-    expect(wrapper.find(Drawer).prop('open')).to.be.true;
-  });
-
-  it('is open if open and the width is not large', () => {
-    const { wrapper } = setup({ open: true, width: 'small' });
-    expect(wrapper.find(Drawer).prop('open')).to.be.true;
-  });
-
-  it('is not open if not open and the width is not large', () => {
-    const { wrapper } = setup({ open: false, width: 'small' });
-    expect(wrapper.find(Drawer).prop('open')).to.be.false;
   });
 
   it('does not render admin panel when is not admin', () => {
@@ -124,13 +93,13 @@ describe('src/app/navigation/SideBar', () => {
       expect(adminUserList.prop('value')).to.equal(
         JSON.stringify({
           newRoute: props.currentPage,
-          currentUserId: props.currentUserId
-        })
+          currentUserId: props.currentUserId,
+        }),
       );
 
       const onRouteChange = adminUserList.prop('onChange');
       onRouteChange();
       expect(handleRouteChange).to.have.been.called;
-    })
+    }),
   );
 });

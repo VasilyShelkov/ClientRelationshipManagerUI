@@ -8,18 +8,18 @@ import ProtectedMutations from './ProtectedMutations';
 const ProtectedNames = graphql(GetMetWithProtectedNames, {
   options: ({ userId }) => ({
     variables: { id: userId },
-    reducer: reducer('metWithProtected')
+    reducer: reducer('metWithProtected'),
   }),
   props: ({ ownProps, data: { loading, user } }) => ({
     nameListType: 'metWithProtected',
     loading,
     names: user && user.metWithProtected,
-    ...ownProps
-  })
+    ...ownProps,
+  }),
 })(ProtectedMutations);
 
 const mapStateToProps = state => ({
-  userId: state.account.id
+  userId: state.account.id,
 });
 
 export default connect(mapStateToProps)(ProtectedNames);

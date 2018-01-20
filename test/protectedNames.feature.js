@@ -20,8 +20,7 @@ Scenario('user books a meeting on the protected name', function*(I) {
   I.wait(1);
   I.waitForEnabled('input[name="meetingTime"]');
   I.click('input[name="meetingTime"]');
-  I.waitForText('OK');
-  I.click('OK');
+  I.pressKey('Enter');
 
   I.wait(1);
   I.click('#submitEditProtectedMeeting');
@@ -53,8 +52,7 @@ Scenario('user books a call on the protected name', function*(I) {
   I.wait(1);
   I.waitForEnabled('input[name="callTime"]');
   I.click('input[name="callTime"]');
-  I.waitForText('OK');
-  I.click('OK');
+  I.pressKey('Enter');
 
   I.wait(1);
   I.click('#submitEditProtectedCall');
@@ -81,11 +79,17 @@ Scenario('user unprotects a protected name', function*(I) {
   I.waitForElement('#protectedNamesList');
   const currentProtectedNamesCount = yield I.grabTextFrom('#protectedNamesCount');
   I.click('#unprotectName');
-
   I.waitToHide('.names__overlay');
+
+  I.waitForVisible('.sweet-alert.showSweetAlert.visible');
+  within('.sweet-alert.showSweetAlert.visible', () => {
+    I.see(newProtectedName.firstName);
+    I.see(newProtectedName.lastName);
+    I.click('OK');
+  });
+
   I.waitForElement('#unprotectedNamesList');
   I.see(`${parseInt(currentUnprotectedNamesCount, 10) + 1} Unprotected`);
-  I.waitForVisible('#appNotification');
   within('#unprotectedNamesList .name:nth-of-type(1)', () => {
     I.see(newProtectedName.firstName);
     I.see(newProtectedName.lastName);
@@ -137,13 +141,19 @@ Scenario('user meets with protected name', function*(I) {
   I.waitForVisible('#protectedNamesList');
   const currentProtectedNamesCount = yield I.grabTextFrom('#protectedNamesCount');
   I.click('#metWithProtected');
-
   I.click('#submitMetWithName');
   I.waitToHide('.names__overlay');
+
+  I.waitForVisible('.sweet-alert.showSweetAlert.visible');
+  within('.sweet-alert.showSweetAlert.visible', () => {
+    I.see(newProtectedName.firstName);
+    I.see(newProtectedName.lastName);
+    I.click('OK');
+  });
+
   I.waitForVisible('div[value="metWithProtected"]');
   I.waitForVisible('#metWithProtectedNamesList');
   I.see(`${parseInt(currentMetWithProtectedNamesCount, 10) + 1} Met With Protected Name`);
-  I.waitForVisible('#appNotification');
   within('#metWithProtectedNamesList .name:nth-of-type(1)', () => {
     I.see(newProtectedName.firstName);
     I.see(newProtectedName.lastName);
@@ -183,15 +193,20 @@ Scenario('user makes the protected name a client with no call or meeting booked'
 
   I.click('#makeClient');
   I.waitForElement('#protectNameForm');
-
   I.click('#clearCallBooking');
   I.click('#clearMeetingBooking');
-
   I.click('#submitClientName');
   I.waitToHide('.names__overlay');
+
+  I.waitForVisible('.sweet-alert.showSweetAlert.visible');
+  within('.sweet-alert.showSweetAlert.visible', () => {
+    I.see(newProtectedName.firstName);
+    I.see(newProtectedName.lastName);
+    I.click('OK');
+  });
+
   I.waitForElement('#clientsNamesList');
   I.see(`${parseInt(currentClientsCount, 10) + 1} Clients`);
-  I.waitForVisible('#appNotification');
   within('#clientsNamesList .name:nth-of-type(1)', () => {
     I.see(newProtectedName.firstName);
     I.see(newProtectedName.lastName);
@@ -245,15 +260,21 @@ Scenario('user makes the protected name a client with a call booked', function*(
   I.wait(1);
   I.waitForEnabled('input[name="callTime"]');
   I.click('input[name="callTime"]');
-  I.waitForText('OK');
-  I.click('OK');
+  I.pressKey('Enter');
 
   I.wait(1);
   I.click('#submitClientName');
   I.waitToHide('.names__overlay');
+
+  I.waitForVisible('.sweet-alert.showSweetAlert.visible');
+  within('.sweet-alert.showSweetAlert.visible', () => {
+    I.see(newProtectedName.firstName);
+    I.see(newProtectedName.lastName);
+    I.click('OK');
+  });
+
   I.waitForElement('#clientsNamesList');
   I.see(`${parseInt(currentClientsCount, 10) + 1} Clients`);
-  I.waitForVisible('#appNotification');
   within('#clientsNamesList .name:nth-of-type(1)', () => {
     I.see(newProtectedName.firstName);
     I.see(newProtectedName.lastName);
@@ -307,15 +328,21 @@ Scenario('user makes the protected name a client with a meeting booked', functio
   I.wait(1);
   I.waitForEnabled('input[name="meetingTime"]');
   I.click('input[name="meetingTime"]');
-  I.waitForText('OK');
-  I.click('OK');
+  I.pressKey('Enter');
 
   I.wait(1);
   I.click('#submitClientName');
   I.waitToHide('.names__overlay');
+
+  I.waitForVisible('.sweet-alert.showSweetAlert.visible');
+  within('.sweet-alert.showSweetAlert.visible', () => {
+    I.see(newProtectedName.firstName);
+    I.see(newProtectedName.lastName);
+    I.click('OK');
+  });
+
   I.waitForElement('#clientsNamesList');
   I.see(`${parseInt(currentClientsCount, 10) + 1} Clients`);
-  I.waitForVisible('#appNotification');
   within('#clientsNamesList .name:nth-of-type(1)', () => {
     I.see(newProtectedName.firstName);
     I.see(newProtectedName.lastName);

@@ -12,7 +12,10 @@ export default async (values, dispatch, { returnUrl }) => {
   dispatch(logIn());
   let accountDetails = null;
   try {
-    accountDetails = await instance.post('/login', { email: values.email, password: values.password });
+    accountDetails = await instance.post('/login', {
+      email: values.email,
+      password: values.password,
+    });
   } catch (e) {
     dispatch(logInError());
     throw new SubmissionError({ _error: e.response.data.error });

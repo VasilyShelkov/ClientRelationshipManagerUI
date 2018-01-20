@@ -11,52 +11,65 @@ import LoadingSpinner from '../../../shared/LoadingSpinner';
 import StandardForm from '../../../shared/StandardForm';
 import { AddressField, required } from '../../../shared/FormElements';
 
-const EditSelectedName = ({ existingCompanies, loading, error, handleSubmit, cancelEditNameCompany, change }) =>
-  loading
-    ? <LoadingSpinner />
-    : <StandardForm
-        error={error}
-        handleSubmit={handleSubmit}
-        handleCancel={cancelEditNameCompany}
-        fields={[
-          <Field
-            key="editNameCompany__name"
-            name="name"
-            component={AutoComplete}
-            floatingLabelText="Company Name"
-            openOnFocus
-            filter={MUIAutoComplete.fuzzyFilter}
-            onNewRequest={companyName => {
-              const companyInfo = existingCompanies.find(company => company.name === companyName);
+const EditSelectedName = ({
+  existingCompanies,
+  loading,
+  error,
+  handleSubmit,
+  cancelEditNameCompany,
+  change,
+}) =>
+  loading ? (
+    <LoadingSpinner />
+  ) : (
+    <StandardForm
+      error={error}
+      handleSubmit={handleSubmit}
+      handleCancel={cancelEditNameCompany}
+      fields={[
+        <Field
+          key="editNameCompany__name"
+          name="name"
+          component={AutoComplete}
+          floatingLabelText="Company Name"
+          openOnFocus
+          filter={MUIAutoComplete.fuzzyFilter}
+          onNewRequest={companyName => {
+            const companyInfo = existingCompanies.find(
+              company => company.name === companyName,
+            );
 
-              change('companyAddress', companyInfo.address);
-              change('companyPhone', companyInfo.phone);
-            }}
-            dataSource={existingCompanies.map(info => info.name)}
-            maxSearchResults={10}
-            validate={required}
-            fullWidth
-          />,
-          <Field
-            key="editNameCompany__phone"
-            name="phone"
-            component={TextField}
-            floatingLabelText="Phone"
-            validate={required}
-            fullWidth
-          />,
-          <Field
-            key="editNameCompany__address"
-            name="address"
-            component={AddressField}
-            floatingLabelText="Address"
-            validate={required}
-            fullWidth
-          />
-        ]}
-      />;
+            change('companyAddress', companyInfo.address);
+            change('companyPhone', companyInfo.phone);
+          }}
+          dataSource={existingCompanies.map(info => info.name)}
+          maxSearchResults={10}
+          validate={required}
+          fullWidth
+        />,
+        <Field
+          key="editNameCompany__phone"
+          name="phone"
+          component={TextField}
+          floatingLabelText="Phone"
+          validate={required}
+          fullWidth
+        />,
+        <Field
+          key="editNameCompany__address"
+          name="address"
+          component={AddressField}
+          floatingLabelText="Address"
+          validate={required}
+          fullWidth
+        />,
+      ]}
+    />
+  );
 
-const EditSelectedNameForm = reduxForm({ form: 'editNameCompany' })(EditSelectedName);
+const EditSelectedNameForm = reduxForm({ form: 'editNameCompany' })(
+  EditSelectedName,
+);
 
 export default compose(
   graphql(EditCompany, {
@@ -68,27 +81,30 @@ export default compose(
               variables: {
                 userId: ownProps.userId,
                 companyId: id,
-                ...formValues
-              }
+                ...formValues,
+              },
             });
             ownProps.cancelEditNameCompany();
           } catch (error) {
-            throw new SubmissionError({ _error: error.graphQLErrors[0].message });
+            throw new SubmissionError({
+              _error: error.graphQLErrors[0].message,
+            });
           }
         } else {
           throw new SubmissionError({
-            _error: 'Please change one of the company fields to to update the company...'
+            _error:
+              'Please change one of the company fields to to update the company...',
           });
         }
       },
-      ...ownProps
-    })
+      ...ownProps,
+    }),
   }),
   graphql(GetAllCompanies, {
     props: ({ ownProps, data: { loading, companies } }) => ({
       loading,
       existingCompanies: companies,
-      ...ownProps
-    })
-  })
+      ...ownProps,
+    }),
+  }),
 )(EditSelectedNameForm);

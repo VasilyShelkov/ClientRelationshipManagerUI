@@ -13,7 +13,7 @@ const setup = ({
   onEditProfilePassword = () => '',
   onCancelEditProfilePassword = () => '',
   editingPassword = false,
-  editSuccessProfileNotification = ''
+  editSuccessProfileNotification = '',
 }) => {
   const props = {
     id: '0',
@@ -27,7 +27,7 @@ const setup = ({
     editSuccessProfileNotification,
     onEditProfile,
     onEditProfilePassword,
-    onCancelEditProfilePassword
+    onCancelEditProfilePassword,
   };
   const wrapper = shallowWithContext(<ShowProfile {...props} />);
 
@@ -36,22 +36,39 @@ const setup = ({
 describe('src/profile/ShowProfile', () => {
   it('renders the name', () => {
     const { wrapper, props } = setup({});
-    expect(wrapper.find('h2').text()).to.equal(`${props.firstName} ${props.lastName}`);
+    expect(wrapper.find('h2').text()).to.equal(
+      `${props.firstName} ${props.lastName}`,
+    );
   });
 
   it('renders the protectedNameLimit', () => {
     const { wrapper, props } = setup({});
-    expect(wrapper.find(ListItem).at(0).prop('primaryText')).to.equal(`Limit: ${props.protectedNamesLimit}`);
+    expect(
+      wrapper
+        .find(ListItem)
+        .at(0)
+        .prop('primaryText'),
+    ).to.equal(`Limit: ${props.protectedNamesLimit}`);
   });
 
   it('renders the email', () => {
     const { wrapper, props } = setup({});
-    expect(wrapper.find(ListItem).at(1).prop('primaryText')).to.equal(props.email);
+    expect(
+      wrapper
+        .find(ListItem)
+        .at(1)
+        .prop('primaryText'),
+    ).to.equal(props.email);
   });
 
   it('renders the phone number', () => {
     const { wrapper, props } = setup({});
-    expect(wrapper.find(ListItem).at(2).prop('primaryText')).to.equal(props.phone);
+    expect(
+      wrapper
+        .find(ListItem)
+        .at(2)
+        .prop('primaryText'),
+    ).to.equal(props.phone);
   });
 
   it('renders the password field when not editing the password', () => {
@@ -66,7 +83,10 @@ describe('src/profile/ShowProfile', () => {
 
   it('renders the edit password form when editing password', () => {
     const onCancelEditProfilePassword = 'cancelFunction';
-    const { wrapper, props } = setup({ editingPassword: true, onCancelEditProfilePassword });
+    const { wrapper, props } = setup({
+      editingPassword: true,
+      onCancelEditProfilePassword,
+    });
 
     const listItems = wrapper.find(ListItem);
     const editPasswordField = wrapper.find(EditPassword);
@@ -75,7 +95,9 @@ describe('src/profile/ShowProfile', () => {
     expect(editPasswordField.exists()).to.be.true;
     expect(editPasswordField.prop('userId')).to.equal(props.id);
     expect(editPasswordField.prop('editInProgress')).to.equal(false);
-    expect(editPasswordField.prop('handleCancelEditProfilePassword')).to.equal(onCancelEditProfilePassword);
+    expect(editPasswordField.prop('handleCancelEditProfilePassword')).to.equal(
+      onCancelEditProfilePassword,
+    );
   });
 
   it('renders the edit password form when in progress of editing password', () => {
@@ -92,7 +114,12 @@ describe('src/profile/ShowProfile', () => {
 
     const lastUpdatedChip = wrapper.find(Chip);
 
-    expect(lastUpdatedChip.children().last().text()).to.equal('a few seconds ago');
+    expect(
+      lastUpdatedChip
+        .children()
+        .last()
+        .text(),
+    ).to.equal('a few seconds ago');
   });
 
   it('does not render the successfully edited notification when the company was not successfully edited', () => {
@@ -112,7 +139,12 @@ describe('src/profile/ShowProfile', () => {
     const successNotification = notificationChips.at(0);
 
     expect(notificationChips).length.to.be(2);
-    expect(successNotification.children().last().text()).to.equal(editSuccessProfileNotification);
+    expect(
+      successNotification
+        .children()
+        .last()
+        .text(),
+    ).to.equal(editSuccessProfileNotification);
   });
 
   it(
@@ -121,11 +153,13 @@ describe('src/profile/ShowProfile', () => {
       const onEditProfile = this.spy();
       const { wrapper } = setup({ onEditProfile });
 
-      const renderedEditButtonClick = wrapper.find(RaisedButton).prop('onClick');
+      const renderedEditButtonClick = wrapper
+        .find(RaisedButton)
+        .prop('onClick');
       renderedEditButtonClick();
 
       expect(onEditProfile).to.have.been.called;
-    })
+    }),
   );
 
   it(
@@ -134,10 +168,13 @@ describe('src/profile/ShowProfile', () => {
       const onEditProfilePassword = this.spy();
       const { wrapper } = setup({ onEditProfilePassword });
 
-      const renderedEditButtonClick = wrapper.find(ListItem).at(3).prop('onClick');
+      const renderedEditButtonClick = wrapper
+        .find(ListItem)
+        .at(3)
+        .prop('onClick');
       renderedEditButtonClick();
 
       expect(onEditProfilePassword).to.have.been.called;
-    })
+    }),
   );
 });

@@ -8,7 +8,7 @@ export default ({ message, zDepth, backgroundColor, icon }) => {
         className="Form__notification"
         style={{
           backgroundColor,
-          borderRadius: '10px'
+          borderRadius: '10px',
         }}
         zDepth={zDepth}
       >

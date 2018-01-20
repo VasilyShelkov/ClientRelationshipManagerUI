@@ -10,19 +10,28 @@ export const reducer = (previousResult, action) => {
   if (action.type === APOLLO_MUTATION_RESULT) {
     switch (action.operationName) {
       case 'AddComment':
-        if (_.has(action, 'result.data.addCommentToName') && !_.has(action, 'result.errors')) {
+        if (
+          _.has(action, 'result.data.addCommentToName') &&
+          !_.has(action, 'result.errors')
+        ) {
           return {
             name: {
               ...previousResult.name,
-              comments: [action.result.data.addCommentToName, ...previousResult.name.comments]
-            }
+              comments: [
+                action.result.data.addCommentToName,
+                ...previousResult.name.comments,
+              ],
+            },
           };
         }
         break;
       case 'DeleteComment':
-        if (_.has(action, 'result.data.deleteNameComment') && !_.has(action, 'result.errors')) {
+        if (
+          _.has(action, 'result.data.deleteNameComment') &&
+          !_.has(action, 'result.errors')
+        ) {
           const removedCommentPosition = previousResult.name.comments.findIndex(
-            ({ id }) => id === action.variables.commentId
+            ({ id }) => id === action.variables.commentId,
           );
 
           if (removedCommentPosition >= 0) {
@@ -30,10 +39,15 @@ export const reducer = (previousResult, action) => {
               name: {
                 ...previousResult.name,
                 comments: [
-                  ...previousResult.name.comments.slice(0, removedCommentPosition),
-                  ...previousResult.name.comments.slice(removedCommentPosition + 1)
-                ]
-              }
+                  ...previousResult.name.comments.slice(
+                    0,
+                    removedCommentPosition,
+                  ),
+                  ...previousResult.name.comments.slice(
+                    removedCommentPosition + 1,
+                  ),
+                ],
+              },
             };
           }
 
@@ -53,12 +67,12 @@ const CommentsWithData = graphql(GetNameComments, {
   props: ({ ownProps, data: { loading, name } }) => ({
     loading,
     comments: name && name.comments,
-    ...ownProps
-  })
+    ...ownProps,
+  }),
 })(CommentsList);
 
 const mapStateToProps = state => ({
-  userId: state.profile.id
+  userId: state.profile.id,
 });
 
 export default connect(mapStateToProps)(CommentsWithData);

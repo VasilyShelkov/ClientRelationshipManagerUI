@@ -7,7 +7,12 @@ import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import CompanyLogo from 'material-ui/svg-icons/action/face';
 
-import { FormErrorNotification, renderTextField, required, emailFormat } from '../shared/FormElements';
+import {
+  FormErrorNotification,
+  renderTextField,
+  required,
+  emailFormat,
+} from '../shared/FormElements';
 import LoadingSpinner from '../shared/LoadingSpinner';
 
 import handleSignIn from './loginRequest';
@@ -43,9 +48,16 @@ export const Login = ({ loggingIn, handleSubmit, error }) => (
               validate={required}
             />
             <br />
-            {loggingIn
-              ? <LoadingSpinner />
-              : <RaisedButton type="submit" label="Sign in" className="Login__form__signIn" primary />}
+            {loggingIn ? (
+              <LoadingSpinner />
+            ) : (
+              <RaisedButton
+                type="submit"
+                label="Sign in"
+                className="Login__form__signIn"
+                primary
+              />
+            )}
           </form>
         </Paper>
       </div>
@@ -57,11 +69,11 @@ const LoginForm = reduxForm({ form: 'login' })(Login);
 
 const mapStateToProps = state => ({
   loggingIn: state.account.loggingIn,
-  returnUrl: state.account.returnUrl
+  returnUrl: state.account.returnUrl,
 });
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: handleSignIn
+  onSubmit: handleSignIn,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

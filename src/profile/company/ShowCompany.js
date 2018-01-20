@@ -26,11 +26,13 @@ export const ShowCompany = ({
   editSuccessCompanyNotification,
   isAdmin,
   onEditCompany,
-  onRemoveNotification
+  onRemoveNotification,
 }) => (
   <div className="container">
     <div style={{ textAlign: 'center' }}>
-      <CompanyIcon style={{ height: '100px', width: '100px', color: 'white' }} />
+      <CompanyIcon
+        style={{ height: '100px', width: '100px', color: 'white' }}
+      />
       <h2>{name}</h2>
     </div>
 
@@ -40,13 +42,25 @@ export const ShowCompany = ({
       <List>
         <ListItem
           style={{ color: 'white' }}
-          leftAvatar={<Avatar icon={<LocationIcon />} backgroundColor="#FFFFFF" color={cyan500} />}
+          leftAvatar={
+            <Avatar
+              icon={<LocationIcon />}
+              backgroundColor="#FFFFFF"
+              color={cyan500}
+            />
+          }
           primaryText={address}
           disabled
         />
         <ListItem
           style={{ color: 'white' }}
-          leftAvatar={<Avatar icon={<PhoneIcon />} backgroundColor="#FFFFFF" color={cyan500} />}
+          leftAvatar={
+            <Avatar
+              icon={<PhoneIcon />}
+              backgroundColor="#FFFFFF"
+              color={cyan500}
+            />
+          }
           primaryText={phone}
           disabled
         />
@@ -57,7 +71,7 @@ export const ShowCompany = ({
 
     <div className="Profile__meta-info">
       <div className="row justify-content-center">
-        {editSuccessCompanyNotification &&
+        {editSuccessCompanyNotification && (
           <Chip
             id="editCompanySuccess"
             style={{ marginBottom: '10px' }}
@@ -65,32 +79,48 @@ export const ShowCompany = ({
             onRequestDelete={onRemoveNotification}
             onTouchTap={onRemoveNotification}
           >
-            <Avatar size={32} icon={<SuccessfulUpdateIcon />} color={lightGreen300} backgroundColor={green900} />
+            <Avatar
+              size={32}
+              icon={<SuccessfulUpdateIcon />}
+              color={lightGreen300}
+              backgroundColor={green900}
+            />
             {editSuccessCompanyNotification}
-          </Chip>}
+          </Chip>
+        )}
       </div>
       <div className="row justify-content-center">
         <Chip>
-          <Avatar size={32} icon={<UpdatedIcon />} backgroundColor="#FFFFFF" color={cyan500} />
+          <Avatar
+            size={32}
+            icon={<UpdatedIcon />}
+            backgroundColor="#FFFFFF"
+            color={cyan500}
+          />
           <strong>Last Updated</strong>: {moment(updatedAt).fromNow()}
         </Chip>
       </div>
     </div>
-    {isAdmin &&
+    {isAdmin && (
       <div className="Profile__cta row justify-content-center">
-        <RaisedButton label="Edit Company" icon={<EditIcon />} onClick={onEditCompany} />
-      </div>}
+        <RaisedButton
+          label="Edit Company"
+          icon={<EditIcon />}
+          onClick={onEditCompany}
+        />
+      </div>
+    )}
   </div>
 );
 
 const mapStateToProps = state => ({
   editSuccessCompanyNotification: state.profile.notification.company,
-  isAdmin: state.account.accountType === 'admin'
+  isAdmin: state.account.accountType === 'admin',
 });
 
 const mapDispatchToProps = dispatch => ({
   onEditCompany: () => dispatch(editCompany()),
-  onRemoveNotification: () => dispatch(removeProfileNotification())
+  onRemoveNotification: () => dispatch(removeProfileNotification()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShowCompany);

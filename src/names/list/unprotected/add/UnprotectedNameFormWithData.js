@@ -15,7 +15,12 @@ const AddUnprotectedNameWithCompanyData = compose(
   graphql(CreateUnprotectedName, {
     props: ({ ownProps, mutate }) => ({
       onSubmit: async values => {
-        const { companyName, companyAddress, companyPhone, ...nameDetails } = values;
+        const {
+          companyName,
+          companyAddress,
+          companyPhone,
+          ...nameDetails
+        } = values;
         const { createUnprotectedNameSuccess } = ownProps;
         try {
           const unprotectedName = await mutate({
@@ -25,44 +30,49 @@ const AddUnprotectedNameWithCompanyData = compose(
               companyFields: {
                 name: companyName,
                 address: companyAddress,
-                phone: companyPhone
-              }
-            }
+                phone: companyPhone,
+              },
+            },
           });
-          createUnprotectedNameSuccess(_.get(unprotectedName, 'data.addUnprotectedNameToUser'));
+          createUnprotectedNameSuccess(
+            _.get(unprotectedName, 'data.addUnprotectedNameToUser'),
+          );
         } catch (error) {
           throw new SubmissionError({ _error: error.graphQLErrors[0].message });
         }
       },
-      ...ownProps
+      ...ownProps,
     }),
     options: props => ({
       refetchQueries: [
         {
           query: GetUserNamesCount,
           variables: {
-            id: props.id
-          }
-        }
-      ]
-    })
+            id: props.id,
+          },
+        },
+      ],
+    }),
   }),
   graphql(GetAllCompanies, {
     props: ({ ownProps, data: { loading, companies } }) => ({
       loading,
       existingCompanies: companies,
-      ...ownProps
-    })
-  })
+      ...ownProps,
+    }),
+  }),
 )(AddUnprotectedNameForm);
 
 const mapStateToProps = state => ({
-  id: state.account.id
+  id: state.account.id,
 });
 
 const mapDispatchToProps = dispatch => ({
-  createUnprotectedNameSuccess: name => dispatch(selectName(name, 'unprotected')),
-  cancelAddUnprotectedName: () => dispatch(push('/account/names/unprotected'))
+  createUnprotectedNameSuccess: name =>
+    dispatch(selectName(name, 'unprotected')),
+  cancelAddUnprotectedName: () => dispatch(push('/account/names/unprotected')),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddUnprotectedNameWithCompanyData);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  AddUnprotectedNameWithCompanyData,
+);

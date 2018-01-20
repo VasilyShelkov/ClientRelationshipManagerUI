@@ -1,6 +1,9 @@
 import _ from 'lodash';
 
-import { APOLLO_MUTATION_INIT, APOLLO_MUTATION_RESULT } from '../../app/thirdPartyActions';
+import {
+  APOLLO_MUTATION_INIT,
+  APOLLO_MUTATION_RESULT,
+} from '../../app/thirdPartyActions';
 import {
   OPEN_PROTECT_NAME_DIALOG,
   CLOSE_PROTECT_NAME_DIALOG,
@@ -13,7 +16,7 @@ import {
   SHOW_EDIT_NAME,
   HIDE_EDIT_NAME,
   SHOW_EDIT_NAME_COMPANY,
-  HIDE_EDIT_NAME_COMPANY
+  HIDE_EDIT_NAME_COMPANY,
 } from './selectedActions';
 
 const initialState = {
@@ -24,7 +27,7 @@ const initialState = {
   showingEditNameCompanyForm: false,
   protectNameDialogOpen: false,
   makeNameClientDialogOpen: false,
-  metWithProtectedDialogOpen: false
+  metWithProtectedDialogOpen: false,
 };
 
 export default (state = initialState, action) => {
@@ -32,32 +35,32 @@ export default (state = initialState, action) => {
     case OPEN_PROTECT_NAME_DIALOG:
       return {
         ...state,
-        protectNameDialogOpen: true
+        protectNameDialogOpen: true,
       };
     case CLOSE_PROTECT_NAME_DIALOG:
       return {
         ...state,
-        protectNameDialogOpen: false
+        protectNameDialogOpen: false,
       };
     case OPEN_CLIENT_NAME_DIALOG:
       return {
         ...state,
-        makeNameClientDialogOpen: true
+        makeNameClientDialogOpen: true,
       };
     case CLOSE_CLIENT_NAME_DIALOG:
       return {
         ...state,
-        makeNameClientDialogOpen: false
+        makeNameClientDialogOpen: false,
       };
     case OPEN_MET_WITH_PROTECTED_DIALOG:
       return {
         ...state,
-        metWithProtectedDialogOpen: true
+        metWithProtectedDialogOpen: true,
       };
     case CLOSE_MET_WITH_PROTECTED_DIALOG:
       return {
         ...state,
-        metWithProtectedDialogOpen: false
+        metWithProtectedDialogOpen: false,
       };
     case SELECT_NAME:
       const { name, id } = action.typedName;
@@ -67,7 +70,7 @@ export default (state = initialState, action) => {
         nameId: name.id,
         listWithSelectedName: action.listWithSelectedName,
         showingEditNameForm: initialState.showingEditNameForm,
-        showingEditNameCompanyForm: initialState.showingEditNameCompanyForm
+        showingEditNameCompanyForm: initialState.showingEditNameCompanyForm,
       };
     case HIDE_NAME:
       return {
@@ -76,44 +79,44 @@ export default (state = initialState, action) => {
         nameId: initialState.nameId,
         listWithSelectedName: initialState.listWithSelectedName,
         showingEditNameForm: initialState.showingEditNameForm,
-        showingEditNameCompanyForm: initialState.showingEditNameCompanyForm
+        showingEditNameCompanyForm: initialState.showingEditNameCompanyForm,
       };
     case SHOW_EDIT_NAME:
       return {
         ...state,
-        showingEditNameForm: true
+        showingEditNameForm: true,
       };
     case HIDE_EDIT_NAME:
       return {
         ...state,
-        showingEditNameForm: false
+        showingEditNameForm: false,
       };
     case SHOW_EDIT_NAME_COMPANY:
       return {
         ...state,
-        showingEditNameCompanyForm: true
+        showingEditNameCompanyForm: true,
       };
     case HIDE_EDIT_NAME_COMPANY:
       return {
         ...state,
-        showingEditNameCompanyForm: false
+        showingEditNameCompanyForm: false,
       };
     case APOLLO_MUTATION_INIT: {
       switch (action.operationName) {
         case 'ProtectName':
           return {
             ...state,
-            protectNameDialogOpen: initialState.protectNameDialogOpen
+            protectNameDialogOpen: initialState.protectNameDialogOpen,
           };
         case 'MetWithProtected':
           return {
             ...state,
-            metWithProtectedDialogOpen: false
+            metWithProtectedDialogOpen: false,
           };
         case 'MakeClient':
           return {
             ...state,
-            makeNameClientDialogOpen: initialState.makeNameClientDialogOpen
+            makeNameClientDialogOpen: initialState.makeNameClientDialogOpen,
           };
         default:
           return state;
@@ -126,7 +129,7 @@ export default (state = initialState, action) => {
         case 'RemoveClient':
           return {
             ...state,
-            id: initialState.id
+            id: initialState.id,
           };
         default:
           return state;

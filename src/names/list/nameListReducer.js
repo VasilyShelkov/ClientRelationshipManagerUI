@@ -4,20 +4,20 @@ import {
   OPEN_EDIT_PROTECTED_NAME_MEETING_DIALOG,
   CLOSE_EDIT_PROTECTED_NAME_MEETING_DIALOG,
   OPEN_EDIT_PROTECTED_NAME_CALL_DIALOG,
-  CLOSE_EDIT_PROTECTED_NAME_CALL_DIALOG
+  CLOSE_EDIT_PROTECTED_NAME_CALL_DIALOG,
 } from './nameListActions';
 
 const initialState = {
   protectedListToShow: 'protected',
   editProtectedNameMeetingDialogOpen: false,
-  editProtectedNameCallDialogOpen: false
+  editProtectedNameCallDialogOpen: false,
 };
 export default (state = initialState, action) => {
   switch (action.type) {
     case CHANGE_SHOWN_PROTECTED_LIST:
       return {
         ...state,
-        protectedListToShow: action.listToShow
+        protectedListToShow: action.listToShow,
       };
     case APOLLO_MUTATION_RESULT: {
       switch (action.operationName) {
@@ -25,12 +25,12 @@ export default (state = initialState, action) => {
           return {
             ...state,
             protectedListToShow: initialState.protectedListToShow,
-            actionInProgress: initialState.actionInProgress
+            actionInProgress: initialState.actionInProgress,
           };
         case 'MetWithProtected':
           return {
             ...state,
-            protectedListToShow: 'metWithProtected'
+            protectedListToShow: 'metWithProtected',
           };
         default:
           return state;

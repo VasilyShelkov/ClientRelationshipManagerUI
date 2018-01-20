@@ -10,7 +10,7 @@ describe('src/authentication/loginRequest.js', () => {
     sinon.test(async function() {
       const values = {
         email: 'testEmail@test.com',
-        password: '1234'
+        password: '1234',
       };
       const dispatch = this.spy();
       const loginAccountDetails = { data: { token: 'accountDetails' } };
@@ -19,16 +19,18 @@ describe('src/authentication/loginRequest.js', () => {
         .returns(loginAccountDetails);
       this.stub(axios, 'create').returns({
         post,
-        defaults: {}
+        defaults: {},
       });
 
       const returnUrl = '/account/profile';
       await loginRequest(values, dispatch, { returnUrl });
 
       expect(dispatch).to.have.been.calledWith(logIn());
-      expect(dispatch).to.have.been.calledWith(logInSuccess(loginAccountDetails.data));
+      expect(dispatch).to.have.been.calledWith(
+        logInSuccess(loginAccountDetails.data),
+      );
       expect(dispatch).to.have.been.calledWith(push('/account/profile'));
-    })
+    }),
   );
 
   it(
@@ -36,7 +38,7 @@ describe('src/authentication/loginRequest.js', () => {
     sinon.test(async function() {
       const values = {
         email: 'testEmail@test.com',
-        password: '1234'
+        password: '1234',
       };
       const dispatch = this.spy();
       const transitionAfterLogin = this.spy();
@@ -47,13 +49,15 @@ describe('src/authentication/loginRequest.js', () => {
         .throws(loginError);
       this.stub(axios, 'create').returns({
         post,
-        defaults: {}
+        defaults: {},
       });
 
-      await expect(loginRequest(values, dispatch, { returnUrl: '/irrelevant ' })).to.be.rejectedWith(SubmissionError);
+      await expect(
+        loginRequest(values, dispatch, { returnUrl: '/irrelevant ' }),
+      ).to.be.rejectedWith(SubmissionError);
 
       expect(dispatch).to.have.been.calledWith(logIn());
       expect(dispatch).to.have.been.calledWith(logInError());
-    })
+    }),
   );
 });

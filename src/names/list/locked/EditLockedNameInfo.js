@@ -7,7 +7,10 @@ import PhoneIcon from 'material-ui/svg-icons/communication/phone';
 import CancelIcon from 'material-ui/svg-icons/content/clear';
 
 import NameDialogForm from '../../NameDialog';
-import { closeEditProtectedNameCallDialog, closeEditProtectedNameMeetingDialog } from '../../nameActions';
+import {
+  closeEditProtectedNameCallDialog,
+  closeEditProtectedNameMeetingDialog,
+} from '../../nameActions';
 import { MetWithProtectedIcon } from '../../../app/icons';
 
 export const EditNameProtectedInfo = ({
@@ -17,11 +20,15 @@ export const EditNameProtectedInfo = ({
   onSubmitBookMeeting,
   onSubmitBookCall,
   closeEditMeetingDialog,
-  closeEditCallDialog
+  closeEditCallDialog,
 }) => {
   if (editMeetingDialogOpen !== false) {
-    const nameMeetingToEdit = names.find(name => name.name.id === editMeetingDialogOpen);
-    const displayName = `${nameMeetingToEdit.name.firstName} ${nameMeetingToEdit.name.lastName}`;
+    const nameMeetingToEdit = names.find(
+      name => name.name.id === editMeetingDialogOpen,
+    );
+    const displayName = `${nameMeetingToEdit.name.firstName} ${
+      nameMeetingToEdit.name.lastName
+    }`;
     return (
       <NameDialogForm
         title={`Edit ${displayName}`}
@@ -30,11 +37,20 @@ export const EditNameProtectedInfo = ({
         close={closeEditMeetingDialog}
         onSubmit={onSubmitBookMeeting(editMeetingDialogOpen)}
         initialValues={{
-          meetingDay: nameMeetingToEdit.meetingBooked ? moment(nameMeetingToEdit.meetingBooked).toDate() : null,
-          meetingTime: nameMeetingToEdit.meetingBooked ? moment(nameMeetingToEdit.meetingBooked).toDate() : null
+          meetingDay: nameMeetingToEdit.meetingBooked
+            ? moment(nameMeetingToEdit.meetingBooked).toDate()
+            : null,
+          meetingTime: nameMeetingToEdit.meetingBooked
+            ? moment(nameMeetingToEdit.meetingBooked).toDate()
+            : null,
         }}
         actions={[
-          <FlatButton secondary onClick={closeEditMeetingDialog} label="Cancel" icon={<CancelIcon />} />,
+          <FlatButton
+            secondary
+            onClick={closeEditMeetingDialog}
+            label="Cancel"
+            icon={<CancelIcon />}
+          />,
           <FlatButton
             primary
             id="submitEditProtectedMeeting"
@@ -42,15 +58,19 @@ export const EditNameProtectedInfo = ({
             type="submit"
             label="Book Meeting"
             icon={<MetWithProtectedIcon />}
-          />
+          />,
         ]}
       />
     );
   }
 
   if (editCallDialogOpen !== false) {
-    const nameCallToEdit = names.find(name => name.name.id === editCallDialogOpen);
-    const displayName = `${nameCallToEdit.name.firstName} ${nameCallToEdit.name.lastName}`;
+    const nameCallToEdit = names.find(
+      name => name.name.id === editCallDialogOpen,
+    );
+    const displayName = `${nameCallToEdit.name.firstName} ${
+      nameCallToEdit.name.lastName
+    }`;
     return (
       <NameDialogForm
         title={`Edit ${displayName}`}
@@ -59,11 +79,20 @@ export const EditNameProtectedInfo = ({
         close={closeEditCallDialog}
         onSubmit={onSubmitBookCall(editCallDialogOpen)}
         initialValues={{
-          callDay: nameCallToEdit.callBooked ? moment(nameCallToEdit.callBooked).toDate() : null,
-          callTime: nameCallToEdit.callBooked ? moment(nameCallToEdit.callBooked).toDate() : null
+          callDay: nameCallToEdit.callBooked
+            ? moment(nameCallToEdit.callBooked).toDate()
+            : null,
+          callTime: nameCallToEdit.callBooked
+            ? moment(nameCallToEdit.callBooked).toDate()
+            : null,
         }}
         actions={[
-          <FlatButton secondary onClick={closeEditCallDialog} label="Cancel" icon={<CancelIcon />} />,
+          <FlatButton
+            secondary
+            onClick={closeEditCallDialog}
+            label="Cancel"
+            icon={<CancelIcon />}
+          />,
           <FlatButton
             primary
             id="submitEditProtectedCall"
@@ -71,7 +100,7 @@ export const EditNameProtectedInfo = ({
             type="submit"
             label="Book Call"
             icon={<PhoneIcon />}
-          />
+          />,
         ]}
       />
     );
@@ -82,12 +111,14 @@ export const EditNameProtectedInfo = ({
 
 const mapStateToProps = state => ({
   editCallDialogOpen: state.name.editProtectedNameCallDialogOpen,
-  editMeetingDialogOpen: state.name.editProtectedNameMeetingDialogOpen
+  editMeetingDialogOpen: state.name.editProtectedNameMeetingDialogOpen,
 });
 
 const mapDispatchToProps = dispatch => ({
   closeEditCallDialog: () => dispatch(closeEditProtectedNameCallDialog()),
-  closeEditMeetingDialog: () => dispatch(closeEditProtectedNameMeetingDialog())
+  closeEditMeetingDialog: () => dispatch(closeEditProtectedNameMeetingDialog()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditNameProtectedInfo);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  EditNameProtectedInfo,
+);

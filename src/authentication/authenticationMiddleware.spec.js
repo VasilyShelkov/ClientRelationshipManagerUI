@@ -6,7 +6,7 @@ const setup = ({ pathname = '', storeState = {}, sandbox }) => {
   const dispatch = sandbox.spy();
   const store = {
     dispatch,
-    getState: () => storeState
+    getState: () => storeState,
   };
   const action = { type: '@@router/LOCATION_CHANGE', payload: { pathname } };
 
@@ -22,18 +22,21 @@ describe('src/authentication/authenticationMiddleware.js', () => {
       authenticationMiddleware(store)(next)(action);
 
       expect(next).to.have.been.called;
-    })
+    }),
   );
 
   it(
     'does not do anything if the route does not require login',
     sinon.test(function() {
-      const { dispatch, store, next, action } = setup({ pathname: '/home', sandbox: this });
+      const { dispatch, store, next, action } = setup({
+        pathname: '/home',
+        sandbox: this,
+      });
 
       authenticationMiddleware(store)(next)(action);
 
       expect(dispatch).not.to.have.been.calledWith(push('/login'));
-    })
+    }),
   );
 
   it(
@@ -42,15 +45,15 @@ describe('src/authentication/authenticationMiddleware.js', () => {
       const { dispatch, store, next, action } = setup({
         pathname: '/account/profile',
         storeState: {
-          account: {}
+          account: {},
         },
-        sandbox: this
+        sandbox: this,
       });
 
       authenticationMiddleware(store)(next)(action);
 
       expect(dispatch).to.have.been.calledWith(push('/login'));
-    })
+    }),
   );
 
   it(
@@ -59,14 +62,14 @@ describe('src/authentication/authenticationMiddleware.js', () => {
       const { dispatch, store, next, action } = setup({
         pathname: '/account/profile',
         storeState: {
-          account: { token: 'loggedInToken' }
+          account: { token: 'loggedInToken' },
         },
-        sandbox: this
+        sandbox: this,
       });
 
       authenticationMiddleware(store)(next)(action);
 
       expect(dispatch).not.to.have.been.calledWith(push('/login'));
-    })
+    }),
   );
 });

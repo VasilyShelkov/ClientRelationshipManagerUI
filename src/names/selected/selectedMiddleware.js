@@ -8,12 +8,16 @@ export default store => next => action => {
       const { listWithSelectedName, typedName } = action;
       store.dispatch(
         push(
-          `/account/names/${listWithSelectedName}/selected/${encodeURI(typedName.name.firstName.toLowerCase())}-${encodeURI(typedName.name.lastName.toLowerCase())}`
-        )
+          `/account/names/${listWithSelectedName}/selected/${encodeURI(
+            typedName.name.firstName.toLowerCase(),
+          )}-${encodeURI(typedName.name.lastName.toLowerCase())}`,
+        ),
       );
       break;
     case HIDE_NAME:
-      store.dispatch(push(`/account/names/${action.listWithSelectedNameToHide}`));
+      store.dispatch(
+        push(`/account/names/${action.listWithSelectedNameToHide}`),
+      );
       break;
   }
 };

@@ -1,4 +1,7 @@
-import { APOLLO_MUTATION_INIT, APOLLO_MUTATION_RESULT } from '../app/thirdPartyActions';
+import {
+  APOLLO_MUTATION_INIT,
+  APOLLO_MUTATION_RESULT,
+} from '../app/thirdPartyActions';
 
 export default (state = false, action) => {
   switch (action.type) {

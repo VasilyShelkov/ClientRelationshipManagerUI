@@ -5,11 +5,15 @@ import LoadingSpinner from '../shared/LoadingSpinner';
 import { FormErrorNotification } from '../shared/FormElements';
 import { Login } from './Login';
 
-const setup = ({ loggingIn = false, handleSubmit = () => '', error = 'test error' }) => {
+const setup = ({
+  loggingIn = false,
+  handleSubmit = () => '',
+  error = 'test error',
+}) => {
   const props = {
     loggingIn,
     handleSubmit,
-    error
+    error,
   };
   const wrapper = shallowWithContext(<Login {...props} />);
 
@@ -20,7 +24,9 @@ describe('src/authentication/Login.js', () => {
   it('renders the login page', () => {
     const { wrapper, props } = setup({});
 
-    expect(wrapper.find(FormErrorNotification).prop('message')).to.equal(props.error);
+    expect(wrapper.find(FormErrorNotification).prop('message')).to.equal(
+      props.error,
+    );
     const fields = wrapper.find(Field);
     expect(fields).length.to.be(2);
 
@@ -61,6 +67,6 @@ describe('src/authentication/Login.js', () => {
 
       form.prop('onSubmit')();
       expect(handleSubmit).to.have.been.called;
-    })
+    }),
   );
 });

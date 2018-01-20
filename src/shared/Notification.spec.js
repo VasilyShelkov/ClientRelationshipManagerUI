@@ -12,7 +12,7 @@ const setup = ({ message, zDepth = 0 }) => {
 describe('src/shared/Notification.js', () => {
   it('does not render anything when there is no message', () => {
     const { wrapper } = setup({ message: '' });
-    expect(wrapper.getNode()).to.equal(null);
+    expect(wrapper.getElement()).to.equal(null);
   });
 
   it('render the notification with message if there is one', () => {
@@ -20,6 +20,8 @@ describe('src/shared/Notification.js', () => {
     const { wrapper } = setup({ message });
 
     expect(wrapper.find(Paper).exists()).to.be.true;
-    expect(wrapper.find('.Form__notification__message').text()).to.equal(message);
+    expect(wrapper.find('.Form__notification__message').text()).to.equal(
+      message,
+    );
   });
 });

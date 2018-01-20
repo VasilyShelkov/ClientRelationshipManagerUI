@@ -19,9 +19,9 @@ const ClientsWithEditMutations = compose(
         names: ownProps.names,
         nameListTypeIdKey: 'clientId',
         performingNameAction: ownProps.performingNameAction,
-        showErrorNotification: ownProps.showErrorNotification
+        showErrorNotification: ownProps.showErrorNotification,
       }),
-      ...ownProps
+      ...ownProps,
     }),
     options: props => ({
       refetchQueries: [
@@ -29,11 +29,11 @@ const ClientsWithEditMutations = compose(
           query: GetNameComments,
           variables: {
             userId: props.id,
-            id: props.selectedNameId
-          }
-        }
-      ]
-    })
+            id: props.selectedNameId,
+          },
+        },
+      ],
+    }),
   }),
   graphql(BookClientMeeting, {
     props: ({ ownProps, mutate }) => ({
@@ -43,9 +43,9 @@ const ClientsWithEditMutations = compose(
         names: ownProps.names,
         nameListTypeIdKey: 'clientId',
         performingNameAction: ownProps.performingNameAction,
-        showErrorNotification: ownProps.showErrorNotification
+        showErrorNotification: ownProps.showErrorNotification,
       }),
-      ...ownProps
+      ...ownProps,
     }),
     options: props => ({
       refetchQueries: [
@@ -53,21 +53,23 @@ const ClientsWithEditMutations = compose(
           query: GetNameComments,
           variables: {
             userId: props.id,
-            id: props.selectedNameId
-          }
-        }
-      ]
-    })
-  })
+            id: props.selectedNameId,
+          },
+        },
+      ],
+    }),
+  }),
 )(NamesList);
 
 const mapStateToProps = state => ({
-  selectedNameId: state.selectedName.nameId
+  selectedNameId: state.selectedName.nameId,
 });
 
 const mapDispatchToProps = dispatch => ({
   performingNameAction: message => dispatch(performingNameAction(message)),
-  showErrorNotification: message => dispatch(showNotification(message, red500))
+  showErrorNotification: message => dispatch(showNotification(message, red500)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ClientsWithEditMutations);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  ClientsWithEditMutations,
+);

@@ -11,7 +11,10 @@ export default ({ error, handleSubmit, hideCommentForm, commentFormType }) => (
     handleSubmit={handleSubmit}
     handleCancel={hideCommentForm}
     fields={[
-      <div key={`${commentFormType}Comment__comment`} style={{ display: 'flex', alignItems: 'center' }}>
+      <div
+        key={`${commentFormType}Comment__comment`}
+        style={{ display: 'flex', alignItems: 'center' }}
+      >
         <Field
           name="text"
           component={TextField}
@@ -24,7 +27,7 @@ export default ({ error, handleSubmit, hideCommentForm, commentFormType }) => (
           style={{ marginRight: '10px' }}
         />
         <Field name="visibility" component={renderIconDropdown} />
-      </div>
+      </div>,
     ]}
   />
 );

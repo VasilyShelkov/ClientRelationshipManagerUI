@@ -6,7 +6,11 @@ import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
 import { cyan500 } from 'material-ui/styles/colors';
 
-import { UnprotectedIcon, MetWithProtectedIcon, ClientsIcon } from '../../../../app/icons';
+import {
+  UnprotectedIcon,
+  MetWithProtectedIcon,
+  ClientsIcon,
+} from '../../../../app/icons';
 import SelectedName from '../../SelectedName';
 import NameDialogForm from '../../../NameDialog';
 
@@ -21,7 +25,7 @@ export default ({
   closeClientNameDialog,
   onSubmitUnprotectName,
   onSubmitMakeClient,
-  onSubmitMeetProtected
+  onSubmitMeetProtected,
 }) => {
   const displayName = `${firstName} ${lastName}`;
   const callBookedDate = moment(callBooked).toDate();
@@ -29,17 +33,33 @@ export default ({
 
   return (
     <ToolbarGroup>
-      <IconButton id="unprotectName" tooltip="Unprotect Name" onClick={onSubmitUnprotectName} touch>
+      <IconButton
+        id="unprotectName"
+        tooltip="Unprotect Name"
+        onClick={onSubmitUnprotectName}
+        touch
+      >
         <UnprotectedIcon color={cyan500} />
       </IconButton>
-      {!metWith &&
-        <IconButton id="metWithProtected" tooltip="Met With Protected" onClick={openMetWithProtectedDialog} touch>
+      {!metWith && (
+        <IconButton
+          id="metWithProtected"
+          tooltip="Met With Protected"
+          onClick={openMetWithProtectedDialog}
+          touch
+        >
           <MetWithProtectedIcon color={cyan500} />
-        </IconButton>}
-      <IconButton id="makeClient" tooltip="Make Name Client" onClick={openClientNameDialog} touch>
+        </IconButton>
+      )}
+      <IconButton
+        id="makeClient"
+        tooltip="Make Name Client"
+        onClick={openClientNameDialog}
+        touch
+      >
         <ClientsIcon color={cyan500} />
       </IconButton>
-      {makeNameClientDialogOpen &&
+      {makeNameClientDialogOpen && (
         <NameDialogForm
           title={`Make ${displayName} a Client`}
           displayName={displayName}
@@ -50,10 +70,15 @@ export default ({
             callDay: callBooked ? callBookedDate : null,
             callTime: callBooked ? callBookedDate : null,
             meetingDay: meetingBooked ? meetingBookedDate : null,
-            meetingTime: meetingBooked ? meetingBookedDate : null
+            meetingTime: meetingBooked ? meetingBookedDate : null,
           }}
           actions={[
-            <FlatButton secondary onClick={closeClientNameDialog} label="Cancel" icon={<CancelIcon />} />,
+            <FlatButton
+              secondary
+              onClick={closeClientNameDialog}
+              label="Cancel"
+              icon={<CancelIcon />}
+            />,
             <FlatButton
               primary
               id="submitClientName"
@@ -61,33 +86,44 @@ export default ({
               type="submit"
               label="Make Client"
               icon={<ClientsIcon />}
-            />
+            />,
           ]}
-        />}
+        />
+      )}
       {!metWith &&
-        metWithProtectedDialogOpen &&
-        <NameDialogForm
-          title={`I've met with ${displayName}...`}
-          displayName={displayName}
-          open={metWithProtectedDialogOpen}
-          close={closeMetWithProtectedDialog}
-          onSubmit={onSubmitMeetProtected}
-          initialValues={{
-            pastMeetingDay: meetingBooked ? meetingBookedDate : moment().toDate(),
-            pastMeetingTime: meetingBooked ? meetingBookedDate : moment().toDate()
-          }}
-          actions={[
-            <FlatButton secondary onClick={closeMetWithProtectedDialog} label="Cancel" icon={<CancelIcon />} />,
-            <FlatButton
-              primary
-              id="submitMetWithName"
-              form="protectNameForm"
-              type="submit"
-              label="Confirm Meeting"
-              icon={<MetWithProtectedIcon />}
-            />
-          ]}
-        />}
+        metWithProtectedDialogOpen && (
+          <NameDialogForm
+            title={`I've met with ${displayName}...`}
+            displayName={displayName}
+            open={metWithProtectedDialogOpen}
+            close={closeMetWithProtectedDialog}
+            onSubmit={onSubmitMeetProtected}
+            initialValues={{
+              pastMeetingDay: meetingBooked
+                ? meetingBookedDate
+                : moment().toDate(),
+              pastMeetingTime: meetingBooked
+                ? meetingBookedDate
+                : moment().toDate(),
+            }}
+            actions={[
+              <FlatButton
+                secondary
+                onClick={closeMetWithProtectedDialog}
+                label="Cancel"
+                icon={<CancelIcon />}
+              />,
+              <FlatButton
+                primary
+                id="submitMetWithName"
+                form="protectNameForm"
+                type="submit"
+                label="Confirm Meeting"
+                icon={<MetWithProtectedIcon />}
+              />,
+            ]}
+          />
+        )}
     </ToolbarGroup>
   );
 };

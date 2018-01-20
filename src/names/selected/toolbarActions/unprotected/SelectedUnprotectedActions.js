@@ -13,16 +13,21 @@ export default ({
   protectNameDialogOpen,
   openProtectNameDialog,
   closeProtectNameDialog,
-  onSubmitProtectName
+  onSubmitProtectName,
 }) => {
   const displayName = `${firstName} ${lastName}`;
   return (
     <ToolbarGroup>
-      <IconButton id="protectName" tooltip="Protect Name" onClick={openProtectNameDialog} touch>
+      <IconButton
+        id="protectName"
+        tooltip="Protect Name"
+        onClick={openProtectNameDialog}
+        touch
+      >
         <ProtectedIcon color={cyan500} />
       </IconButton>
 
-      {protectNameDialogOpen &&
+      {protectNameDialogOpen && (
         <NameDialogForm
           title={`Protect ${displayName}`}
           displayName={displayName}
@@ -33,10 +38,15 @@ export default ({
             callDay: null,
             callTime: null,
             meetingDay: null,
-            meetingTime: null
+            meetingTime: null,
           }}
           actions={[
-            <FlatButton onClick={closeProtectNameDialog} label="Cancel" secondary icon={<CancelIcon />} />,
+            <FlatButton
+              onClick={closeProtectNameDialog}
+              label="Cancel"
+              secondary
+              icon={<CancelIcon />}
+            />,
             <FlatButton
               id="submitProtectName"
               form="protectNameForm"
@@ -44,9 +54,10 @@ export default ({
               label="Protect"
               primary
               icon={<ProtectedIcon />}
-            />
+            />,
           ]}
-        />}
+        />
+      )}
     </ToolbarGroup>
   );
 };

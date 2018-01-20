@@ -10,7 +10,11 @@ import GetNameComments from '../../comments/GetNameComments.gql';
 import GetUserNamesCount from '../../../GetUserNamesCount.gql';
 
 import { showNotification } from '../../../../app/appActions';
-import { openProtectNameDialog, closeProtectNameDialog, selectName } from '../../selectedActions';
+import {
+  openProtectNameDialog,
+  closeProtectNameDialog,
+  selectName,
+} from '../../selectedActions';
 import { performingNameAction } from '../../../nameActions';
 
 import SelectedUnprotectedActions from './SelectedUnprotectedActions';
@@ -19,28 +23,40 @@ const SelectedUnprotectedActionsWithMutations = compose(
   graphql(ProtectName, {
     props: ({ ownProps, mutate }) => ({
       ...ownProps,
-      onSubmitProtectName: async ({ callDay, callTime, meetingDay, meetingTime, comment }) => {
+      onSubmitProtectName: async ({
+        callDay,
+        callTime,
+        meetingDay,
+        meetingTime,
+        comment,
+      }) => {
         const {
           userId,
           unprotectedId,
           name,
           performingNameAction,
           protectNameSuccess,
-          showErrorNotification
+          showErrorNotification,
         } = ownProps;
 
         let callBooked = null;
         if (callDay) {
           const callDayMoment = moment(callDay).format();
           const callTimeMoment = moment(callTime).format();
-          callBooked = `${callDayMoment.substr(0, callDayMoment.indexOf('T'))}T${callTimeMoment.substr(callTimeMoment.indexOf('T') + 1)}`;
+          callBooked = `${callDayMoment.substr(
+            0,
+            callDayMoment.indexOf('T'),
+          )}T${callTimeMoment.substr(callTimeMoment.indexOf('T') + 1)}`;
         }
 
         let meetingBooked = null;
         if (meetingDay) {
           const meetingDayMoment = moment(meetingDay).format();
           const meetingTimeMoment = moment(meetingTime).format();
-          meetingBooked = `${meetingDayMoment.substr(0, meetingDayMoment.indexOf('T'))}T${meetingTimeMoment.substr(meetingTimeMoment.indexOf('T') + 1)}`;
+          meetingBooked = `${meetingDayMoment.substr(
+            0,
+            meetingDayMoment.indexOf('T'),
+          )}T${meetingTimeMoment.substr(meetingTimeMoment.indexOf('T') + 1)}`;
         }
 
         try {
@@ -52,22 +68,29 @@ const SelectedUnprotectedActionsWithMutations = compose(
               userId,
               callBooked,
               meetingBooked,
-              comment
+              comment,
             },
             updateQueries: {
               GetProtectedNames: (previousResult, { mutationResult }) => ({
                 user: {
                   ...previousResult.user,
-                  protected: [mutationResult.data.protectNameToUser, ...previousResult.user.protected]
-                }
-              })
-            }
+                  protected: [
+                    mutationResult.data.protectNameToUser,
+                    ...previousResult.user.protected,
+                  ],
+                },
+              }),
+            },
           });
           protectNameSuccess(_.get(protectedName, 'data.protectNameToUser'));
         } catch (error) {
-          showErrorNotification(error.graphQLErrors ? error.graphQLErrors[0].message : 'Oops, something went wrong...');
+          showErrorNotification(
+            error.graphQLErrors
+              ? error.graphQLErrors[0].message
+              : 'Oops, something went wrong...',
+          );
         }
-      }
+      },
     }),
     options: props => ({
       refetchQueries: [
@@ -75,24 +98,24 @@ const SelectedUnprotectedActionsWithMutations = compose(
           query: GetNameComments,
           variables: {
             userId: props.userId,
-            id: props.name.id
-          }
+            id: props.name.id,
+          },
         },
         {
           query: GetUserNamesCount,
           variables: {
-            id: props.userId
-          }
-        }
-      ]
-    })
-  })
+            id: props.userId,
+          },
+        },
+      ],
+    }),
+  }),
 )(SelectedUnprotectedActions);
 
 const mapStateToProps = state => ({
   userId: state.profile.id,
   unprotectedId: state.selectedName.nameTypeId,
-  protectNameDialogOpen: state.selectedName.protectNameDialogOpen
+  protectNameDialogOpen: state.selectedName.protectNameDialogOpen,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -100,7 +123,9 @@ const mapDispatchToProps = dispatch => ({
   closeProtectNameDialog: () => dispatch(closeProtectNameDialog()),
   performingNameAction: message => dispatch(performingNameAction(message)),
   showErrorNotification: message => dispatch(showNotification(message, red500)),
-  protectNameSuccess: name => dispatch(selectName(name, 'protected'))
+  protectNameSuccess: name => dispatch(selectName(name, 'protected')),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SelectedUnprotectedActionsWithMutations);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  SelectedUnprotectedActionsWithMutations,
+);

@@ -6,6 +6,7 @@ import ApolloClient, { createNetworkInterface } from 'apollo-client';
 
 import { reducer as formReducer } from 'redux-form';
 import { routerReducer } from 'react-router-redux';
+import { reducer as sweetalert } from 'react-redux-sweetalert';
 import account from '../authentication/accountReducer';
 import profile from '../profile/profileReducer';
 import name from '../names/nameReducer';
@@ -16,7 +17,9 @@ import app from './appReducer';
 
 import config from '../../config';
 
-const networkInterface = createNetworkInterface({ uri: `${config.graphQL}/graphql` });
+const networkInterface = createNetworkInterface({
+  uri: `${config.graphQL}/graphql`,
+});
 networkInterface.use([
   {
     applyMiddleware(req, next) {
@@ -28,14 +31,14 @@ networkInterface.use([
       const token = JSON.parse(accountDetails).account.token;
       req.options.headers.authorization = token ? `Bearer ${token}` : null;
       next();
-    }
-  }
+    },
+  },
 ]);
 
 export const client = new ApolloClient({
   networkInterface,
   connectToDevTools: true,
-  dataIdFromObject: o => o.id
+  dataIdFromObject: o => o.id,
 });
 
 export default compose(
@@ -44,24 +47,25 @@ export default compose(
     ...persistedState,
     account: {
       ...initialState.account,
-      ...persistedState.account
+      ...persistedState.account,
     },
     profile: {
       ...initialState.profile,
-      id: persistedState.account.id
-    }
-  }))
+      id: persistedState.account.id,
+    },
+  })),
 )(
   combineReducers({
     apollo: client.reducer(),
     form: formReducer,
     routing: routerReducer,
+    sweetalert,
     account,
     app,
     creatingUser,
     name,
     profile,
     selectedName,
-    nameList
-  })
+    nameList,
+  }),
 );

@@ -19,59 +19,63 @@ const EditCompany = ({
   editInProgress,
   change,
   handleSubmit,
-  handleCancelEditCompany
+  handleCancelEditCompany,
 }) => (
   <Paper zDepth={2}>
-    {loading
-      ? <LoadingSpinner />
-      : <StandardForm
-          handleSubmit={handleSubmit}
-          handleCancel={handleCancelEditCompany}
-          error={error}
-          editInProgress={editInProgress}
-          fields={[
-            <div className="col-12">
-              <Field
-                key="company__name"
-                name="name"
-                component={AutoComplete}
-                floatingLabelText="Company Name"
-                openOnFocus
-                filter={MUIAutoComplete.fuzzyFilter}
-                onNewRequest={companyName => {
-                  const companyInfo = existingCompanies.find(company => company.name === companyName);
+    {loading ? (
+      <LoadingSpinner />
+    ) : (
+      <StandardForm
+        handleSubmit={handleSubmit}
+        handleCancel={handleCancelEditCompany}
+        error={error}
+        editInProgress={editInProgress}
+        fields={[
+          <div className="col-12">
+            <Field
+              key="company__name"
+              name="name"
+              component={AutoComplete}
+              floatingLabelText="Company Name"
+              openOnFocus
+              filter={MUIAutoComplete.fuzzyFilter}
+              onNewRequest={companyName => {
+                const companyInfo = existingCompanies.find(
+                  company => company.name === companyName,
+                );
 
-                  change('companyAddress', companyInfo.address);
-                  change('companyPhone', companyInfo.phone);
-                }}
-                dataSource={existingCompanies.map(info => info.name)}
-                maxSearchResults={10}
-                validate={required}
-                fullWidth
-              />
-            </div>,
-            <div className="col-12">
-              <Field
-                key="company__address"
-                name="address"
-                component={AddressField}
-                floatingLabelText="Address"
-                validate={required}
-                fullWidth
-              />
-            </div>,
-            <div className="col-12">
-              <Field
-                key="company__phone"
-                name="phone"
-                component={TextField}
-                floatingLabelText="Phone"
-                validate={required}
-                fullWidth
-              />
-            </div>
-          ]}
-        />}
+                change('companyAddress', companyInfo.address);
+                change('companyPhone', companyInfo.phone);
+              }}
+              dataSource={existingCompanies.map(info => info.name)}
+              maxSearchResults={10}
+              validate={required}
+              fullWidth
+            />
+          </div>,
+          <div className="col-12">
+            <Field
+              key="company__address"
+              name="address"
+              component={AddressField}
+              floatingLabelText="Address"
+              validate={required}
+              fullWidth
+            />
+          </div>,
+          <div className="col-12">
+            <Field
+              key="company__phone"
+              name="phone"
+              component={TextField}
+              floatingLabelText="Phone"
+              validate={required}
+              fullWidth
+            />
+          </div>,
+        ]}
+      />
+    )}
   </Paper>
 );
 
@@ -88,26 +92,29 @@ export default compose(
               variables: {
                 userId: ownProps.userId,
                 companyId: ownProps.initialValues.id,
-                ...formValues
-              }
+                ...formValues,
+              },
             });
           } catch (error) {
-            throw new SubmissionError({ _error: error.graphQLErrors[0].message });
+            throw new SubmissionError({
+              _error: error.graphQLErrors[0].message,
+            });
           }
         } else {
           throw new SubmissionError({
-            _error: 'Please change one of the company fields to to update the company...'
+            _error:
+              'Please change one of the company fields to to update the company...',
           });
         }
       },
-      ...ownProps
-    })
+      ...ownProps,
+    }),
   }),
   graphql(GetAllCompanies, {
     props: ({ ownProps, data: { loading, companies } }) => ({
       loading,
       existingCompanies: companies,
-      ...ownProps
-    })
-  })
+      ...ownProps,
+    }),
+  }),
 )(EditCompanyForm);

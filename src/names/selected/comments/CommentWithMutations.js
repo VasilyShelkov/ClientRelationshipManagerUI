@@ -18,16 +18,18 @@ export const CommentWithMutations = compose(
           await mutate({
             variables: {
               commentId: ownProps.id,
-              userId: ownProps.userId
-            }
+              userId: ownProps.userId,
+            },
           });
         } catch (error) {
           ownProps.showErrorNotification(
-            error.graphQLErrors ? error.graphQLErrors[0].message : 'Oops, something went wrong...'
+            error.graphQLErrors
+              ? error.graphQLErrors[0].message
+              : 'Oops, something went wrong...',
           );
         }
-      }
-    })
+      },
+    }),
   }),
   graphql(EditComment, {
     props: ({ ownProps, mutate }) => ({
@@ -38,22 +40,24 @@ export const CommentWithMutations = compose(
             variables: {
               commentId: ownProps.id,
               userId: ownProps.userId,
-              text
-            }
+              text,
+            },
           });
         } catch (error) {
           ownProps.showErrorNotification(
-            error.graphQLErrors ? error.graphQLErrors[0].message : 'Oops, something went wrong...'
+            error.graphQLErrors
+              ? error.graphQLErrors[0].message
+              : 'Oops, something went wrong...',
           );
         }
-      }
-    })
-  })
+      },
+    }),
+  }),
 )(Comment);
 
 const mapDispatchToProps = dispatch => ({
   performingNameAction: message => dispatch(performingNameAction(message)),
-  showErrorNotification: message => dispatch(showNotification(message, red500))
+  showErrorNotification: message => dispatch(showNotification(message, red500)),
 });
 
 export default connect(() => ({}), mapDispatchToProps)(CommentWithMutations);

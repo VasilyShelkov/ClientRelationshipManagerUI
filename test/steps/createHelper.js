@@ -8,7 +8,7 @@ class CreateHelper extends Helper {
       lastName: faker.name.lastName(),
       email: faker.internet.email(),
       phone: faker.phone.phoneNumberFormat(),
-      password: 'test1234'
+      password: 'test1234',
     };
   }
 
@@ -16,7 +16,7 @@ class CreateHelper extends Helper {
     return {
       name: faker.company.companyName(),
       address: faker.address.streetAddress(),
-      phone: faker.phone.phoneNumberFormat()
+      phone: faker.phone.phoneNumberFormat(),
     };
   }
 
@@ -25,7 +25,7 @@ class CreateHelper extends Helper {
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName(),
       phone: faker.phone.phoneNumberFormat(),
-      company: this.createFakeCompany()
+      company: this.createFakeCompany(),
     };
   }
 

@@ -1,44 +1,48 @@
 export const CHANGE_SHOWN_USER_PROFILE = 'CHANGE_SHOWN_USER_PROFILE';
-export const changeShownUserProfile = ({ currentUserId, userIdToShow, isNewUser }) => ({
+export const changeShownUserProfile = ({
+  currentUserId,
+  userIdToShow,
+  isNewUser,
+}) => ({
   type: CHANGE_SHOWN_USER_PROFILE,
   payload: {
     currentUserId,
     userIdToShow,
-    isNewUser
-  }
+    isNewUser,
+  },
 });
 
 export const EDIT_PROFILE = 'EDIT_PROFILE';
 export const editProfile = () => ({
-  type: EDIT_PROFILE
+  type: EDIT_PROFILE,
 });
 
 export const CANCEL_EDIT_PROFILE = 'CANCEL_EDIT_PROFILE';
 export const cancelEditProfile = () => ({
-  type: CANCEL_EDIT_PROFILE
+  type: CANCEL_EDIT_PROFILE,
 });
 
 export const EDIT_PROFILE_PASSWORD = 'EDIT_PROFILE_PASSWORD';
 export const editProfilePassword = () => ({
-  type: EDIT_PROFILE_PASSWORD
+  type: EDIT_PROFILE_PASSWORD,
 });
 
 export const CANCEL_EDIT_PROFILE_PASSWORD = 'CANCEL_EDIT_PROFILE_PASSWORD';
 export const cancelEditProfilePassword = () => ({
-  type: CANCEL_EDIT_PROFILE_PASSWORD
+  type: CANCEL_EDIT_PROFILE_PASSWORD,
 });
 
 export const EDIT_COMPANY = 'EDIT_COMPANY';
 export const editCompany = () => ({
-  type: EDIT_COMPANY
+  type: EDIT_COMPANY,
 });
 
 export const CANCEL_EDIT_COMPANY = 'CANCEL_EDIT_COMPANY';
 export const cancelEditCompany = () => ({
-  type: CANCEL_EDIT_COMPANY
+  type: CANCEL_EDIT_COMPANY,
 });
 
 export const REMOVE_PROFILE_NOTIFICATION = 'REMOVE_PROFILE_NOTIFICATION';
 export const removeProfileNotification = () => ({
-  type: REMOVE_PROFILE_NOTIFICATION
+  type: REMOVE_PROFILE_NOTIFICATION,
 });

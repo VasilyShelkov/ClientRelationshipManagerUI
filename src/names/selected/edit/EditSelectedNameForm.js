@@ -8,7 +8,12 @@ import { checkIfAnyKeysDifferent } from '../../../shared/utils';
 import { required } from '../../../shared/FormElements';
 import StandardForm from '../../../shared/StandardForm';
 
-const EditSelectedName = ({ isProtected, error, handleSubmit, cancelEditName }) => (
+const EditSelectedName = ({
+  isProtected,
+  error,
+  handleSubmit,
+  cancelEditName,
+}) => (
   <StandardForm
     error={error}
     handleSubmit={handleSubmit}
@@ -39,7 +44,7 @@ const EditSelectedName = ({ isProtected, error, handleSubmit, cancelEditName }) 
         floatingLabelText="Phone"
         validate={required}
         fullWidth
-      />
+      />,
     ]}
   />
 );
@@ -55,8 +60,8 @@ export default graphql(EditName, {
             variables: {
               userId: ownProps.userId,
               nameId: id,
-              ...formValues
-            }
+              ...formValues,
+            },
           });
           ownProps.cancelEditName();
         } catch (error) {
@@ -64,10 +69,11 @@ export default graphql(EditName, {
         }
       } else {
         throw new SubmissionError({
-          _error: 'Please change one of the name fields to to update the name...'
+          _error:
+            'Please change one of the name fields to to update the name...',
         });
       }
     },
-    ...ownProps
-  })
+    ...ownProps,
+  }),
 })(EditSelectedNameForm);

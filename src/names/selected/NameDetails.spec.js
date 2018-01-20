@@ -15,17 +15,36 @@ describe('src/names/selected/NameDetails', () => {
     const showEditNameForm = () => 'show form';
 
     const wrapper = shallow(
-      <NameDetails showingEditNameForm={showingEditNameForm} name={name} showEditNameForm={showEditNameForm} />
+      <NameDetails
+        showingEditNameForm={showingEditNameForm}
+        name={name}
+        showEditNameForm={showEditNameForm}
+      />,
     );
 
     // id used for feature testing
     expect(wrapper.find(EditIcon).prop('id')).to.equal('editName');
     expect(wrapper.find(EditIcon).prop('onClick')).to.equal(showEditNameForm);
 
-    expect(wrapper.find(ListItem).first().prop('primaryText')).to.include(firstName);
-    expect(wrapper.find(ListItem).first().prop('primaryText')).to.include(lastName);
+    expect(
+      wrapper
+        .find(ListItem)
+        .first()
+        .prop('primaryText'),
+    ).to.include(firstName);
+    expect(
+      wrapper
+        .find(ListItem)
+        .first()
+        .prop('primaryText'),
+    ).to.include(lastName);
 
-    expect(wrapper.find(ListItem).last().prop('primaryText')).to.equal(phone);
+    expect(
+      wrapper
+        .find(ListItem)
+        .last()
+        .prop('primaryText'),
+    ).to.equal(phone);
   });
 
   it('renders edit name form when editing', () => {
@@ -42,7 +61,7 @@ describe('src/names/selected/NameDetails', () => {
         name={name}
         hideEditNameForm={hideEditNameForm}
         isProtected={isProtected}
-      />
+      />,
     );
 
     const editNameForm = wrapper.find(EditNameForm);

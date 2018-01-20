@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
-import Drawer from 'material-ui/Drawer';
-import { LARGE } from 'material-ui/utils/withWidth';
 import { List, ListItem, makeSelectable } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
@@ -19,87 +17,84 @@ const SelectableList = makeSelectable(List);
 
 export const SideBar = ({
   isAdmin,
-  open,
-  width,
   currentPage,
   protectedListToShow,
   currentUserId,
   profileUserId,
-  handleChangeRequestSideBar,
-  handleRouteChange
+  handleRouteChange,
 }) => {
   const selectedValue = JSON.stringify({
     newRoute: currentPage,
     currentUserId,
-    userIdToShow: profileUserId
+    userIdToShow: profileUserId,
   });
+
   return (
-    <Drawer docked={width === LARGE} open={open || width === LARGE} onRequestChange={handleChangeRequestSideBar}>
-      <div>
-        <SelectableList value={selectedValue} onChange={handleRouteChange}>
-          <ListItem
-            primaryText="Profile"
-            leftIcon={<AccountIcon />}
-            value={JSON.stringify({
-              newRoute: '/account/profile',
-              currentUserId,
-              userIdToShow: currentUserId
-            })}
-          />
+    <SelectableList value={selectedValue} onChange={handleRouteChange}>
+      <ListItem
+        primaryText="Profile"
+        leftIcon={<AccountIcon />}
+        value={JSON.stringify({
+          newRoute: '/account/profile',
+          currentUserId,
+          userIdToShow: currentUserId,
+        })}
+      />
 
-          <Divider />
+      <Divider />
 
-          <Subheader>Names</Subheader>
-          <ListItem
-            id="goToUnprotectedList"
-            primaryText="Unprotected"
-            leftIcon={<UnprotectedIcon />}
-            value={JSON.stringify({
-              newRoute: '/account/names/unprotected',
-              currentUserId,
-              userIdToShow: currentUserId
-            })}
-          />
-          <ListItem
-            id="goToProtectedList"
-            primaryText="Protected"
-            leftIcon={<ProtectedIcon />}
-            value={JSON.stringify({
-              newRoute: `/account/names/${protectedListToShow}`,
-              currentUserId,
-              userIdToShow: currentUserId
-            })}
-          />
-          <ListItem
-            id="goToClientsList"
-            primaryText="Clients"
-            leftIcon={<ClientsIcon />}
-            value={JSON.stringify({
-              newRoute: '/account/names/clients',
-              currentUserId,
-              userIdToShow: currentUserId
-            })}
-          />
+      <Subheader>Names</Subheader>
+      <ListItem
+        id="goToUnprotectedList"
+        primaryText="Unprotected"
+        leftIcon={<UnprotectedIcon />}
+        value={JSON.stringify({
+          newRoute: '/account/names/unprotected',
+          currentUserId,
+          userIdToShow: currentUserId,
+        })}
+      />
+      <ListItem
+        id="goToProtectedList"
+        primaryText="Protected"
+        leftIcon={<ProtectedIcon />}
+        value={JSON.stringify({
+          newRoute: `/account/names/${protectedListToShow}`,
+          currentUserId,
+          userIdToShow: currentUserId,
+        })}
+      />
+      <ListItem
+        id="goToClientsList"
+        primaryText="Clients"
+        leftIcon={<ClientsIcon />}
+        value={JSON.stringify({
+          newRoute: '/account/names/clients',
+          currentUserId,
+          userIdToShow: currentUserId,
+        })}
+      />
 
-          {isAdmin &&
-            <AdminUserListWithData currentUserId={currentUserId} value={selectedValue} onChange={handleRouteChange} />}
-        </SelectableList>
-      </div>
-    </Drawer>
+      {isAdmin && (
+        <AdminUserListWithData
+          currentUserId={currentUserId}
+          value={selectedValue}
+          onChange={handleRouteChange}
+        />
+      )}
+    </SelectableList>
   );
 };
 
 const mapStateToProps = state => ({
   isAdmin: state.account.accountType === 'admin',
-  open: state.account.sideBarOpen,
   currentPage: state.routing.location.pathname,
   currentUserId: state.account.id,
   profileUserId: state.profile.id,
-  protectedListToShow: state.nameList.protectedListToShow
+  protectedListToShow: state.nameList.protectedListToShow,
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleChangeRequestSideBar: open => dispatch(changeSideBarState(open)),
   handleRouteChange: (event, linkValue) => {
     const { newRoute, currentUserId, userIdToShow } = JSON.parse(linkValue);
     dispatch(changeSideBarState(false));
@@ -108,10 +103,10 @@ const mapDispatchToProps = dispatch => ({
       changeShownUserProfile({
         currentUserId,
         userIdToShow,
-        isNewUser: false
-      })
+        isNewUser: false,
+      }),
     );
-  }
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SideBar);

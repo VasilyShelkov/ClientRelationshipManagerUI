@@ -18,7 +18,12 @@ export const NameTypeListHeader = ({ match, loading, user, listToShow }) => {
     <Switch>
       <Route
         path={`${match.path}/unprotected`}
-        render={({ match }) => <UnprotectedHeader match={match} unprotectedCount={latestProgress.unprotectedCount} />}
+        render={({ match }) => (
+          <UnprotectedHeader
+            match={match}
+            unprotectedCount={latestProgress.unprotectedCount}
+          />
+        )}
       />
       <Route
         path={`${match.path}/protected`}
@@ -26,7 +31,9 @@ export const NameTypeListHeader = ({ match, loading, user, listToShow }) => {
           <NameListHeader
             countId="protectedNamesCount"
             nameCount={latestProgress.protectedCount}
-            title={`/${protectedNamesLimit} Protected Name${latestProgress.protectedCount === 1 ? '' : 's'}`}
+            title={`/${protectedNamesLimit} Protected Name${
+              latestProgress.protectedCount === 1 ? '' : 's'
+            }`}
             Icon={ProtectedIcon}
           />
         )}
@@ -37,7 +44,9 @@ export const NameTypeListHeader = ({ match, loading, user, listToShow }) => {
           <NameListHeader
             countId="metWithProtectedNamesCount"
             nameCount={latestProgress.metWithProtectedCount}
-            title={` Met With Protected Name${latestProgress.metWithProtectedCount === 1 ? '' : 's'}`}
+            title={` Met With Protected Name${
+              latestProgress.metWithProtectedCount === 1 ? '' : 's'
+            }`}
             Icon={MetWithProtectedIcon}
           />
         )}
@@ -62,6 +71,6 @@ export default graphql(GetUserNamesCount, {
   props: ({ ownProps, data: { loading, user } }) => ({
     loading,
     user,
-    ...ownProps
-  })
+    ...ownProps,
+  }),
 })(NameTypeListHeader);

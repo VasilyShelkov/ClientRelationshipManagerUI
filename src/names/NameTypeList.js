@@ -22,12 +22,14 @@ export const NameTypeList = ({
   nameActionInProgress,
   changeShownList,
   listWithSelectedName,
-  currentPath
+  currentPath,
 }) => (
   <div
     className={
-      _.get(matchPath(currentPath, { path: '/account/names/:nameType/selected' }), 'params.nameType') ===
-        listWithSelectedName && 'names__list__container'
+      _.get(
+        matchPath(currentPath, { path: '/account/names/:nameType/selected' }),
+        'params.nameType',
+      ) === listWithSelectedName && 'names__list__container'
     }
   >
     <div className={nameActionInProgress && 'names__content'}>
@@ -40,7 +42,12 @@ export const NameTypeList = ({
             value={listToShow}
             onChange={changeShownList}
           >
-            <Tab id="goToProtectedTab" label="PROTECTED" value="protected" icon={<ProtectedIcon />} />
+            <Tab
+              id="goToProtectedTab"
+              label="PROTECTED"
+              value="protected"
+              icon={<ProtectedIcon />}
+            />
 
             <Tab
               id="goToMetWithProtectedTab"
@@ -56,19 +63,29 @@ export const NameTypeList = ({
 
       <Switch>
         <Route path={`${match.path}/unprotected`} component={UnprotectedPage} />
-        <Route path={`${match.path}/protected`} component={ProtectedNamesWithData} />
-        <Route path={`${match.path}/metWithProtected`} component={MetWithProtectedNamesWithData} />
+        <Route
+          path={`${match.path}/protected`}
+          component={ProtectedNamesWithData}
+        />
+        <Route
+          path={`${match.path}/metWithProtected`}
+          component={MetWithProtectedNamesWithData}
+        />
         <Route path={`${match.path}/clients`} component={ClientsWithData} />
       </Switch>
 
-      <Route path={`${match.path}/:nameListType/selected`} component={SelectedName} />
+      <Route
+        path={`${match.path}/:nameListType/selected`}
+        component={SelectedName}
+      />
     </div>
 
-    {nameActionInProgress &&
+    {nameActionInProgress && (
       <div className="names__overlay">
         <LoadingSpinner />
         {nameActionInProgress}
-      </div>}
+      </div>
+    )}
   </div>
 );
 
@@ -77,14 +94,14 @@ const mapStateToProps = state => ({
   listToShow: state.nameList.protectedListToShow,
   listWithSelectedName: state.selectedName.listWithSelectedName,
   nameActionInProgress: state.name.actionInProgress,
-  currentPath: state.routing.location.pathname
+  currentPath: state.routing.location.pathname,
 });
 
 const mapDispatchToProps = dispatch => ({
   changeShownList: listToShow => {
     dispatch(changeShownProtectedList(listToShow));
     dispatch(push(`/account/names/${listToShow}`));
-  }
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NameTypeList);

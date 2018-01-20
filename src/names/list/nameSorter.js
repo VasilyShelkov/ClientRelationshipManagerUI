@@ -1,14 +1,22 @@
 import moment from 'moment';
 
-export const sortNamesByType = (sortType, unsortedNamesList, metWithProtected = false) => {
+export const sortNamesByType = (
+  sortType,
+  unsortedNamesList,
+  metWithProtected = false,
+) => {
   switch (sortType) {
     case sortTypes.createdAsc: {
       const createdKey = metWithProtected ? 'metWith' : 'created_at';
-      return unsortedNamesList.sort((nameA, nameB) => moment(nameB[createdKey]).diff(moment(nameA[createdKey])));
+      return unsortedNamesList.sort((nameA, nameB) =>
+        moment(nameB[createdKey]).diff(moment(nameA[createdKey])),
+      );
     }
     case sortTypes.createdDesc: {
       const createdKey = metWithProtected ? 'metWith' : 'created_at';
-      return unsortedNamesList.sort((nameA, nameB) => moment(nameA[createdKey]).diff(moment(nameB[createdKey])));
+      return unsortedNamesList.sort((nameA, nameB) =>
+        moment(nameA[createdKey]).diff(moment(nameB[createdKey])),
+      );
     }
     case sortTypes.nameAsc:
       return unsortedNamesList.sort((nameA, nameB) => {
@@ -43,15 +51,25 @@ export const sortNamesByType = (sortType, unsortedNamesList, metWithProtected = 
         return 0;
       });
     case sortTypes.callBookedAsc:
-      return unsortedNamesList.sort((nameA, nameB) => moment(nameB.callBooked).diff(moment(nameA.callBooked)));
+      return unsortedNamesList.sort((nameA, nameB) =>
+        moment(nameB.callBooked).diff(moment(nameA.callBooked)),
+      );
     case sortTypes.callBookedDesc:
-      return unsortedNamesList.sort((nameA, nameB) => moment(nameA.callBooked).diff(moment(nameB.callBooked)));
+      return unsortedNamesList.sort((nameA, nameB) =>
+        moment(nameA.callBooked).diff(moment(nameB.callBooked)),
+      );
     case sortTypes.meetingBookedAsc:
-      return unsortedNamesList.sort((nameA, nameB) => moment(nameB.meetingBooked).diff(moment(nameA.meetingBooked)));
+      return unsortedNamesList.sort((nameA, nameB) =>
+        moment(nameB.meetingBooked).diff(moment(nameA.meetingBooked)),
+      );
     case sortTypes.meetingBookedDesc:
-      return unsortedNamesList.sort((nameA, nameB) => moment(nameA.meetingBooked).diff(moment(nameB.meetingBooked)));
+      return unsortedNamesList.sort((nameA, nameB) =>
+        moment(nameA.meetingBooked).diff(moment(nameB.meetingBooked)),
+      );
     default:
-      return unsortedNamesList.sort((nameA, nameB) => moment(nameB.name.createdAt).diff(moment(nameA.name.createdAt)));
+      return unsortedNamesList.sort((nameA, nameB) =>
+        moment(nameB.name.createdAt).diff(moment(nameA.name.createdAt)),
+      );
   }
 };
 
@@ -65,5 +83,5 @@ export const sortTypes = {
   callBookedAsc: 'callBookedAsc',
   callBookedDesc: 'callBookedDesc',
   meetingBookedAsc: 'meetingBookedAsc',
-  meetingBookedDesc: 'meetingBookedDesc'
+  meetingBookedDesc: 'meetingBookedDesc',
 };
