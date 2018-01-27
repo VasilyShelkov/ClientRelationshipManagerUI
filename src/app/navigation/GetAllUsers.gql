@@ -1,8 +1,0 @@
-query GetAllUsers {
-  users {
-    id
-    firstName,
-    lastName,
-    created_at,
-  }
-}
