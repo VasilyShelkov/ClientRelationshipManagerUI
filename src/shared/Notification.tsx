@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { Paper } from 'material-ui';
+import { Paper, Typography } from 'material-ui';
+
+import './Notification.css';
 
 interface Props {
   message?: string;
@@ -14,12 +16,13 @@ export default ({ message, zDepth, backgroundColor, icon }: Props) => {
         className="Form__notification"
         style={{
           backgroundColor,
-          borderRadius: '10px',
         }}
         elevation={zDepth}
       >
         {icon}
-        <div className="Form__notification__message">{message}</div>
+        <Typography type="display3" gutterBottom={true} color="primary">
+          {message}
+        </Typography>
       </Paper>
     );
   }

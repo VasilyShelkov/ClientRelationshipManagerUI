@@ -1,0 +1,9 @@
+.Form__notification {
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.Form__notification__icon {
+  margin-right: 5px;
+}

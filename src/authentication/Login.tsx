@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 
 import { Field, reduxForm, InjectedFormProps } from 'redux-form';
 
-import { Paper, Button } from 'material-ui';
+import { Paper, Button, Typography } from 'material-ui';
 import { Face as CompanyLogo } from 'material-ui-icons';
 
 import './Login.css';
@@ -40,7 +40,9 @@ export const Login: React.StatelessComponent<Props & InjectedProps> = ({
       <div className="col" style={{ textAlign: 'center' }}>
         <CompanyLogo style={{ height: '100px', width: '100px' }} />
         <br />
-        <h1>Sign in to CRM</h1>
+        <Typography type="display3" gutterBottom={true}>
+          Sign in to CRM
+        </Typography>
         <br />
       </div>
     </div>
@@ -48,7 +50,9 @@ export const Login: React.StatelessComponent<Props & InjectedProps> = ({
     <div className="row">
       <div className="col-12">
         <Paper className="Login__form" elevation={1}>
-          <FormErrorNotification message={error} zDepth={2} />
+          <div className="Login__form__notification">
+            <FormErrorNotification message={error} zDepth={2} />
+          </div>
           <form onSubmit={handleSubmit}>
             <div className="Login__form__field">
               <Field

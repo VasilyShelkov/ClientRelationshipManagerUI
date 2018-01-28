@@ -6,7 +6,7 @@ import persistState from 'redux-localstorage';
 
 import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
-// import authenticationMiddleware from './authentication/authenticationMiddleware';
+import authenticationMiddleware from './authentication/authenticationMiddleware';
 // import protectedMiddleware from '../names/list/locked/protected/protectedMiddleware';
 // import selectedMiddleware from '../names/selected/selectedMiddleware';
 // import notificationMiddleware from './notificationMiddleware';
@@ -25,7 +25,7 @@ export default (browserHistory: any) =>
       applyMiddleware(
         routerMiddleware(browserHistory),
         thunk,
-        // authenticationMiddleware,
+        authenticationMiddleware as any,
         // protectedMiddleware,
         // selectedMiddleware,
         // notificationMiddleware,

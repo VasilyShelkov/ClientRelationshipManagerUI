@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { Paper, colors } from 'material-ui';
+import { Paper, colors, Typography } from 'material-ui';
 import { Error as ErrorIcon } from 'material-ui-icons';
 
 import Notification from './Notification';
@@ -28,8 +28,12 @@ describe('src/shared/Notification.js', () => {
     );
 
     expect(wrapper.find(Paper).exists()).toBeTruthy();
-    expect(wrapper.find('.Form__notification__message').text()).toEqual(
-      message,
-    );
+    expect(
+      wrapper
+        .find(Typography)
+        .find(Typography)
+        .children()
+        .text(),
+    ).toContain(message);
   });
 });

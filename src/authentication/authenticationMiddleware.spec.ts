@@ -1,5 +1,6 @@
 // import { push } from 'react-router-redux';
 // import authenticationMiddleware from './authenticationMiddleware';
+// import { REACT_ROUTER_LOCATION_CHANGE } from '../thirdPartyActions'
 
 // const setup = ({ pathname = '', storeState = {}, sandbox }) => {
 //   const next = sandbox.spy();
@@ -14,17 +15,27 @@
 // };
 
 describe('src/authentication/authenticationMiddleware.js', () => {
-  it('fake test', () => {});
-  //   it(
-  //     'calls next middleware',
-  //     sinon.test(function() {
-  //       const { store, next, action } = setup({ sandbox: this });
-
-  //       authenticationMiddleware(store)(next)(action);
-
-  //       expect(next).to.have.been.called;
-  //     }),
-  //   );
+  it('calls next middleware', () => {
+    // const store = {
+    //   dispatch: jest.fn(),
+    //   subscribe: {},
+    //   replaceReducer: {},
+    //   getState: () => ({
+    //     form: {},
+    //     routing: {},
+    //     sweetalert: {},
+    //     account: {
+    //       loggingIn: false,
+    //       sideBarOpen: false,
+    //       returnUrl: '',
+    //     },
+    //   }),
+    // };
+    // const next = jest.fn();
+    // const action = { type: REACT_ROUTER_LOCATION_CHANGE, payload: { pathname: '' } }
+    // authenticationMiddleware(store)(next)(action);
+    // expect(next).toHaveBeenCalled()
+  });
 
   //   it(
   //     'does not do anything if the route does not require login',
