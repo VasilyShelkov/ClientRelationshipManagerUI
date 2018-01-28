@@ -50,25 +50,28 @@ export const Login: React.StatelessComponent<Props & InjectedProps> = ({
         <Paper className="Login__form" elevation={1}>
           <FormErrorNotification message={error} zDepth={2} />
           <form onSubmit={handleSubmit}>
-            <Field
-              name="email"
-              component={renderTextField}
-              label="Enter your email"
-              validate={[required, emailFormat]}
-            />
-            <br />
-            <Field
-              name="password"
-              type="password"
-              component={renderTextField}
-              label="Enter your password"
-              validate={required}
-            />
-            <br />
+            <div className="Login__form__field">
+              <Field
+                name="email"
+                component={renderTextField}
+                label="Enter your email"
+                validate={[required, emailFormat]}
+              />
+            </div>
+            <div className="Login__form__field">
+              <Field
+                name="password"
+                type="password"
+                component={renderTextField}
+                label="Enter your password"
+                validate={required}
+              />
+            </div>
             {loggingIn ? (
               <LoadingSpinner />
             ) : (
               <Button
+                raised={true}
                 type="submit"
                 className="Login__form__signIn"
                 color="primary"

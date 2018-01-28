@@ -5,6 +5,7 @@ import { TextField } from 'redux-form-material-ui';
 import { WrappedFieldProps } from 'redux-form';
 
 import { colors } from 'material-ui';
+import { InputProps as MaterialUiInputProps } from 'material-ui/Input';
 import { Error as ErrorIcon } from 'material-ui-icons';
 
 // import DropDownMenu from 'material-ui/DropDownMenu';
@@ -24,6 +25,7 @@ export const emailFormat = (value: string) =>
 
 interface TextFieldInputProps {
   label: string;
+  InputProps: MaterialUiInputProps;
 }
 type TextFieldProps = TextFieldInputProps & WrappedFieldProps;
 export const renderTextField: React.StatelessComponent<TextFieldProps> = ({
@@ -33,8 +35,10 @@ export const renderTextField: React.StatelessComponent<TextFieldProps> = ({
   ...customProps
 }) => (
   <TextField
-    floatingLabelText={label}
-    errorText={touched && error}
+    error={touched && error}
+    label={label}
+    helperText={touched && error}
+    fullWidth={true}
     {...input}
     {...customProps}
   />
@@ -111,11 +115,16 @@ export const renderTextField: React.StatelessComponent<TextFieldProps> = ({
 //   </DropDownMenu>
 // );
 
+interface FormErrorNotificationProps {
+  message?: string;
+  zDepth?: number;
+  backgroundColor?: string;
+}
 export const FormErrorNotification = ({
-  message = 'An error has occured!',
+  message,
   zDepth = 2,
   backgroundColor = colors.red[600],
-}) => (
+}: FormErrorNotificationProps) => (
   <Notification
     message={message}
     zDepth={zDepth}

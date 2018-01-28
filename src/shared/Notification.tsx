@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Paper } from 'material-ui';
 
 interface Props {
-  message: string;
+  message?: string;
   zDepth: number;
   backgroundColor: string;
   icon?: any;
