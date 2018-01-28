@@ -1,0 +1,15 @@
+.Form__notification__icon {
+  margin-right: 5px;
+}
+
+.algolia-places {
+  display: inline !important;
+}
+
+.ap-dropdown-menu {
+  top: 65px !important;
+}
+
+.ap-input-icon {
+  top: 40px;
+}

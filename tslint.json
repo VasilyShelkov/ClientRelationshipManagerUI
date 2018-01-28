@@ -29,7 +29,7 @@
             "static-before-instance",
             "variables-before-functions"
         ],
-        "no-any": true,
+        "no-any": false,
         "no-arg": true,
         "no-bitwise": true,
         "no-console": [
@@ -50,10 +50,12 @@
         "no-eval": true,
         "no-shadowed-variable": true,
         "no-string-literal": true,
+        "no-submodule-imports": [true, "redux-localstorage", "redux-devtools-extension"],
         "no-switch-case-fall-through": true,
         "no-trailing-whitespace": false,
         "no-unused-expression": true,
         "no-use-before-declare": true,
+        "object-literal-sort-keys": false,
         "one-line": [
             true,
             "check-catch",
@@ -61,6 +63,7 @@
             "check-open-brace",
             "check-whitespace"
         ],
+        "ordered-imports": false,
         "quotemark": [true, "single", "jsx-double"],
         "radix": true,
         "semicolon": [true, "always"],

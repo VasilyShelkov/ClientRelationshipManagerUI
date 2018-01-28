@@ -1,25 +1,54 @@
 import * as React from 'react';
+
+import { ApolloClient } from 'apollo-client';
+import { ApolloLink } from 'apollo-link';
+import { HttpLink } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloProvider } from 'react-apollo';
+
+import { createBrowserHistory } from 'history';
+import { Switch, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'react-router-redux';
+
+import config from './config';
+
 import './App.css';
+import store from './store';
+import LoginPage from './authentication/Login';
+// import AppWithNavbar from './AppWithNavbar';
 
-const logo = require('./logo.svg');
+const httpLink = new HttpLink({ uri: `${config.graphQL}/graphql` });
+const middlewareLink = new ApolloLink((operation, forward) => {
+  const accountDetails = sessionStorage.getItem('account');
+  const token = accountDetails && JSON.parse(accountDetails).account.token;
+  operation.setContext({
+    headers: {
+      authorization: token ? `Bearer ${token}` : null || null,
+    },
+  });
 
-class App extends React.Component {
-  render() {
-    console.log(
-      'difuwehduiohwaiuedhiluahwediuahweiudhawoiuehdoiauwheoidhaiwuhedfoiuahwfepuihawpoiehfoiawjefoijawpoiejfpiahsefiuhw'
-    );
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
-}
+  return forward ? forward(operation) : null;
+});
+const link = middlewareLink.concat(httpLink);
 
-export default App;
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  link,
+});
+
+export default () => {
+  const history = createBrowserHistory();
+  return (
+    <ApolloProvider client={client}>
+      <Provider store={store(history)}>
+        <ConnectedRouter history={history} key={Math.random()}>
+          <Switch>
+            <Route exact={true} path="/login" component={LoginPage} />
+            {/* <Route component={AppWithNavbar} /> */}
+          </Switch>
+        </ConnectedRouter>
+      </Provider>
+    </ApolloProvider>
+  );
+};
