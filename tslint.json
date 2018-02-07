@@ -63,6 +63,7 @@
             "check-open-brace",
             "check-whitespace"
         ],
+        "only-arrow-functions": false,
         "ordered-imports": false,
         "quotemark": [true, "single", "jsx-double"],
         "radix": true,

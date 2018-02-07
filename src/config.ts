@@ -1,5 +1,5 @@
 const envUrls = {
-  testing: {
+  test: {
     graphQL: '',
   },
   development: {

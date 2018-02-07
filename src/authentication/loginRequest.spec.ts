@@ -1,59 +1,64 @@
-// import axios from 'axios';
-// import { SubmissionError } from 'redux-form';
-// import { push } from 'react-router-redux';
+import { SubmissionError } from 'redux-form';
+import { push } from 'react-router-redux';
 
-// import loginRequest from './loginRequest';
-// import { logIn, logInSuccess, logInError } from './accountActions';
+import { logIn, logInSuccess, logInError } from './accountActions';
 
 describe('src/authentication/loginRequest.js', () => {
-  it('fake test', () => {});
-  //   it(
-  //     'logs in successfully and goes to returnUrl',
-  //     sinon.test(async function() {
-  //       const values = {
-  //         email: 'testEmail@test.com',
-  //         password: '1234',
-  //       };
-  //       const dispatch = this.spy();
-  //       const loginAccountDetails = { data: { token: 'accountDetails' } };
-  //       const post = this.stub()
-  //         .withArgs('/login', { email: values.email, password: values.password })
-  //         .returns(loginAccountDetails);
-  //       this.stub(axios, 'create').returns({
-  //         post,
-  //         defaults: {},
-  //       });
-  //       const returnUrl = '/account/profile';
-  //       await loginRequest(values, dispatch, { returnUrl });
-  //       expect(dispatch).to.have.been.calledWith(logIn());
-  //       expect(dispatch).to.have.been.calledWith(
-  //         logInSuccess(loginAccountDetails.data),
-  //       );
-  //       expect(dispatch).to.have.been.calledWith(push('/account/profile'));
-  //     }),
-  //   );
-  //   it(
-  //     'attempts to login but service fails',
-  //     sinon.test(async function() {
-  //       const values = {
-  //         email: 'testEmail@test.com',
-  //         password: '1234',
-  //       };
-  //       const dispatch = this.spy();
-  //       const transitionAfterLogin = this.spy();
-  //       const loginError = { response: { data: { error: 'testError' } } };
-  //       const post = this.stub()
-  //         .withArgs('/login', { email: values.email, password: values.password })
-  //         .throws(loginError);
-  //       this.stub(axios, 'create').returns({
-  //         post,
-  //         defaults: {},
-  //       });
-  //       await expect(
-  //         loginRequest(values, dispatch, { returnUrl: '/irrelevant ' }),
-  //       ).to.be.rejectedWith(SubmissionError);
-  //       expect(dispatch).to.have.been.calledWith(logIn());
-  //       expect(dispatch).to.have.been.calledWith(logInError());
-  //     }),
-  //   );
+  beforeEach(() => jest.resetModules());
+
+  it('logs in successfully and goes to returnUrl', async function() {
+    const values = {
+      email: 'testEmail@test.com',
+      password: '1234',
+    };
+    const dispatch = jest.fn();
+    const returnUrl = '/account/profile';
+
+    jest.mock('axios', () => ({
+      create: () => ({
+        defaults: {},
+        post: jest.fn((url: string, body: any) => ({
+          data: { token: 'accountDetails' },
+        })),
+      }),
+    }));
+    const loginRequest = require('./loginRequest').default;
+
+    await loginRequest(values, dispatch, { returnUrl, loggingIn: true });
+
+    expect(dispatch).toHaveBeenCalledWith(logIn());
+    expect(dispatch).toHaveBeenCalledWith(
+      logInSuccess({ token: 'accountDetails' }),
+    );
+    expect(dispatch).toHaveBeenCalledWith(push('/account/profile'));
+  });
+
+  it('attempts to login but service fails', async function() {
+    const values = {
+      email: 'testEmail@test.com',
+      password: '1234',
+    };
+    const dispatch = jest.fn();
+
+    jest.mock('axios', () => ({
+      create: () => ({
+        defaults: {},
+        post: jest.fn((url: string, body: any) => {
+          const error = new Error('axios error');
+          /* tslint:disable-next-line:no-string-literal */
+          error['response'] = { data: { error: 'testError' } };
+          throw error;
+        }),
+      }),
+    }));
+    const loginRequest = require('./loginRequest').default;
+
+    try {
+      await loginRequest(values, dispatch, { returnUrl: '', loggingIn: true });
+    } catch (e) {
+      expect(e).toEqual(new SubmissionError());
+    }
+    expect(dispatch).toHaveBeenCalledWith(logIn());
+    expect(dispatch).toHaveBeenCalledWith(logInError());
+  });
 });
