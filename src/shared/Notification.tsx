@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Paper, Typography } from 'material-ui';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 
 import './Notification.css';
 
@@ -20,7 +21,12 @@ export default ({ message, zDepth, backgroundColor, icon }: Props) => {
         elevation={zDepth}
       >
         {icon}
-        <Typography type="display3" gutterBottom={true} color="primary">
+        <Typography
+          variant="headline"
+          gutterBottom={true}
+          color="inherit"
+          style={{ color: 'white' }}
+        >
           {message}
         </Typography>
       </Paper>

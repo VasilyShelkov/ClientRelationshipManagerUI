@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { Paper, colors, Typography } from 'material-ui';
-import { Error as ErrorIcon } from 'material-ui-icons';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import ErrorIcon from '@material-ui/icons/Error';
+import red from '@material-ui/core/colors/red';
 
 import Notification from './Notification';
 
@@ -9,7 +11,7 @@ describe('src/shared/Notification.js', () => {
   const DEFAULT_PROPS = {
     message: '',
     zDepth: 0,
-    backgroundColor: colors.red[500],
+    backgroundColor: red[500],
     icon: <ErrorIcon style={{ color: 'white' }} />,
   };
 

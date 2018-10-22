@@ -1,13 +1,7 @@
-import {
-  LOGGING_IN,
-  LOGGED_IN_SUCCESSFULLY,
-  LOGGED_IN_ERROR,
-  LOG_OUT,
-  TOGGLE_SIDE_BAR,
-  CHANGE_SIDE_BAR_STATE,
-  SET_RETURN_URL,
-} from './accountActions';
+import { ActionType, getType } from 'typesafe-actions';
+import * as account from './accountActions';
 
+export type AccountActions = ActionType<typeof account>;
 export interface State {
   loggingIn: boolean;
   sideBarOpen: boolean;
@@ -21,24 +15,24 @@ export const initialState: State = {
   sideBarOpen: false,
   returnUrl: '/account/profile',
 };
-export default (state = initialState, action: any) => {
+export default (state = initialState, action: AccountActions) => {
   switch (action.type) {
-    case LOGGING_IN:
+    case getType(account.logIn):
       return { ...state, loggingIn: true };
-    case LOGGED_IN_SUCCESSFULLY: {
-      const { type, ...payload } = action;
+    case getType(account.logInSuccess): {
+      const { payload } = action;
       return { ...state, loggingIn: false, ...payload };
     }
-    case LOGGED_IN_ERROR:
+    case getType(account.logInError):
       return { ...state, loggingIn: false };
-    case LOG_OUT:
+    case getType(account.logOut):
       return initialState;
-    case TOGGLE_SIDE_BAR:
+    case getType(account.toggleSideBar):
       return { ...state, sideBarOpen: !state.sideBarOpen };
-    case CHANGE_SIDE_BAR_STATE:
-      return { ...state, sideBarOpen: action.open };
-    case SET_RETURN_URL:
-      return { ...state, returnUrl: action.returnUrl };
+    case getType(account.changeSideBarState):
+      return { ...state, sideBarOpen: action.payload.open };
+    case getType(account.setReturnUrl):
+      return { ...state, returnUrl: action.payload.returnUrl };
     default:
       return state;
   }

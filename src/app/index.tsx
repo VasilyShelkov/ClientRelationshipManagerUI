@@ -11,12 +11,12 @@ import { Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 
-import config from './config';
+import config from '../config';
 
-import './App.css';
-import store from './store';
-import LoginPage from './authentication/Login';
-// import AppWithNavbar from './AppWithNavbar';
+import './index.css';
+import store from '../store';
+import LoginPage from '../authentication/Login';
+import AppWithNavbar from './AppWithNavbar';
 
 const httpLink = new HttpLink({ uri: `${config.graphQL}/graphql` });
 const middlewareLink = new ApolloLink((operation, forward) => {
@@ -45,7 +45,7 @@ export default () => {
         <ConnectedRouter history={history} key={Math.random()}>
           <Switch>
             <Route exact={true} path="/login" component={LoginPage} />
-            {/* <Route component={AppWithNavbar} /> */}
+            <Route component={AppWithNavbar} />
           </Switch>
         </ConnectedRouter>
       </Provider>
