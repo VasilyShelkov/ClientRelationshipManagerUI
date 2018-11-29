@@ -10,6 +10,7 @@ import {
   OPEN_EDIT_PROTECTED_NAME_CALL_DIALOG,
   CLOSE_EDIT_PROTECTED_NAME_CALL_DIALOG,
   PERFORMING_NAME_ACTION,
+  RESET_SCROLL_POSITION
 } from './nameActions';
 import { SELECT_NAME } from './selected/selectedActions';
 
@@ -21,6 +22,11 @@ const initialState = {
 };
 export default (state = initialState, action) => {
   switch (action.type) {
+    case RESET_SCROLL_POSITION:
+      return {
+        ...state,
+        initialListIndex: 0
+      }
     case SELECT_NAME:
       return {
         ...state,

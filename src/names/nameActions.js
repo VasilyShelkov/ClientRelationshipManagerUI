@@ -29,3 +29,8 @@ export const CLOSE_EDIT_PROTECTED_NAME_CALL_DIALOG =
 export const closeEditProtectedNameCallDialog = () => ({
   type: CLOSE_EDIT_PROTECTED_NAME_CALL_DIALOG,
 });
+
+export const RESET_SCROLL_POSITION = 'RESET_SCROLL_POSITION'
+export const resetScrollPosition = () => ({
+  type: RESET_SCROLL_POSITION
+})
