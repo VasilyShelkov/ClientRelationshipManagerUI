@@ -11,14 +11,21 @@ import {
   CLOSE_EDIT_PROTECTED_NAME_CALL_DIALOG,
   PERFORMING_NAME_ACTION,
 } from './nameActions';
+import { SELECT_NAME } from './selected/selectedActions';
 
 const initialState = {
   editProtectedNameMeetingDialogOpen: false,
   editProtectedNameCallDialogOpen: false,
   actionInProgress: false,
+  initialListIndex: 0,
 };
 export default (state = initialState, action) => {
   switch (action.type) {
+    case SELECT_NAME:
+      return {
+        ...state,
+        initialListIndex: action.namePosition - 1
+      }
     case actionTypes.STOP_SUBMIT:
     case SHOW_NOTIFICATION:
       return {
