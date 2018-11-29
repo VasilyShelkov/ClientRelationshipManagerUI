@@ -18,7 +18,6 @@ import {
   closeClientNameDialog,
   openMetWithProtectedDialog,
   closeMetWithProtectedDialog,
-  selectName,
 } from '../../selectedActions';
 
 import SelectedProtectedActions from './SelectedProtectedActions';
@@ -38,7 +37,6 @@ const SelectedProtectedActionsWithMutations = compose(
           userId,
           name,
           performingNameAction,
-          makeNameClientSuccess,
           showErrorNotification,
         } = ownProps;
 
@@ -86,7 +84,6 @@ const SelectedProtectedActionsWithMutations = compose(
               }),
             },
           });
-          makeNameClientSuccess(_.get(client, 'data.addClientToUser'));
         } catch (error) {
           showErrorNotification(
             error.graphQLErrors
@@ -127,7 +124,6 @@ const SelectedProtectedActionsWithMutations = compose(
           protectedId,
           name,
           performingNameAction,
-          metWithProtectedSuccess,
           showErrorNotification,
         } = ownProps;
 
@@ -156,9 +152,6 @@ const SelectedProtectedActionsWithMutations = compose(
               comment,
             },
           });
-          metWithProtectedSuccess(
-            _.get(metWithProtectedName, 'data.editProtectedName'),
-          );
         } catch (error) {
           showErrorNotification(
             error.graphQLErrors
@@ -194,7 +187,6 @@ const SelectedProtectedActionsWithMutations = compose(
           userId,
           name,
           performingNameAction,
-          unprotectNameSuccess,
           showErrorNotification,
         } = ownProps;
 
@@ -219,9 +211,6 @@ const SelectedProtectedActionsWithMutations = compose(
               }),
             },
           });
-          unprotectNameSuccess(
-            _.get(unprotectedName, 'data.unprotectNameFromUser'),
-          );
         } catch (error) {
           showErrorNotification(
             error.graphQLErrors
@@ -260,10 +249,6 @@ const mapDispatchToProps = dispatch => ({
   closeClientNameDialog: () => dispatch(closeClientNameDialog()),
   performingNameAction: message => dispatch(performingNameAction(message)),
   showErrorNotification: message => dispatch(showNotification(message, red500)),
-  unprotectNameSuccess: name => dispatch(selectName(name, 'unprotected')),
-  metWithProtectedSuccess: name =>
-    dispatch(selectName(name, 'metWithProtected')),
-  makeNameClientSuccess: name => dispatch(selectName(name, 'clients')),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(

@@ -9,7 +9,6 @@ import GetUserNamesCount from '../../../GetUserNamesCount.gql';
 
 import { showNotification } from '../../../../app/appActions';
 import { performingNameAction } from '../../../nameActions';
-import { selectName } from '../../selectedActions';
 
 import SelectedClientActions from './SelectedClientActions';
 
@@ -21,7 +20,6 @@ const SelectedClientActionsWithMutations = graphql(UnprotectName, {
         userId,
         name,
         performingNameAction,
-        unprotectNameSuccess,
         showErrorNotification,
       } = ownProps;
 
@@ -44,9 +42,6 @@ const SelectedClientActionsWithMutations = graphql(UnprotectName, {
             }),
           },
         });
-        unprotectNameSuccess(
-          _.get(unprotectedName, 'data.unprotectNameFromUser'),
-        );
       } catch (error) {
         showErrorNotification(
           error.graphQLErrors
@@ -73,7 +68,6 @@ const mapStateToProps = state => ({ userId: state.profile.id });
 const mapDispatchToProps = dispatch => ({
   performingNameAction: message => dispatch(performingNameAction(message)),
   showErrorNotification: message => dispatch(showNotification(message, red500)),
-  unprotectNameSuccess: name => dispatch(selectName(name, 'unprotected')),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(

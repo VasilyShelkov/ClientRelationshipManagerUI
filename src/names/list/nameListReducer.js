@@ -19,23 +19,6 @@ export default (state = initialState, action) => {
         ...state,
         protectedListToShow: action.listToShow,
       };
-    case APOLLO_MUTATION_RESULT: {
-      switch (action.operationName) {
-        case 'ProtectName':
-          return {
-            ...state,
-            protectedListToShow: initialState.protectedListToShow,
-            actionInProgress: initialState.actionInProgress,
-          };
-        case 'MetWithProtected':
-          return {
-            ...state,
-            protectedListToShow: 'metWithProtected',
-          };
-        default:
-          return state;
-      }
-    }
     default:
       return state;
   }

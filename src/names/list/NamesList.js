@@ -120,6 +120,7 @@ export class NamesList extends Component {
       onSubmitBookCall,
       onSubmitBookMeeting,
       currentPath,
+      initialListIndex,
     } = this.props;
     if (loading) return <LoadingSpinner />;
 
@@ -202,6 +203,8 @@ export class NamesList extends Component {
             <div style={{ overflow: 'auto', maxHeight: 400 }}>
               <ReactList
                 length={sortedNames.length}
+                initialIndex={initialListIndex}
+                type="uniform"
                 itemRenderer={(index, key) => {
                   const typedName = sortedNames[index];
                   return (
@@ -211,7 +214,7 @@ export class NamesList extends Component {
                       key={`name-${index}`}
                       selected={typedName.name.id === selectedNameId}
                       showMoreDetails={() =>
-                        openNameDetails(typedName, nameListType)
+                        openNameDetails(typedName, nameListType, index)
                       }
                       editProtectedCall={() =>
                         openEditProtectedNameCallDialog(typedName.name.id)
@@ -265,11 +268,12 @@ export class NamesList extends Component {
 
 const mapStateToProps = state => ({
   currentPath: state.routing.location.pathname,
+  initialListIndex: state.name.initialListIndex,
 });
 
 const mapDispatchToProps = dispatch => ({
-  openNameDetails: (name, selectedNameList) =>
-    dispatch(selectName(name, selectedNameList)),
+  openNameDetails: (name, selectedNameList, namePosition) =>
+    dispatch(selectName(name, selectedNameList, namePosition)),
   openEditProtectedNameMeetingDialog: nameId =>
     dispatch(openEditProtectedNameMeetingDialog(nameId)),
   openEditProtectedNameCallDialog: nameId =>

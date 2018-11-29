@@ -13,7 +13,6 @@ import { showNotification } from '../../../../app/appActions';
 import {
   openProtectNameDialog,
   closeProtectNameDialog,
-  selectName,
 } from '../../selectedActions';
 import { performingNameAction } from '../../../nameActions';
 
@@ -35,7 +34,6 @@ const SelectedUnprotectedActionsWithMutations = compose(
           unprotectedId,
           name,
           performingNameAction,
-          protectNameSuccess,
           showErrorNotification,
         } = ownProps;
 
@@ -82,7 +80,6 @@ const SelectedUnprotectedActionsWithMutations = compose(
               }),
             },
           });
-          protectNameSuccess(_.get(protectedName, 'data.protectNameToUser'));
         } catch (error) {
           showErrorNotification(
             error.graphQLErrors
@@ -123,7 +120,6 @@ const mapDispatchToProps = dispatch => ({
   closeProtectNameDialog: () => dispatch(closeProtectNameDialog()),
   performingNameAction: message => dispatch(performingNameAction(message)),
   showErrorNotification: message => dispatch(showNotification(message, red500)),
-  protectNameSuccess: name => dispatch(selectName(name, 'protected')),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(

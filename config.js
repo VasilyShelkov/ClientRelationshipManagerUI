@@ -3,7 +3,7 @@ const envUrls = {
     graphQL: ''
   },
   development: {
-    graphQL: 'http://localhost:3000'
+    graphQL: 'http://localhost:3010'
   },
   staging: {
     graphQL: 'https://crm-graphql-api-staging.herokuapp.com'
