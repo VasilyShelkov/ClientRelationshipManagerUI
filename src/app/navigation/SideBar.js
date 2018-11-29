@@ -12,6 +12,8 @@ import { UnprotectedIcon, ProtectedIcon, ClientsIcon } from '../icons';
 import { changeSideBarState } from '../../authentication/accountActions';
 import AdminUserListWithData from './AdminUserListWithData';
 import { changeShownUserProfile } from '../../profile/profileActions';
+import { selectName } from '../../names/selected/selectedActions';
+import { resetScrollPosition } from '../../names/nameActions'
 
 const SelectableList = makeSelectable(List);
 
@@ -106,6 +108,7 @@ const mapDispatchToProps = dispatch => ({
         isNewUser: false,
       }),
     );
+    dispatch(resetScrollPosition());
   },
 });
 
