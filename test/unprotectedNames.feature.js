@@ -1,17 +1,17 @@
 Feature('Unprotected names', { retries: 3 });
 
-Scenario('user creates a new name', function*(I) {
+Scenario('user creates a new name', async function(I) {
   I.login();
   I.waitForElement('#goToUnprotectedList');
   I.click('#goToUnprotectedList');
   I.waitForElement('#unprotectedNamesList');
-  const currentUnprotectedNamesCount = yield I.grabTextFrom(
+  const currentUnprotectedNamesCount = await I.grabTextFrom(
     '#unprotectedNamesCount',
   );
   I.waitForElement('#unprotectedNamesList');
   I.click('#createUnprotectedName');
 
-  const newName = yield I.createFakeName();
+  const newName = await I.createFakeName();
   I.waitForVisible('.StandardForm');
   I.fillField('firstName', newName.firstName);
   I.fillField('lastName', newName.lastName);
@@ -39,12 +39,12 @@ Scenario('user creates a new name', function*(I) {
   });
 });
 
-Scenario('user deletes an unprotected name', function*(I) {
+Scenario('user deletes an unprotected name', async function(I) {
   I.login();
-  const newName = yield I.createFakeName();
+  const newName = await I.createFakeName();
   I.createNewUnprotectedName(newName);
   I.waitForElement('#unprotectedNamesList');
-  const currentUnprotectedNamesCount = yield I.grabTextFrom(
+  const currentUnprotectedNamesCount = await I.grabTextFrom(
     '#unprotectedNamesCount',
   );
   I.click('#deleteName');
@@ -58,21 +58,19 @@ Scenario('user deletes an unprotected name', function*(I) {
   });
 });
 
-Scenario('user protects an unprotected name', function*(I) {
+Scenario('user protects an unprotected name', async function(I) {
   I.login();
   I.waitForElement('#goToProtectedList');
   I.click('#goToProtectedList');
-  I.waitForElement('#goToProtectedTab');
-  I.click('#goToProtectedTab');
   I.waitForVisible('div[value="protected"]');
   I.waitForVisible('#protectedNamesList');
-  const currentProtectedNamesCount = yield I.grabTextFrom(
+  const currentProtectedNamesCount = await I.grabTextFrom(
     '#protectedNamesCount',
   );
 
-  const newName = yield I.createFakeName();
+  const newName = await I.createFakeName();
   I.createNewUnprotectedName(newName);
-  const currentUnprotectedNamesCount = yield I.grabTextFrom(
+  const currentUnprotectedNamesCount = await I.grabTextFrom(
     '#unprotectedNamesCount',
   );
   I.click('#protectName');
@@ -87,6 +85,7 @@ Scenario('user protects an unprotected name', function*(I) {
     I.click('OK');
   });
 
+  I.click('#goToProtectedList');
   I.waitForElement('#protectedNamesList');
   I.see(`${parseInt(currentProtectedNamesCount, 10) + 1}/150 Protected`);
   within('#protectedNamesList .name:nth-of-type(1)', () => {
@@ -110,22 +109,22 @@ Scenario('user protects an unprotected name', function*(I) {
   });
 });
 
-Scenario('user protects an unprotected name with call booked', function*(I) {
+Scenario('user protects an unprotected name with call booked', async function(I) {
   I.login();
   I.waitForElement('#goToProtectedList');
   I.click('#goToProtectedList');
   I.waitForElement('#protectedNamesList');
-  const currentProtectedNamesCount = yield I.grabTextFrom(
+  const currentProtectedNamesCount = await I.grabTextFrom(
     '#protectedNamesCount',
   );
 
-  const newName = yield I.createFakeName();
+  const newName = await I.createFakeName();
   I.createNewUnprotectedName(newName);
   I.click('#protectName');
   I.waitForElement('#protectNameForm');
 
-  const currentDay = yield I.createCurrentDay();
-  const currentMonth = yield I.createCurrentMonth();
+  const currentDay = await I.createCurrentDay();
+  const currentMonth = await I.createCurrentMonth();
   I.click('input[name="callDay"]');
   I.waitForText(currentMonth);
   I.click(currentDay);
@@ -146,6 +145,7 @@ Scenario('user protects an unprotected name with call booked', function*(I) {
     I.click('OK');
   });
 
+  I.click('#goToProtectedList');
   I.waitForElement('#protectedNamesList');
   I.see(`${parseInt(currentProtectedNamesCount, 10) + 1}/150 Protected`);
   within('#protectedNamesList .name:nth-of-type(1)', () => {
@@ -158,22 +158,22 @@ Scenario('user protects an unprotected name with call booked', function*(I) {
   });
 });
 
-Scenario('user protects an unprotected name with meeting booked', function*(I) {
+Scenario('user protects an unprotected name with meeting booked', async function(I) {
   I.login();
   I.waitForElement('#goToProtectedList');
   I.click('#goToProtectedList');
   I.waitForElement('#protectedNamesList');
-  const currentProtectedNamesCount = yield I.grabTextFrom(
+  const currentProtectedNamesCount = await I.grabTextFrom(
     '#protectedNamesCount',
   );
 
-  const newName = yield I.createFakeName();
+  const newName = await I.createFakeName();
   I.createNewUnprotectedName(newName);
   I.click('#protectName');
   I.waitForElement('#protectNameForm');
 
-  const currentDay = yield I.createCurrentDay();
-  const currentMonth = yield I.createCurrentMonth();
+  const currentDay = await I.createCurrentDay();
+  const currentMonth = await I.createCurrentMonth();
   I.click('input[name="meetingDay"]');
   I.waitForText(currentMonth);
   I.click(currentDay);
@@ -194,6 +194,7 @@ Scenario('user protects an unprotected name with meeting booked', function*(I) {
     I.click('OK');
   });
 
+  I.click('#goToProtectedList');
   I.waitForElement('#protectedNamesList');
   I.see(`${parseInt(currentProtectedNamesCount, 10) + 1}/150 Protected`);
   within('#protectedNamesList .name:nth-of-type(1)', () => {
@@ -208,22 +209,22 @@ Scenario('user protects an unprotected name with meeting booked', function*(I) {
 
 Scenario(
   'user protects an unprotected name with call booked and meeting booked',
-  function*(I) {
+  async function(I) {
     I.login();
     I.waitForElement('#goToProtectedList');
     I.click('#goToProtectedList');
     I.waitForElement('#protectedNamesList');
-    const currentProtectedNamesCount = yield I.grabTextFrom(
+    const currentProtectedNamesCount = await I.grabTextFrom(
       '#protectedNamesCount',
     );
 
-    const newName = yield I.createFakeName();
+    const newName = await I.createFakeName();
     I.createNewUnprotectedName(newName);
     I.click('#protectName');
     I.waitForElement('#protectNameForm');
 
-    const currentDay = yield I.createCurrentDay();
-    const currentMonth = yield I.createCurrentMonth();
+    const currentDay = await I.createCurrentDay();
+    const currentMonth = await I.createCurrentMonth();
     I.click('input[name="callDay"]');
     I.waitForText(currentMonth);
     I.click(currentDay);
@@ -254,6 +255,7 @@ Scenario(
       I.click('OK');
     });
 
+    I.click('#goToProtectedList');
     I.waitForElement('#protectedNamesList');
     I.see(`${parseInt(currentProtectedNamesCount, 10) + 1}/150 Protected`);
     within('#protectedNamesList .name:nth-of-type(1)', () => {
@@ -269,22 +271,22 @@ Scenario(
 
 Scenario(
   'user protects an unprotected name after clearing call booked and meeting booked',
-  function*(I) {
+  async function(I) {
     I.login();
     I.waitForElement('#goToProtectedList');
     I.click('#goToProtectedList');
     I.waitForElement('#protectedNamesList');
-    const currentProtectedNamesCount = yield I.grabTextFrom(
+    const currentProtectedNamesCount = await I.grabTextFrom(
       '#protectedNamesCount',
     );
 
-    const newName = yield I.createFakeName();
+    const newName = await I.createFakeName();
     I.createNewUnprotectedName(newName);
     I.click('#protectName');
     I.waitForElement('#protectNameForm');
 
-    const currentDay = yield I.createCurrentDay();
-    const currentMonth = yield I.createCurrentMonth();
+    const currentDay = await I.createCurrentDay();
+    const currentMonth = await I.createCurrentMonth();
     I.click('input[name="callDay"]');
     I.waitForText(currentMonth);
     I.click(currentDay);
@@ -318,6 +320,7 @@ Scenario(
       I.click('OK');
     });
 
+    I.click('#goToProtectedList');
     I.waitForElement('#protectedNamesList');
     I.see(`${parseInt(currentProtectedNamesCount, 10) + 1}/150 Protected`);
     within('#protectedNamesList .name:nth-of-type(1)', () => {

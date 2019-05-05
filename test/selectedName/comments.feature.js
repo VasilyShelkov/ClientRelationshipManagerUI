@@ -1,11 +1,11 @@
 Feature('Selected Name Comments', { retries: 3 });
 
-xScenario('Add private comment for an Unprotected name', function*(I) {
+xScenario('Add private comment for an Unprotected name', async function(I) {
   I.login();
-  const newUnprotectedName = yield I.createFakeName();
+  const newUnprotectedName = await I.createFakeName();
   I.createNewUnprotectedName(newUnprotectedName);
 
-  const newComment = yield I.createFakeComment();
+  const newComment = await I.createFakeComment();
   I.waitForVisible('#selectedName');
   I.waitForElement('#name-comments');
   within('#name-comments', () => {
@@ -25,12 +25,12 @@ xScenario('Add private comment for an Unprotected name', function*(I) {
   });
 });
 
-xScenario('Add public comment for an Unprotected name', function*(I) {
+xScenario('Add public comment for an Unprotected name', async function(I) {
   I.login();
-  const newUnprotectedName = yield I.createFakeName();
+  const newUnprotectedName = await I.createFakeName();
   I.createNewUnprotectedName(newUnprotectedName);
 
-  const newComment = yield I.createFakeComment();
+  const newComment = await I.createFakeComment();
   I.waitForVisible('#selectedName');
   I.waitForElement('#name-comments');
   I.click('#name-comments #addComment');
@@ -56,7 +56,7 @@ xScenario('Add public comment for an Unprotected name', function*(I) {
 
   I.click('#createNewUser');
   I.waitForText('Add a new member to the team...');
-  const newUser = yield I.createFakeUser();
+  const newUser = await I.createFakeUser();
   I.fillField('firstName', newUser.firstName);
   I.fillField('lastName', newUser.lastName);
   I.fillField('email', newUser.email);
@@ -82,12 +82,12 @@ xScenario('Add public comment for an Unprotected name', function*(I) {
   });
 });
 
-xScenario('Edit comment for an Unprotected name', function*(I) {
+xScenario('Edit comment for an Unprotected name', async function(I) {
   I.login();
-  const newUnprotectedName = yield I.createFakeName();
+  const newUnprotectedName = await I.createFakeName();
   I.createNewUnprotectedName(newUnprotectedName);
 
-  const newComment = yield I.createFakeComment();
+  const newComment = await I.createFakeComment();
   I.waitForVisible('#selectedName');
   I.waitForElement('#name-comments');
   within('#name-comments', () => {
@@ -99,7 +99,7 @@ xScenario('Edit comment for an Unprotected name', function*(I) {
 
   I.waitForVisible('#appNotification');
   I.waitForElement('.Comment');
-  const editedComment = yield I.createFakeComment();
+  const editedComment = await I.createFakeComment();
   within('#name-comments .Comment', () => {
     I.see('Me', '.Comment__header__container__text');
     I.see(newComment, '.Comment__content');
@@ -131,7 +131,7 @@ xScenario('Edit comment for an Unprotected name', function*(I) {
 
   I.click('#createNewUser');
   I.waitForText('Add a new member to the team...');
-  const newUser = yield I.createFakeUser();
+  const newUser = await I.createFakeUser();
   I.fillField('firstName', newUser.firstName);
   I.fillField('lastName', newUser.lastName);
   I.fillField('email', newUser.email);
@@ -157,12 +157,12 @@ xScenario('Edit comment for an Unprotected name', function*(I) {
   });
 });
 
-xScenario('Delete comment for an Unprotected name', function*(I) {
+xScenario('Delete comment for an Unprotected name', async function(I) {
   I.login();
-  const newUnprotectedName = yield I.createFakeName();
+  const newUnprotectedName = await I.createFakeName();
   I.createNewUnprotectedName(newUnprotectedName);
 
-  const newComment = yield I.createFakeComment();
+  const newComment = await I.createFakeComment();
   I.waitForVisible('#selectedName');
   I.waitForElement('#name-comments');
   within('#name-comments', () => {
@@ -191,12 +191,12 @@ xScenario('Delete comment for an Unprotected name', function*(I) {
   });
 });
 
-xScenario('Add private comment for an Protected name', function*(I) {
+xScenario('Add private comment for an Protected name', async function(I) {
   I.login();
-  const newProtectedName = yield I.createFakeName();
+  const newProtectedName = await I.createFakeName();
   I.createProtectedName(newProtectedName);
 
-  const newComment = yield I.createFakeComment();
+  const newComment = await I.createFakeComment();
   I.waitForVisible('#selectedName');
   I.waitForElement('#name-comments');
   within('#name-comments', () => {
@@ -216,12 +216,12 @@ xScenario('Add private comment for an Protected name', function*(I) {
   });
 });
 
-xScenario('Add public comment for an Protected name', function*(I) {
+xScenario('Add public comment for an Protected name', async function(I) {
   I.login();
-  const newProtectedName = yield I.createFakeName();
+  const newProtectedName = await I.createFakeName();
   I.createProtectedName(newProtectedName);
 
-  const newComment = yield I.createFakeComment();
+  const newComment = await I.createFakeComment();
   I.waitForVisible('#selectedName');
   I.waitForElement('#name-comments');
   I.click('#name-comments #addComment');
@@ -247,7 +247,7 @@ xScenario('Add public comment for an Protected name', function*(I) {
 
   I.click('#createNewUser');
   I.waitForText('Add a new member to the team...');
-  const newUser = yield I.createFakeUser();
+  const newUser = await I.createFakeUser();
   I.fillField('firstName', newUser.firstName);
   I.fillField('lastName', newUser.lastName);
   I.fillField('email', newUser.email);
@@ -273,12 +273,12 @@ xScenario('Add public comment for an Protected name', function*(I) {
   });
 });
 
-xScenario('Edit comment for a Protected name', function*(I) {
+xScenario('Edit comment for a Protected name', async function(I) {
   I.login();
-  const newProtectedName = yield I.createFakeName();
+  const newProtectedName = await I.createFakeName();
   I.createProtectedName(newProtectedName);
 
-  const newComment = yield I.createFakeComment();
+  const newComment = await I.createFakeComment();
   I.waitForVisible('#selectedName');
   I.waitForElement('#name-comments');
   within('#name-comments', () => {
@@ -290,7 +290,7 @@ xScenario('Edit comment for a Protected name', function*(I) {
 
   I.waitForVisible('#appNotification');
   I.waitForElement('.Comment');
-  const editedComment = yield I.createFakeComment();
+  const editedComment = await I.createFakeComment();
   within('#name-comments .Comment', () => {
     I.see('Me', '.Comment__header__container__text');
     I.see(newComment, '.Comment__content');
@@ -322,7 +322,7 @@ xScenario('Edit comment for a Protected name', function*(I) {
 
   I.click('#createNewUser');
   I.waitForText('Add a new member to the team...');
-  const newUser = yield I.createFakeUser();
+  const newUser = await I.createFakeUser();
   I.fillField('firstName', newUser.firstName);
   I.fillField('lastName', newUser.lastName);
   I.fillField('email', newUser.email);
@@ -348,12 +348,12 @@ xScenario('Edit comment for a Protected name', function*(I) {
   });
 });
 
-xScenario('Delete comment for a Protected name', function*(I) {
+xScenario('Delete comment for a Protected name', async function(I) {
   I.login();
-  const newProtectedName = yield I.createFakeName();
+  const newProtectedName = await I.createFakeName();
   I.createProtectedName(newProtectedName);
 
-  const newComment = yield I.createFakeComment();
+  const newComment = await I.createFakeComment();
   I.waitForVisible('#selectedName');
   I.waitForElement('#name-comments');
   within('#name-comments', () => {
@@ -382,12 +382,12 @@ xScenario('Delete comment for a Protected name', function*(I) {
   });
 });
 
-xScenario('Add private comment for a Met With Protected name', function*(I) {
+xScenario('Add private comment for a Met With Protected name', async function(I) {
   I.login();
-  const newMetWithProtectedName = yield I.createFakeName();
+  const newMetWithProtectedName = await I.createFakeName();
   I.createMetWithProtectedName(newMetWithProtectedName);
 
-  const newComment = yield I.createFakeComment();
+  const newComment = await I.createFakeComment();
   I.waitForVisible('#selectedName');
   I.waitForElement('#name-comments');
   within('#name-comments', () => {
@@ -407,12 +407,12 @@ xScenario('Add private comment for a Met With Protected name', function*(I) {
   });
 });
 
-xScenario('Add public comment for a Met With Protected name', function*(I) {
+xScenario('Add public comment for a Met With Protected name', async function(I) {
   I.login();
-  const newMetWithProtectedName = yield I.createFakeName();
+  const newMetWithProtectedName = await I.createFakeName();
   I.createMetWithProtectedName(newMetWithProtectedName);
 
-  const newComment = yield I.createFakeComment();
+  const newComment = await I.createFakeComment();
   I.waitForVisible('#selectedName');
   I.waitForElement('#name-comments');
   I.click('#name-comments #addComment');
@@ -438,7 +438,7 @@ xScenario('Add public comment for a Met With Protected name', function*(I) {
 
   I.click('#createNewUser');
   I.waitForText('Add a new member to the team...');
-  const newUser = yield I.createFakeUser();
+  const newUser = await I.createFakeUser();
   I.fillField('firstName', newUser.firstName);
   I.fillField('lastName', newUser.lastName);
   I.fillField('email', newUser.email);
@@ -464,12 +464,12 @@ xScenario('Add public comment for a Met With Protected name', function*(I) {
   });
 });
 
-xScenario('Edit comment for a Met With Protected name', function*(I) {
+xScenario('Edit comment for a Met With Protected name', async function(I) {
   I.login();
-  const newMetWithProtectedName = yield I.createFakeName();
+  const newMetWithProtectedName = await I.createFakeName();
   I.createMetWithProtectedName(newMetWithProtectedName);
 
-  const newComment = yield I.createFakeComment();
+  const newComment = await I.createFakeComment();
   I.waitForVisible('#selectedName');
   I.waitForElement('#name-comments');
   within('#name-comments', () => {
@@ -481,7 +481,7 @@ xScenario('Edit comment for a Met With Protected name', function*(I) {
 
   I.waitForVisible('#appNotification');
   I.waitForElement('.Comment');
-  const editedComment = yield I.createFakeComment();
+  const editedComment = await I.createFakeComment();
   within('#name-comments .Comment', () => {
     I.see('Me', '.Comment__header__container__text');
     I.see(newComment, '.Comment__content');
@@ -513,7 +513,7 @@ xScenario('Edit comment for a Met With Protected name', function*(I) {
 
   I.click('#createNewUser');
   I.waitForText('Add a new member to the team...');
-  const newUser = yield I.createFakeUser();
+  const newUser = await I.createFakeUser();
   I.fillField('firstName', newUser.firstName);
   I.fillField('lastName', newUser.lastName);
   I.fillField('email', newUser.email);
@@ -539,12 +539,12 @@ xScenario('Edit comment for a Met With Protected name', function*(I) {
   });
 });
 
-xScenario('Delete comment for a Met With Protected name', function*(I) {
+xScenario('Delete comment for a Met With Protected name', async function(I) {
   I.login();
-  const newMetWithProtectedName = yield I.createFakeName();
+  const newMetWithProtectedName = await I.createFakeName();
   I.createMetWithProtectedName(newMetWithProtectedName);
 
-  const newComment = yield I.createFakeComment();
+  const newComment = await I.createFakeComment();
   I.waitForVisible('#selectedName');
   I.waitForElement('#name-comments');
   within('#name-comments', () => {
@@ -573,12 +573,12 @@ xScenario('Delete comment for a Met With Protected name', function*(I) {
   });
 });
 
-xScenario('Add private comment for a Client', function*(I) {
+xScenario('Add private comment for a Client', async function(I) {
   I.login();
-  const newClientName = yield I.createFakeName();
+  const newClientName = await I.createFakeName();
   I.createClient(newClientName);
 
-  const newComment = yield I.createFakeComment();
+  const newComment = await I.createFakeComment();
   I.waitForVisible('#selectedName');
   I.waitForElement('#name-comments');
   within('#name-comments', () => {
@@ -598,12 +598,12 @@ xScenario('Add private comment for a Client', function*(I) {
   });
 });
 
-xScenario('Add public comment for a Client', function*(I) {
+xScenario('Add public comment for a Client', async function(I) {
   I.login();
-  const newClientName = yield I.createFakeName();
+  const newClientName = await I.createFakeName();
   I.createClient(newClientName);
 
-  const newComment = yield I.createFakeComment();
+  const newComment = await I.createFakeComment();
   I.waitForVisible('#selectedName');
   I.waitForElement('#name-comments');
   I.click('#name-comments #addComment');
@@ -629,7 +629,7 @@ xScenario('Add public comment for a Client', function*(I) {
 
   I.click('#createNewUser');
   I.waitForText('Add a new member to the team...');
-  const newUser = yield I.createFakeUser();
+  const newUser = await I.createFakeUser();
   I.fillField('firstName', newUser.firstName);
   I.fillField('lastName', newUser.lastName);
   I.fillField('email', newUser.email);
@@ -655,12 +655,12 @@ xScenario('Add public comment for a Client', function*(I) {
   });
 });
 
-xScenario('Edit comment for a Client', function*(I) {
+xScenario('Edit comment for a Client', async function(I) {
   I.login();
-  const newClientName = yield I.createFakeName();
+  const newClientName = await I.createFakeName();
   I.createClient(newClientName);
 
-  const newComment = yield I.createFakeComment();
+  const newComment = await I.createFakeComment();
   I.waitForVisible('#selectedName');
   I.waitForElement('#name-comments');
   within('#name-comments', () => {
@@ -672,7 +672,7 @@ xScenario('Edit comment for a Client', function*(I) {
 
   I.waitForVisible('#appNotification');
   I.waitForElement('.Comment');
-  const editedComment = yield I.createFakeComment();
+  const editedComment = await I.createFakeComment();
   within('#name-comments .Comment', () => {
     I.see('Me', '.Comment__header__container__text');
     I.see(newComment, '.Comment__content');
@@ -704,7 +704,7 @@ xScenario('Edit comment for a Client', function*(I) {
 
   I.click('#createNewUser');
   I.waitForText('Add a new member to the team...');
-  const newUser = yield I.createFakeUser();
+  const newUser = await I.createFakeUser();
   I.fillField('firstName', newUser.firstName);
   I.fillField('lastName', newUser.lastName);
   I.fillField('email', newUser.email);
@@ -730,12 +730,12 @@ xScenario('Edit comment for a Client', function*(I) {
   });
 });
 
-xScenario('Delete comment for a Client', function*(I) {
+xScenario('Delete comment for a Client', async function(I) {
   I.login();
-  const newClientName = yield I.createFakeName();
+  const newClientName = await I.createFakeName();
   I.createClient(newClientName);
 
-  const newComment = yield I.createFakeComment();
+  const newComment = await I.createFakeComment();
   I.waitForVisible('#selectedName');
   I.waitForElement('#name-comments');
   within('#name-comments', () => {

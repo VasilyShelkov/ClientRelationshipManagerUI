@@ -1,11 +1,11 @@
 Feature('Selected Name Details', { retries: 3 });
 
-Scenario('user edits name details for unprotected', function*(I) {
+Scenario('user edits name details for unprotected', async function(I) {
   I.login();
-  const newUnprotectedName = yield I.createFakeName();
+  const newUnprotectedName = await I.createFakeName();
   I.createNewUnprotectedName(newUnprotectedName);
 
-  const editName = yield I.createFakeName();
+  const editName = await I.createFakeName();
   I.waitForVisible('#selectedName');
   within('#selectedName', () => {
     I.click('#editName');
@@ -25,12 +25,12 @@ Scenario('user edits name details for unprotected', function*(I) {
   });
 });
 
-Scenario('user edits name details for protected', function*(I) {
+Scenario('user edits name details for protected', async function(I) {
   I.login();
-  const newProtectedName = yield I.createFakeName();
+  const newProtectedName = await I.createFakeName();
   I.createProtectedName(newProtectedName);
 
-  const editName = yield I.createFakeName();
+  const editName = await I.createFakeName();
   I.waitForVisible('#selectedName');
   within('#selectedName', () => {
     I.click('#editName');
@@ -46,12 +46,12 @@ Scenario('user edits name details for protected', function*(I) {
   });
 });
 
-Scenario('user edits name details for met with protected', function*(I) {
+Scenario('user edits name details for met with protected', async function(I) {
   I.login();
-  const newMetWithProtectedName = yield I.createFakeName();
+  const newMetWithProtectedName = await I.createFakeName();
   I.createMetWithProtectedName(newMetWithProtectedName);
 
-  const editName = yield I.createFakeName();
+  const editName = await I.createFakeName();
   I.waitForVisible('#selectedName');
   within('#selectedName', () => {
     I.click('#editName');
@@ -67,12 +67,12 @@ Scenario('user edits name details for met with protected', function*(I) {
   });
 });
 
-Scenario('user edits name details for client', function*(I) {
+Scenario('user edits name details for client', async function(I) {
   I.login();
-  const newClient = yield I.createFakeName();
+  const newClient = await I.createFakeName();
   I.createClient(newClient);
 
-  const editName = yield I.createFakeName();
+  const editName = await I.createFakeName();
   I.waitForVisible('#selectedName');
   within('#selectedName', () => {
     I.click('#editName');

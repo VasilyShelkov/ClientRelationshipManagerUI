@@ -45,7 +45,6 @@ export const NameDialog = ({
 
             <div className="col-12 col-md-6">
               <Field
-                dialogContainerStyle="calender"
                 name="callDay"
                 component={DatePicker}
                 minDate={moment().toDate()}

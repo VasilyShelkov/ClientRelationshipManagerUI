@@ -74,7 +74,11 @@ module.exports = function() {
       within('.sweet-alert.showSweetAlert.visible', () => {
         this.click('OK');
       });
+      this.waitForElement('.hideSweetAlert')
+      this.click('#goToProtectedList');
       this.waitForElement('#protectedNamesList');
+      this.click('#protectedNamesList');
+      this.click('#protectedNamesList .name:nth-of-type(1)');
     },
     createMetWithProtectedName: function(newName) {
       this.createProtectedName(newName);
@@ -85,6 +89,8 @@ module.exports = function() {
       within('.sweet-alert.showSweetAlert.visible', () => {
         this.click('OK');
       });
+      this.waitForElement('.hideSweetAlert')
+      this.click('#goToMetWithProtectedTab');
       this.waitForVisible('div[value="metWithProtected"]');
       this.waitForVisible('#metWithProtectedNamesList');
     },
@@ -98,7 +104,9 @@ module.exports = function() {
       within('.sweet-alert.showSweetAlert.visible', () => {
         this.click('OK');
       });
+      this.click('#goToClientsList')
       this.waitForElement('#clientsNamesList');
+      this.click('#clientsNamesList .name:nth-of-type(1)');
     },
   });
 };

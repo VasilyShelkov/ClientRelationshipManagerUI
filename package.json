@@ -22,10 +22,8 @@
     "heroku-postbuild": "npm run build:${GRAPHQL_CONFIG}",
     "test": "react-scripts test",
     "test:watch": "NODE_ENV=testing mocha --watch --opts ./mocha.opts './src/**/*.spec.js'",
-    "test:feature": "./node_modules/codeceptjs/bin/codecept.js run --steps",
+    "test:feature": "./node_modules/codeceptjs/bin/codecept.js run",
     "test:feature:staging": "NODE_ENV=staging ./node_modules/codeceptjs/bin/codecept.js run",
-    "test:feature:selenium-install": "./node_modules/.bin/selenium-standalone install",
-    "test:feature:selenium-start": "./node_modules/.bin/selenium-standalone start",
     "eject": "react-scripts eject"
   },
   "dependencies": {
@@ -68,15 +66,12 @@
     "rimraf": "^2.6.1"
   },
   "devDependencies": {
-    "codeceptjs": "1.0.3",
+    "codeceptjs": "^2.1.1",
     "enzyme": "3.1.1",
     "enzyme-adapter-react-16": "^1.12.1",
-    "extend": "^3.0.1",
     "faker": "^4.1.0",
-    "react-test-renderer": "^15.6.2",
-    "selenium-standalone": "^6.11.0",
-    "selenium-webdriver": "^3.6.0",
-    "webdriverio": "^4.9.6"
+    "puppeteer": "^1.15.0",
+    "react-test-renderer": "^15.6.2"
   },
   "eslintConfig": {
     "extends": "react-app"
