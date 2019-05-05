@@ -1,7 +1,6 @@
 import { graphql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
 import { red500 } from 'material-ui/styles/colors';
-import _ from 'lodash';
 import { loader } from 'graphql.macro';
 
 import { onSubmitBookCall, onSubmitBookMeeting } from '../lockedMutations';

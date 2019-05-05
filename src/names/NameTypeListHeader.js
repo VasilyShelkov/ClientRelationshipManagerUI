@@ -1,10 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { graphql } from 'react-apollo';
 import { Switch, Route } from 'react-router';
-import { Link } from 'react-router-dom';
-import IconButton from 'material-ui/IconButton';
-import Avatar from 'material-ui/Avatar';
 import { loader } from 'graphql.macro';
 
 import { ProtectedIcon, MetWithProtectedIcon, ClientsIcon } from '../app/icons';

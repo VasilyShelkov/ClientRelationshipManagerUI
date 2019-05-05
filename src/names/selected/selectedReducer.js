@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import {
   APOLLO_MUTATION_INIT,
   APOLLO_MUTATION_RESULT,

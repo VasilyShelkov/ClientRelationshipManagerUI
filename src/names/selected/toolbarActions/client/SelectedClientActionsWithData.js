@@ -1,6 +1,5 @@
 import { graphql } from 'react-apollo';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import { red500 } from 'material-ui/styles/colors';
 import { loader } from 'graphql.macro';
 
@@ -24,7 +23,7 @@ const SelectedClientActionsWithMutations = graphql(UnprotectName, {
 
       try {
         performingNameAction(`Unprotecting ${name.firstName} ${name.lastName}`);
-        const unprotectedName = await mutate({
+        await mutate({
           variables: {
             userId,
             nameId: name.id,

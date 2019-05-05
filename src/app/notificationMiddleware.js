@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import { swal, close } from 'react-redux-sweetalert';
 import {
   APOLLO_MUTATION_RESULT,
   showSuccessNotification,
@@ -80,6 +79,8 @@ export default store => next => action => {
           );
           break;
         }
+        default:
+          return;
       }
     }
   }

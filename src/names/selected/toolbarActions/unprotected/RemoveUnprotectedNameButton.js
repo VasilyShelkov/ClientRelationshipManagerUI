@@ -1,4 +1,4 @@
-import { graphql, compose } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import { connect } from 'react-redux';
 import { red500 } from 'material-ui/styles/colors';
 import { loader } from 'graphql.macro';

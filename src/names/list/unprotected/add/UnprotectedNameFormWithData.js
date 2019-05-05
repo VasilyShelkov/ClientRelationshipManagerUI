@@ -6,7 +6,6 @@ import _ from 'lodash';
 import { loader } from 'graphql.macro';
 
 import AddUnprotectedNameForm from './UnprotectedNameForm';
-import { hideCreateNameForm } from '../../nameListActions';
 import { selectName } from '../../../selected/selectedActions';
 
 const GetAllCompanies = loader('../../../GetAllCompanies.gql');

@@ -5,7 +5,6 @@ import { loader } from 'graphql.macro';
 
 import { APOLLO_MUTATION_RESULT } from '../../../app/thirdPartyActions';
 import { selectName } from '../../selected/selectedActions';
-import { showCreateNameForm } from '../nameListActions';
 
 import NamesList from '../NamesList';
 import { removeNameFromList } from '../nameListShapeShifter';

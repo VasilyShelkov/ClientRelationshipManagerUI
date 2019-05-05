@@ -1,7 +1,6 @@
 import { graphql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import _ from 'lodash';
 import { red500 } from 'material-ui/styles/colors';
 import { loader } from 'graphql.macro';
 
@@ -59,7 +58,7 @@ const SelectedUnprotectedActionsWithMutations = compose(
 
         try {
           performingNameAction(`Protecting ${name.firstName} ${name.lastName}`);
-          const protectedName = await mutate({
+          await mutate({
             variables: {
               unprotectedId,
               nameId: name.id,

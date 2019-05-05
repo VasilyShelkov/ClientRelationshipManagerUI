@@ -1,16 +1,14 @@
 import React from 'react';
-import { Switch, Route, matchPath } from 'react-router';
+import { Switch, Route } from 'react-router';
 
 import Drawer from 'material-ui/Drawer';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
-import DeleteName from 'material-ui/svg-icons/action/delete';
 
 import { List } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 
-import { hideName } from './selectedActions';
 import SelectedUnprotectedActionsWithData from './toolbarActions/unprotected/SelectedUnprotectedActionsWithData';
 import SelectedProtectedActionsWithData from './toolbarActions/protected/SelectedProtectedActionsWithData';
 import SelectedClientActionsWithData from './toolbarActions/client/SelectedClientActionsWithData';
@@ -24,7 +22,9 @@ import LoadingSpinner from '../../shared/LoadingSpinner';
 
 export default ({
   name,
-  match: { params: { nameListType } },
+  match: {
+    params: { nameListType },
+  },
   closeNameDetails,
 }) => (
   <Drawer

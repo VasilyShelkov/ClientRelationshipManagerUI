@@ -1,7 +1,6 @@
 import { graphql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import _ from 'lodash';
 import { red500 } from 'material-ui/styles/colors';
 import { loader } from 'graphql.macro';
 
@@ -64,7 +63,7 @@ const SelectedProtectedActionsWithMutations = compose(
           performingNameAction(
             `Making ${name.firstName} ${name.lastName} a Client!`,
           );
-          const client = await mutate({
+          await mutate({
             variables: {
               userId,
               nameId: name.id,
@@ -143,7 +142,7 @@ const SelectedProtectedActionsWithMutations = compose(
           performingNameAction(
             `Changing ${name.firstName} ${name.lastName} to Met With Protected`,
           );
-          const metWithProtectedName = await mutate({
+          await mutate({
             variables: {
               userId,
               protectedId,
@@ -194,7 +193,7 @@ const SelectedProtectedActionsWithMutations = compose(
           performingNameAction(
             `Unprotecting ${name.firstName} ${name.lastName}`,
           );
-          const unprotectedName = await mutate({
+          await mutate({
             variables: {
               userId,
               nameId: name.id,
