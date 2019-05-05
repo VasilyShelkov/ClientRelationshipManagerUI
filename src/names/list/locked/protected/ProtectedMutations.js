@@ -2,15 +2,18 @@ import { graphql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
 import { red500 } from 'material-ui/styles/colors';
 import _ from 'lodash';
-
-import BookCall from './BookCall.gql';
-import BookMeeting from './BookMeeting.gql';
-import GetNameComments from '../../../selected/comments/GetNameComments.gql';
+import { loader } from 'graphql.macro';
 
 import { onSubmitBookCall, onSubmitBookMeeting } from '../lockedMutations';
 import { showNotification } from '../../../../app/appActions';
 import { performingNameAction } from '../../../nameActions';
 import NamesList from '../../NamesList';
+
+const BookCall = loader('./BookCall.gql');
+const BookMeeting = loader('./BookMeeting.gql');
+const GetNameComments = loader(
+  '../../../selected/comments/GetNameComments.gql',
+);
 
 const LockedNamesWithMutations = compose(
   graphql(BookCall, {
@@ -72,6 +75,7 @@ const mapDispatchToProps = dispatch => ({
   showErrorNotification: message => dispatch(showNotification(message, red500)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  LockedNamesWithMutations,
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(LockedNamesWithMutations);

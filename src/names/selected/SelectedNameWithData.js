@@ -1,10 +1,11 @@
 import { graphql } from 'react-apollo';
 import { connect } from 'react-redux';
+import { loader } from 'graphql.macro';
 
-import GetNameComments from './GetNameDetails.gql';
 import SelectedName from './SelectedName';
 import { hideName } from './selectedActions';
 
+const GetNameComments = loader('./GetNameDetails.gql');
 const SelectedNameWithDetails = graphql(GetNameComments, {
   options: ({ id, userId }) => ({ variables: { id, userId } }),
   props: ({ ownProps, data: { loading, name } }) => ({
@@ -23,6 +24,7 @@ const mapDispatchToProps = dispatch => ({
   closeNameDetails: nameListType => dispatch(hideName(nameListType)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  SelectedNameWithDetails,
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SelectedNameWithDetails);

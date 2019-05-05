@@ -2,11 +2,12 @@ import { connect } from 'react-redux';
 import { graphql } from 'react-apollo';
 import { reduxForm } from 'redux-form';
 import { red500 } from 'material-ui/styles/colors';
+import { loader } from 'graphql.macro';
 
 import { showNotification } from '../../../app/appActions';
-import AddCommentToName from './AddCommentToName.gql';
 import CommentForm from './CommentForm';
 
+const AddCommentToName = loader('./AddCommentToName.gql');
 const AddCommentForm = reduxForm({ form: 'addComment' })(CommentForm);
 
 const AddCommentFormWithMutation = graphql(AddCommentToName, {
@@ -47,6 +48,7 @@ const mapDispatchToProps = dispatch => ({
   showErrorNotification: message => dispatch(showNotification(message, red500)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  AddCommentFormWithMutation,
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(AddCommentFormWithMutation);

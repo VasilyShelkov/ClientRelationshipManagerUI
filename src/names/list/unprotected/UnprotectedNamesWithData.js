@@ -1,15 +1,16 @@
 import { graphql } from 'react-apollo';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { loader } from 'graphql.macro';
 
 import { APOLLO_MUTATION_RESULT } from '../../../app/thirdPartyActions';
 import { selectName } from '../../selected/selectedActions';
 import { showCreateNameForm } from '../nameListActions';
-import GetUnprotectedNames from './GetUnprotectedNames.gql';
 
 import NamesList from '../NamesList';
 import { removeNameFromList } from '../nameListShapeShifter';
 
+const GetUnprotectedNames = loader('./GetUnprotectedNames.gql');
 export const reducer = (previousResult, action) => {
   if (action.type === APOLLO_MUTATION_RESULT) {
     switch (action.operationName) {
@@ -80,6 +81,7 @@ const mapDispatchToProps = dispatch => ({
   selectName: nameId => dispatch(selectName(nameId, 'unprotected')),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  UnprotectedNamesWithData,
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(UnprotectedNamesWithData);

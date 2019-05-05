@@ -1,9 +1,8 @@
 import React from 'react';
 
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 import { Switch, Route } from 'react-router';
 import { ConnectedRouter } from 'react-router-redux';
-import { BrowserRouter } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
@@ -12,7 +11,7 @@ import AppWithNavbar from './AppWithNavbar';
 import './root.scss';
 
 export default ({ store, client }) => {
-  const history = createHistory();
+  const history = createBrowserHistory();
   return (
     <MuiThemeProvider>
       <ApolloProvider client={client} store={store(history)}>

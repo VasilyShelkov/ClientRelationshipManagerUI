@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import { createStore, compose, applyMiddleware } from 'redux';
 import adapter from 'redux-localstorage/lib/adapters/localStorage';
@@ -10,16 +9,13 @@ import persistState from 'redux-localstorage';
 
 import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
-import authenticationMiddleware from '../authentication/authenticationMiddleware';
-import protectedMiddleware from '../names/list/locked/protected/protectedMiddleware';
-import selectedMiddleware from '../names/selected/selectedMiddleware';
-import notificationMiddleware from './notificationMiddleware';
+import authenticationMiddleware from './authentication/authenticationMiddleware';
+import protectedMiddleware from './names/list/locked/protected/protectedMiddleware';
+import selectedMiddleware from './names/selected/selectedMiddleware';
 
-import rootReducer, { client } from './store';
-
-import Root from './Root';
-
-injectTapEventPlugin();
+import notificationMiddleware from './app/notificationMiddleware';
+import rootReducer, { client } from './app/store';
+import Root from './app/Root';
 
 const storage = compose(
   filter(['account.token', 'account.id', 'account.accountType']),
@@ -44,5 +40,5 @@ const store = browserHistory =>
 
 ReactDOM.render(
   <Root store={store} client={client} />,
-  document.getElementById('root')
+  document.getElementById('root'),
 );

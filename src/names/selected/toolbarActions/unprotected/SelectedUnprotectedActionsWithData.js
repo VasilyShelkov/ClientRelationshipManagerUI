@@ -3,11 +3,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import _ from 'lodash';
 import { red500 } from 'material-ui/styles/colors';
-
-import RemoveUnprotectedName from './RemoveUnprotectedName.gql';
-import ProtectName from './ProtectName.gql';
-import GetNameComments from '../../comments/GetNameComments.gql';
-import GetUserNamesCount from '../../../GetUserNamesCount.gql';
+import { loader } from 'graphql.macro';
 
 import { showNotification } from '../../../../app/appActions';
 import {
@@ -17,6 +13,10 @@ import {
 import { performingNameAction } from '../../../nameActions';
 
 import SelectedUnprotectedActions from './SelectedUnprotectedActions';
+
+const ProtectName = loader('./ProtectName.gql');
+const GetNameComments = loader('../../comments/GetNameComments.gql');
+const GetUserNamesCount = loader('../../../GetUserNamesCount.gql');
 
 const SelectedUnprotectedActionsWithMutations = compose(
   graphql(ProtectName, {
@@ -122,6 +122,7 @@ const mapDispatchToProps = dispatch => ({
   showErrorNotification: message => dispatch(showNotification(message, red500)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  SelectedUnprotectedActionsWithMutations,
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SelectedUnprotectedActionsWithMutations);

@@ -43,6 +43,7 @@
     "material-ui": "0.19.1",
     "mocha-graphql-register": "git+https://git@github.com/VasilyShelkov/mocha-graphql-register.git",
     "moment": "^2.18.1",
+    "node-sass": "^4.12.0",
     "places.js": "^1.4.15",
     "prettier": "^1.17.0",
     "react": "^16.8.6",
