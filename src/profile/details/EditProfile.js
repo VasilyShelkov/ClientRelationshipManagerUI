@@ -9,13 +9,14 @@ import {
 } from 'redux-form';
 import { TextField, Slider } from 'redux-form-material-ui';
 import Paper from 'material-ui/Paper';
+import { loader } from 'graphql.macro';
 
-import EditUserDetails from './EditUserDetails.gql';
 import { checkIfAnyKeysDifferent } from '../../shared/utils';
 
 import { required, emailFormat } from '../../shared/FormElements';
 import StandardForm from '../../shared/StandardForm';
 
+const EditUserDetails = loader('./EditUserDetails.gql');
 const EditProfile = ({
   currentProtectedNamesLimit,
   isAdmin,

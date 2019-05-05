@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { AppContainer as Hot } from 'react-hot-loader';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import { createStore, compose, applyMiddleware } from 'redux';
@@ -43,29 +42,7 @@ const store = browserHistory =>
     ),
   );
 
-const render = Component => {
-  ReactDOM.render(
-    <Hot>
-      <Component store={store} client={client} />
-    </Hot>,
-    document.querySelector('react'),
-  );
-};
-
-render(Root);
-
-if (module.hot) {
-  module.hot.dispose(() => {
-    // Force Apollo to fetch the latest data from the server
-    delete window.__APOLLO_STATE__;
-  });
-
-  module.hot.accept('./Root', () => {
-    render(Root);
-  });
-
-  module.hot.accept('./store', () => {
-    const reducers = require('./store').default;
-    return store.replaceReducer(reducers);
-  });
-}
+ReactDOM.render(
+  <Root store={store} client={client} />,
+  document.getElementById('root')
+);
