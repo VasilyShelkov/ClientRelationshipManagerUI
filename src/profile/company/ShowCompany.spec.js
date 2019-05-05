@@ -28,7 +28,7 @@ const setup = ({
 describe('src/profile/ShowCompany', () => {
   it('renders the name', () => {
     const { wrapper, props } = setup({});
-    expect(wrapper.find('h2').text()).to.equal(props.name);
+    expect(wrapper.find('h2').text()).toBe(props.name);
   });
 
   it('renders the address', () => {
@@ -38,7 +38,7 @@ describe('src/profile/ShowCompany', () => {
         .find(ListItem)
         .at(0)
         .prop('primaryText'),
-    ).to.equal(props.address);
+    ).toBe(props.address);
   });
 
   it('renders the phone number', () => {
@@ -48,7 +48,7 @@ describe('src/profile/ShowCompany', () => {
         .find(ListItem)
         .at(1)
         .prop('primaryText'),
-    ).to.equal(props.phone);
+    ).toBe(props.phone);
   });
 
   it('renders the last updated at time', () => {
@@ -61,7 +61,7 @@ describe('src/profile/ShowCompany', () => {
         .children()
         .last()
         .text(),
-    ).to.equal('a few seconds ago');
+    ).toBe('a few seconds ago');
   });
 
   it('does not render the successfully edited notification when the company was not successfully edited', () => {
@@ -85,17 +85,17 @@ describe('src/profile/ShowCompany', () => {
         .children()
         .last()
         .text(),
-    ).to.equal(editSuccessCompanyNotification);
+    ).toBe(editSuccessCompanyNotification);
   });
 
   it('does not render the edit company button when not an admin', () => {
     const { wrapper } = setup({ isAdmin: false });
-    expect(wrapper.find('.Profile__cta').exists()).to.be.false;
+    expect(wrapper.find('.Profile__cta').exists()).toBe(false);
   });
 
   it('renders the edit company button when there is an admin', () => {
     const { wrapper } = setup({ isAdmin: true });
-    expect(wrapper.find('.Profile__cta').exists()).to.be.true;
+    expect(wrapper.find('.Profile__cta').exists()).toBe(true);
   });
 
   it(

@@ -27,7 +27,7 @@ describe('src/Navbar.js', () => {
 
     const appBarRightIcon = wrapper.find(AppBar).prop('iconElementRight').props
       .containerElement.props.to;
-    expect(appBarRightIcon).to.equal('/login');
+    expect(appBarRightIcon).toBe('/login');
   });
 
   it(
@@ -39,40 +39,38 @@ describe('src/Navbar.js', () => {
       const appBarRightIcon = wrapper.find(AppBar).prop('iconElementRight');
       appBarRightIcon.props.onClick();
       expect(handleLogOut).to.have.been.called;
-      expect(appBarRightIcon.props.label).to.equal('Logout');
+      expect(appBarRightIcon.props.label).toBe('Logout');
     }),
   );
 
   it('show icon button is not visible when the screen is large', () => {
     const { wrapper } = setup({ width: 'large' });
 
-    expect(wrapper.find(AppBar).prop('showMenuIconButton')).to.be.false;
+    expect(wrapper.find(AppBar).prop('showMenuIconButton')).toBe(false);
   });
 
   it('show icon button is not visible when not logged in', () => {
     const { wrapper } = setup({ loggedIn: false });
 
-    expect(wrapper.find(AppBar).prop('showMenuIconButton')).to.be.false;
+    expect(wrapper.find(AppBar).prop('showMenuIconButton')).toBe(false);
   });
 
   it('show icon button is visible when the screen is not large and logged in', () => {
     const { wrapper } = setup({ width: 'small', loggedIn: true });
 
-    expect(wrapper.find(AppBar).prop('showMenuIconButton')).to.be.true;
+    expect(wrapper.find(AppBar).prop('showMenuIconButton')).toBe(true);
   });
 
   it('title is nothing when it is a large screen', () => {
     const { wrapper } = setup({});
 
-    expect(wrapper.find(AppBar).prop('title')).to.equal('');
+    expect(wrapper.find(AppBar).prop('title')).toBe('');
   });
 
   it('title is filled when it is a small screen', () => {
     const { wrapper } = setup({ width: 'small' });
 
-    expect(wrapper.find(AppBar).prop('title')).to.equal(
-      'Client Relationship Manager',
-    );
+    expect(wrapper.find(AppBar).prop('title')).toBe('Client Relationship Manager');
   });
 
   it(

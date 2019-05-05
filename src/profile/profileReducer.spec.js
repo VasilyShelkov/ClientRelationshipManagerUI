@@ -40,7 +40,7 @@ describe('src/profile/profileReducer.js', () => {
         isNewUser: false,
       });
 
-      expect(accountReducer(stateBefore, action)).to.deep.equal({
+      expect(accountReducer(stateBefore, action)).toEqual({
         ...initialState,
         id: newUserId,
         display: {
@@ -58,7 +58,7 @@ describe('src/profile/profileReducer.js', () => {
         isNewUser: false,
       });
 
-      expect(accountReducer(stateBefore, action)).to.deep.equal({
+      expect(accountReducer(stateBefore, action)).toEqual({
         ...initialState,
         id: newUserId,
         display: {
@@ -76,7 +76,7 @@ describe('src/profile/profileReducer.js', () => {
         isNewUser: true,
       });
 
-      expect(accountReducer(stateBefore, action)).to.deep.equal({
+      expect(accountReducer(stateBefore, action)).toEqual({
         ...initialState,
         id: newUserId,
         display: {
@@ -95,7 +95,7 @@ describe('src/profile/profileReducer.js', () => {
     const user = { id: '123' };
     const action = logInSuccess(user);
 
-    expect(accountReducer(stateBefore, action)).to.deep.equal({
+    expect(accountReducer(stateBefore, action)).toEqual({
       ...stateBefore,
       id: user.id,
     });
@@ -105,7 +105,7 @@ describe('src/profile/profileReducer.js', () => {
     const stateBefore = initialState;
     const action = editProfile();
 
-    expect(accountReducer(stateBefore, action)).to.deep.equal({
+    expect(accountReducer(stateBefore, action)).toEqual({
       ...stateBefore,
       editing: {
         ...stateBefore.editing,
@@ -118,7 +118,7 @@ describe('src/profile/profileReducer.js', () => {
     const stateBefore = initialState;
     const action = cancelEditProfile();
 
-    expect(accountReducer(stateBefore, action)).to.deep.equal({
+    expect(accountReducer(stateBefore, action)).toEqual({
       ...stateBefore,
       editing: {
         ...stateBefore.editing,
@@ -131,7 +131,7 @@ describe('src/profile/profileReducer.js', () => {
     const stateBefore = initialState;
     const action = editProfilePassword();
 
-    expect(accountReducer(stateBefore, action)).to.deep.equal({
+    expect(accountReducer(stateBefore, action)).toEqual({
       ...stateBefore,
       editing: {
         ...stateBefore.editing,
@@ -144,7 +144,7 @@ describe('src/profile/profileReducer.js', () => {
     const stateBefore = initialState;
     const action = cancelEditProfilePassword();
 
-    expect(accountReducer(stateBefore, action)).to.deep.equal({
+    expect(accountReducer(stateBefore, action)).toEqual({
       ...stateBefore,
       editing: {
         ...stateBefore.editing,
@@ -157,7 +157,7 @@ describe('src/profile/profileReducer.js', () => {
     const stateBefore = initialState;
     const action = editCompany();
 
-    expect(accountReducer(stateBefore, action)).to.deep.equal({
+    expect(accountReducer(stateBefore, action)).toEqual({
       ...stateBefore,
       editing: {
         ...stateBefore.editing,
@@ -170,7 +170,7 @@ describe('src/profile/profileReducer.js', () => {
     const stateBefore = initialState;
     const action = cancelEditCompany();
 
-    expect(accountReducer(stateBefore, action)).to.deep.equal({
+    expect(accountReducer(stateBefore, action)).toEqual({
       ...stateBefore,
       editing: {
         ...stateBefore.editing,
@@ -189,7 +189,7 @@ describe('src/profile/profileReducer.js', () => {
     };
     const action = removeProfileNotification();
 
-    expect(accountReducer(stateBefore, action)).to.deep.equal(initialState);
+    expect(accountReducer(stateBefore, action)).toEqual(initialState);
   });
 
   describe(APOLLO_MUTATION_INIT, () => {
@@ -201,7 +201,7 @@ describe('src/profile/profileReducer.js', () => {
         result: { data: {} },
       };
 
-      expect(accountReducer(stateBefore, action)).to.deep.equal({
+      expect(accountReducer(stateBefore, action)).toEqual({
         ...stateBefore,
         editing: { ...stateBefore.editing, profile: EDIT_IN_PROGRESS },
       });
@@ -215,7 +215,7 @@ describe('src/profile/profileReducer.js', () => {
         result: { data: {} },
       };
 
-      expect(accountReducer(stateBefore, action)).to.deep.equal({
+      expect(accountReducer(stateBefore, action)).toEqual({
         ...stateBefore,
         editing: { ...stateBefore.editing, password: EDIT_IN_PROGRESS },
       });
@@ -229,7 +229,7 @@ describe('src/profile/profileReducer.js', () => {
         result: { data: {} },
       };
 
-      expect(accountReducer(stateBefore, action)).to.deep.equal({
+      expect(accountReducer(stateBefore, action)).toEqual({
         ...stateBefore,
         editing: { ...stateBefore.editing, company: EDIT_IN_PROGRESS },
       });
@@ -245,7 +245,7 @@ describe('src/profile/profileReducer.js', () => {
         result: { data: {} },
       };
 
-      expect(accountReducer(stateBefore, action)).to.deep.equal({
+      expect(accountReducer(stateBefore, action)).toEqual({
         ...stateBefore,
         editing: { ...stateBefore.editing, profile: false },
         notification: { profile: 'Successfully updated', company: '' },
@@ -260,7 +260,7 @@ describe('src/profile/profileReducer.js', () => {
         result: { data: {} },
       };
 
-      expect(accountReducer(stateBefore, action)).to.deep.equal({
+      expect(accountReducer(stateBefore, action)).toEqual({
         ...stateBefore,
         editing: { ...stateBefore.editing, password: false },
         notification: { profile: 'Successfully updated password', company: '' },
@@ -275,7 +275,7 @@ describe('src/profile/profileReducer.js', () => {
         result: { data: {} },
       };
 
-      expect(accountReducer(stateBefore, action)).to.deep.equal({
+      expect(accountReducer(stateBefore, action)).toEqual({
         ...stateBefore,
         editing: { ...stateBefore.editing, company: false },
         notification: { profile: '', company: 'Successfully updated' },

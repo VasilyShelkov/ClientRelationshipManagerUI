@@ -5,7 +5,7 @@ describe('src/navigation/AdminUserListWithData', () => {
   describe('props after query', () => {
     it('sends no users when loading', () => {
       const actualProps = props({ data: { loading: true } });
-      expect(actualProps).to.deep.equal({
+      expect(actualProps).toEqual({
         loading: true,
         users: [],
       });
@@ -29,7 +29,7 @@ describe('src/navigation/AdminUserListWithData', () => {
       });
 
       expect(actualProps.users).length.to.be(2);
-      expect(actualProps).to.deep.equal({
+      expect(actualProps).toEqual({
         loading: false,
         users: expectedUsers,
         currentUserId,
@@ -41,13 +41,13 @@ describe('src/navigation/AdminUserListWithData', () => {
     it('returns previous state if was not an APOLLO_MUTATION_RESULT', () => {
       const previousState = [{ id: '1' }];
       const action = { type: 'RANDOM_TEST_ACTION' };
-      expect(reducer(previousState, action)).to.equal(previousState);
+      expect(reducer(previousState, action)).toBe(previousState);
     });
 
     it('returns previous state if was APOLLO_MUTATION_RESULT that did not create a new user', () => {
       const previousState = { users: [{ id: '1' }] };
       const action = { type: APOLLO_MUTATION_RESULT, operationName: 'AddName' };
-      expect(reducer(previousState, action)).to.equal(previousState);
+      expect(reducer(previousState, action)).toBe(previousState);
     });
 
     it('returns previous state when there is no data', () => {
@@ -58,7 +58,7 @@ describe('src/navigation/AdminUserListWithData', () => {
         result: { data: null },
       };
 
-      expect(reducer(previousState, action)).to.deep.equal(previousState);
+      expect(reducer(previousState, action)).toEqual(previousState);
     });
 
     it('returns previous state when there is no data and errors', () => {
@@ -69,7 +69,7 @@ describe('src/navigation/AdminUserListWithData', () => {
         result: { data: null, errors: [] },
       };
 
-      expect(reducer(previousState, action)).to.deep.equal(previousState);
+      expect(reducer(previousState, action)).toEqual(previousState);
     });
 
     it('returns the list with a newly new user', () => {
@@ -80,7 +80,7 @@ describe('src/navigation/AdminUserListWithData', () => {
         result: { data: { createUser: { id: '2' } } },
       };
 
-      expect(reducer(previousState, action)).to.deep.equal({
+      expect(reducer(previousState, action)).toEqual({
         users: [
           {
             id: '1',

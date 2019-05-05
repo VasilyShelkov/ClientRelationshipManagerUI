@@ -36,9 +36,7 @@ const setup = ({
 describe('src/profile/ShowProfile', () => {
   it('renders the name', () => {
     const { wrapper, props } = setup({});
-    expect(wrapper.find('h2').text()).to.equal(
-      `${props.firstName} ${props.lastName}`,
-    );
+    expect(wrapper.find('h2').text()).toBe(`${props.firstName} ${props.lastName}`);
   });
 
   it('renders the protectedNameLimit', () => {
@@ -48,7 +46,7 @@ describe('src/profile/ShowProfile', () => {
         .find(ListItem)
         .at(0)
         .prop('primaryText'),
-    ).to.equal(`Limit: ${props.protectedNamesLimit}`);
+    ).toBe(`Limit: ${props.protectedNamesLimit}`);
   });
 
   it('renders the email', () => {
@@ -58,7 +56,7 @@ describe('src/profile/ShowProfile', () => {
         .find(ListItem)
         .at(1)
         .prop('primaryText'),
-    ).to.equal(props.email);
+    ).toBe(props.email);
   });
 
   it('renders the phone number', () => {
@@ -68,7 +66,7 @@ describe('src/profile/ShowProfile', () => {
         .find(ListItem)
         .at(2)
         .prop('primaryText'),
-    ).to.equal(props.phone);
+    ).toBe(props.phone);
   });
 
   it('renders the password field when not editing the password', () => {
@@ -77,8 +75,8 @@ describe('src/profile/ShowProfile', () => {
     const editPasswordField = wrapper.find(EditPassword);
 
     expect(listItems).length.to.be(4);
-    expect(editPasswordField.exists()).to.be.false;
-    expect(listItems.at(3).prop('primaryText')).to.equal('Password');
+    expect(editPasswordField.exists()).toBe(false);
+    expect(listItems.at(3).prop('primaryText')).toBe('Password');
   });
 
   it('renders the edit password form when editing password', () => {
@@ -92,12 +90,10 @@ describe('src/profile/ShowProfile', () => {
     const editPasswordField = wrapper.find(EditPassword);
 
     expect(listItems).length.to.be(3);
-    expect(editPasswordField.exists()).to.be.true;
-    expect(editPasswordField.prop('userId')).to.equal(props.id);
-    expect(editPasswordField.prop('editInProgress')).to.equal(false);
-    expect(editPasswordField.prop('handleCancelEditProfilePassword')).to.equal(
-      onCancelEditProfilePassword,
-    );
+    expect(editPasswordField.exists()).toBe(true);
+    expect(editPasswordField.prop('userId')).toBe(props.id);
+    expect(editPasswordField.prop('editInProgress')).toBe(false);
+    expect(editPasswordField.prop('handleCancelEditProfilePassword')).toBe(onCancelEditProfilePassword);
   });
 
   it('renders the edit password form when in progress of editing password', () => {
@@ -105,8 +101,8 @@ describe('src/profile/ShowProfile', () => {
 
     const editPasswordField = wrapper.find(EditPassword);
 
-    expect(editPasswordField.exists()).to.be.true;
-    expect(editPasswordField.prop('editInProgress')).to.equal(true);
+    expect(editPasswordField.exists()).toBe(true);
+    expect(editPasswordField.prop('editInProgress')).toBe(true);
   });
 
   it('renders the last updated at time', () => {
@@ -119,7 +115,7 @@ describe('src/profile/ShowProfile', () => {
         .children()
         .last()
         .text(),
-    ).to.equal('a few seconds ago');
+    ).toBe('a few seconds ago');
   });
 
   it('does not render the successfully edited notification when the company was not successfully edited', () => {
@@ -144,7 +140,7 @@ describe('src/profile/ShowProfile', () => {
         .children()
         .last()
         .text(),
-    ).to.equal(editSuccessProfileNotification);
+    ).toBe(editSuccessProfileNotification);
   });
 
   it(

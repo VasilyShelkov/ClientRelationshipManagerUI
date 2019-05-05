@@ -23,29 +23,21 @@ describe('src/names/selected/CompanyDetails', () => {
     );
 
     // id used for feature testing
-    expect(wrapper.find(EditIcon).prop('id')).to.equal('editCompany');
-    expect(wrapper.find(EditIcon).prop('onClick')).to.equal(
-      showEditCompanyForm,
-    );
+    expect(wrapper.find(EditIcon).prop('id')).toBe('editCompany');
+    expect(wrapper.find(EditIcon).prop('onClick')).toBe(showEditCompanyForm);
 
-    expect(
-      wrapper
-        .find(ListItem)
-        .first()
-        .prop('primaryText'),
-    ).to.include(name);
-    expect(
-      wrapper
-        .find(ListItem)
-        .at(1)
-        .prop('primaryText'),
-    ).to.include(phone);
-    expect(
-      wrapper
-        .find(ListItem)
-        .last()
-        .prop('primaryText'),
-    ).to.include(address);
+    expect(wrapper
+      .find(ListItem)
+      .first()
+      .prop('primaryText')).toEqual(expect.arrayContaining([name]));
+    expect(wrapper
+      .find(ListItem)
+      .at(1)
+      .prop('primaryText')).toEqual(expect.arrayContaining([phone]));
+    expect(wrapper
+      .find(ListItem)
+      .last()
+      .prop('primaryText')).toEqual(expect.arrayContaining([address]));
   });
 
   it('renders edit name form when editing', () => {
@@ -68,10 +60,8 @@ describe('src/names/selected/CompanyDetails', () => {
 
     const editNameForm = wrapper.find(EditNameCompanyForm);
 
-    expect(editNameForm.prop('userId')).to.equal(userId);
-    expect(editNameForm.prop('initialValues')).to.deep.equal(company);
-    expect(editNameForm.prop('cancelEditNameCompany')).to.equal(
-      hideEditCompanyForm,
-    );
+    expect(editNameForm.prop('userId')).toBe(userId);
+    expect(editNameForm.prop('initialValues')).toEqual(company);
+    expect(editNameForm.prop('cancelEditNameCompany')).toBe(hideEditCompanyForm);
   });
 });
