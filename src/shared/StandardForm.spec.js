@@ -31,59 +31,50 @@ describe('src/shared/StandardForm.js', () => {
     expect(wrapper.find(RaisedButton).exists()).toBe(false);
   });
 
-  it(
-    'renders the form passing the correct props',
-    sinon.test(function() {
-      const handleSubmit = this.spy();
-      const { wrapper, props } = setup({ handleSubmit });
+  it('renders the form passing the correct props', () => {
+    const handleSubmit = jest.fn();
+    const { wrapper, props } = setup({ handleSubmit });
 
-      expect(wrapper.find(LoadingSpinner).exists()).toBe(false);
-      expect(wrapper.find(FormErrorNotification).prop('message')).toBe(props.error);
+    expect(wrapper.find(LoadingSpinner).exists()).toBe(false);
+    expect(wrapper.find(FormErrorNotification).prop('message')).toBe(props.error);
 
-      const form = wrapper.find('form');
-      expect(form.exists()).toBe(true);
-      form.prop('onSubmit')();
-      expect(handleSubmit).to.have.been.called;
-    }),
-  );
+    const form = wrapper.find('form');
+    expect(form.exists()).toBe(true);
+    form.prop('onSubmit')();
+    expect(handleSubmit).toHaveBeenCalled();
+  });
 
-  it(
-    'renders CTAS when editing not in progress',
-    sinon.test(function() {
-      const { wrapper } = setup({ editingInProgress: false });
+  it('renders CTAS when editing not in progress', () => {
+    const { wrapper } = setup({ editingInProgress: false });
 
-      const ctas = wrapper.find(RaisedButton);
-      expect(ctas.prop('label')).toBe('Save');
-      expect(ctas.prop('type')).toBe('submit');
-    }),
-  );
+    const ctas = wrapper.find(RaisedButton);
+    expect(ctas.prop('label')).toBe('Save');
+    expect(ctas.prop('type')).toBe('submit');
+  });
 
   it('only renders the submit button when no it can not handle cancel', () => {
     const { wrapper } = setup({ handleCancel: null });
 
     const ctas = wrapper.find(RaisedButton);
-    expect(ctas).length.to.be(1);
+    expect(ctas.length).toBe(1);
     expect(ctas.prop('type')).toBe('submit');
     expect(ctas.prop('label')).toBe('Save');
     expect(ctas.parent().hasClass('col-12')).toBe(true);
   });
 
-  it(
-    'renders both submit and cancel when it can handle cancel',
-    sinon.test(function() {
-      const handleCancel = this.spy();
-      const { wrapper } = setup({ handleCancel });
+  it('renders both submit and cancel when it can handle cancel', () => {
+    const handleCancel = jest.fn();
+    const { wrapper } = setup({ handleCancel });
 
-      const ctas = wrapper.find(RaisedButton);
-      const cancelButton = ctas.at(0);
-      cancelButton.prop('onClick')();
-      expect(cancelButton.prop('label')).toBe('Cancel');
-      expect(handleCancel).to.have.been.called;
+    const ctas = wrapper.find(RaisedButton);
+    const cancelButton = ctas.at(0);
+    cancelButton.prop('onClick')();
+    expect(cancelButton.prop('label')).toBe('Cancel');
+    expect(handleCancel).toHaveBeenCalled();
 
-      const submitButton = ctas.at(1);
-      expect(submitButton.prop('label')).toBe('Save');
-      expect(submitButton.prop('type')).toBe('submit');
-      expect(submitButton.parent().hasClass('col-6')).toBe(true);
-    }),
-  );
+    const submitButton = ctas.at(1);
+    expect(submitButton.prop('label')).toBe('Save');
+    expect(submitButton.prop('type')).toBe('submit');
+    expect(submitButton.parent().hasClass('col-6')).toBe(true);
+  });
 });

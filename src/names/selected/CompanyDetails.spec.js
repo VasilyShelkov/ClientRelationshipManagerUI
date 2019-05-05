@@ -29,15 +29,15 @@ describe('src/names/selected/CompanyDetails', () => {
     expect(wrapper
       .find(ListItem)
       .first()
-      .prop('primaryText')).toEqual(expect.arrayContaining([name]));
+      .prop('primaryText')).toContain(name);
     expect(wrapper
       .find(ListItem)
       .at(1)
-      .prop('primaryText')).toEqual(expect.arrayContaining([phone]));
+      .prop('primaryText')).toContain(phone);
     expect(wrapper
       .find(ListItem)
       .last()
-      .prop('primaryText')).toEqual(expect.arrayContaining([address]));
+      .prop('primaryText')).toContain(address);
   });
 
   it('renders edit name form when editing', () => {

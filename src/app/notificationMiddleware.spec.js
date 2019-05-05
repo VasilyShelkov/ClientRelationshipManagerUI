@@ -2,50 +2,41 @@ import notificationMiddleware from './notificationMiddleware';
 import * as thirdPartyActions from './thirdPartyActions';
 
 describe('src/app/notificationMiddleware', () => {
-  it(
-    'calls next with the action',
-    sinon.test(function() {
-      const action = { type: 'ANY_ACTION' };
-      const next = this.spy();
+  it('calls next with the action', () => {
+    const action = { type: 'ANY_ACTION' };
+    const next = jest.fn();
 
-      notificationMiddleware({})(next)(action);
+    notificationMiddleware({})(next)(action);
 
-      expect(next).to.have.been.calledWith(action);
-    }),
-  );
+    expect(next).toHaveBeenCalledWith(action);
+  });
 
-  it(
-    'does not dispatch anything if not an APOLLO_MUTATION_RESULT',
-    sinon.test(function() {
-      const action = { type: 'NOT_APOLLO_MUTATION_RESULT' };
-      const dispatchSpy = this.spy();
-      const store = { dispatch: dispatchSpy };
+  it('does not dispatch anything if not an APOLLO_MUTATION_RESULT', () => {
+    const action = { type: 'NOT_APOLLO_MUTATION_RESULT' };
+    const dispatchSpy = jest.fn();
+    const store = { dispatch: dispatchSpy };
 
-      notificationMiddleware(store)(() => {})(action);
+    notificationMiddleware(store)(() => {})(action);
 
-      expect(dispatchSpy).to.not.have.been.called;
-    }),
-  );
+    expect(dispatchSpy).not.toHaveBeenCalled();
+  });
 
-  it(
-    'does not dispatch anything if APOLLO_MUTATION_RESULT has errors',
-    sinon.test(function() {
-      const action = {
-        type: thirdPartyActions.APOLLO_MUTATION_RESULT,
-        result: { errors: [] },
-      };
-      const dispatchSpy = this.spy();
-      const store = { dispatch: dispatchSpy };
+  it('does not dispatch anything if APOLLO_MUTATION_RESULT has errors', () => {
+    const action = {
+      type: thirdPartyActions.APOLLO_MUTATION_RESULT,
+      result: { errors: [] },
+    };
+    const dispatchSpy = jest.fn();
+    const store = { dispatch: dispatchSpy };
 
-      notificationMiddleware(store)(() => {})(action);
+    notificationMiddleware(store)(() => {})(action);
 
-      expect(dispatchSpy).to.not.have.been.called;
-    }),
-  );
+    expect(dispatchSpy).not.toHaveBeenCalled();
+  })
 
   describe('dispatches success notification', () => {
-    const setup = ({ sandbox, operationName, data }) => {
-      const dispatchSpy = sandbox.spy();
+    const setup = ({ operationName, data }) => {
+      const dispatchSpy = jest.fn();
       const store = { dispatch: dispatchSpy };
       const action = {
         type: thirdPartyActions.APOLLO_MUTATION_RESULT,
@@ -58,164 +49,116 @@ describe('src/app/notificationMiddleware', () => {
       return { dispatchSpy };
     };
 
-    it(
-      'when CreateUnprotectedName',
-      sinon.test(function() {
-        const firstName = 'first';
-        const lastName = 'last';
-        const data = {
-          addUnprotectedNameToUser: {
-            name: { firstName, lastName },
-          },
-        };
+    it('when CreateUnprotectedName', () => {
+      const firstName = 'first';
+      const lastName = 'last';
+      const data = {
+        addUnprotectedNameToUser: {
+          name: { firstName, lastName },
+        },
+      };
 
-        const showSuccessNotificationAction = 'showSuccessAction';
-        this.mock(thirdPartyActions)
-          .expects('showSuccessNotification')
-          .withArgs({
-            title: 'Created unprotected',
-            firstName,
-            lastName,
-          })
-          .returns(showSuccessNotificationAction);
-        const { dispatchSpy } = setup({
-          sandbox: this,
-          operationName: 'CreateUnprotectedName',
-          data,
-        });
+      const showSuccessNotificationAction = 'showSuccessAction';
+      jest.spyOn(thirdPartyActions, 'showSuccessNotification')
+        .mockImplementation(() => showSuccessNotificationAction)
+      const { dispatchSpy } = setup({
+        operationName: 'CreateUnprotectedName',
+        data,
+      });
 
-        expect(dispatchSpy).to.have.been.calledWith(
-          showSuccessNotificationAction,
-        );
-      }),
-    );
+      expect(dispatchSpy).toHaveBeenCalledWith(showSuccessNotificationAction);
+    });
 
-    it(
-      'when ProtectName',
-      sinon.test(function() {
-        const firstName = 'first';
-        const lastName = 'last';
-        const data = {
-          protectNameToUser: {
-            name: { firstName, lastName },
-          },
-        };
+    it('when ProtectName', () => {
+      const firstName = 'first';
+      const lastName = 'last';
+      const data = {
+        protectNameToUser: {
+          name: { firstName, lastName },
+        },
+      };
 
-        const showSuccessNotificationAction = 'showSuccessAction';
-        this.mock(thirdPartyActions)
-          .expects('showSuccessNotification')
-          .withArgs({
-            title: 'Protected name',
-            firstName,
-            lastName,
-          })
-          .returns(showSuccessNotificationAction);
-        const { dispatchSpy } = setup({
-          sandbox: this,
-          operationName: 'ProtectName',
-          data,
-        });
+      const showSuccessNotificationAction = 'showSuccessAction';
+      jest.spyOn(thirdPartyActions, 'showSuccessNotification')
+        .mockImplementation(() => showSuccessNotificationAction)
+      const { dispatchSpy } = setup({
+        sandbox: this,
+        operationName: 'ProtectName',
+        data,
+      });
 
-        expect(dispatchSpy).to.have.been.calledWith(
-          showSuccessNotificationAction,
-        );
-      }),
-    );
+      expect(dispatchSpy).toHaveBeenCalledWith(
+        showSuccessNotificationAction,
+      );
+    });
 
-    it(
-      'when MetWithProtected',
-      sinon.test(function() {
-        const firstName = 'first';
-        const lastName = 'last';
-        const data = {
-          editProtectedName: {
-            name: { firstName, lastName },
-          },
-        };
+    it('when MetWithProtected', () => {
+      const firstName = 'first';
+      const lastName = 'last';
+      const data = {
+        editProtectedName: {
+          name: { firstName, lastName },
+        },
+      };
 
-        const showSuccessNotificationAction = 'showSuccessAction';
-        this.mock(thirdPartyActions)
-          .expects('showSuccessNotification')
-          .withArgs({
-            title: 'Met with protected',
-            firstName,
-            lastName,
-          })
-          .returns(showSuccessNotificationAction);
-        const { dispatchSpy } = setup({
-          sandbox: this,
-          operationName: 'MetWithProtected',
-          data,
-        });
+      const showSuccessNotificationAction = 'showSuccessAction';
+      jest.spyOn(thirdPartyActions, 'showSuccessNotification')
+        .mockImplementation(() => showSuccessNotificationAction);
+      const { dispatchSpy } = setup({
+        sandbox: this,
+        operationName: 'MetWithProtected',
+        data,
+      });
 
-        expect(dispatchSpy).to.have.been.calledWith(
-          showSuccessNotificationAction,
-        );
-      }),
-    );
+      expect(dispatchSpy).toHaveBeenCalledWith(
+        showSuccessNotificationAction,
+      );
+    });
 
-    it(
-      'when MakeClient',
-      sinon.test(function() {
-        const firstName = 'first';
-        const lastName = 'last';
-        const data = {
-          addClientToUser: {
-            name: { firstName, lastName },
-          },
-        };
+    it('when MakeClient', () => {
+      const firstName = 'first';
+      const lastName = 'last';
+      const data = {
+        addClientToUser: {
+          name: { firstName, lastName },
+        },
+      };
 
-        const showSuccessNotificationAction = 'showSuccessAction';
-        this.mock(thirdPartyActions)
-          .expects('showSuccessNotification')
-          .withArgs({
-            title: 'Congrats on the new client',
-            firstName,
-            lastName,
-          })
-          .returns(showSuccessNotificationAction);
-        const { dispatchSpy } = setup({
-          sandbox: this,
-          operationName: 'MakeClient',
-          data,
-        });
+      const showSuccessNotificationAction = 'showSuccessAction';
+      jest.spyOn(thirdPartyActions, 'showSuccessNotification')
+        .mockImplementation(() => showSuccessNotificationAction);
+      const { dispatchSpy } = setup({
+        sandbox: this,
+        operationName: 'MakeClient',
+        data,
+      });
 
-        expect(dispatchSpy).to.have.been.calledWith(
-          showSuccessNotificationAction,
-        );
-      }),
-    );
+      expect(dispatchSpy).toHaveBeenCalledWith(
+        showSuccessNotificationAction,
+      );
+    });
 
-    it(
-      'when MakeClient',
-      sinon.test(function() {
-        const firstName = 'first';
-        const lastName = 'last';
-        const data = {
-          unprotectNameFromUser: {
-            name: { firstName, lastName },
-          },
-        };
+    it('when MakeClient', () => {
+      const firstName = 'first';
+      const lastName = 'last';
+      const data = {
+        unprotectNameFromUser: {
+          name: { firstName, lastName },
+        },
+      };
 
-        const showSuccessNotificationAction = 'showSuccessAction';
-        this.mock(thirdPartyActions)
-          .expects('showSuccessNotification')
-          .withArgs({
-            title: 'Unprotected name',
-            firstName,
-            lastName,
-          })
-          .returns(showSuccessNotificationAction);
-        const { dispatchSpy } = setup({
-          sandbox: this,
-          operationName: 'UnprotectName',
-          data,
-        });
+      const showSuccessNotificationAction = 'showSuccessAction';
+      jest.spyOn(thirdPartyActions, 'showSuccessNotification')
+        .mockImplementation(() => showSuccessNotificationAction);
+      const { dispatchSpy } = setup({
+        sandbox: this,
+        operationName: 'UnprotectName',
+        data,
+      });
 
-        expect(dispatchSpy).to.have.been.calledWith(
-          showSuccessNotificationAction,
-        );
-      }),
-    );
+      expect(dispatchSpy).toHaveBeenCalledWith(
+        showSuccessNotificationAction,
+      );
+    });
   });
 });

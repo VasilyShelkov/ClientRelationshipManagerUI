@@ -74,7 +74,7 @@ describe('src/profile/ShowProfile', () => {
     const listItems = wrapper.find(ListItem);
     const editPasswordField = wrapper.find(EditPassword);
 
-    expect(listItems).length.to.be(4);
+    expect(listItems.length).toBe(4);
     expect(editPasswordField.exists()).toBe(false);
     expect(listItems.at(3).prop('primaryText')).toBe('Password');
   });
@@ -89,7 +89,7 @@ describe('src/profile/ShowProfile', () => {
     const listItems = wrapper.find(ListItem);
     const editPasswordField = wrapper.find(EditPassword);
 
-    expect(listItems).length.to.be(3);
+    expect(listItems.length).toBe(3);
     expect(editPasswordField.exists()).toBe(true);
     expect(editPasswordField.prop('userId')).toBe(props.id);
     expect(editPasswordField.prop('editInProgress')).toBe(false);
@@ -124,7 +124,7 @@ describe('src/profile/ShowProfile', () => {
     const notificationChips = wrapper.find(Chip);
     const lastUpdatedChip = notificationChips.at(0);
 
-    expect(notificationChips).length.to.be(1);
+    expect(notificationChips.length).toBe(1);
   });
 
   it('renders the successfully edited notification', () => {
@@ -134,7 +134,7 @@ describe('src/profile/ShowProfile', () => {
     const notificationChips = wrapper.find(Chip);
     const successNotification = notificationChips.at(0);
 
-    expect(notificationChips).length.to.be(2);
+    expect(notificationChips.length).toBe(2);
     expect(
       successNotification
         .children()
@@ -143,34 +143,28 @@ describe('src/profile/ShowProfile', () => {
     ).toBe(editSuccessProfileNotification);
   });
 
-  it(
-    'calls onEditProfile when the button is clicked on',
-    sinon.test(function() {
-      const onEditProfile = this.spy();
-      const { wrapper } = setup({ onEditProfile });
+  it('calls onEditProfile when the button is clicked on', () => {
+    const onEditProfile = jest.fn();
+    const { wrapper } = setup({ onEditProfile });
 
-      const renderedEditButtonClick = wrapper
-        .find(RaisedButton)
-        .prop('onClick');
-      renderedEditButtonClick();
+    const renderedEditButtonClick = wrapper
+      .find(RaisedButton)
+      .prop('onClick');
+    renderedEditButtonClick();
 
-      expect(onEditProfile).to.have.been.called;
-    }),
-  );
+    expect(onEditProfile).toHaveBeenCalled();
+  });
 
-  it(
-    'calls onEditProfilePassword when the button is clicked on',
-    sinon.test(function() {
-      const onEditProfilePassword = this.spy();
-      const { wrapper } = setup({ onEditProfilePassword });
+  it('calls onEditProfilePassword when the button is clicked on', () => {
+    const onEditProfilePassword = jest.fn();
+    const { wrapper } = setup({ onEditProfilePassword });
 
-      const renderedEditButtonClick = wrapper
-        .find(ListItem)
-        .at(3)
-        .prop('onClick');
-      renderedEditButtonClick();
+    const renderedEditButtonClick = wrapper
+      .find(ListItem)
+      .at(3)
+      .prop('onClick');
+    renderedEditButtonClick();
 
-      expect(onEditProfilePassword).to.have.been.called;
-    }),
-  );
+    expect(onEditProfilePassword).toHaveBeenCalled();
+  });
 });

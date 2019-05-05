@@ -26,7 +26,7 @@ describe('src/authentication/Login.js', () => {
 
     expect(wrapper.find(FormErrorNotification).prop('message')).toBe(props.error);
     const fields = wrapper.find(Field);
-    expect(fields).length.to.be(2);
+    expect(fields.length).toBe(2);
 
     const emailField = fields.at(0);
     expect(emailField.prop('name')).toBe('email');
@@ -54,17 +54,14 @@ describe('src/authentication/Login.js', () => {
     expect(submitButton.prop('type')).toBe('submit');
   });
 
-  it(
-    'calls handle submit',
-    sinon.test(function() {
-      const handleSubmit = this.spy();
-      const { wrapper } = setup({ handleSubmit });
+  it('calls handle submit', () => {
+    const handleSubmit = jest.fn();
+    const { wrapper } = setup({ handleSubmit });
 
-      const form = wrapper.find('form');
-      expect(form.exists()).toBe(true);
+    const form = wrapper.find('form');
+    expect(form.exists()).toBe(true);
 
-      form.prop('onSubmit')();
-      expect(handleSubmit).to.have.been.called;
-    }),
-  );
+    form.prop('onSubmit')();
+    expect(handleSubmit).toHaveBeenCalled();
+  });
 });

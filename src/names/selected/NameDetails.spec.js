@@ -29,11 +29,11 @@ describe('src/names/selected/NameDetails', () => {
     expect(wrapper
       .find(ListItem)
       .first()
-      .prop('primaryText')).toEqual(expect.arrayContaining([firstName]));
+      .prop('primaryText')).toContain(firstName);
     expect(wrapper
       .find(ListItem)
       .first()
-      .prop('primaryText')).toEqual(expect.arrayContaining([lastName]));
+      .prop('primaryText')).toContain(lastName);
 
     expect(
       wrapper

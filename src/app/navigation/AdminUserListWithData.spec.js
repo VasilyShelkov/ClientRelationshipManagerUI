@@ -28,7 +28,7 @@ describe('src/navigation/AdminUserListWithData', () => {
         data: { loading: false, users: usersWithSelf },
       });
 
-      expect(actualProps.users).length.to.be(2);
+      expect(actualProps.users.length).toBe(2);
       expect(actualProps).toEqual({
         loading: false,
         users: expectedUsers,

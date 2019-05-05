@@ -30,18 +30,15 @@ describe('src/Navbar.js', () => {
     expect(appBarRightIcon).toBe('/login');
   });
 
-  it(
-    'shows the logout button when the user is logged in',
-    sinon.test(function() {
-      const handleLogOut = this.spy();
+  it('shows the logout button when the user is logged in', () => {
+      const handleLogOut = jest.fn();
       const { wrapper } = setup({ loggedIn: true, handleLogOut });
 
       const appBarRightIcon = wrapper.find(AppBar).prop('iconElementRight');
       appBarRightIcon.props.onClick();
-      expect(handleLogOut).to.have.been.called;
+      expect(handleLogOut).toHaveBeenCalled();
       expect(appBarRightIcon.props.label).toBe('Logout');
-    }),
-  );
+  })
 
   it('show icon button is not visible when the screen is large', () => {
     const { wrapper } = setup({ width: 'large' });
@@ -73,15 +70,12 @@ describe('src/Navbar.js', () => {
     expect(wrapper.find(AppBar).prop('title')).toBe('Client Relationship Manager');
   });
 
-  it(
-    'passes handleTouchTapLeftIconButton props correctly',
-    sinon.test(function() {
-      const handleTouchTapLeftIconButton = this.spy();
-      const { wrapper } = setup({ handleTouchTapLeftIconButton });
+  it('passes handleTouchTapLeftIconButton props correctly', () => {
+    const handleTouchTapLeftIconButton = jest.fn();
+    const { wrapper } = setup({ handleTouchTapLeftIconButton });
 
-      const appBar = wrapper.find(AppBar);
-      appBar.prop('onLeftIconButtonTouchTap')();
-      expect(handleTouchTapLeftIconButton).to.have.been.called;
-    }),
-  );
+    const appBar = wrapper.find(AppBar);
+    appBar.prop('onLeftIconButtonTouchTap')();
+    expect(handleTouchTapLeftIconButton).toHaveBeenCalled();
+  })
 });

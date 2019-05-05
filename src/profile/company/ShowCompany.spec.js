@@ -69,7 +69,7 @@ describe('src/profile/ShowCompany', () => {
 
     const notificationChips = wrapper.find(Chip);
 
-    expect(notificationChips).length.to.be(1);
+    expect(notificationChips.length).toBe(1);
   });
 
   it('renders the successfully edited notification', () => {
@@ -79,7 +79,7 @@ describe('src/profile/ShowCompany', () => {
     const notificationChips = wrapper.find(Chip);
     const successNotification = notificationChips.at(0);
 
-    expect(notificationChips).length.to.be(2);
+    expect(notificationChips.length).toBe(2);
     expect(
       successNotification
         .children()
@@ -98,21 +98,18 @@ describe('src/profile/ShowCompany', () => {
     expect(wrapper.find('.Profile__cta').exists()).toBe(true);
   });
 
-  it(
-    'calls onEditCompany when the button is clicked on by admin',
-    sinon.test(function() {
-      const onEditCompanySpy = this.spy();
-      const { wrapper } = setup({
-        onEditCompany: onEditCompanySpy,
-        isAdmin: true,
-      });
+  it('calls onEditCompany when the button is clicked on by admin', () => {
+    const onEditCompanySpy = jest.fn();
+    const { wrapper } = setup({
+      onEditCompany: onEditCompanySpy,
+      isAdmin: true,
+    });
 
-      const renderedEditButtonClick = wrapper
-        .find(RaisedButton)
-        .prop('onClick');
-      renderedEditButtonClick();
+    const renderedEditButtonClick = wrapper
+      .find(RaisedButton)
+      .prop('onClick');
+    renderedEditButtonClick();
 
-      expect(onEditCompanySpy).to.have.been.called;
-    }),
-  );
+    expect(onEditCompanySpy).toHaveBeenCalled();
+  });
 });

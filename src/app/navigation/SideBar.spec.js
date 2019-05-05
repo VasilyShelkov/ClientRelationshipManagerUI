@@ -36,9 +36,9 @@ describe('src/app/navigation/SideBar', () => {
 
     const dividers = wrapper.find(Divider);
     const pageNavigations = wrapper.find(ListItem);
-    expect(dividers).length.to.be(1);
+    expect(dividers.length).toBe(1);
 
-    expect(pageNavigations).length.to.be(4);
+    expect(pageNavigations.length).toBe(4);
     expect(pageNavigations.at(0).prop('primaryText')).toBe('Profile');
     expect(pageNavigations.at(0).prop('value')).toBe(JSON.stringify({
       newRoute: '/account/profile',
@@ -73,23 +73,20 @@ describe('src/app/navigation/SideBar', () => {
     expect(wrapper.find(AdminUserListWithData).exists()).toBe(false);
   });
 
-  it(
-    'renders admin panel with the correct props when is admin',
-    sinon.test(function() {
-      const handleRouteChange = this.spy();
-      const { wrapper, props } = setup({ isAdmin: true, handleRouteChange });
+  it('renders admin panel with the correct props when is admin', () => {
+    const handleRouteChange = jest.fn();
+    const { wrapper, props } = setup({ isAdmin: true, handleRouteChange });
 
-      const adminUserList = wrapper.find(AdminUserListWithData);
-      expect(adminUserList.exists()).toBe(true);
-      expect(adminUserList.prop('currentUserId')).toBe(props.currentUserId);
-      expect(adminUserList.prop('value')).toBe(JSON.stringify({
-        newRoute: props.currentPage,
-        currentUserId: props.currentUserId,
-      }));
+    const adminUserList = wrapper.find(AdminUserListWithData);
+    expect(adminUserList.exists()).toBe(true);
+    expect(adminUserList.prop('currentUserId')).toBe(props.currentUserId);
+    expect(adminUserList.prop('value')).toBe(JSON.stringify({
+      newRoute: props.currentPage,
+      currentUserId: props.currentUserId,
+    }));
 
-      const onRouteChange = adminUserList.prop('onChange');
-      onRouteChange();
-      expect(handleRouteChange).to.have.been.called;
-    }),
-  );
+    const onRouteChange = adminUserList.prop('onChange');
+    onRouteChange();
+    expect(handleRouteChange).toHaveBeenCalled();
+  });
 });

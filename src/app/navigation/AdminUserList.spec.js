@@ -43,7 +43,7 @@ describe('src/app/navigation/AdminUserList', () => {
 
     const listItems = wrapper.find(ListItem);
     const defaultMessage = listItems.last();
-    expect(listItems).length.to.be(2);
+    expect(listItems.length).toBe(2);
     expect(defaultMessage.last().prop('secondaryText')).toBe('There are no other users...');
     expect(defaultMessage.last().prop('disabled')).toBe(true);
   });
@@ -64,7 +64,7 @@ describe('src/app/navigation/AdminUserList', () => {
     const { wrapper, props } = setup({ users });
 
     const listItems = wrapper.find(ListItem);
-    expect(listItems).length.to.be(3);
+    expect(listItems.length).toBe(3);
 
     expect(listItems.at(1).key()).toBe(`profile-${users[0].id}`);
     expect(listItems.at(1).prop('insetChildren')).toBe(true);

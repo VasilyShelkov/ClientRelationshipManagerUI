@@ -46,6 +46,6 @@ xdescribe('src/names/NamesList.js', () => {
       },
     ];
     const wrapper = setup(names);
-    expect(wrapper.find(Name)).length.to.be(names.length);
+    expect(wrapper.find(Name).length).toBe(names.length);
   });
 });
