@@ -5,7 +5,7 @@ jobs:
   build:
     working_directory: ~/ClientRelationshipManagerUI
     docker:
-      - image: circleci/node:10.15.3 
+      - image: circleci/node-browsers:10.15.3 
     steps:
       - add_ssh_keys:
           fingerprints:
