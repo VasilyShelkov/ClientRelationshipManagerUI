@@ -1,67 +1,63 @@
 import React from 'react';
-import { Field } from 'redux-form';
-import RaisedButton from 'material-ui/RaisedButton';
-import LoadingSpinner from '../shared/LoadingSpinner';
-import { FormErrorNotification } from '../shared/FormElements';
-import { Login } from './Login';
+import {
+  fireEvent,
+  wait,
+  waitForElement,
+  waitForElementToBeRemoved,
+} from 'react-testing-library';
+import userEvent from 'user-event';
 
-const setup = ({
-  loggingIn = false,
-  handleSubmit = () => '',
-  error = 'test error',
-}) => {
-  const props = {
-    loggingIn,
-    handleSubmit,
-    error,
-  };
-  const wrapper = shallowWithContext(<Login {...props} />);
+import Login from './Login';
+import { renderWithProviders } from '../testUtils';
 
-  return { wrapper, props };
+const renderLogin = () => {
+  return renderWithProviders(<Login />);
 };
 
 describe('src/authentication/Login.js', () => {
-  it('renders the login page', () => {
-    const { wrapper, props } = setup({});
+  it('Logging in without an email address shows an error message', async () => {
+    const { getByTestId, getByText } = renderLogin();
+    fireEvent.submit(getByText('Log in'));
 
-    expect(wrapper.find(FormErrorNotification).prop('message')).toBe(props.error);
-    const fields = wrapper.find(Field);
-    expect(fields.length).toBe(2);
-
-    const emailField = fields.at(0);
-    expect(emailField.prop('name')).toBe('email');
-    expect(emailField.prop('label')).toBe('Enter your email');
-
-    const passwordField = fields.at(1);
-    expect(passwordField.prop('name')).toBe('password');
-    expect(passwordField.prop('label')).toBe('Enter your password');
-    expect(passwordField.prop('type')).toBe('password');
+    await wait(() => {
+      expect(getByTestId('email-field')).toHaveTextContent('required');
+    });
   });
 
-  it('renders the the loading spinner instead of CTAs when logging in', () => {
-    const { wrapper } = setup({ loggingIn: true });
-    expect(wrapper.find(RaisedButton).exists()).toBe(false);
-    expect(wrapper.find(LoadingSpinner).exists()).toBe(true);
+  it('Entering an invalid email address shows an error message', async () => {
+    const { getByText, getByLabelText } = renderLogin();
+    const emailInput = getByLabelText('Enter your email');
+    userEvent.type(emailInput, 'invalidbla');
+    fireEvent.blur(emailInput);
+
+    await waitForElement(() => getByText('must be a valid email'));
   });
 
-  it('renders the the CTAs when not logging in', () => {
-    const { wrapper } = setup({ loggingIn: false });
+  it('Logging in without a password shows error message', async () => {
+    const { getByText, getByTestId } = renderLogin();
+    fireEvent.submit(getByText('Log in'));
 
-    const submitButton = wrapper.find(RaisedButton);
-    expect(wrapper.find(LoadingSpinner).exists()).toBe(false);
-    expect(submitButton.exists()).toBe(true);
-    expect(submitButton.prop('label')).toBe('Sign in');
-    expect(submitButton.prop('type')).toBe('submit');
+    await wait(() => {
+      expect(getByTestId('password-field')).toHaveTextContent('required');
+    });
   });
 
-  it('calls handle submit', () => {
-    const handleSubmit = jest.fn();
-    const { wrapper } = setup({ handleSubmit });
+  it('While they are waiting to login, there is a loading indicator', async () => {
+    const { getByText, getByTestId, getByLabelText } = renderLogin();
+    userEvent.type(getByLabelText('Enter your email'), 'test@test.com');
+    userEvent.type(getByLabelText('Enter your password'), 'test123');
+    fireEvent.submit(getByText('Log in'));
 
-    const form = wrapper.find('form');
-    expect(form.exists()).toBe(true);
+    await waitForElement(() => getByTestId('button-loading'));
+  });
 
-    form.prop('onSubmit')();
-    expect(handleSubmit).toHaveBeenCalled();
+  it('Shows an error message if the email or password is invalid', async () => {
+    const { getByText, getByLabelText, getByTestId } = renderLogin();
+    userEvent.type(getByLabelText('Enter your email'), 'test@test.com');
+    userEvent.type(getByLabelText('Enter your password'), 'test123');
+    fireEvent.submit(getByText('Log in'));
+
+    await waitForElementToBeRemoved(() => getByTestId('button-loading'));
+    expect(getByText('Email or password are invalid')).toBeInTheDocument();
   });
 });

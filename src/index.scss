@@ -1,0 +1,27 @@
+@import './app/plugins/bootstrap/bootstrap-grid.scss';
+
+@import './app/navigation/NavBar.scss';
+@import './profile/Profile.scss';
+@import './shared/FormElements.scss';
+@import './shared/StandardForm.scss';
+@import './names/list/Name.scss';
+@import './names/list/NameListOrganiser.scss';
+@import './names/selected/comments/Comment.scss';
+
+html {
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: #eaeaea;
+}
+
+.index__content-below-navbar {
+  padding-top: 56px;
+}
+
+.page__title {
+  color: #3f51b5;
+  text-align: center;
+}

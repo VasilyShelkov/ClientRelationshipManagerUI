@@ -17,10 +17,10 @@ module.exports = function() {
       } else {
         this.amOnPage('/login');
       }
-      this.waitForElement('.Login__form');
+      this.waitForElement('[data-testid="email-field"]');
       this.fillField('email', loginEmail);
       this.fillField('password', loginPassword);
-      this.click('Sign in');
+      this.click('Log in');
       this.setCookie({ name: 'disable-places', value: 'true' });
     },
     createNewUser: function(newUser) {
