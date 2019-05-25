@@ -2,6 +2,7 @@ Feature('Administrator user', { retries: 3 });
 
 Scenario('can create new users', async function(I) {
   I.login();
+  pause();
   I.waitForElement('#createNewUser');
   const totalUsersBeforeAddingUser = await I.grabTextFrom('#totalUserCount');
   I.click('#createNewUser');
@@ -22,7 +23,9 @@ Scenario('can create new users', async function(I) {
   // profile check
   I.waitForElement('.Form__notification');
   I.seeInCurrentUrl(
-    `account/users/${newUser.firstName.toLowerCase()}${newUser.lastName}/profile`,
+    `account/users/${newUser.firstName.toLowerCase()}${
+      newUser.lastName
+    }/profile`,
   );
   I.see('Successfully created new user', '.Form__notification');
   I.see(`${parseInt(totalUsersBeforeAddingUser, 10) + 1} Users`);
