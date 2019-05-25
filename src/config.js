@@ -1,5 +1,5 @@
 const envUrls = {
-  testing: {
+  test: {
     graphQL: '',
   },
   development: {
@@ -13,4 +13,4 @@ const envUrls = {
   },
 };
 
-export default envUrls[process.env.NODE_ENV || 'development'];
+export default envUrls[process.env.REACT_APP_GRAPHQL_CONFIG || 'development'];
