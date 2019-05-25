@@ -19,7 +19,7 @@
     "serve": "serve -s build",
     "test": "react-scripts test",
     "test:feature": "./node_modules/codeceptjs/bin/codecept.js run",
-    "test:feature:staging": "ENVIRONMENT=staging ./node_modules/codeceptjs/bin/codecept.js run test/protectedNames.feature.js",
+    "test:feature:staging": "ENVIRONMENT=staging ./node_modules/codeceptjs/bin/codecept.js run",
     "eject": "react-scripts eject"
   },
   "dependencies": {

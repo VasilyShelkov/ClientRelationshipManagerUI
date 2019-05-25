@@ -74,7 +74,7 @@ export class AddressField extends Component {
     } = this.props;
 
     return (
-      <TextField
+      <ReduxFormTextField
         id="company-address-input"
         floatingLabelText={label}
         errorText={touched && error}
@@ -86,7 +86,11 @@ export class AddressField extends Component {
 }
 
 export const renderCheckbox = ({ input, label }) => (
-  <TextField label={label} checked={input.value} onCheck={input.onChange} />
+  <ReduxFormTextField
+    label={label}
+    checked={input.value}
+    onCheck={input.onChange}
+  />
 );
 
 export const renderIconDropdown = ({ input: { value, onChange } }) => (
