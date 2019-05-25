@@ -3,14 +3,15 @@ import { graphql, compose } from 'react-apollo';
 import { reduxForm, Field, SubmissionError } from 'redux-form';
 import { AutoComplete, TextField } from 'redux-form-material-ui';
 import { AutoComplete as MUIAutoComplete } from 'material-ui';
+import { loader } from 'graphql.macro';
 
-import EditCompany from './EditCompany.gql';
-import GetAllCompanies from '../../GetAllCompanies.gql';
 import { checkIfAnyKeysDifferent } from '../../../shared/utils';
 import LoadingSpinner from '../../../shared/LoadingSpinner';
 import StandardForm from '../../../shared/StandardForm';
 import { AddressField, required } from '../../../shared/FormElements';
 
+const EditCompany = loader('./EditCompany.gql');
+const GetAllCompanies = loader('../../GetAllCompanies.gql');
 const EditSelectedName = ({
   existingCompanies,
   loading,

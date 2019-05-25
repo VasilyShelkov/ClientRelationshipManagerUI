@@ -1,14 +1,15 @@
 import { graphql } from 'react-apollo';
 import { connect } from 'react-redux';
 import { red500 } from 'material-ui/styles/colors';
+import { loader } from 'graphql.macro';
 
-import RemoveClient from './RemoveClient.gql';
-import GetUserNamesCount from '../../../GetUserNamesCount.gql';
 import { showNotification } from '../../../../app/appActions';
 import { performingNameAction } from '../../../nameActions';
 
 import DeleteButton from '../DeleteButton';
 
+const RemoveClient = loader('./RemoveClient.gql');
+const GetUserNamesCount = loader('../../../GetUserNamesCount.gql');
 const SelectedClientWithMutations = graphql(RemoveClient, {
   props: ({ ownProps, mutate }) => ({
     ...ownProps,
@@ -59,6 +60,7 @@ const mapDispatchToProps = dispatch => ({
   showErrorNotification: message => dispatch(showNotification(message, red500)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  SelectedClientWithMutations,
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SelectedClientWithMutations);

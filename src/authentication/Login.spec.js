@@ -24,49 +24,44 @@ describe('src/authentication/Login.js', () => {
   it('renders the login page', () => {
     const { wrapper, props } = setup({});
 
-    expect(wrapper.find(FormErrorNotification).prop('message')).to.equal(
-      props.error,
-    );
+    expect(wrapper.find(FormErrorNotification).prop('message')).toBe(props.error);
     const fields = wrapper.find(Field);
-    expect(fields).length.to.be(2);
+    expect(fields.length).toBe(2);
 
     const emailField = fields.at(0);
-    expect(emailField.prop('name')).to.equal('email');
-    expect(emailField.prop('label')).to.equal('Enter your email');
+    expect(emailField.prop('name')).toBe('email');
+    expect(emailField.prop('label')).toBe('Enter your email');
 
     const passwordField = fields.at(1);
-    expect(passwordField.prop('name')).to.equal('password');
-    expect(passwordField.prop('label')).to.equal('Enter your password');
-    expect(passwordField.prop('type')).to.equal('password');
+    expect(passwordField.prop('name')).toBe('password');
+    expect(passwordField.prop('label')).toBe('Enter your password');
+    expect(passwordField.prop('type')).toBe('password');
   });
 
   it('renders the the loading spinner instead of CTAs when logging in', () => {
     const { wrapper } = setup({ loggingIn: true });
-    expect(wrapper.find(RaisedButton).exists()).to.be.false;
-    expect(wrapper.find(LoadingSpinner).exists()).to.be.true;
+    expect(wrapper.find(RaisedButton).exists()).toBe(false);
+    expect(wrapper.find(LoadingSpinner).exists()).toBe(true);
   });
 
   it('renders the the CTAs when not logging in', () => {
     const { wrapper } = setup({ loggingIn: false });
 
     const submitButton = wrapper.find(RaisedButton);
-    expect(wrapper.find(LoadingSpinner).exists()).to.be.false;
-    expect(submitButton.exists()).to.be.true;
-    expect(submitButton.prop('label')).to.equal('Sign in');
-    expect(submitButton.prop('type')).to.equal('submit');
+    expect(wrapper.find(LoadingSpinner).exists()).toBe(false);
+    expect(submitButton.exists()).toBe(true);
+    expect(submitButton.prop('label')).toBe('Sign in');
+    expect(submitButton.prop('type')).toBe('submit');
   });
 
-  it(
-    'calls handle submit',
-    sinon.test(function() {
-      const handleSubmit = this.spy();
-      const { wrapper } = setup({ handleSubmit });
+  it('calls handle submit', () => {
+    const handleSubmit = jest.fn();
+    const { wrapper } = setup({ handleSubmit });
 
-      const form = wrapper.find('form');
-      expect(form.exists()).to.be.true;
+    const form = wrapper.find('form');
+    expect(form.exists()).toBe(true);
 
-      form.prop('onSubmit')();
-      expect(handleSubmit).to.have.been.called;
-    }),
-  );
+    form.prop('onSubmit')();
+    expect(handleSubmit).toHaveBeenCalled();
+  });
 });

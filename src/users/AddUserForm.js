@@ -3,12 +3,13 @@ import { push } from 'react-router-redux';
 import { graphql } from 'react-apollo';
 import { reduxForm, SubmissionError, formValueSelector } from 'redux-form';
 import _ from 'lodash';
+import { loader } from 'graphql.macro';
 
 import { changeShownUserProfile } from '../profile/profileActions';
-import CreateUser from './CreateUser.gql';
-import GetUserCompany from './GetUserCompany.gql';
 import AddUser from './AddUser';
 
+const CreateUser = loader('./CreateUser.gql');
+const GetUserCompany = loader('./GetUserCompany.gql');
 const selector = formValueSelector('newUser');
 
 const AddUserWithFormSelector = connect(state => ({
@@ -90,6 +91,7 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  AddUserFormWithProfileData,
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(AddUserFormWithProfileData);

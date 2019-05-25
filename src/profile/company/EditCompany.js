@@ -4,14 +4,15 @@ import { Field, reduxForm, SubmissionError } from 'redux-form';
 import { AutoComplete, TextField } from 'redux-form-material-ui';
 import { AutoComplete as MUIAutoComplete } from 'material-ui';
 import Paper from 'material-ui/Paper';
+import { loader } from 'graphql.macro';
 
-import EditCompanyDetails from './EditCompanyDetails.gql';
-import GetAllCompanies from '../../names/GetAllCompanies.gql';
 import { checkIfAnyKeysDifferent } from '../../shared/utils';
 import { AddressField, required } from '../../shared/FormElements';
 import LoadingSpinner from '../../shared/LoadingSpinner';
 import StandardForm from '../../shared/StandardForm';
 
+const EditCompanyDetails = loader('./EditCompanyDetails.gql');
+const GetAllCompanies = loader('../../names/GetAllCompanies.gql');
 const EditCompany = ({
   existingCompanies,
   loading,

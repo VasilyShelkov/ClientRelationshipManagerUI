@@ -1,17 +1,15 @@
 import { graphql } from 'react-apollo';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import { red500 } from 'material-ui/styles/colors';
-
-import RemoveClient from './RemoveClient.gql';
-import UnprotectName from '../UnprotectName.gql';
-import GetUserNamesCount from '../../../GetUserNamesCount.gql';
+import { loader } from 'graphql.macro';
 
 import { showNotification } from '../../../../app/appActions';
 import { performingNameAction } from '../../../nameActions';
 
 import SelectedClientActions from './SelectedClientActions';
 
+const UnprotectName = loader('../UnprotectName.gql');
+const GetUserNamesCount = loader('../../../GetUserNamesCount.gql');
 const SelectedClientActionsWithMutations = graphql(UnprotectName, {
   props: ({ ownProps, mutate }) => ({
     ...ownProps,
@@ -25,7 +23,7 @@ const SelectedClientActionsWithMutations = graphql(UnprotectName, {
 
       try {
         performingNameAction(`Unprotecting ${name.firstName} ${name.lastName}`);
-        const unprotectedName = await mutate({
+        await mutate({
           variables: {
             userId,
             nameId: name.id,
@@ -70,6 +68,7 @@ const mapDispatchToProps = dispatch => ({
   showErrorNotification: message => dispatch(showNotification(message, red500)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  SelectedClientActionsWithMutations,
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SelectedClientActionsWithMutations);

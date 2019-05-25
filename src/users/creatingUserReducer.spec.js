@@ -8,7 +8,7 @@ describe('src/users/AddUser.js', () => {
   it('returns creating user when apollo mutation init', () => {
     const stateBefore = false;
     const action = { type: APOLLO_MUTATION_INIT, operationName: 'CreateUser' };
-    expect(creatingUserReducer(stateBefore, action)).to.equal(true);
+    expect(creatingUserReducer(stateBefore, action)).toBe(true);
   });
 
   it('returns state before when apollo mutation init for different operation', () => {
@@ -17,7 +17,7 @@ describe('src/users/AddUser.js', () => {
       type: APOLLO_MUTATION_INIT,
       operationName: 'randomOperation',
     };
-    expect(creatingUserReducer(stateBefore, action)).to.equal(stateBefore);
+    expect(creatingUserReducer(stateBefore, action)).toBe(stateBefore);
   });
 
   it('returns finished creating user when apollo mutation response', () => {
@@ -26,7 +26,7 @@ describe('src/users/AddUser.js', () => {
       type: APOLLO_MUTATION_RESULT,
       operationName: 'CreateUser',
     };
-    expect(creatingUserReducer(stateBefore, action)).to.equal(false);
+    expect(creatingUserReducer(stateBefore, action)).toBe(false);
   });
 
   it('returns state before when apollo mutation response is for different operation', () => {
@@ -35,6 +35,6 @@ describe('src/users/AddUser.js', () => {
       type: APOLLO_MUTATION_RESULT,
       operationName: 'randomOperation',
     };
-    expect(creatingUserReducer(stateBefore, action)).to.equal(stateBefore);
+    expect(creatingUserReducer(stateBefore, action)).toBe(stateBefore);
   });
 });

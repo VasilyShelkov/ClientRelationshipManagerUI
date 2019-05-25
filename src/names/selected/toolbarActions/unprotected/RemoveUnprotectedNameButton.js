@@ -1,15 +1,15 @@
-import { graphql, compose } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import { connect } from 'react-redux';
 import { red500 } from 'material-ui/styles/colors';
-
-import RemoveUnprotectedName from './RemoveUnprotectedName.gql';
-import GetUserNamesCount from '../../../GetUserNamesCount.gql';
+import { loader } from 'graphql.macro';
 
 import { showNotification } from '../../../../app/appActions';
 import { performingNameAction } from '../../../nameActions';
 
 import DeleteButton from '../DeleteButton';
 
+const RemoveUnprotectedName = loader('./RemoveUnprotectedName.gql');
+const GetUserNamesCount = loader('../../../GetUserNamesCount.gql');
 const RemoveUnprotectedNameButtonWithData = graphql(RemoveUnprotectedName, {
   props: ({ ownProps, mutate }) => ({
     ...ownProps,
@@ -56,6 +56,7 @@ const mapDispatchToProps = dispatch => ({
   showErrorNotification: message => dispatch(showNotification(message, red500)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  RemoveUnprotectedNameButtonWithData,
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(RemoveUnprotectedNameButtonWithData);

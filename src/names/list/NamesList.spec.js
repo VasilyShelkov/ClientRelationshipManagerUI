@@ -9,11 +9,11 @@ xdescribe('src/names/NamesList.js', () => {
   it('renders a create first names button when there are no names', () => {
     const wrapper = setup([]);
     const createName = wrapper.find(RaisedButton);
-    expect(wrapper.find(Name).exists()).to.be.false;
-    expect(createName.exists()).to.be.true;
-    expect(createName.prop('primary')).to.be.true;
-    expect(createName.prop('label')).to.equal('Create first name');
-    expect(createName.prop('fullWidth')).to.be.true;
+    expect(wrapper.find(Name).exists()).toBe(false);
+    expect(createName.exists()).toBe(true);
+    expect(createName.prop('primary')).toBe(true);
+    expect(createName.prop('label')).toBe('Create first name');
+    expect(createName.prop('fullWidth')).toBe(true);
   });
 
   it('renders a table when there are names', () => {
@@ -46,6 +46,6 @@ xdescribe('src/names/NamesList.js', () => {
       },
     ];
     const wrapper = setup(names);
-    expect(wrapper.find(Name)).length.to.be(names.length);
+    expect(wrapper.find(Name).length).toBe(names.length);
   });
 });

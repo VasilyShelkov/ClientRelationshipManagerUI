@@ -12,16 +12,14 @@ const setup = ({ message, zDepth = 0 }) => {
 describe('src/shared/Notification.js', () => {
   it('does not render anything when there is no message', () => {
     const { wrapper } = setup({ message: '' });
-    expect(wrapper.getElement()).to.equal(null);
+    expect(wrapper.getElement()).toBeNull();
   });
 
   it('render the notification with message if there is one', () => {
     const message = 'test notification message';
     const { wrapper } = setup({ message });
 
-    expect(wrapper.find(Paper).exists()).to.be.true;
-    expect(wrapper.find('.Form__notification__message').text()).to.equal(
-      message,
-    );
+    expect(wrapper.find(Paper).exists()).toBe(true);
+    expect(wrapper.find('.Form__notification__message').text()).toBe(message);
   });
 });

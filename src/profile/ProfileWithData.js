@@ -1,10 +1,11 @@
 import { graphql } from 'react-apollo';
 import { connect } from 'react-redux';
+import { loader } from 'graphql.macro';
 
-import GetUserProfile from './GetUserProfile.gql';
 import { cancelEditProfile } from './profileActions';
 import Profile from './Profile';
 
+const GetUserProfile = loader('./GetUserProfile.gql');
 const ProfileWithData = graphql(GetUserProfile, {
   options: ({ id }) => ({ variables: { id } }),
   props: ({ ownProps, data: { loading, user } }) => ({
@@ -25,4 +26,7 @@ const mapDispatchToProps = dispatch => ({
   onCancelEditProfile: () => dispatch(cancelEditProfile()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileWithData);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ProfileWithData);

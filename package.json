@@ -3,84 +3,53 @@
   "version": "1.0.0",
   "description": "Web client for CRM graphql api",
   "main": "index.html",
-  "engines": {
-    "node": "8.9.1"
+  "bugs": {
+    "url": "https://github.com/VasilyShelkov/ClientRelationshipManagerUI/issues"
   },
-  "scripts": {
-    "start": "npm run start:server-only",
-    "start:server-only": "node server.js",
-    "start:dev": "webpack-dashboard -- webpack-dev-server --open --config webpack/webpack.dev.js --progress",
-    "start:staging": "npm run build:staging && node server.js",
-    "prebuild": "rimraf dist",
-    "build:staging": "npm run prebuild && webpack --env=staging --config webpack/webpack.prod.js --progress --profile --colors",
-    "build:production": "npm run prebuild && webpack --env=production --config webpack/webpack.prod.js --progress --profile --colors",
-    "heroku-postbuild": "npm run build:${GRAPHQL_CONFIG}",
-    "test": "NODE_ENV=testing mocha --exit --opts ./mocha.opts './src/**/*.spec.js'",
-    "test:watch": "NODE_ENV=testing mocha --watch --opts ./mocha.opts './src/**/*.spec.js'",
-    "test:feature": "./node_modules/codeceptjs/bin/codecept.js run --steps",
-    "test:feature:staging": "NODE_ENV=staging ./node_modules/codeceptjs/bin/codecept.js run",
-    "test:feature:selenium-install": "./node_modules/.bin/selenium-standalone install",
-    "test:feature:selenium-start": "./node_modules/.bin/selenium-standalone start",
-    "lint:prettier": "prettier --write '{src, test}/**/*.js'",
-    "precommit": "bash checkForOnly.sh && lint-staged && npm test"
-  },
-  "lint-staged": {
-    "*.{js}": [
-      "eslint '{src,test/**/*.js}' --fix",
-      "git add ."
-    ]
-  },
+  "author": "Vasily Shelkov",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/VasilyShelkov/ClientRelationshipManagerUI.git"
   },
-  "author": "Vasily Shelkov",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/VasilyShelkov/ClientRelationshipManagerUI/issues"
+  "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "build:staging": "REACT_APP_GRAPHQL_CONFIG=staging react-scripts build",
+    "serve": "serve -s build",
+    "test": "react-scripts test",
+    "test:feature": "./node_modules/codeceptjs/bin/codecept.js run",
+    "test:feature:staging": "ENVIRONMENT=staging ./node_modules/codeceptjs/bin/codecept.js run",
+    "eject": "react-scripts eject"
   },
-  "homepage": "https://github.com/VasilyShelkov/ClientRelationshipManagerUI#readme",
   "dependencies": {
     "apollo-client": "^1.1.1",
-    "autoprefixer": "^7.1.1",
     "axios": "^0.16.1",
-    "babel-core": "^6.20.0",
-    "babel-loader": "^7.1.2",
-    "babel-plugin-istanbul": "^4.1.3",
-    "babel-plugin-lodash": "^3.2.11",
-    "babel-polyfill": "^6.20.0",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-react": "^6.16.0",
-    "babel-preset-stage-0": "^6.16.0",
-    "compression": "^1.6.2",
-    "css-loader": "^0.28.7",
-    "cssnano": "^3.10.0",
-    "express": "^4.14.0",
-    "extract-text-webpack-plugin": "^3.0.0",
     "fuse.js": "^3.1.0",
     "graphql-tag": "^2.0.0",
+    "graphql.macro": "^1.3.5",
     "history": "^4.6.1",
-    "html-webpack-plugin": "^2.24.1",
-    "husky": "^0.14.3",
+    "husky": "^2.2.0",
     "js-cookie": "^2.1.3",
+    "lint-staged": "^8.1.6",
     "lodash": "^4.17.4",
     "material-color-hash": "^0.1.3",
     "material-ui": "0.19.1",
-    "mocha-graphql-register": "git+https://git@github.com/VasilyShelkov/mocha-graphql-register.git",
     "moment": "^2.18.1",
-    "node-sass": "^4.5.2",
+    "node-sass": "^4.12.0",
     "places.js": "^1.4.15",
-    "postcss-loader": "^2.0.6",
-    "react": "15.6.1",
+    "prettier": "^1.17.0",
+    "react": "^16.8.6",
     "react-apollo": "1.4.15",
-    "react-dom": "15.6.1",
-    "react-hot-loader": "^3.0.0-beta.6",
+    "react-dom": "^16.8.6",
     "react-list": "^0.8.4",
     "react-redux": "^5.0.3",
     "react-redux-sweetalert": "^1.0.0",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "react-router-redux": "^5.0.0-alpha.6",
+    "react-scripts": "3.0.0",
     "react-sidebar": "^2.3.2",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
@@ -89,42 +58,41 @@
     "redux-form-material-ui": "4.2.0",
     "redux-localstorage": "^1.0.0-rc5",
     "redux-localstorage-filter": "^0.1.1",
-    "redux-thunk": "^2.2.0",
-    "rimraf": "^2.6.1",
-    "sass-loader": "^6.0.6",
-    "style-loader": "^0.18.2",
-    "webpack": "^3.6.0",
-    "webpack-validator": "^3.0.0"
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-eslint": "^8.0.2",
-    "babel-register": "^6.26.0",
-    "chai": "^4.1.2",
-    "chai-as-promised": "^7.1.1",
-    "codeceptjs": "1.0.3",
+    "codeceptjs": "^2.1.1",
     "enzyme": "3.1.1",
-    "enzyme-adapter-react-15": "^1.0.5",
-    "eslint": "^4.11.0",
-    "eslint-config-prettier": "^2.7.0",
-    "eslint-plugin-prettier": "^2.3.1",
-    "eslint-plugin-react": "^7.4.0",
-    "extend": "^3.0.1",
+    "enzyme-adapter-react-16": "^1.12.1",
     "faker": "^4.1.0",
-    "ignore-styles": "^5.0.1",
-    "jsdom": "^9.9.1",
-    "lint-staged": "^4.2.1",
-    "mocha": "^4.0.1",
-    "prettier": "^1.8.2",
-    "react-addons-test-utils": "^15.6.2",
+    "puppeteer": "^1.15.0",
     "react-test-renderer": "^15.6.2",
-    "selenium-standalone": "^6.11.0",
-    "selenium-webdriver": "^3.6.0",
-    "sinon": "^4.1.2",
-    "sinon-chai": "^2.14.0",
-    "sinon-test": "^2.1.2",
-    "webdriverio": "^4.9.6",
-    "webpack-dashboard": "^0.3.0",
-    "webpack-dev-server": "^2.4.2"
+    "serve": "^11.0.0"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "bash checkForOnly.sh && lint-staged"
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

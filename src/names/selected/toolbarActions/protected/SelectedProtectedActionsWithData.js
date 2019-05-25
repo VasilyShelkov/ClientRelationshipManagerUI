@@ -1,15 +1,8 @@
 import { graphql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import _ from 'lodash';
 import { red500 } from 'material-ui/styles/colors';
-
-import UnprotectName from '../UnprotectName.gql';
-import RemoveProtectedName from './RemoveProtectedName.gql';
-import MakeClient from './MakeClient.gql';
-import MetWithProtected from './MetWithProtected.gql';
-import GetNameComments from '../../comments/GetNameComments.gql';
-import GetUserNamesCount from '../../../GetUserNamesCount.gql';
+import { loader } from 'graphql.macro';
 
 import { showNotification } from '../../../../app/appActions';
 import { performingNameAction } from '../../../nameActions';
@@ -21,6 +14,12 @@ import {
 } from '../../selectedActions';
 
 import SelectedProtectedActions from './SelectedProtectedActions';
+
+const UnprotectName = loader('../UnprotectName.gql');
+const MakeClient = loader('./MakeClient.gql');
+const MetWithProtected = loader('./MetWithProtected.gql');
+const GetNameComments = loader('../../comments/GetNameComments.gql');
+const GetUserNamesCount = loader('../../../GetUserNamesCount.gql');
 
 const SelectedProtectedActionsWithMutations = compose(
   graphql(MakeClient, {
@@ -64,7 +63,7 @@ const SelectedProtectedActionsWithMutations = compose(
           performingNameAction(
             `Making ${name.firstName} ${name.lastName} a Client!`,
           );
-          const client = await mutate({
+          await mutate({
             variables: {
               userId,
               nameId: name.id,
@@ -143,7 +142,7 @@ const SelectedProtectedActionsWithMutations = compose(
           performingNameAction(
             `Changing ${name.firstName} ${name.lastName} to Met With Protected`,
           );
-          const metWithProtectedName = await mutate({
+          await mutate({
             variables: {
               userId,
               protectedId,
@@ -194,7 +193,7 @@ const SelectedProtectedActionsWithMutations = compose(
           performingNameAction(
             `Unprotecting ${name.firstName} ${name.lastName}`,
           );
-          const unprotectedName = await mutate({
+          await mutate({
             variables: {
               userId,
               nameId: name.id,
@@ -251,6 +250,7 @@ const mapDispatchToProps = dispatch => ({
   showErrorNotification: message => dispatch(showNotification(message, red500)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  SelectedProtectedActionsWithMutations,
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SelectedProtectedActionsWithMutations);

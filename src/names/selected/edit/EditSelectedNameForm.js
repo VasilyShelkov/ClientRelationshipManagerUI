@@ -2,12 +2,13 @@ import React from 'react';
 import { graphql } from 'react-apollo';
 import { reduxForm, Field, SubmissionError } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
+import { loader } from 'graphql.macro';
 
-import EditName from './EditName.gql';
 import { checkIfAnyKeysDifferent } from '../../../shared/utils';
 import { required } from '../../../shared/FormElements';
 import StandardForm from '../../../shared/StandardForm';
 
+const EditName = loader('./EditName.gql');
 const EditSelectedName = ({
   isProtected,
   error,

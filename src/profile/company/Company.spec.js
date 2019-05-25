@@ -33,32 +33,26 @@ describe('src/profile/company/Company', () => {
     const { wrapper } = setup({ display: true });
 
     const ShowCompanyComponent = wrapper.find(ShowCompanyWithData);
-    expect(ShowCompanyComponent.exists()).to.be.true;
+    expect(ShowCompanyComponent.exists()).toBe(true);
   });
 
   it('does not render show company when not displaying company', () => {
     const { wrapper } = setup({ display: false });
 
     const ShowCompanyComponent = wrapper.find(ShowCompanyWithData);
-    expect(ShowCompanyComponent.exists()).to.be.false;
+    expect(ShowCompanyComponent.exists()).toBe(false);
   });
 
   it('renders show company when not editing their company', () => {
     const { wrapper, props } = setup({});
     const ShowCompanyComponent = wrapper.find(ShowCompanyWithData);
 
-    expect(wrapper.find(EditCompany).exists()).to.be.false;
-    expect(ShowCompanyComponent.exists()).to.be.true;
-    expect(ShowCompanyComponent.prop('name')).to.equal(props.user.company.name);
-    expect(ShowCompanyComponent.prop('address')).to.equal(
-      props.user.company.address,
-    );
-    expect(ShowCompanyComponent.prop('phone')).to.equal(
-      props.user.company.phone,
-    );
-    expect(ShowCompanyComponent.prop('updatedAt')).to.equal(
-      props.user.company.updated_at,
-    );
+    expect(wrapper.find(EditCompany).exists()).toBe(false);
+    expect(ShowCompanyComponent.exists()).toBe(true);
+    expect(ShowCompanyComponent.prop('name')).toBe(props.user.company.name);
+    expect(ShowCompanyComponent.prop('address')).toBe(props.user.company.address);
+    expect(ShowCompanyComponent.prop('phone')).toBe(props.user.company.phone);
+    expect(ShowCompanyComponent.prop('updatedAt')).toBe(props.user.company.updated_at);
   });
 
   it('renders edit company when editing their company', () => {
@@ -69,23 +63,19 @@ describe('src/profile/company/Company', () => {
     });
     const EditCompanyComponent = wrapper.find(EditCompany);
 
-    expect(wrapper.find(ShowCompanyWithData).exists()).to.be.false;
-    expect(EditCompanyComponent.exists()).to.be.true;
-    expect(EditCompanyComponent.prop('userId')).to.equal(props.user.id);
-    expect(EditCompanyComponent.prop('initialValues')).to.deep.equal(
-      props.user.company,
-    );
-    expect(EditCompanyComponent.prop('handleCancelEditCompany')).to.equal(
-      onCancelEditCompany,
-    );
-    expect(EditCompanyComponent.prop('editInProgess')).to.equal(false);
+    expect(wrapper.find(ShowCompanyWithData).exists()).toBe(false);
+    expect(EditCompanyComponent.exists()).toBe(true);
+    expect(EditCompanyComponent.prop('userId')).toBe(props.user.id);
+    expect(EditCompanyComponent.prop('initialValues')).toEqual(props.user.company);
+    expect(EditCompanyComponent.prop('handleCancelEditCompany')).toBe(onCancelEditCompany);
+    expect(EditCompanyComponent.prop('editInProgess')).toBe(false);
   });
 
   it('renders edit company when in progress editing their company', () => {
     const { wrapper } = setup({ editingCompany: EDIT_IN_PROGRESS });
     const EditCompanyComponent = wrapper.find(EditCompany);
 
-    expect(EditCompanyComponent.exists()).to.be.true;
-    expect(EditCompanyComponent.prop('editInProgess')).to.equal(true);
+    expect(EditCompanyComponent.exists()).toBe(true);
+    expect(EditCompanyComponent.prop('editInProgess')).toBe(true);
   });
 });

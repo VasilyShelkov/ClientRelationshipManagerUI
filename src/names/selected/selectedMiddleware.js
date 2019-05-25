@@ -19,5 +19,7 @@ export default store => next => action => {
         push(`/account/names/${action.listWithSelectedNameToHide}`),
       );
       break;
+    default:
+      return;
   }
 };

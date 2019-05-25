@@ -1,10 +1,11 @@
-import { graphql, compose } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import { connect } from 'react-redux';
+import { loader } from 'graphql.macro';
 
-import GetProtectedNames from './GetProtectedNames.gql';
 import reducer from './createApolloReducer';
 import ProtectedMutations from './ProtectedMutations';
 
+const GetProtectedNames = loader('./GetProtectedNames.gql');
 const ProtectedNames = graphql(GetProtectedNames, {
   options: ({ userId }) => ({
     variables: { id: userId },

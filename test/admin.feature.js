@@ -1,14 +1,15 @@
 Feature('Administrator user', { retries: 3 });
 
-Scenario('can create new users', function*(I) {
+Scenario('can create new users', async function(I) {
   I.login();
+  pause();
   I.waitForElement('#createNewUser');
-  const totalUsersBeforeAddingUser = yield I.grabTextFrom('#totalUserCount');
+  const totalUsersBeforeAddingUser = await I.grabTextFrom('#totalUserCount');
   I.click('#createNewUser');
   I.waitForText('Add a new member to the team...');
   I.seeInCurrentUrl('/account/users/add');
 
-  const newUser = yield I.createFakeUser();
+  const newUser = await I.createFakeUser();
   I.fillField('firstName', newUser.firstName);
   I.fillField('lastName', newUser.lastName);
   I.fillField('email', newUser.email);
@@ -22,7 +23,9 @@ Scenario('can create new users', function*(I) {
   // profile check
   I.waitForElement('.Form__notification');
   I.seeInCurrentUrl(
-    `account/users/${newUser.firstName.toLowerCase()}${newUser.lastName}/profile`,
+    `account/users/${newUser.firstName.toLowerCase()}${
+      newUser.lastName
+    }/profile`,
   );
   I.see('Successfully created new user', '.Form__notification');
   I.see(`${parseInt(totalUsersBeforeAddingUser, 10) + 1} Users`);
@@ -46,11 +49,11 @@ Scenario('can create new users', function*(I) {
   I.see('**********');
 });
 
-Scenario('can edit company details', function*(I) {
+Scenario('can edit company details', async function(I) {
   I.login();
   I.waitForVisible('.Profile');
 
-  const newCompany = yield I.createFakeCompany();
+  const newCompany = await I.createFakeCompany();
   I.click('Edit Company');
   I.waitForElement('#StandardForm');
   I.fillField('Name', newCompany.name);
@@ -64,17 +67,25 @@ Scenario('can edit company details', function*(I) {
   I.see(newCompany.phone);
 });
 
-Scenario('can edit a different user details', function*(I) {
+Scenario('can edit a different user details', async function(I) {
   I.login();
   I.waitForElement('.Profile');
-  const originalUser = yield I.createFakeUser();
+  const originalUser = await I.createFakeUser();
   I.createNewUser(originalUser);
 
-  const newUserDetails = yield I.createFakeUser();
+  const newUserDetails = await I.createFakeUser();
   I.click('Edit Profile');
+
+  I.clearField('firstName');
   I.fillField('firstName', newUserDetails.firstName);
+
+  I.clearField('lastName');
   I.fillField('lastName', newUserDetails.lastName);
+
+  I.clearField('email');
   I.fillField('email', newUserDetails.email);
+
+  I.clearField('phone');
   I.fillField('phone', newUserDetails.phone);
   I.click('Save');
 
@@ -85,10 +96,10 @@ Scenario('can edit a different user details', function*(I) {
   I.see(newUserDetails.phone);
 });
 
-Scenario('can edit a different user password', function*(I) {
+Scenario('can edit a different user password', async function(I) {
   I.login();
   I.waitForElement('.Profile');
-  const originalUser = yield I.createFakeUser();
+  const originalUser = await I.createFakeUser();
   I.createNewUser(originalUser);
 
   const newPassword = '4321tset';

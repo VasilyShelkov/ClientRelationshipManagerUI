@@ -11,7 +11,6 @@ import {
   MetWithProtectedIcon,
   ClientsIcon,
 } from '../../../../app/icons';
-import SelectedName from '../../SelectedName';
 import NameDialogForm from '../../../NameDialog';
 
 export default ({
@@ -90,40 +89,39 @@ export default ({
           ]}
         />
       )}
-      {!metWith &&
-        metWithProtectedDialogOpen && (
-          <NameDialogForm
-            title={`I've met with ${displayName}...`}
-            displayName={displayName}
-            open={metWithProtectedDialogOpen}
-            close={closeMetWithProtectedDialog}
-            onSubmit={onSubmitMeetProtected}
-            initialValues={{
-              pastMeetingDay: meetingBooked
-                ? meetingBookedDate
-                : moment().toDate(),
-              pastMeetingTime: meetingBooked
-                ? meetingBookedDate
-                : moment().toDate(),
-            }}
-            actions={[
-              <FlatButton
-                secondary
-                onClick={closeMetWithProtectedDialog}
-                label="Cancel"
-                icon={<CancelIcon />}
-              />,
-              <FlatButton
-                primary
-                id="submitMetWithName"
-                form="protectNameForm"
-                type="submit"
-                label="Confirm Meeting"
-                icon={<MetWithProtectedIcon />}
-              />,
-            ]}
-          />
-        )}
+      {!metWith && metWithProtectedDialogOpen && (
+        <NameDialogForm
+          title={`I've met with ${displayName}...`}
+          displayName={displayName}
+          open={metWithProtectedDialogOpen}
+          close={closeMetWithProtectedDialog}
+          onSubmit={onSubmitMeetProtected}
+          initialValues={{
+            pastMeetingDay: meetingBooked
+              ? meetingBookedDate
+              : moment().toDate(),
+            pastMeetingTime: meetingBooked
+              ? meetingBookedDate
+              : moment().toDate(),
+          }}
+          actions={[
+            <FlatButton
+              secondary
+              onClick={closeMetWithProtectedDialog}
+              label="Cancel"
+              icon={<CancelIcon />}
+            />,
+            <FlatButton
+              primary
+              id="submitMetWithName"
+              form="protectNameForm"
+              type="submit"
+              label="Confirm Meeting"
+              icon={<MetWithProtectedIcon />}
+            />,
+          ]}
+        />
+      )}
     </ToolbarGroup>
   );
 };

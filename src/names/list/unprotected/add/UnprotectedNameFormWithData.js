@@ -3,14 +3,14 @@ import { push } from 'react-router-redux';
 import { graphql, compose } from 'react-apollo';
 import { SubmissionError } from 'redux-form';
 import _ from 'lodash';
+import { loader } from 'graphql.macro';
 
-import GetAllCompanies from '../../../GetAllCompanies.gql';
-import CreateUnprotectedName from './CreateUnprotectedName.gql';
-import GetUserNamesCount from '../../../GetUserNamesCount.gql';
 import AddUnprotectedNameForm from './UnprotectedNameForm';
-import { hideCreateNameForm } from '../../nameListActions';
 import { selectName } from '../../../selected/selectedActions';
 
+const GetAllCompanies = loader('../../../GetAllCompanies.gql');
+const CreateUnprotectedName = loader('./CreateUnprotectedName.gql');
+const GetUserNamesCount = loader('../../../GetUserNamesCount.gql');
 const AddUnprotectedNameWithCompanyData = compose(
   graphql(CreateUnprotectedName, {
     props: ({ ownProps, mutate }) => ({
@@ -73,6 +73,7 @@ const mapDispatchToProps = dispatch => ({
   cancelAddUnprotectedName: () => dispatch(push('/account/names/unprotected')),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  AddUnprotectedNameWithCompanyData,
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(AddUnprotectedNameWithCompanyData);

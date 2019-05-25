@@ -1,59 +1,52 @@
-version: 2
+version: 2.1
+orbs:
+  heroku: circleci/heroku@0.0.6
 jobs:
   build:
-    docker: 
-      - image: node:8.9.1
-      - image: selenium/standalone-chrome:3.3.0
     working_directory: ~/ClientRelationshipManagerUI
+    docker:
+      - image: circleci/node:10.15.3 
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "1c:4c:23:f2:da:be:d5:1f:4f:3a:d5:4a:30:3b:0b:39"
       - checkout
-
       - restore_cache:
           keys:
             - yarn-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-{{ .Branch }}-
       - run:
           name: Install Dependencies
           command: yarn install
-      - run:
-          name: setup Heroku
-          command: bash .circleci/setup-heroku.sh
       - save_cache:
+          name: Save Yarn Package Cache
           key: yarn-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
-            - "~/.yarn-cache"
-
+            - ~/node_modules
+      # Test
       - run:
           name: Run unit tests
           command: yarn test
-
       - run:
           name: Build against Staging
           command: yarn run build:staging
       - run:
-          name: Start server
-          command: yarn run start:server-only
+          name: Serve staging app on CI
+          command: yarn serve
           background: true
       - run:
           name: Run Feature tests
           command: yarn run test:feature:staging
-
+      - run:
+          name: Update HEROKU_APP_NAME based on branch name
+          command: |
+            if [[ "$CIRCLE_BRANCH" = "master" ]]; then
+              echo 'export HEROKU_APP_NAME="regency-wealth-crm"' >> $BASH_ENV
+            else
+              echo 'export HEROKU_APP_NAME="regency-wealth-crm-staging"' >> $BASH_ENV
+            fi
+      - heroku/install
+      - heroku/deploy-via-git:
+          force: true
       - store_artifacts:
           path: output
-
-      - add_ssh_keys:
-          fingerprints:
-            - "8f:b8:f9:f1:fb:87:a2:84:58:b8:6b:a8:de:b1:54:60"
-      - deploy:
-          name: Deploy to heroku staging
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "staging" ]; then
-              git push heroku-staging master
-              heroku restart --remote heroku-staging
-            fi
-      - deploy:
-          name: Deploy to heroku master
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              git push heroku-master master
-              heroku restart --remote heroku-master
-            fi

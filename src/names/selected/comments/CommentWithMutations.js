@@ -1,14 +1,15 @@
 import { graphql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
 import { red500 } from 'material-ui/styles/colors';
+import { loader } from 'graphql.macro';
 
 import { showNotification } from '../../../app/appActions';
 import { performingNameAction } from '../../nameActions';
 
-import DeleteComment from './DeleteComment.gql';
-import EditComment from './EditComment.gql';
 import Comment from './Comment';
 
+const DeleteComment = loader('./DeleteComment.gql');
+const EditComment = loader('./EditComment.gql');
 export const CommentWithMutations = compose(
   graphql(DeleteComment, {
     props: ({ ownProps, mutate }) => ({
@@ -60,4 +61,7 @@ const mapDispatchToProps = dispatch => ({
   showErrorNotification: message => dispatch(showNotification(message, red500)),
 });
 
-export default connect(() => ({}), mapDispatchToProps)(CommentWithMutations);
+export default connect(
+  () => ({}),
+  mapDispatchToProps,
+)(CommentWithMutations);

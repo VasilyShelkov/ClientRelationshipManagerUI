@@ -1,11 +1,11 @@
 Feature('Selected Name Company', { retries: 3 });
 
-Scenario('user edits company details for unprotected', function*(I) {
+Scenario('user edits company details for unprotected', async function(I) {
   I.login();
-  const newUnprotectedName = yield I.createFakeName();
+  const newUnprotectedName = await I.createFakeName();
   I.createNewUnprotectedName(newUnprotectedName);
 
-  const editCompany = yield I.createFakeCompany();
+  const editCompany = await I.createFakeCompany();
   I.waitForVisible('#selectedName');
   within('#selectedName', () => {
     I.click('#editCompany');
@@ -30,12 +30,12 @@ Scenario('user edits company details for unprotected', function*(I) {
   });
 });
 
-Scenario('user edits company details for protected', function*(I) {
+Scenario('user edits company details for protected', async function(I) {
   I.login();
-  const newProtectedName = yield I.createFakeName();
+  const newProtectedName = await I.createFakeName();
   I.createProtectedName(newProtectedName);
 
-  const editCompany = yield I.createFakeCompany();
+  const editCompany = await I.createFakeCompany();
   I.waitForVisible('#selectedName');
   within('#selectedName', () => {
     I.click('#editCompany');
@@ -60,12 +60,12 @@ Scenario('user edits company details for protected', function*(I) {
   });
 });
 
-Scenario('user edits company details for met with protected', function*(I) {
+Scenario('user edits company details for met with protected', async function(I) {
   I.login();
-  const newMetWithProtectedName = yield I.createFakeName();
+  const newMetWithProtectedName = await I.createFakeName();
   I.createMetWithProtectedName(newMetWithProtectedName);
 
-  const editCompany = yield I.createFakeCompany();
+  const editCompany = await I.createFakeCompany();
   I.waitForVisible('#selectedName');
   within('#selectedName', () => {
     I.click('#editCompany');
@@ -90,12 +90,12 @@ Scenario('user edits company details for met with protected', function*(I) {
   });
 });
 
-Scenario('user edits company details for client', function*(I) {
+Scenario('user edits company details for client', async function(I) {
   I.login();
-  const newClient = yield I.createFakeName();
+  const newClient = await I.createFakeName();
   I.createClient(newClient);
 
-  const editCompany = yield I.createFakeCompany();
+  const editCompany = await I.createFakeCompany();
   I.waitForVisible('#selectedName');
   within('#selectedName', () => {
     I.click('#editCompany');

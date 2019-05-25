@@ -12,8 +12,7 @@ import { UnprotectedIcon, ProtectedIcon, ClientsIcon } from '../icons';
 import { changeSideBarState } from '../../authentication/accountActions';
 import AdminUserListWithData from './AdminUserListWithData';
 import { changeShownUserProfile } from '../../profile/profileActions';
-import { selectName } from '../../names/selected/selectedActions';
-import { resetScrollPosition } from '../../names/nameActions'
+import { resetScrollPosition } from '../../names/nameActions';
 
 const SelectableList = makeSelectable(List);
 
@@ -112,4 +111,7 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SideBar);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SideBar);

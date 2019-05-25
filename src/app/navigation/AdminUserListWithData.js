@@ -1,10 +1,11 @@
 import { graphql } from 'react-apollo';
 import _ from 'lodash';
+import { loader } from 'graphql.macro';
 
 import { APOLLO_MUTATION_RESULT } from '../thirdPartyActions';
-import GetAllUsers from './GetAllUsers.gql';
 import AdminUserList from './AdminUserList';
 
+const GetAllUsers = loader('./GetAllUsers.gql');
 export const props = ({ ownProps, data: { loading, users } }) => {
   let usersWithoutSelf = [];
   if (!loading) {

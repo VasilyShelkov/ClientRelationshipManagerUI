@@ -1,8 +1,8 @@
 Feature('Protected names', { retries: 3 });
 
-Scenario('user books a meeting on the protected name', function*(I) {
+Scenario('user books a meeting on the protected name', async function(I) {
   I.login();
-  const newProtectedName = yield I.createFakeName();
+  const newProtectedName = await I.createFakeName();
   I.createProtectedName(newProtectedName);
 
   within('#protectedNamesList .name:nth-of-type(1)', () => {
@@ -12,8 +12,8 @@ Scenario('user books a meeting on the protected name', function*(I) {
 
   I.waitForElement('#protectNameForm');
   I.click('input[name="meetingDay"]');
-  const currentDay = yield I.createCurrentDay();
-  const currentMonth = yield I.createCurrentMonth();
+  const currentDay = await I.createCurrentDay();
+  const currentMonth = await I.createCurrentMonth();
   I.waitForText(currentMonth);
   I.click(currentDay);
 
@@ -32,9 +32,9 @@ Scenario('user books a meeting on the protected name', function*(I) {
   });
 });
 
-Scenario('user books a call on the protected name', function*(I) {
+Scenario('user books a call on the protected name', async function(I) {
   I.login();
-  const newProtectedName = yield I.createFakeName();
+  const newProtectedName = await I.createFakeName();
   I.createProtectedName(newProtectedName);
 
   within('#protectedNamesList .name:nth-of-type(1)', () => {
@@ -43,8 +43,8 @@ Scenario('user books a call on the protected name', function*(I) {
   });
 
   I.waitForElement('#protectNameForm');
-  const currentDay = yield I.createCurrentDay();
-  const currentMonth = yield I.createCurrentMonth();
+  const currentDay = await I.createCurrentDay();
+  const currentMonth = await I.createCurrentMonth();
   I.click('input[name="callDay"]');
   I.waitForText(currentMonth);
   I.click(currentDay);
@@ -64,20 +64,20 @@ Scenario('user books a call on the protected name', function*(I) {
   });
 });
 
-Scenario('user unprotects a protected name', function*(I) {
+Scenario('user unprotects a protected name', async function(I) {
   I.login();
-  const newProtectedName = yield I.createFakeName();
+  const newProtectedName = await I.createFakeName();
   I.createProtectedName(newProtectedName);
 
   I.waitForElement('#goToUnprotectedList');
   I.click('#goToUnprotectedList');
   I.waitForElement('#unprotectedNamesList');
-  const currentUnprotectedNamesCount = yield I.grabTextFrom('#unprotectedNamesCount');
+  const currentUnprotectedNamesCount = await I.grabTextFrom('#unprotectedNamesCount');
 
   I.waitForElement('#goToProtectedList');
   I.click('#goToProtectedList');
   I.waitForElement('#protectedNamesList');
-  const currentProtectedNamesCount = yield I.grabTextFrom('#protectedNamesCount');
+  const currentProtectedNamesCount = await I.grabTextFrom('#protectedNamesCount');
   I.click('#unprotectName');
   I.waitToHide('.names__overlay');
 
@@ -88,6 +88,7 @@ Scenario('user unprotects a protected name', function*(I) {
     I.click('OK');
   });
 
+  I.click('#goToUnprotectedList');
   I.waitForElement('#unprotectedNamesList');
   I.see(`${parseInt(currentUnprotectedNamesCount, 10) + 1} Unprotected`);
   within('#unprotectedNamesList .name:nth-of-type(1)', () => {
@@ -108,11 +109,11 @@ Scenario('user unprotects a protected name', function*(I) {
   });
 });
 
-Scenario('user deletes a protected name', function*(I) {
+Scenario('user deletes a protected name', async function(I) {
   I.login();
-  const newProtectedName = yield I.createFakeName();
+  const newProtectedName = await I.createFakeName();
   I.createProtectedName(newProtectedName);
-  const currentProtectedNamesCount = yield I.grabTextFrom('#protectedNamesCount');
+  const currentProtectedNamesCount = await I.grabTextFrom('#protectedNamesCount');
   I.click('#deleteName');
   I.waitToHide('.names__overlay');
   I.see(`${parseInt(currentProtectedNamesCount, 10) - 1}/150 Protected`);
@@ -124,22 +125,22 @@ Scenario('user deletes a protected name', function*(I) {
   });
 });
 
-Scenario('user meets with protected name', function*(I) {
+Scenario('user meets with protected name', async function(I) {
   I.login();
-  const newProtectedName = yield I.createFakeName();
+  const newProtectedName = await I.createFakeName();
   I.createProtectedName(newProtectedName);
 
   I.waitForElement('#goToMetWithProtectedTab');
   I.click('#goToMetWithProtectedTab');
   I.waitForVisible('div[value="metWithProtected"]');
   I.waitForVisible('#metWithProtectedNamesList');
-  const currentMetWithProtectedNamesCount = yield I.grabTextFrom('#metWithProtectedNamesCount');
+  const currentMetWithProtectedNamesCount = await I.grabTextFrom('#metWithProtectedNamesCount');
 
   I.waitForElement('#goToProtectedTab');
   I.click('#goToProtectedTab');
   I.waitForVisible('div[value="protected"]');
   I.waitForVisible('#protectedNamesList');
-  const currentProtectedNamesCount = yield I.grabTextFrom('#protectedNamesCount');
+  const currentProtectedNamesCount = await I.grabTextFrom('#protectedNamesCount');
   I.click('#metWithProtected');
   I.click('#submitMetWithName');
   I.waitToHide('.names__overlay');
@@ -151,6 +152,7 @@ Scenario('user meets with protected name', function*(I) {
     I.click('OK');
   });
 
+  I.click('#goToMetWithProtectedTab');
   I.waitForVisible('div[value="metWithProtected"]');
   I.waitForVisible('#metWithProtectedNamesList');
   I.see(`${parseInt(currentMetWithProtectedNamesCount, 10) + 1} Met With Protected Name`);
@@ -173,15 +175,15 @@ Scenario('user meets with protected name', function*(I) {
   });
 });
 
-Scenario('user makes the protected name a client with no call or meeting booked', function*(I) {
+Scenario('user makes the protected name a client with no call or meeting booked', async function(I) {
   I.login();
-  const newProtectedName = yield I.createFakeName();
+  const newProtectedName = await I.createFakeName();
   I.createProtectedName(newProtectedName);
 
   I.waitForElement('#goToClientsList');
   I.click('#goToClientsList');
   I.waitForElement('#clientsNamesList');
-  const currentClientsCount = yield I.grabTextFrom('#clientsCount');
+  const currentClientsCount = await I.grabTextFrom('#clientsCount');
 
   I.waitForElement('#goToProtectedList');
   I.click('#goToProtectedList');
@@ -189,7 +191,7 @@ Scenario('user makes the protected name a client with no call or meeting booked'
   I.click('#goToProtectedTab');
   I.waitForVisible('div[value="protected"]');
   I.waitForElement('#protectedNamesList');
-  const currentProtectedNamesCount = yield I.grabTextFrom('#protectedNamesCount');
+  const currentProtectedNamesCount = await I.grabTextFrom('#protectedNamesCount');
 
   I.click('#makeClient');
   I.waitForElement('#protectNameForm');
@@ -205,6 +207,7 @@ Scenario('user makes the protected name a client with no call or meeting booked'
     I.click('OK');
   });
 
+  I.click('#goToClientsList')
   I.waitForElement('#clientsNamesList');
   I.see(`${parseInt(currentClientsCount, 10) + 1} Clients`);
   within('#clientsNamesList .name:nth-of-type(1)', () => {
@@ -230,15 +233,15 @@ Scenario('user makes the protected name a client with no call or meeting booked'
   });
 });
 
-Scenario('user makes the protected name a client with a call booked', function*(I) {
+Scenario('user makes the protected name a client with a call booked', async function(I) {
   I.login();
-  const newProtectedName = yield I.createFakeName();
+  const newProtectedName = await I.createFakeName();
   I.createProtectedName(newProtectedName);
 
   I.waitForElement('#goToClientsList');
   I.click('#goToClientsList');
   I.waitForElement('#clientsNamesList');
-  const currentClientsCount = yield I.grabTextFrom('#clientsCount');
+  const currentClientsCount = await I.grabTextFrom('#clientsCount');
 
   I.waitForElement('#goToProtectedList');
   I.click('#goToProtectedList');
@@ -246,11 +249,11 @@ Scenario('user makes the protected name a client with a call booked', function*(
   I.click('#goToProtectedTab');
   I.waitForVisible('div[value="protected"]');
   I.waitForElement('#protectedNamesList');
-  const currentProtectedNamesCount = yield I.grabTextFrom('#protectedNamesCount');
+  const currentProtectedNamesCount = await I.grabTextFrom('#protectedNamesCount');
 
   I.click('#makeClient');
-  const currentDay = yield I.createCurrentDay();
-  const currentMonth = yield I.createCurrentMonth();
+  const currentDay = await I.createCurrentDay();
+  const currentMonth = await I.createCurrentMonth();
 
   I.waitForElement('#protectNameForm');
   I.click('input[name="callDay"]');
@@ -273,6 +276,7 @@ Scenario('user makes the protected name a client with a call booked', function*(
     I.click('OK');
   });
 
+  I.click('#goToClientsList');
   I.waitForElement('#clientsNamesList');
   I.see(`${parseInt(currentClientsCount, 10) + 1} Clients`);
   within('#clientsNamesList .name:nth-of-type(1)', () => {
@@ -298,15 +302,15 @@ Scenario('user makes the protected name a client with a call booked', function*(
   });
 });
 
-Scenario('user makes the protected name a client with a meeting booked', function*(I) {
+Scenario('user makes the protected name a client with a meeting booked', async function(I) {
   I.login();
-  const newProtectedName = yield I.createFakeName();
+  const newProtectedName = await I.createFakeName();
   I.createProtectedName(newProtectedName);
 
   I.waitForElement('#goToClientsList');
   I.click('#goToClientsList');
   I.waitForElement('#clientsNamesList');
-  const currentClientsCount = yield I.grabTextFrom('#clientsCount');
+  const currentClientsCount = await I.grabTextFrom('#clientsCount');
 
   I.waitForElement('#goToProtectedList');
   I.click('#goToProtectedList');
@@ -314,11 +318,11 @@ Scenario('user makes the protected name a client with a meeting booked', functio
   I.click('#goToProtectedTab');
   I.waitForVisible('div[value="protected"]');
   I.waitForElement('#protectedNamesList');
-  const currentProtectedNamesCount = yield I.grabTextFrom('#protectedNamesCount');
+  const currentProtectedNamesCount = await I.grabTextFrom('#protectedNamesCount');
 
   I.click('#makeClient');
-  const currentDay = yield I.createCurrentDay();
-  const currentMonth = yield I.createCurrentMonth();
+  const currentDay = await I.createCurrentDay();
+  const currentMonth = await I.createCurrentMonth();
 
   I.waitForElement('#protectNameForm');
   I.click('input[name="meetingDay"]');
@@ -341,6 +345,7 @@ Scenario('user makes the protected name a client with a meeting booked', functio
     I.click('OK');
   });
 
+  I.click('#goToClientsList');
   I.waitForElement('#clientsNamesList');
   I.see(`${parseInt(currentClientsCount, 10) + 1} Clients`);
   within('#clientsNamesList .name:nth-of-type(1)', () => {

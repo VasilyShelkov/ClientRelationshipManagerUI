@@ -1,8 +1,7 @@
 import React from 'react';
 import { Field, reduxForm, SubmissionError } from 'redux-form';
-
+import { loader } from 'graphql.macro';
 import { graphql } from 'react-apollo';
-import EditUserPassword from './EditUserPassword.gql';
 
 import {
   renderTextField,
@@ -11,6 +10,7 @@ import {
 } from '../../shared/FormElements';
 import StandardForm from '../../shared/StandardForm';
 
+const EditUserPassword = loader('./EditUserPassword.gql');
 const EditPassword = ({
   handleSubmit,
   handleCancelEditProfilePassword,

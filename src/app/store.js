@@ -15,7 +15,7 @@ import selectedName from '../names/selected/selectedReducer';
 import nameList from '../names/list/nameListReducer';
 import app from './appReducer';
 
-import config from '../../config';
+import config from '../config';
 
 const networkInterface = createNetworkInterface({
   uri: `${config.graphQL}/graphql`,

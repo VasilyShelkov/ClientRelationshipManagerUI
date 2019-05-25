@@ -3,7 +3,7 @@ const getTestUserDetails = require('./userAccount');
 module.exports = function() {
   return actor({
     login: function(email, password, returnUrl) {
-      const testUser = getTestUserDetails(process.env.NODE_ENV);
+      const testUser = getTestUserDetails(process.env.ENVIRONMENT);
       let loginEmail = testUser.email;
       let loginPassword = testUser.password;
       if (email) {
@@ -39,7 +39,9 @@ module.exports = function() {
 
       this.waitForElement('.Profile');
       this.seeInCurrentUrl(
-        `account/users/${newUser.firstName.toLowerCase()}${newUser.lastName}/profile`,
+        `account/users/${newUser.firstName.toLowerCase()}${
+          newUser.lastName
+        }/profile`,
       );
     },
     createNewUnprotectedName: function(newName) {
@@ -74,7 +76,11 @@ module.exports = function() {
       within('.sweet-alert.showSweetAlert.visible', () => {
         this.click('OK');
       });
+      this.waitForElement('.hideSweetAlert');
+      this.click('#goToProtectedList');
       this.waitForElement('#protectedNamesList');
+      this.click('#protectedNamesList');
+      this.click('#protectedNamesList .name:nth-of-type(1)');
     },
     createMetWithProtectedName: function(newName) {
       this.createProtectedName(newName);
@@ -85,6 +91,8 @@ module.exports = function() {
       within('.sweet-alert.showSweetAlert.visible', () => {
         this.click('OK');
       });
+      this.waitForElement('.hideSweetAlert');
+      this.click('#goToMetWithProtectedTab');
       this.waitForVisible('div[value="metWithProtected"]');
       this.waitForVisible('#metWithProtectedNamesList');
     },
@@ -98,7 +106,9 @@ module.exports = function() {
       within('.sweet-alert.showSweetAlert.visible', () => {
         this.click('OK');
       });
+      this.click('#goToClientsList');
       this.waitForElement('#clientsNamesList');
+      this.click('#clientsNamesList .name:nth-of-type(1)');
     },
   });
 };

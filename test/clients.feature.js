@@ -1,8 +1,8 @@
 Feature('Clients', { retries: 3 });
 
-Scenario('user books a meeting on the client', function*(I) {
+Scenario('user books a meeting on the client', async function(I) {
   I.login();
-  const newClient = yield I.createFakeName();
+  const newClient = await I.createFakeName();
   I.createClient(newClient);
 
   within('#clientsNamesList .name:nth-of-type(1)', () => {
@@ -13,8 +13,8 @@ Scenario('user books a meeting on the client', function*(I) {
 
   I.waitForElement('#protectNameForm');
   I.click('input[name="meetingDay"]');
-  const currentDay = yield I.createCurrentDay();
-  const currentMonth = yield I.createCurrentMonth();
+  const currentDay = await I.createCurrentDay();
+  const currentMonth = await I.createCurrentMonth();
   I.waitForText(currentMonth);
   I.click(currentDay);
 
@@ -32,9 +32,9 @@ Scenario('user books a meeting on the client', function*(I) {
   });
 });
 
-Scenario('user books a call on the client', function*(I) {
+Scenario('user books a call on the client', async function(I) {
   I.login();
-  const newClient = yield I.createFakeName();
+  const newClient = await I.createFakeName();
   I.createClient(newClient);
 
   within('#clientsNamesList .name:nth-of-type(1)', () => {
@@ -44,8 +44,8 @@ Scenario('user books a call on the client', function*(I) {
   });
 
   I.waitForElement('#protectNameForm');
-  const currentDay = yield I.createCurrentDay();
-  const currentMonth = yield I.createCurrentMonth();
+  const currentDay = await I.createCurrentDay();
+  const currentMonth = await I.createCurrentMonth();
   I.click('input[name="callDay"]');
   I.waitForText(currentMonth);
   I.click(currentDay);
@@ -64,22 +64,22 @@ Scenario('user books a call on the client', function*(I) {
   });
 });
 
-Scenario('user unprotects a client', function*(I) {
+Scenario('user unprotects a client', async function(I) {
   I.login();
-  const newClient = yield I.createFakeName();
+  const newClient = await I.createFakeName();
   I.createClient(newClient);
 
   I.waitForElement('#goToUnprotectedList');
   I.click('#goToUnprotectedList');
   I.waitForElement('#unprotectedNamesList');
-  const currentUnprotectedNamesCount = yield I.grabTextFrom(
+  const currentUnprotectedNamesCount = await I.grabTextFrom(
     '#unprotectedNamesCount',
   );
 
   I.waitForElement('#goToClientsList');
   I.click('#goToClientsList');
   I.waitForElement('#clientsNamesList');
-  const currentClientsCount = yield I.grabTextFrom('#clientsCount');
+  const currentClientsCount = await I.grabTextFrom('#clientsCount');
   I.click('#unprotectName');
   I.waitToHide('.names__overlay');
 
@@ -90,6 +90,7 @@ Scenario('user unprotects a client', function*(I) {
     I.click('OK');
   });
 
+  I.click('#goToUnprotectedList');
   I.waitForElement('#unprotectedNamesList');
   I.see(`${parseInt(currentUnprotectedNamesCount, 10) + 1} Unprotected`);
   within('#unprotectedNamesList .name:nth-of-type(1)', () => {
@@ -110,14 +111,14 @@ Scenario('user unprotects a client', function*(I) {
   });
 });
 
-Scenario('user deletes a client', function*(I) {
+Scenario('user deletes a client', async function(I) {
   I.login();
-  const newClient = yield I.createFakeName();
+  const newClient = await I.createFakeName();
   I.createClient(newClient);
-  const currentClientsCount = yield I.grabTextFrom('#clientsCount');
+  const currentClientsCount = await I.grabTextFrom('#clientsCount');
   I.click('#deleteName');
   I.waitToHide('.names__overlay');
-  I.see(`${parseInt(currentClientsCount, 10) - 1} Clients`);
+  I.waitForText(`${parseInt(currentClientsCount, 10) - 1} Clients`);
   I.waitForVisible('#appNotification');
   within('#clientsNamesList .name:nth-of-type(1)', () => {
     I.dontSee(newClient.firstName);

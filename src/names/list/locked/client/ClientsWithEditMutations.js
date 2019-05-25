@@ -1,15 +1,18 @@
 import { graphql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
 import { red500 } from 'material-ui/styles/colors';
+import { loader } from 'graphql.macro';
 
-import BookClientCall from './BookCall.gql';
-import BookClientMeeting from './BookMeeting.gql';
-import GetNameComments from '../../../selected/comments/GetNameComments.gql';
 import { onSubmitBookCall, onSubmitBookMeeting } from '../lockedMutations';
 import { performingNameAction } from '../../../nameActions';
 import { showNotification } from '../../../../app/appActions';
 import NamesList from '../../NamesList';
 
+const BookClientCall = loader('./BookCall.gql');
+const BookClientMeeting = loader('./BookMeeting.gql');
+const GetNameComments = loader(
+  '../../../selected/comments/GetNameComments.gql',
+);
 const ClientsWithEditMutations = compose(
   graphql(BookClientCall, {
     props: ({ ownProps, mutate }) => ({
@@ -70,6 +73,7 @@ const mapDispatchToProps = dispatch => ({
   showErrorNotification: message => dispatch(showNotification(message, red500)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  ClientsWithEditMutations,
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ClientsWithEditMutations);

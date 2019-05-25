@@ -14,7 +14,6 @@ import { sortNamesByType, sortTypes } from './nameSorter';
 import {
   getNameByFirstAndLastName,
   getNameByNameId,
-  getNameIndexByNameId,
 } from './nameListShapeShifter';
 import Name from './Name';
 import NameOrganiser from './NameListOrganiser';
@@ -47,7 +46,6 @@ export class NamesList extends Component {
 
   componentDidUpdate() {
     const {
-      loading,
       names = [],
       nameListType,
       selectedNameId,
@@ -139,9 +137,7 @@ export class NamesList extends Component {
       if (selectedNameInCurrentList) {
         return (
           <Redirect
-            to={`/account/names/${
-              nameListType
-            }/selected/${selectedNameInCurrentList.name.firstName.toLowerCase()}-${selectedNameInCurrentList.name.lastName.toLowerCase()}`}
+            to={`/account/names/${nameListType}/selected/${selectedNameInCurrentList.name.firstName.toLowerCase()}-${selectedNameInCurrentList.name.lastName.toLowerCase()}`}
           />
         );
       }
@@ -280,4 +276,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(openEditProtectedNameCallDialog(nameId)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NamesList);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(NamesList);

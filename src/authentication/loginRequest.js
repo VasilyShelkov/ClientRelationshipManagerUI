@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { SubmissionError } from 'redux-form';
 import { push } from 'react-router-redux';
-import config from '../../config';
+import config from '../config';
 import { logIn, logInSuccess, logInError } from './accountActions';
 
 export default async (values, dispatch, { returnUrl }) => {

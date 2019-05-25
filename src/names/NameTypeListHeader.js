@@ -1,16 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { graphql } from 'react-apollo';
 import { Switch, Route } from 'react-router';
-import { Link } from 'react-router-dom';
-import IconButton from 'material-ui/IconButton';
-import Avatar from 'material-ui/Avatar';
+import { loader } from 'graphql.macro';
 
-import GetUserNamesCount from './GetUserNamesCount.gql';
 import { ProtectedIcon, MetWithProtectedIcon, ClientsIcon } from '../app/icons';
 import UnprotectedHeader from './UnprotectedHeader';
 import NameListHeader from './list/NameListHeader';
 
+const GetUserNamesCount = loader('./GetUserNamesCount.gql');
 export const NameTypeListHeader = ({ match, loading, user, listToShow }) => {
   if (loading) return null;
   const { protectedNamesLimit, latestProgress } = user;
