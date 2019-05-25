@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Cookies from 'js-cookie';
-import { TextField } from 'redux-form-material-ui';
+import { TextField } from '@material-ui/core';
+import { TextField as ReduxFormTextField } from 'redux-form-material-ui';
 import places from 'places.js';
 
 import { red600 } from 'material-ui/styles/colors';
@@ -20,13 +21,34 @@ const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-
 export const emailFormat = value =>
   emailRegex.test(value) ? undefined : 'Not a valid email address';
 
+export const FormikTextField = ({
+  field, // { name, value, onChange, onBlur }
+  form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+  ...props
+}) => {
+  const error = touched[field.name] && errors[field.name];
+  return (
+    <div data-testid={`${field.name}-field`}>
+      <TextField
+        label={props.label}
+        error={Boolean(error)}
+        helperText={error}
+        id={props.id || `${field.name}-input`}
+        fullWidth={true}
+        margin={props.margin || 'normal'}
+        {...field}
+      />
+    </div>
+  );
+};
+
 export const renderTextField = ({
   input,
   label,
   meta: { touched, error },
   ...customProps
 }) => (
-  <TextField
+  <ReduxFormTextField
     floatingLabelText={label}
     errorText={touched && error}
     {...input}
@@ -113,7 +135,7 @@ export const FormErrorNotification = ({
   <Notification
     message={message}
     zDepth={zDepth}
-    backgroundColor={red600}
+    backgroundColor={backgroundColor}
     icon={
       <ErrorIcon
         className="Form__notification__icon"

@@ -1,15 +1,14 @@
 import axios from 'axios';
-import { SubmissionError } from 'redux-form';
-import { push } from 'react-router-redux';
 import config from '../config';
-import { logIn, logInSuccess, logInError } from './accountActions';
 
-export default async (values, dispatch, { returnUrl }) => {
+export default async (
+  values,
+  { stopSubmitting, goToReturnUrl, logInSuccess, setLoginError },
+) => {
   const instance = axios.create();
   instance.defaults.timeout = 5000;
   instance.defaults.baseURL = config.graphQL;
 
-  dispatch(logIn());
   let accountDetails = null;
   try {
     accountDetails = await instance.post('/login', {
@@ -17,10 +16,13 @@ export default async (values, dispatch, { returnUrl }) => {
       password: values.password,
     });
   } catch (e) {
-    dispatch(logInError());
-    throw new SubmissionError({ _error: e.response.data.error });
+    setLoginError();
   }
 
-  dispatch(logInSuccess(accountDetails.data));
-  dispatch(push(returnUrl));
+  stopSubmitting();
+
+  if (accountDetails) {
+    logInSuccess(accountDetails.data);
+    goToReturnUrl();
+  }
 };
