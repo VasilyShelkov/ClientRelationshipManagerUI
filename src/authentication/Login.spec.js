@@ -1,5 +1,4 @@
 import React from 'react';
-import mockAxios from 'jest-mock-axios';
 import {
   fireEvent,
   wait,
@@ -16,8 +15,6 @@ const renderLogin = () => {
 };
 
 describe('src/authentication/Login.js', () => {
-  afterEach(() => mockAxios.reset());
-
   it('Logging in without an email address shows an error message', async () => {
     const { getByTestId, getByText } = renderLogin();
     fireEvent.submit(getByText('Log in'));

@@ -1,6 +1,5 @@
 import React from 'react';
 import { CircularProgress, Button, Box } from '@material-ui/core';
-import green from '@material-ui/core/colors/green';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({

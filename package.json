@@ -72,8 +72,6 @@
     "enzyme": "3.1.1",
     "enzyme-adapter-react-16": "^1.12.1",
     "faker": "^4.1.0",
-    "jest-mock-axios": "^3.0.0",
-    "nock": "^10.0.6",
     "puppeteer": "^1.15.0",
     "react-test-renderer": "^15.6.2",
     "react-testing-library": "^7.0.1",
