@@ -116,7 +116,7 @@ Scenario('user deletes a protected name', async function(I) {
   const currentProtectedNamesCount = await I.grabTextFrom('#protectedNamesCount');
   I.click('#deleteName');
   I.waitToHide('.names__overlay');
-  I.see(`${parseInt(currentProtectedNamesCount, 10) - 1}/150 Protected`);
+  I.waitForText(`${parseInt(currentProtectedNamesCount, 10) - 1}/150 Protected`);
   I.waitForVisible('#appNotification');
   within('#protectedNamesList .name:nth-of-type(1)', () => {
     I.dontSee(newProtectedName.firstName);

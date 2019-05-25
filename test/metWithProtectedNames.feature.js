@@ -124,7 +124,7 @@ Scenario('user deletes a met with protected name', async function(I) {
   const currentMetWithProtectedNamesCount = await I.grabTextFrom('#metWithProtectedNamesCount');
   I.click('#deleteName');
   I.waitToHide('.names__overlay');
-  I.see(`${parseInt(currentMetWithProtectedNamesCount, 10) - 1} Met With Protected`);
+  I.waitForText(`${parseInt(currentMetWithProtectedNamesCount, 10) - 1} Met With Protected`);
   I.waitForVisible('#appNotification');
   within('#metWithProtectedNamesList .name:nth-of-type(1)', () => {
     I.dontSee(newMetWithProtectedName.firstName);

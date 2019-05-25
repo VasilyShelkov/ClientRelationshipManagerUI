@@ -49,7 +49,7 @@ Scenario('user deletes an unprotected name', async function(I) {
   );
   I.click('#deleteName');
   I.waitToHide('.names__overlay');
-  I.see(`${parseInt(currentUnprotectedNamesCount, 10) - 1} Unprotected`);
+  I.waitForText(`${parseInt(currentUnprotectedNamesCount, 10) - 1} Unprotected`);
   I.waitForVisible('#appNotification');
   within('#unprotectedNamesList .name:nth-of-type(1)', () => {
     I.dontSee(newName.firstName);

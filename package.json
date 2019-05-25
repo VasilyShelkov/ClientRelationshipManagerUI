@@ -16,7 +16,6 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:staging": "REACT_APP_GRAPHQL_CONFIG=staging react-scripts build",
     "serve": "serve -s build",
     "test": "react-scripts test",
     "test:feature": "./node_modules/codeceptjs/bin/codecept.js run",
