@@ -2,7 +2,6 @@ Feature('Administrator user', { retries: 3 });
 
 Scenario('can create new users', async function(I) {
   I.login();
-  pause();
   I.waitForElement('#createNewUser');
   const totalUsersBeforeAddingUser = await I.grabTextFrom('#totalUserCount');
   I.click('#createNewUser');
