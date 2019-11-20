@@ -30,6 +30,7 @@ export const FormikTextField = ({
   return (
     <div data-testid={`${field.name}-field`}>
       <TextField
+        type={props.type}
         label={props.label}
         error={Boolean(error)}
         helperText={error}
