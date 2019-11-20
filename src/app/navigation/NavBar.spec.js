@@ -1,18 +1,15 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
-import { LARGE } from 'material-ui/utils/withWidth';
 
 import { NavBar } from './NavBar';
 
 const setup = ({
   loggedIn = false,
-  width = LARGE,
   handleTouchTapLeftIconButton = () => '',
   handleLogOut = () => '',
 }) => {
   const props = {
     loggedIn,
-    width,
     handleTouchTapLeftIconButton,
     handleLogOut,
   };
@@ -31,14 +28,14 @@ describe('src/Navbar.js', () => {
   });
 
   it('shows the logout button when the user is logged in', () => {
-      const handleLogOut = jest.fn();
-      const { wrapper } = setup({ loggedIn: true, handleLogOut });
+    const handleLogOut = jest.fn();
+    const { wrapper } = setup({ loggedIn: true, handleLogOut });
 
-      const appBarRightIcon = wrapper.find(AppBar).prop('iconElementRight');
-      appBarRightIcon.props.onClick();
-      expect(handleLogOut).toHaveBeenCalled();
-      expect(appBarRightIcon.props.label).toBe('Logout');
-  })
+    const appBarRightIcon = wrapper.find(AppBar).prop('iconElementRight');
+    appBarRightIcon.props.onClick();
+    expect(handleLogOut).toHaveBeenCalled();
+    expect(appBarRightIcon.props.label).toBe('Logout');
+  });
 
   it('show icon button is not visible when the screen is large', () => {
     const { wrapper } = setup({ width: 'large' });
@@ -58,18 +55,6 @@ describe('src/Navbar.js', () => {
     expect(wrapper.find(AppBar).prop('showMenuIconButton')).toBe(true);
   });
 
-  it('title is nothing when it is a large screen', () => {
-    const { wrapper } = setup({});
-
-    expect(wrapper.find(AppBar).prop('title')).toBe('');
-  });
-
-  it('title is filled when it is a small screen', () => {
-    const { wrapper } = setup({ width: 'small' });
-
-    expect(wrapper.find(AppBar).prop('title')).toBe('Client Relationship Manager');
-  });
-
   it('passes handleTouchTapLeftIconButton props correctly', () => {
     const handleTouchTapLeftIconButton = jest.fn();
     const { wrapper } = setup({ handleTouchTapLeftIconButton });
@@ -77,5 +62,5 @@ describe('src/Navbar.js', () => {
     const appBar = wrapper.find(AppBar);
     appBar.prop('onLeftIconButtonTouchTap')();
     expect(handleTouchTapLeftIconButton).toHaveBeenCalled();
-  })
+  });
 });

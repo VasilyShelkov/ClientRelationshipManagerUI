@@ -17,7 +17,6 @@ export const NavBar = ({
   handleLogOut,
 }) => (
   <AppBar
-    title={width === LARGE ? '' : 'Client Relationship Manager'}
     className="NavBar"
     zDepth={2}
     showMenuIconButton={Boolean(!(width === LARGE) && loggedIn)}
@@ -56,6 +55,7 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  NavBarWithDeviceWidth,
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(NavBarWithDeviceWidth);
