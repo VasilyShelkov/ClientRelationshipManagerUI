@@ -10,6 +10,7 @@ import SideBarWithData from './navigation/SideBar';
 import AppWithSideBar from './AppWithSideBar';
 import NotFound from './NotFound';
 import Home from './Home';
+import UsersPage from '../users/UsersPage';
 
 const mapStateToProps = state => ({
   open: state.account.sideBarOpen,
@@ -19,7 +20,10 @@ const mapDispatchToProps = dispatch => ({
   controlSidebar: open => dispatch(changeSideBarState(open)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(
   withWidth()(({ open, width, controlSidebar }) => (
     <div>
       <NavBarWithData key="navBarContainer" />
@@ -27,7 +31,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       <Switch>
         <Route exact path="/" component={Home} />
         <Route
+          path="/account/new_users"
           render={() => (
+            <div className="index__content-below-navbar">
+              <UsersPage />
+            </div>
+          )}
+        />
+        <Route
+          render={({ location }) => (
             <Sidebar
               sidebar={<SideBarWithData />}
               docked={width === LARGE}
