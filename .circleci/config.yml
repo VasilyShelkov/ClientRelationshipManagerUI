@@ -41,7 +41,7 @@ jobs:
           command: yarn run test:feature:staging
       - run:
           name: Run new Feature tests
-          command: test:feature-new
+          command: yarn run test:feature-new
           environment:
             CYPRESS_baseUrl: http://localhost:5000
             CYPRESS_password: Vv07919911824

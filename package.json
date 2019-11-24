@@ -20,7 +20,7 @@
     "test": "react-scripts test",
     "test:feature": "./node_modules/codeceptjs/bin/codecept.js run",
     "test:feature:staging": "ENVIRONMENT=staging ./node_modules/codeceptjs/bin/codecept.js run",
-    "test:feature-new:dev": "cypress open",
+    "test:feature-new:dev": "cypress open --env password=test1234",
     "test:feature-new": "cypress run",
     "eject": "react-scripts eject"
   },

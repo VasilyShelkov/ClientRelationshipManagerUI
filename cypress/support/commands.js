@@ -38,9 +38,7 @@ Cypress.Commands.add(
 
 Cypress.Commands.add('logout', () => {
   cy.findByTestId('account-menu').click();
-  cy.findAllByText('Logout').spread((oldNavbarLogout, logoutInMenu) => {
-    logoutInMenu.click();
-  });
+  cy.findByText('Logout').click();
 });
 
 Cypress.Commands.add('createNewUser', newUser => {
