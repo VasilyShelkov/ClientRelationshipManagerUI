@@ -30,7 +30,7 @@ export const FormikTextField = ({
 };
 
 export const FormikCheckBox = ({ name, label, inputProps }) => {
-  const [field, meta] = useField({ name, type: 'checkbox' });
+  const [field] = useField({ name, type: 'checkbox' });
   return (
     <div data-testid={`${field.name}-field`}>
       <FormControlLabel
@@ -49,7 +49,7 @@ export const FormikCheckBox = ({ name, label, inputProps }) => {
 };
 
 export const FormikSlider = ({ name, label, defaultValue, min, max }) => {
-  const [field, meta] = useField({ name });
+  const [field] = useField({ name });
   const { setFieldValue } = useFormikContext();
   return (
     <div data-testid={`${field.name}-field`}>
