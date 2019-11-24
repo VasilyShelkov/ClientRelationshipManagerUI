@@ -192,7 +192,7 @@ export const ShowProfile = ({
           startIcon={<EditIcon />}
           onClick={onEditProfile}
         >
-          Edit profile
+          Edit Profile
         </Button>
       </div>
     </Paper>

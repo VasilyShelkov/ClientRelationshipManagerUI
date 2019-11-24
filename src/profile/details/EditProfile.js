@@ -1,123 +1,117 @@
 import React from 'react';
+import { Formik, Field } from 'formik';
+import * as Yup from 'yup';
 import { connect } from 'react-redux';
 import { graphql } from 'react-apollo';
-import {
-  Field,
-  reduxForm,
-  SubmissionError,
-  formValueSelector,
-} from 'redux-form';
-import { TextField, Slider } from 'redux-form-material-ui';
 import Paper from 'material-ui/Paper';
 import { loader } from 'graphql.macro';
 
 import { checkIfAnyKeysDifferent } from '../../shared/utils';
 
-import { required, emailFormat } from '../../shared/FormElements';
-import StandardForm from '../../shared/StandardForm';
+import FormikStandardForm from '../../shared/FormikStandardForm';
+import { FormikSlider, FormikTextField } from '../../shared/FormikFormElements';
+
+const EditUserSchema = Yup.object().shape({
+  protectedNamesLimit: Yup.number().required('required'),
+  firstName: Yup.string().required('required'),
+  lastName: Yup.string().required('required'),
+  phone: Yup.string().required('required'),
+  email: Yup.string()
+    .required('required')
+    .email('must be a valid email'),
+});
 
 const EditUserDetails = loader('./EditUserDetails.gql');
-const EditProfile = ({
-  currentProtectedNamesLimit,
-  isAdmin,
-  error,
-  editInProgess,
-  handleSubmit,
-  handleCancelEditProfile,
-}) => (
+const EditProfile = ({ isAdmin, onSubmit, handleCancelEditProfile }) => (
   <Paper zDepth={2}>
-    <StandardForm
-      handleSubmit={handleSubmit}
-      handleCancel={handleCancelEditProfile}
-      error={error}
-      editingInProgress={editInProgess}
-      fields={[
-        <Field
-          key="profile__firstName"
-          name="firstName"
-          component={TextField}
-          floatingLabelText="First Name"
-          validate={required}
-          fullWidth
-        />,
-        <Field
-          key="profile__lastName"
-          name="lastName"
-          component={TextField}
-          floatingLabelText="Last Name"
-          validate={required}
-          fullWidth
-        />,
-        <Field
-          key="profile__email"
-          name="email"
-          component={TextField}
-          floatingLabelText="Email"
-          validate={[required, emailFormat]}
-          fullWidth
-        />,
-        <Field
-          key="profile__phone"
-          name="phone"
-          component={TextField}
-          floatingLabelText="Phone"
-          validate={required}
-          fullWidth
-        />,
-        isAdmin && (
-          <div
-            style={{ marginTop: '10px', textAlign: 'center', width: '100%' }}
-          >
-            <div>Protected Names Limit</div>
-            <div>{currentProtectedNamesLimit}</div>
-            <div>
+    <Formik
+      initialValues={{
+        protectedNamesLimit: 150,
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+      }}
+      validationSchema={EditUserSchema}
+      onSubmit={onSubmit}
+    >
+      {({ isSubmitting, status }) => (
+        <FormikStandardForm
+          handleCancel={handleCancelEditProfile}
+          error={status}
+          editingInProgress={isSubmitting}
+          fields={[
+            <div className="col-12">
               <Field
-                key="profile__protectedNamesLimit"
-                name="protectedNamesLimit"
-                sliderStyle={{ marginBottom: '0px' }}
-                component={Slider}
-                defaultValue={currentProtectedNamesLimit}
-                format={null}
-                min={0}
-                max={1000}
-                step={1}
+                name="firstName"
+                label="First Name"
+                component={FormikTextField}
               />
-            </div>
-          </div>
-        ),
-      ]}
-    />
+            </div>,
+            <div className="col-12">
+              <Field
+                name="lastName"
+                label="Last Name"
+                component={FormikTextField}
+              />
+            </div>,
+            <div className="col-12">
+              <Field
+                type="email"
+                name="email"
+                label="Email"
+                component={FormikTextField}
+              />
+            </div>,
+            <div className="col-12">
+              <Field name="phone" label="Phone" component={FormikTextField} />
+            </div>,
+            isAdmin && (
+              <div
+                className="col-12"
+                style={{ marginTop: '10px', textAlign: 'center' }}
+              >
+                <FormikSlider
+                  name="protectedNamesLimit"
+                  label="Protected Names Limit"
+                  component={FormikSlider}
+                  defaultValue={150}
+                  min={0}
+                  max={1000}
+                />
+              </div>
+            ),
+          ]}
+        />
+      )}
+    </Formik>
   </Paper>
 );
 
-const selector = formValueSelector('profile');
-
 const FormWithSelectors = connect(state => ({
-  currentProtectedNamesLimit: selector(state, 'protectedNamesLimit'),
   isAdmin: state.account.accountType === 'admin',
 }))(EditProfile);
 
-const EditProfileForm = reduxForm({
-  form: 'profile',
-})(FormWithSelectors);
-
 export default graphql(EditUserDetails, {
   props: ({ ownProps, mutate }) => ({
-    onSubmit: async values => {
+    onSubmit: async (values, { setSubmitting, setStatus }) => {
+      setSubmitting(true);
       if (checkIfAnyKeysDifferent(ownProps.initialValues, values) > 0) {
         const { company, created_at, updated_at, ...formValues } = values;
         try {
           await mutate({ variables: formValues });
+          setSubmitting(false);
         } catch (error) {
-          throw new SubmissionError({ _error: error.graphQLErrors[0].message });
+          setSubmitting(false);
+          setStatus(error.graphQLErrors[0].message);
         }
       } else {
-        throw new SubmissionError({
-          _error:
-            'Please change one of the profile fields to to update your profile...',
-        });
+        setSubmitting(false);
+        setStatus(
+          'Please change one of the profile fields to to update your profile...',
+        );
       }
     },
     ...ownProps,
   }),
-})(EditProfileForm);
+})(FormWithSelectors);
