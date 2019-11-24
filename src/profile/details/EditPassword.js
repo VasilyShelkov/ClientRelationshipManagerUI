@@ -1,71 +1,76 @@
 import React from 'react';
-import { Field, reduxForm, SubmissionError } from 'redux-form';
+import * as Yup from 'yup';
+import { Formik, Field } from 'formik';
 import { loader } from 'graphql.macro';
 import { graphql } from 'react-apollo';
 
-import {
-  renderTextField,
-  required,
-  minLength,
-} from '../../shared/FormElements';
-import StandardForm from '../../shared/StandardForm';
+import FormikStandardForm from '../../shared/FormikStandardForm';
+import { FormikTextField } from '../../shared/FormikFormElements';
+
+const EditPasswordSchema = Yup.object().shape({
+  password: Yup.string().required('required'),
+  confirmPassword: Yup.string().required('required'),
+});
 
 const EditUserPassword = loader('./EditUserPassword.gql');
-const EditPassword = ({
-  handleSubmit,
-  handleCancelEditProfilePassword,
-  error,
-  editInProgress,
-}) => (
-  <StandardForm
-    handleSubmit={handleSubmit}
-    handleCancel={handleCancelEditProfilePassword}
-    error={error}
-    editingInProgress={editInProgress}
-    fields={[
-      <Field
-        key="profile__password"
-        name="password"
-        type="password"
-        component={renderTextField}
-        label="New Password"
-        validate={[required, minLength]}
-        fullWidth
-      />,
-      <Field
-        key="profile__confirmPassword"
-        name="confirmPassword"
-        type="password"
-        component={renderTextField}
-        label="Confirm New Password"
-        validate={[required, minLength]}
-        fullWidth
-      />,
-    ]}
-  />
-);
-
-export const EditPasswordForm = reduxForm({ form: 'profilePassword' })(
-  EditPassword,
+const EditPassword = ({ onSubmit, handleCancelEditProfilePassword }) => (
+  <Formik
+    initialValues={{
+      password: '',
+      confirmPassword: '',
+    }}
+    validationSchema={EditPasswordSchema}
+    onSubmit={onSubmit}
+  >
+    {({ isSubmitting, status }) => (
+      <FormikStandardForm
+        handleCancel={handleCancelEditProfilePassword}
+        error={status}
+        editingInProgress={isSubmitting}
+        fields={[
+          <div className="col-12">
+            <Field
+              key="profile__password"
+              name="password"
+              type="password"
+              label="New Password"
+              component={FormikTextField}
+            />
+          </div>,
+          <div className="col-12">
+            <Field
+              key="profile__confirmPassword"
+              name="confirmPassword"
+              type="password"
+              label="Confirm New Password"
+              component={FormikTextField}
+            />
+          </div>,
+        ]}
+      />
+    )}
+  </Formik>
 );
 
 export default graphql(EditUserPassword, {
   props: ({ ownProps, mutate }) => ({
-    onSubmit: async values => {
+    onSubmit: async (values, { setSubmitting, setStatus }) => {
+      setSubmitting(true);
       if (values.password === values.confirmPassword) {
         try {
           await mutate({
             variables: { id: ownProps.userId, password: values.password },
           });
+          setSubmitting(false);
         } catch (error) {
-          throw new SubmissionError({ _error: error.graphQLErrors[0].message });
+          setSubmitting(false);
+          setStatus(error.graphQLErrors[0].message);
         }
       } else {
-        throw new SubmissionError({
-          _error: 'Passwords do not match',
-        });
+        setSubmitting(false);
+        setStatus('Passwords do not match');
       }
     },
     ...ownProps,
   }),
-})(EditPasswordForm);
+})(EditPassword);

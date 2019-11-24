@@ -58,21 +58,21 @@ export default ({ currentProtectedNamesLimit, queryLoading, onSubmit }) => {
                 editingInProgress={isSubmitting}
                 error={status}
                 fields={[
-                  <div key="1" className="col-12">
+                  <div className="col-12">
                     <Field
                       name="firstName"
                       label="First Name"
                       component={FormikTextField}
                     />
                   </div>,
-                  <div key="2" className="col-12">
+                  <div className="col-12">
                     <Field
                       name="lastName"
                       label="Last Name"
                       component={FormikTextField}
                     />
                   </div>,
-                  <div key="3" className="col-12">
+                  <div className="col-12">
                     <Field
                       type="email"
                       name="email"
@@ -80,7 +80,7 @@ export default ({ currentProtectedNamesLimit, queryLoading, onSubmit }) => {
                       component={FormikTextField}
                     />
                   </div>,
-                  <div key="4" className="col-12">
+                  <div className="col-12">
                     <Field
                       name="phone"
                       label="Phone"
@@ -88,7 +88,6 @@ export default ({ currentProtectedNamesLimit, queryLoading, onSubmit }) => {
                     />
                   </div>,
                   <div
-                    key="5"
                     className="col-12"
                     style={{ marginTop: '10px', textAlign: 'center' }}
                   >
@@ -101,25 +100,21 @@ export default ({ currentProtectedNamesLimit, queryLoading, onSubmit }) => {
                       max={1000}
                     />
                   </div>,
-                  <div key="6" className="col-12">
+                  <div className="col-12">
                     <Field
                       name="password"
                       label="New Password"
                       component={FormikTextField}
                     />
                   </div>,
-                  <div key="7" className="col-12">
+                  <div className="col-12">
                     <Field
                       name="confirmPassword"
                       label="Confirm New Password"
                       component={FormikTextField}
                     />
                   </div>,
-                  <div
-                    key="8"
-                    className="col-12"
-                    style={{ margin: '20px 0px' }}
-                  >
+                  <div className="col-12" style={{ margin: '20px 0px' }}>
                     <FormikCheckBox name="isAdmin" label="Administrator" />
                   </div>,
                 ]}
