@@ -20,6 +20,8 @@
     "test": "react-scripts test",
     "test:feature": "./node_modules/codeceptjs/bin/codecept.js run",
     "test:feature:staging": "ENVIRONMENT=staging ./node_modules/codeceptjs/bin/codecept.js run",
+    "test:feature-new:dev": "cypress open",
+    "test:feature-new": "cypress run",
     "eject": "react-scripts eject"
   },
   "dependencies": {
@@ -69,7 +71,9 @@
     "yup": "^0.27.0"
   },
   "devDependencies": {
+    "@testing-library/cypress": "^5.0.2",
     "codeceptjs": "^2.1.1",
+    "cypress": "^3.6.1",
     "enzyme": "3.1.1",
     "enzyme-adapter-react-16": "^1.12.1",
     "faker": "^4.1.0",

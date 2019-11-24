@@ -125,7 +125,7 @@ export const ShowProfile = ({
         />
       ) : (
         <ListItem
-          id="resetPassword"
+          data-testid="resetPassword"
           leftAvatar={
             <Avatar icon={<SecurityIcon />} backgroundColor={cyan500} />
           }
@@ -190,4 +190,7 @@ const mapDispatchToProps = dispatch => ({
   onRemoveNotification: () => dispatch(removeProfileNotification()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShowProfile);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ShowProfile);

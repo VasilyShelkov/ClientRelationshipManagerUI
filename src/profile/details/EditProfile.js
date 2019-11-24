@@ -36,7 +36,7 @@ const EditProfile = ({
           key="profile__firstName"
           name="firstName"
           component={TextField}
-          floatingLabelText="First name"
+          floatingLabelText="First Name"
           validate={required}
           fullWidth
         />,

@@ -49,6 +49,7 @@ const AddUserFormWithCompanyData = graphql(CreateUser, {
             currentUserId: ownProps.id,
             ...mutationResponse.data.createUser,
           });
+          ownProps.onAddUserSuccess(mutationResponse.data.createUser);
         } catch (error) {
           throw new SubmissionError({ _error: error.graphQLErrors[0].message });
         }

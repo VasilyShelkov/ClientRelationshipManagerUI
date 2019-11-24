@@ -5,7 +5,7 @@ import { loader } from 'graphql.macro';
 import { APOLLO_MUTATION_RESULT } from '../app/thirdPartyActions';
 import AdminUserList from './AdminUserList';
 
-const GetAllUsers = loader('../app/navigation/GetAllUsers.gql');
+const GetAllUsers = loader('./GetAllUsers.gql');
 export const props = ({ ownProps, data: { loading, users } }) => {
   let usersWithoutSelf = [];
   if (!loading) {

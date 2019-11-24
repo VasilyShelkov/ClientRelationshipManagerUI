@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => {
 
 const UNPROTECTED_URL = '/account/names/unprotected';
 const CLIENTS_URL = '/account/names/clients';
-const USERS_URL = '/account/new_users';
+const USERS_URL = '/account/users';
 const Navbar = ({
   isAdmin,
   navigateTo,
@@ -92,7 +92,11 @@ const Navbar = ({
           </ButtonGroup>
         )}
 
-        <IconButton onClick={e => setAnchorEl(e.currentTarget)} color="inherit">
+        <IconButton
+          data-testid="account-menu"
+          onClick={e => setAnchorEl(e.currentTarget)}
+          color="inherit"
+        >
           <AccountCircle />
         </IconButton>
         <Menu

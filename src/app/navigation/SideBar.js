@@ -10,7 +10,6 @@ import AccountIcon from 'material-ui/svg-icons/action/account-circle';
 import { UnprotectedIcon, ProtectedIcon, ClientsIcon } from '../icons';
 
 import { changeSideBarState } from '../../authentication/accountActions';
-import AdminUserListWithData from './AdminUserListWithData';
 import { changeShownUserProfile } from '../../profile/profileActions';
 import { resetScrollPosition } from '../../names/nameActions';
 
@@ -23,6 +22,7 @@ export const SideBar = ({
   currentUserId,
   profileUserId,
   handleRouteChange,
+  navigateToLink,
 }) => {
   const selectedValue = JSON.stringify({
     newRoute: currentPage,
@@ -77,10 +77,15 @@ export const SideBar = ({
       />
 
       {isAdmin && (
-        <AdminUserListWithData
-          currentUserId={currentUserId}
-          value={selectedValue}
-          onChange={handleRouteChange}
+        <ListItem
+          id="goToUsers"
+          primaryText="Users"
+          leftIcon={<ClientsIcon />}
+          value={JSON.stringify({
+            newRoute: '/account/users',
+            currentUserId,
+            userIdToShow: currentUserId,
+          })}
         />
       )}
     </SelectableList>
@@ -109,6 +114,7 @@ const mapDispatchToProps = dispatch => ({
     );
     dispatch(resetScrollPosition());
   },
+  navigateToLink: pathName => dispatch(push(pathName)),
 });
 
 export default connect(

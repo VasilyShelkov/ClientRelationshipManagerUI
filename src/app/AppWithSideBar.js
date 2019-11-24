@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 import ReduxSweetAlert from 'react-redux-sweetalert';
 import Snackbar from 'material-ui/Snackbar';
 
-import ProfileWithData from '../profile/ProfileWithData';
-import AddUserFormWithData from '../users/AddUserForm';
 import NameTypeList from '../names/NameTypeList';
 import { closeNotification } from './appActions';
+import ProfileWithData from '../profile/ProfileWithData';
 
 const mapStateToProps = state => ({
   showNotification: state.app.notificationMessage,
@@ -18,7 +17,10 @@ const mapDispatchToProps = dispatch => ({
   closeNotificationMessage: () => dispatch(closeNotification()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(
   ({
     match,
     showNotification,
@@ -29,13 +31,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       <Switch>
         <Route
           exact
-          path={`${match.path}/(users)?/:userName?/profile`}
+          path={`${match.path}/profile`}
           component={ProfileWithData}
-        />
-        <Route
-          exact
-          path={`${match.path}/users/add`}
-          component={AddUserFormWithData}
         />
         <Route path={`${match.path}/names`} component={NameTypeList} />
       </Switch>

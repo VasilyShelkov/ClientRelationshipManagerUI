@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -10,7 +9,6 @@ import PeopleIcon from '@material-ui/icons/People';
 
 import AdminUserListWithData from './AdminUserListWithData';
 import AddUserForm from './AddUserForm';
-import ProfileWithData from '../profile/ProfileWithData';
 import NavBar from '../app/NavBar';
 
 const useStyles = makeStyles(theme => ({
@@ -19,7 +17,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const UsersPage = ({ currentUserId, profileUserId }) => {
+const UsersPage = () => {
   const styles = useStyles();
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
@@ -42,20 +40,16 @@ const UsersPage = ({ currentUserId, profileUserId }) => {
           <Tab label="Create New User" icon={<PersonAddIcon />} />
         </Tabs>
       </AppBar>
-      {value === 0 ? (
-        <>
-          <AdminUserListWithData currentUserId={currentUserId} />
-          {currentUserId !== profileUserId ? <ProfileWithData /> : null}
-        </>
+      {value === 0 ? <AdminUserListWithData /> : null}
+      {value === 1 ? (
+        <AddUserForm
+          onAddUserSuccess={() => {
+            setValue(0);
+          }}
+        />
       ) : null}
-      {value === 1 ? <AddUserForm /> : null}
     </>
   );
 };
 
-const mapStateToProps = state => ({
-  currentUserId: state.account.id,
-  profileUserId: state.profile.id,
-});
-
-export default connect(mapStateToProps)(UsersPage);
+export default UsersPage;

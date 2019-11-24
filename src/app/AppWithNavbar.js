@@ -31,7 +31,7 @@ export default connect(
       <Switch>
         <Route exact path="/" component={Home} />
         <Route
-          path="/account/new_users"
+          path="/account/users"
           render={() => (
             <div className="index__content-below-navbar">
               <UsersPage />

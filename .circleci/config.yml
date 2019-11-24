@@ -5,11 +5,11 @@ jobs:
   build:
     working_directory: ~/ClientRelationshipManagerUI
     docker:
-      - image: circleci/node:10.15.3-browsers 
+      - image: circleci/node:10.15.3-browsers
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "1c:4c:23:f2:da:be:d5:1f:4f:3a:d5:4a:30:3b:0b:39"
+            - '1c:4c:23:f2:da:be:d5:1f:4f:3a:d5:4a:30:3b:0b:39'
       - checkout
       - restore_cache:
           keys:
@@ -39,6 +39,12 @@ jobs:
       - run:
           name: Run Feature tests
           command: yarn run test:feature:staging
+      - run:
+          name: Run new Feature tests
+          command: test:feature-new
+          environment:
+            CYPRESS_baseUrl: http://localhost:5000
+            CYPRESS_password: Vv07919911824
       - run:
           name: Update HEROKU_APP_NAME based on branch name
           command: |
