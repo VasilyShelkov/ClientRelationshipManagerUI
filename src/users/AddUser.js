@@ -1,132 +1,133 @@
 import React from 'react';
-import { Field } from 'redux-form';
-import { TextField, Checkbox, Slider } from 'redux-form-material-ui';
+import { Formik, Field } from 'formik';
+import * as Yup from 'yup';
 
-import Paper from 'material-ui/Paper';
-import PersonAddIcon from 'material-ui/svg-icons/social/person-add';
-import { cyan500 } from 'material-ui/styles/colors';
+import Paper from '@material-ui/core/Paper';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
-import StandardForm from '../shared/StandardForm';
-import { required, emailFormat, minLength } from '../shared/FormElements';
+import {
+  FormikTextField,
+  FormikCheckBox,
+  FormikSlider,
+} from '../shared/FormikFormElements';
 import LoadingSpinner from '../shared/LoadingSpinner';
+import FormikStandardForm from '../shared/FormikStandardForm';
 
-export default ({
-  creatingUser,
-  currentProtectedNamesLimit,
-  queryLoading,
-  handleSubmit,
-  error,
-}) => (
-  <div>
-    {queryLoading ? (
-      <LoadingSpinner />
-    ) : (
-      <Paper style={{ marginTop: '20px' }}>
-        <div style={{ textAlign: 'center' }}>
-          <PersonAddIcon
-            style={{ height: '100px', width: '100px' }}
-            color={cyan500}
-          />
-          <h2>Add a new member to the team...</h2>
-        </div>
-        <StandardForm
-          editingInProgress={creatingUser}
-          fields={[
-            <div className="col-12">
-              <Field
-                key="newProfile__firstName"
-                name="firstName"
-                component={TextField}
-                floatingLabelText="First Name"
-                validate={required}
-                fullWidth
+const AddUserSchema = Yup.object().shape({
+  protectedNamesLimit: Yup.number().required('required'),
+  firstName: Yup.string().required('required'),
+  lastName: Yup.string().required('required'),
+  phone: Yup.string().required('required'),
+  email: Yup.string()
+    .required('required')
+    .email('must be a valid email'),
+  password: Yup.string().required('required'),
+  confirmPassword: Yup.string().required('required'),
+});
+
+export default ({ currentProtectedNamesLimit, queryLoading, onSubmit }) => {
+  return (
+    <div>
+      {queryLoading ? (
+        <LoadingSpinner />
+      ) : (
+        <Paper style={{ marginTop: '20px' }}>
+          <div style={{ textAlign: 'center' }}>
+            <PersonAddIcon
+              color="primary"
+              style={{ height: '100px', width: '100px' }}
+            />
+            <h2>Add a new member to the team...</h2>
+          </div>
+          <Formik
+            initialValues={{
+              protectedNamesLimit: 150,
+              firstName: '',
+              lastName: '',
+              email: '',
+              phone: '',
+              password: '',
+              confirmPassword: '',
+              isAdmin: false,
+            }}
+            validationSchema={AddUserSchema}
+            onSubmit={onSubmit}
+          >
+            {({ isSubmitting, status }) => (
+              <FormikStandardForm
+                editingInProgress={isSubmitting}
+                error={status}
+                fields={[
+                  <div key="1" className="col-12">
+                    <Field
+                      name="firstName"
+                      label="First Name"
+                      component={FormikTextField}
+                    />
+                  </div>,
+                  <div key="2" className="col-12">
+                    <Field
+                      name="lastName"
+                      label="Last Name"
+                      component={FormikTextField}
+                    />
+                  </div>,
+                  <div key="3" className="col-12">
+                    <Field
+                      type="email"
+                      name="email"
+                      label="Email"
+                      component={FormikTextField}
+                    />
+                  </div>,
+                  <div key="4" className="col-12">
+                    <Field
+                      name="phone"
+                      label="Phone"
+                      component={FormikTextField}
+                    />
+                  </div>,
+                  <div
+                    key="5"
+                    className="col-12"
+                    style={{ marginTop: '10px', textAlign: 'center' }}
+                  >
+                    <FormikSlider
+                      name="protectedNamesLimit"
+                      label="Protected Names Limit"
+                      component={FormikSlider}
+                      defaultValue={150}
+                      min={0}
+                      max={1000}
+                    />
+                  </div>,
+                  <div key="6" className="col-12">
+                    <Field
+                      name="password"
+                      label="New Password"
+                      component={FormikTextField}
+                    />
+                  </div>,
+                  <div key="7" className="col-12">
+                    <Field
+                      name="confirmPassword"
+                      label="Confirm New Password"
+                      component={FormikTextField}
+                    />
+                  </div>,
+                  <div
+                    key="8"
+                    className="col-12"
+                    style={{ margin: '20px 0px' }}
+                  >
+                    <FormikCheckBox name="isAdmin" label="Administrator" />
+                  </div>,
+                ]}
               />
-            </div>,
-            <div className="col-12">
-              <Field
-                key="newProfile__lastName"
-                name="lastName"
-                component={TextField}
-                floatingLabelText="Last Name"
-                validate={required}
-                fullWidth
-              />
-            </div>,
-            <div className="col-12">
-              <Field
-                key="newProfile__email"
-                name="email"
-                component={TextField}
-                floatingLabelText="Email"
-                validate={[required, emailFormat]}
-                fullWidth
-              />
-            </div>,
-            <div className="col-12">
-              <Field
-                key="newProfile__phone"
-                name="phone"
-                component={TextField}
-                floatingLabelText="Phone"
-                validate={required}
-                fullWidth
-              />
-            </div>,
-            <div
-              className="col-12"
-              style={{ marginTop: '10px', textAlign: 'center' }}
-            >
-              <div>Protected Names Limit</div>
-              <div>{currentProtectedNamesLimit}</div>
-              <div>
-                <Field
-                  key="profile__protectedNamesLimit"
-                  name="protectedNamesLimit"
-                  sliderStyle={{ marginBottom: '0px' }}
-                  component={Slider}
-                  defaultValue={150}
-                  format={null}
-                  min={0}
-                  max={1000}
-                  step={1}
-                />
-              </div>
-            </div>,
-            <div className="col-12">
-              <Field
-                key="newProfile__password"
-                name="password"
-                type="password"
-                component={TextField}
-                floatingLabelText="New Password"
-                validate={[required, minLength]}
-                fullWidth
-              />
-            </div>,
-            <div className="col-12">
-              <Field
-                key="newProfile__confirmPassword"
-                name="confirmPassword"
-                type="password"
-                component={TextField}
-                floatingLabelText="Confirm New Password"
-                validate={[required, minLength]}
-                fullWidth
-              />
-            </div>,
-            <div className="col-12" style={{ margin: '20px 0px' }}>
-              <Field
-                key="newProfile__accountType"
-                name="accountType"
-                component={Checkbox}
-                label="Administrator"
-              />
-            </div>,
-          ]}
-          error={error}
-          handleSubmit={handleSubmit}
-        />
-      </Paper>
-    )}
-  </div>
-);
+            )}
+          </Formik>
+        </Paper>
+      )}
+    </div>
+  );
+};

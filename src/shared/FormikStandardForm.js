@@ -1,4 +1,5 @@
 import React from 'react';
+import { Form } from 'formik';
 
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Done';
@@ -7,16 +8,10 @@ import CancelIcon from '@material-ui/icons/Clear';
 import { FormErrorNotification } from './FormElements';
 import LoadingSpinner from './LoadingSpinner';
 
-export default ({
-  error,
-  fields,
-  editingInProgress,
-  handleSubmit,
-  handleCancel,
-}) => (
+export default ({ error, fields, editingInProgress, handleCancel }) => (
   <div id="StandardForm" className="StandardForm container">
     <FormErrorNotification message={error} zDepth={2} />
-    <form onSubmit={handleSubmit}>
+    <Form>
       <div className="row">{fields}</div>
 
       <br />
@@ -53,6 +48,6 @@ export default ({
           </div>
         </div>
       )}
-    </form>
+    </Form>
   </div>
 );

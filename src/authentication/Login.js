@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { push } from 'react-router-redux';
+
 import { Box, Container, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import ButtonWithLoadingIndicator from '../shared/ButtonWithLoadingIndicator';
 
-import { FormErrorNotification, FormikTextField } from '../shared/FormElements';
+import ButtonWithLoadingIndicator from '../shared/ButtonWithLoadingIndicator';
+import { FormErrorNotification } from '../shared/FormElements';
+import { FormikTextField } from '../shared/FormikFormElements';
 import handleSignIn from './loginRequest';
 import { logInSuccess as logInSuccessAction } from './accountActions';
 

@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { graphql } from 'react-apollo';
-import { reduxForm, SubmissionError, formValueSelector } from 'redux-form';
 import _ from 'lodash';
 import { loader } from 'graphql.macro';
 
@@ -10,20 +9,11 @@ import AddUser from './AddUser';
 
 const CreateUser = loader('./CreateUser.gql');
 const GetUserCompany = loader('./GetUserCompany.gql');
-const selector = formValueSelector('newUser');
-
-const AddUserWithFormSelector = connect(state => ({
-  currentProtectedNamesLimit: selector(state, 'protectedNamesLimit'),
-}))(AddUser);
-
-const AddUserForm = reduxForm({
-  form: 'newUser',
-  initialValues: { protectedNamesLimit: 150 },
-})(AddUserWithFormSelector);
 
 const AddUserFormWithCompanyData = graphql(CreateUser, {
   props: ({ ownProps, mutate }) => ({
-    onSubmit: async values => {
+    onSubmit: async (values, { setSubmitting, setStatus }) => {
+      setSubmitting(true);
       if (values.password === values.confirmPassword) {
         const { id, __typename, ...companyFields } = ownProps.user.company;
 
@@ -31,13 +21,13 @@ const AddUserFormWithCompanyData = graphql(CreateUser, {
           confirmPassword,
           firstName,
           lastName,
-          accountType,
+          isAdmin,
           ...otherValues
         } = values;
         const userFields = {
           firstName: _.upperFirst(firstName.trim()),
           lastName: _.upperFirst(lastName.trim()),
-          accountType: accountType ? 'admin' : 'member',
+          accountType: isAdmin ? 'admin' : 'member',
           ...otherValues,
         };
 
@@ -45,23 +35,24 @@ const AddUserFormWithCompanyData = graphql(CreateUser, {
           const mutationResponse = await mutate({
             variables: { ...userFields, companyFields },
           });
+          setSubmitting(false);
           ownProps.showNewProfile({
             currentUserId: ownProps.id,
             ...mutationResponse.data.createUser,
           });
           ownProps.onAddUserSuccess(mutationResponse.data.createUser);
         } catch (error) {
-          throw new SubmissionError({ _error: error.graphQLErrors[0].message });
+          setSubmitting(false);
+          setStatus(error.graphQLErrors[0].message);
         }
       } else {
-        throw new SubmissionError({
-          _error: 'Passwords do not match',
-        });
+        setSubmitting(false);
+        setStatus('Passwords do not match');
       }
     },
     ...ownProps,
   }),
-})(AddUserForm);
+})(AddUser);
 
 const AddUserFormWithProfileData = graphql(GetUserCompany, {
   options: ({ id }) => ({ variables: { id } }),

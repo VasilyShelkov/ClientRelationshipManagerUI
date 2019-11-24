@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Cookies from 'js-cookie';
-import { TextField } from '@material-ui/core';
 import { TextField as ReduxFormTextField } from 'redux-form-material-ui';
 import places from 'places.js';
 
@@ -20,28 +19,6 @@ export const minLength = value =>
 const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$/;
 export const emailFormat = value =>
   emailRegex.test(value) ? undefined : 'Not a valid email address';
-
-export const FormikTextField = ({
-  field, // { name, value, onChange, onBlur }
-  form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
-  ...props
-}) => {
-  const error = touched[field.name] && errors[field.name];
-  return (
-    <div data-testid={`${field.name}-field`}>
-      <TextField
-        type={props.type}
-        label={props.label}
-        error={Boolean(error)}
-        helperText={error}
-        id={props.id || `${field.name}-input`}
-        fullWidth={true}
-        margin={props.margin || 'normal'}
-        {...field}
-      />
-    </div>
-  );
-};
 
 export const renderTextField = ({
   input,
