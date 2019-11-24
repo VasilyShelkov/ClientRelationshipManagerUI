@@ -3,11 +3,10 @@ import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
 import { graphql } from 'react-apollo';
-import Paper from 'material-ui/Paper';
 import { loader } from 'graphql.macro';
+import Paper from '@material-ui/core/Paper';
 
 import { checkIfAnyKeysDifferent } from '../../shared/utils';
-
 import FormikStandardForm from '../../shared/FormikStandardForm';
 import { FormikSlider, FormikTextField } from '../../shared/FormikFormElements';
 

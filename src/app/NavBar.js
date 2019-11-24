@@ -20,6 +20,7 @@ import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
 import { logOut } from '../authentication/accountActions';
 import { useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
+import { changeShownUserProfile } from '../profile/profileActions';
 
 const useStyles = makeStyles(theme => {
   return {
@@ -41,6 +42,8 @@ const USERS_URL = '/account/users';
 const Navbar = ({
   isAdmin,
   navigateTo,
+  showCurrentProfile,
+  currentUserId,
   currentPath,
   handleLogOut,
   protectedListToShow,
@@ -116,6 +119,7 @@ const Navbar = ({
           <MenuItem
             onClick={() => {
               closeAccountMenu();
+              showCurrentProfile(currentUserId);
               navigateTo('/account/profile');
             }}
           >
@@ -139,9 +143,17 @@ const mapStateToProps = state => ({
   currentPath: state.routing.location.pathname,
   isAdmin: state.account.accountType === 'admin',
   protectedListToShow: state.nameList.protectedListToShow,
+  currentUserId: state.account.id,
 });
 
 const mapDispatchToProps = dispatch => ({
+  showCurrentProfile: currentUserId =>
+    dispatch(
+      changeShownUserProfile({
+        currentUserId,
+        userIdToShow: currentUserId,
+      }),
+    ),
   handleLogOut: () => {
     dispatch(push('/'));
     dispatch(logOut());
