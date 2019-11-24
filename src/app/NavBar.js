@@ -53,7 +53,7 @@ const Navbar = ({
   const getLinkClass = isActive => (isActive ? styles.activeLink : styles.link);
 
   return (
-    <AppBar position="sticky" className={styles.appBar}>
+    <AppBar data-testid="appbar" position="sticky" className={styles.appBar}>
       <Toolbar>
         {isMobile ? (
           <IconButton edge="start" color="inherit" aria-label="menu">

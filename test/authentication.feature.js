@@ -26,6 +26,7 @@ Scenario('User is taken to their profile after logging in by default', function(
     I,
   ) {
     I.login(false, false, url);
+    I.waitForElement('[data-testid="appbar"]');
     I.seeInCurrentUrl(url);
   }),
 );
