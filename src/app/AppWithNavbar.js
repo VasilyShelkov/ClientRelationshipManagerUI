@@ -1,73 +1,67 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Switch, Route } from 'react-router';
-import Sidebar from 'react-sidebar';
-import withWidth, { LARGE } from 'material-ui/utils/withWidth';
+import { Switch, Route, Redirect } from 'react-router';
+import ReduxSweetAlert from 'react-redux-sweetalert';
 
-import { changeSideBarState } from '../authentication/accountActions';
-import NavBarWithData from './navigation/NavBar';
-import SideBarWithData from './navigation/SideBar';
-import AppWithSideBar from './AppWithSideBar';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+
 import NotFound from './NotFound';
-import Home from './Home';
 import UsersPage from '../users/UsersPage';
+import NavBar from './NavBar';
+import ProfileWithData from '../profile/ProfileWithData';
+import NameTypeList from '../names/NameTypeList';
+import { closeNotification } from './appActions';
 
 const mapStateToProps = state => ({
-  open: state.account.sideBarOpen,
+  showNotification: state.app.notificationMessage,
+  isLoggedIn: Boolean(state.account.token),
 });
 
 const mapDispatchToProps = dispatch => ({
-  controlSidebar: open => dispatch(changeSideBarState(open)),
+  closeNotificationMessage: () => dispatch(closeNotification()),
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(
-  withWidth()(({ open, width, controlSidebar }) => (
+)(({ showNotification, closeNotificationMessage, isLoggedIn }) => {
+  if (!isLoggedIn) return <Redirect to="/login" />;
+
+  return (
     <div>
-      <NavBarWithData key="navBarContainer" />
+      <NavBar />
 
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route
-          path="/account/users"
-          render={() => (
-            <div className="index__content-below-navbar">
-              <UsersPage />
-            </div>
-          )}
-        />
-        <Route
-          render={({ location }) => (
-            <Sidebar
-              sidebar={<SideBarWithData />}
-              docked={width === LARGE}
-              open={open}
-              onSetOpen={controlSidebar}
-              styles={{
-                overlay: {
-                  zIndex: '1101',
-                },
-                sidebar: {
-                  zIndex: '1102',
-                  backgroundColor: 'white',
-                },
-                content: {
-                  overflowY: 'auto',
-                },
-              }}
-            >
-              <div className="index__content-below-navbar">
-                <Switch>
-                  <Route path="/account" component={AppWithSideBar} />
-                  <Route component={NotFound} />
-                </Switch>
-              </div>
-            </Sidebar>
-          )}
-        />
+        <Route path="/account/users" render={() => <UsersPage />} />
+        <Route exact path="/account/profile" component={ProfileWithData} />
+        <Route path="/account/names" component={NameTypeList} />
+        <Route component={NotFound} />
       </Switch>
+
+      <ReduxSweetAlert />
+      <Snackbar
+        id="appNotification"
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        open={showNotification}
+        autoHideDuration={6000}
+        onClose={closeNotificationMessage}
+        message={showNotification}
+        action={[
+          <IconButton
+            key="close"
+            aria-label="close"
+            color="inherit"
+            onClick={closeNotificationMessage}
+          >
+            <CloseIcon />
+          </IconButton>,
+        ]}
+      />
     </div>
-  )),
-);
+  );
+});

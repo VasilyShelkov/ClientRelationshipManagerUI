@@ -8,7 +8,7 @@ import UnprotectedHeader from './UnprotectedHeader';
 import NameListHeader from './list/NameListHeader';
 
 const GetUserNamesCount = loader('./GetUserNamesCount.gql');
-export const NameTypeListHeader = ({ match, loading, user, listToShow }) => {
+export const NameTypeListHeader = ({ match, loading, user }) => {
   if (loading) return null;
   const { protectedNamesLimit, latestProgress } = user;
   return (

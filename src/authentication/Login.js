@@ -5,7 +5,6 @@ import * as Yup from 'yup';
 import { push } from 'react-router-redux';
 import { Box, Container, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import { Lock } from '@material-ui/icons';
 import ButtonWithLoadingIndicator from '../shared/ButtonWithLoadingIndicator';
 
 import { FormErrorNotification, FormikTextField } from '../shared/FormElements';
@@ -39,8 +38,11 @@ export const Login = ({ goToUrl, returnUrl, logInSuccess }) => {
         flexDirection="column"
         alignItems="center"
       >
-        <Lock color="primary" style={{ height: '100px', width: '100px' }} />
-        Sign in to CRM
+        <img
+          src="https://regency-wealth.com/wp-content/uploads/2018/05/regency-1.png"
+          alt="regency-wealth-company-logo"
+          height="100"
+        />
       </Box>
 
       <Box mt={3} display="flex" justifyContent="center">

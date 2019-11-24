@@ -23,6 +23,9 @@ import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles(theme => {
   return {
+    appBar: {
+      zIndex: theme.zIndex.drawer + 1,
+    },
     link: {
       color: 'white',
     },
@@ -50,7 +53,7 @@ const Navbar = ({
   const getLinkClass = isActive => (isActive ? styles.activeLink : styles.link);
 
   return (
-    <AppBar position="static">
+    <AppBar position="sticky" className={styles.appBar}>
       <Toolbar>
         {isMobile ? (
           <IconButton edge="start" color="inherit" aria-label="menu">
@@ -59,14 +62,16 @@ const Navbar = ({
         ) : (
           <ButtonGroup size="large" variant="text" fullWidth={true}>
             <Button
-              className={getLinkClass(currentPath === UNPROTECTED_URL)}
+              id="goToUnprotectedList"
+              className={getLinkClass(currentPath.includes(UNPROTECTED_URL))}
               onClick={() => navigateTo(UNPROTECTED_URL)}
               startIcon={<LockOpenIcon />}
             >
               Unprotected
             </Button>
             <Button
-              className={getLinkClass(currentPath === protectedUrl)}
+              id="goToProtectedList"
+              className={getLinkClass(currentPath.includes(protectedUrl))}
               onClick={() => navigateTo(protectedUrl)}
               startIcon={<LockIcon />}
             >
@@ -74,16 +79,18 @@ const Navbar = ({
             </Button>
 
             <Button
+              id="goToClientsList"
               startIcon={<BusinessCenterIcon />}
-              className={getLinkClass(currentPath === CLIENTS_URL)}
+              className={getLinkClass(currentPath.includes(CLIENTS_URL))}
               onClick={() => navigateTo(CLIENTS_URL)}
             >
               Clients
             </Button>
             {isAdmin ? (
               <Button
+                id="goToUsers"
                 startIcon={<PeopleOutlineIcon />}
-                className={getLinkClass(currentPath === USERS_URL)}
+                className={getLinkClass(currentPath.includes(USERS_URL))}
                 onClick={() => navigateTo(USERS_URL)}
               >
                 Users

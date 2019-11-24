@@ -59,7 +59,7 @@ export const NameTypeList = ({
         )}
       />
 
-      <NameTypeListHeader match={match} id={id} />
+      {id ? <NameTypeListHeader match={match} id={id} /> : null}
 
       <Switch>
         <Route path={`${match.path}/unprotected`} component={UnprotectedPage} />
@@ -104,4 +104,7 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NameTypeList);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(NameTypeList);

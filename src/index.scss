@@ -1,6 +1,5 @@
 @import './app/plugins/bootstrap/bootstrap-grid.scss';
 
-@import './app/navigation/NavBar.scss';
 @import './profile/Profile.scss';
 @import './shared/FormElements.scss';
 @import './shared/StandardForm.scss';
@@ -15,10 +14,6 @@ html {
 
 body {
   background-color: #eaeaea;
-}
-
-.index__content-below-navbar {
-  padding-top: 56px;
 }
 
 .page__title {

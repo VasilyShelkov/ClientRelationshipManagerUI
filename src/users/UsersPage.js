@@ -9,7 +9,6 @@ import PeopleIcon from '@material-ui/icons/People';
 
 import AdminUserListWithData from './AdminUserListWithData';
 import AddUserForm from './AddUserForm';
-import NavBar from '../app/NavBar';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,7 +25,6 @@ const UsersPage = () => {
 
   return (
     <>
-      <NavBar />
       <AppBar position="relative" color="default" className={styles.root}>
         <Tabs
           value={value}

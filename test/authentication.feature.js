@@ -12,7 +12,6 @@ Scenario('User is taken to their profile after logging in by default', function(
   I.login();
   I.waitForElement('.Profile');
   I.seeInCurrentUrl('/account/profile');
-  I.see('LOGOUT');
 });
 
 [
@@ -27,8 +26,6 @@ Scenario('User is taken to their profile after logging in by default', function(
     I,
   ) {
     I.login(false, false, url);
-    I.waitForElement('.index__content-below-navbar');
     I.seeInCurrentUrl(url);
-    I.see('LOGOUT');
   }),
 );
