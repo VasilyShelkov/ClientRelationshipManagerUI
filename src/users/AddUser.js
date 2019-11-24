@@ -103,6 +103,7 @@ export default ({ currentProtectedNamesLimit, queryLoading, onSubmit }) => {
                   <div className="col-12">
                     <Field
                       name="password"
+                      type="password"
                       label="New Password"
                       component={FormikTextField}
                     />
@@ -110,6 +111,7 @@ export default ({ currentProtectedNamesLimit, queryLoading, onSubmit }) => {
                   <div className="col-12">
                     <Field
                       name="confirmPassword"
+                      type="password"
                       label="Confirm New Password"
                       component={FormikTextField}
                     />

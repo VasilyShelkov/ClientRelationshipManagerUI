@@ -21,16 +21,15 @@ const EditUserSchema = Yup.object().shape({
 });
 
 const EditUserDetails = loader('./EditUserDetails.gql');
-const EditProfile = ({ isAdmin, onSubmit, handleCancelEditProfile }) => (
+const EditProfile = ({
+  isAdmin,
+  onSubmit,
+  handleCancelEditProfile,
+  initialValues,
+}) => (
   <Paper zDepth={2}>
     <Formik
-      initialValues={{
-        protectedNamesLimit: 150,
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-      }}
+      initialValues={initialValues}
       validationSchema={EditUserSchema}
       onSubmit={onSubmit}
     >
